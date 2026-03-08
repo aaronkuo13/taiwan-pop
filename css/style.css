@@ -1,19 +1,22 @@
 /* ============================================================
    Taiwan Pop — Main Stylesheet
-   Inspired by wetaiwan.tw
+   Taiwan × New York Cultural Exchange 2026
+   Style: Direction C — Dark banner + clean white content
    ============================================================ */
 
 /* ---------- CSS Variables ---------- */
 :root {
-  --primary:       #008F7A;
-  --primary-light: #00B097;
-  --primary-dark:  #006B5C;
-  --accent:        #E8184A;
-  --accent-light:  #FF4D75;
+  /* Hot pink as primary, matching logo energy */
+  --primary:       #E8184A;
+  --primary-light: #FF4D75;
+  --primary-dark:  #B50032;
+  /* Teal as secondary / supporting color */
+  --accent:        #008F7A;
+  --accent-light:  #00B097;
   --bg:            #FFFFFF;
   --bg-alt:        #F7F8FA;
-  --bg-dark:       #0D1B2A;
-  --bg-dark2:      #142333;
+  --bg-dark:       #080C10;   /* near-black for banner / dark sections */
+  --bg-dark2:      #0F1923;
   --text:          #1A1A2E;
   --text-muted:    #6B7280;
   --text-light:    #9CA3AF;
@@ -197,6 +200,8 @@ ul { list-style: none; }
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
   font-family: var(--font-sans);
   font-size: 22px;
   font-weight: 900;
@@ -206,8 +211,18 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 
-.nav-logo span { color: var(--accent-light); }
+.nav-logo-img {
+  height: 36px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* "Pop" in hot pink always */
+.nav-logo span { color: var(--primary-light); }
 #navbar.scrolled .nav-logo { color: var(--text); }
+#navbar.scrolled .nav-logo span { color: var(--primary); }
 
 .nav-links {
   display: flex;
@@ -229,7 +244,7 @@ ul { list-style: none; }
 .nav-link:hover { color: #fff; background: rgba(255,255,255,.15); }
 
 #navbar.scrolled .nav-link { color: var(--text-muted); }
-#navbar.scrolled .nav-link:hover { color: var(--primary); background: rgba(0,143,122,.08); }
+#navbar.scrolled .nav-link:hover { color: var(--primary); background: rgba(232,24,74,.08); }
 
 .nav-cta {
   background: var(--primary);
@@ -240,7 +255,7 @@ ul { list-style: none; }
 .nav-cta:hover {
   background: var(--primary-dark) !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,143,122,.3);
+  box-shadow: 0 4px 12px rgba(232,24,74,.4);
 }
 
 #navbar.scrolled .nav-cta { color: #fff !important; }
@@ -301,16 +316,16 @@ ul { list-style: none; }
   min-height: 100vh;
 }
 
-/* Dark gradient overlay */
+/* Dark gradient overlay — Direction C: cinematic dark */
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(13,27,42,.50) 0%,
-    rgba(13,27,42,.30) 50%,
-    rgba(13,27,42,.70) 100%
-  );
+  background:
+    linear-gradient(to bottom,
+      rgba(8,12,16,.65) 0%,
+      rgba(8,12,16,.40) 45%,
+      rgba(8,12,16,.80) 100%
+    );
 }
 
 .banner-content {
@@ -319,7 +334,7 @@ ul { list-style: none; }
   text-align: center;
   color: #fff;
   padding: 0 24px;
-  max-width: 800px;
+  max-width: 860px;
 }
 
 .banner-tag {
@@ -330,6 +345,8 @@ ul { list-style: none; }
   text-transform: uppercase;
   color: var(--primary-light);
   margin-bottom: 16px;
+  /* subtle neon glow */
+  text-shadow: 0 0 12px rgba(232,24,74,.5);
 }
 
 .banner-title {
@@ -338,10 +355,14 @@ ul { list-style: none; }
   font-weight: 900;
   line-height: 1.05;
   margin-bottom: 20px;
-  text-shadow: 0 2px 20px rgba(0,0,0,.3);
+  text-shadow: 0 2px 24px rgba(0,0,0,.5);
 }
 
-.banner-title span { color: var(--accent-light); }
+/* "Pop" in hot pink with glow — logo reference */
+.banner-title span {
+  color: var(--primary-light);
+  text-shadow: 0 0 30px rgba(232,24,74,.6), 0 2px 24px rgba(0,0,0,.5);
+}
 
 .banner-sub {
   font-size: clamp(16px, 2vw, 20px);
@@ -499,7 +520,7 @@ ul { list-style: none; }
 
 .event-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(0,176,151,.3);
+  border-color: rgba(232,24,74,.3);
   box-shadow: 0 12px 40px rgba(0,0,0,.4);
 }
 
@@ -654,17 +675,17 @@ ul { list-style: none; }
 .cal-day.other-month { color: var(--text-light); }
 
 .cal-day.today {
-  background: rgba(0,143,122,.1);
+  background: rgba(232,24,74,.1);
   color: var(--primary-dark);
   font-weight: 800;
 }
 
 .cal-day.has-event {
   cursor: pointer;
-  background: rgba(0,176,151,.08);
+  background: rgba(232,24,74,.07);
 }
 
-.cal-day.has-event:hover { background: rgba(0,176,151,.18); }
+.cal-day.has-event:hover { background: rgba(232,24,74,.16); }
 
 .cal-day.has-event .cal-dot-wrap {
   display: flex;
@@ -729,6 +750,8 @@ ul { list-style: none; }
   color: #fff;
   border-radius: var(--radius-sm);
   padding: 6px 4px;
+  /* hot pink glow on dark accent */
+  box-shadow: 0 2px 8px rgba(232,24,74,.3);
 }
 
 .upcoming-date-badge .day {
