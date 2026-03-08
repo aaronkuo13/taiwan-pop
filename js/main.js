@@ -10,45 +10,45 @@
 const EVENTS = [
   {
     num: '01', icon: '🎭',
-    date: '2026-04-18', title: '臺美藝文大師系列講座 ─ 林懷民',
+    date: '2026-05-01', title: '臺美藝文大師系列講座 ─ 林懷民',
     location: 'New York, NY',
-    desc: '雲門舞集創辦人林懷民於紐約現身說法，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。'
+    desc: '雲門舞集創辦人林懷民將於 5 月 1 日在紐約親身登場，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。'
   },
   {
     num: '02', icon: '🎼',
-    date: '2026-05-09', title: 'NSO × 泰武古謠',
+    date: '2026-05-19', title: 'NSO × 泰武古謠',
     location: 'New York, NY',
-    desc: '國家交響樂團（NSO）攜手屏東泰武國小古謠傳唱隊，以當代管弦與排灣族千年古謠的相遇，呈現台灣最深層的音樂靈魂。'
+    desc: '5 月 19 日，國家交響樂團（NSO）攜手屏東泰武國小古謠傳唱隊，以當代管弦與排灣族千年古謠的相遇，呈現台灣最深層的音樂靈魂。'
   },
   {
     num: '03', icon: '🎨',
-    date: '2026-06-06', title: '布希維克街頭藝術節',
+    date: '2026-05-28', endDate: '2026-05-30', title: '布希維克街頭藝術節',
     location: 'Bushwick, Brooklyn, NY',
-    desc: '台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。'
+    desc: '5 月 28 日至 30 日，三天藝術盛典！台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。'
   },
   {
     num: '04', icon: '🎬',
-    date: '2026-06-13', title: '臺灣主題影展',
+    date: '2026-06-01', endDate: '2026-06-28', title: '臺灣主題影展',
     location: 'New York, NY',
-    desc: '精選台灣當代電影與紀錄片，於紐約影展場地放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。'
+    desc: '6 月前四週，精選台灣當代電影與紀錄片，每週於紐約影展場地輪番放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。'
   },
   {
     num: '05', icon: '🌈',
     date: '2026-06-28', title: '紐約同志大遊行',
     location: 'Manhattan, New York, NY',
-    desc: 'Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。'
+    desc: '6 月 28 日，Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。'
   },
   {
     num: '06', icon: '💃',
-    date: '2026-07-11', title: '翃舞製作',
+    date: '2026-07-17', endDate: '2026-07-18', title: '翃舞製作',
     location: 'New York, NY',
-    desc: '翃舞製作以當代舞蹈語彙回應台灣社會文化，在紐約舞台呈現融合東方美學與當代肢體語言的精彩舞作，展現台灣舞蹈的國際高度。'
+    desc: '7 月 17 日至 18 日，翃舞製作以當代舞蹈語彙回應台灣社會文化，在紐約舞台呈現融合東方美學與當代肢體語言的精彩舞作，展現台灣舞蹈的國際高度。'
   },
   {
     num: '07', icon: '🎵',
-    date: '2026-08-01', title: '"SummerStage" Taiwanese Waves',
+    date: '2026-08-16', title: '"SummerStage" Taiwanese Waves',
     location: 'Central Park SummerStage, New York, NY',
-    desc: 'Taiwan Pop 壓軸鉅獻！在紐約中央公園 SummerStage 舉辦台灣音樂之夜，集結台灣當代音樂人，以最震撼的現場演出向紐約致敬。'
+    desc: 'Taiwan Pop 壓軸鉅獻！8 月 16 日在紐約中央公園 SummerStage 舉辦台灣音樂之夜，集結台灣當代音樂人，以最震撼的現場演出向紐約致敬。'
   },
 ];
 
@@ -110,11 +110,22 @@ const EVENTS = [
 
   if (!grid) return;
 
-  // Convert events to a Set of 'YYYY-MM-DD' keys for O(1) lookup
+  // Build eventMap: single-day → one key; multi-day (endDate) → one key per day in range
   const eventMap = {};
+  function addEventToMap(key, ev) {
+    if (!eventMap[key]) eventMap[key] = [];
+    if (!eventMap[key].find(e => e.num === ev.num)) eventMap[key].push(ev);
+  }
   EVENTS.forEach(ev => {
-    if (!eventMap[ev.date]) eventMap[ev.date] = [];
-    eventMap[ev.date].push(ev);
+    if (ev.endDate) {
+      const start = new Date(ev.date + 'T12:00:00');
+      const end   = new Date(ev.endDate + 'T12:00:00');
+      for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+        addEventToMap(`${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())}`, ev);
+      }
+    } else {
+      addEventToMap(ev.date, ev);
+    }
   });
 
   // Start on the month of the first upcoming event
@@ -219,6 +230,17 @@ const EVENTS = [
       const li = document.createElement('li');
       li.className = 'upcoming-item';
       li.style.cursor = 'pointer';
+
+      // Build date range badge if multi-day
+      let rangeHtml = '';
+      if (ev.endDate) {
+        const [ey, em, ed] = ev.endDate.split('-').map(Number);
+        const rangeStr = (em === m)
+          ? `${d}–${ed} ${shortMonths[m - 1]}`
+          : `${shortMonths[m - 1]} ${d} – ${shortMonths[em - 1]} ${ed}`;
+        rangeHtml = `<span class="upcoming-range">${rangeStr}</span>`;
+      }
+
       li.innerHTML = `
         <div class="upcoming-date-badge">
           <span class="day">${d}</span>
@@ -226,6 +248,7 @@ const EVENTS = [
         </div>
         <div class="upcoming-info">
           <h4>${ev.title}</h4>
+          ${rangeHtml}
           <p>${ev.location}</p>
         </div>
       `;
@@ -289,7 +312,10 @@ const EVENTS = [
     document.getElementById('modalNum').textContent   = `EVENT ${ev.num || ''}`;
     document.getElementById('modalIcon').textContent  = ev.icon || '';
     document.getElementById('modalTitle').textContent = ev.title;
-    document.getElementById('modalDate').querySelector('span').textContent = ev.date.replace(/-/g, '.');
+    const dateDisplay = ev.endDate
+      ? `${ev.date.replace(/-/g, '.')} – ${ev.endDate.replace(/-/g, '.')}`
+      : ev.date.replace(/-/g, '.');
+    document.getElementById('modalDate').querySelector('span').textContent = dateDisplay;
     document.getElementById('modalLocation').querySelector('span').textContent = ev.location;
     document.getElementById('modalDesc').textContent  = ev.desc || '';
 
