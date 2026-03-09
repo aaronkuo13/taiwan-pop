@@ -524,26 +524,68 @@ const GAME_DATA = {
     footerDots.innerHTML = '';
     Object.values(GAME_DATA).forEach(ev => {
       const d = document.createElement('div');
-      d.className = 'map-footer-dot' + (completed[ev.id] ? ' done' : '');
+      const c = completed[ev.id];
+      let cls = 'map-footer-dot';
+      if (c) cls += (c.score === c.total) ? ' done-perfect' : ' done-partial';
+      d.className = cls;
       d.id = 'fdot-' + ev.id;
       d.textContent = ev.emoji;
       footerDots.appendChild(d);
     });
-    doneCount.textContent = Object.keys(completed).length;
+    doneCount.textContent = Object.keys(completed).filter(k => k !== '__allDoneCelebrated').length;
   }
 
-  // ── Mark pin as done ──
-  function markPinDone(id) {
+  // ── Mark pin as done (partial or perfect) ──
+  function markPinDone(id, isPerfect) {
     const pin = mapStage.querySelector(`[data-qid="${id}"]`);
-    if (pin) pin.classList.add('done');
+    if (pin) {
+      pin.classList.remove('done-partial', 'done-perfect');
+      pin.classList.add(isPerfect ? 'done-perfect' : 'done-partial');
+    }
     const dot = document.getElementById('fdot-' + id);
-    if (dot) dot.classList.add('done');
-    doneCount.textContent = Object.keys(completed).length;
+    if (dot) {
+      dot.classList.remove('done-partial', 'done-perfect');
+      dot.classList.add(isPerfect ? 'done-perfect' : 'done-partial');
+    }
+    doneCount.textContent = Object.keys(completed).filter(k => k !== '__allDoneCelebrated').length;
   }
 
   // ── Apply completed state on load ──
   function applyCompleted() {
-    Object.keys(completed).forEach(markPinDone);
+    Object.entries(completed).forEach(([id, data]) => {
+      if (id === '__allDoneCelebrated') return;
+      markPinDone(id, data.score === data.total);
+    });
+  }
+
+  // ── Check if all 7 events are perfectly completed ──
+  function checkAllPerfect() {
+    return Object.keys(GAME_DATA).every(id =>
+      completed[id] && completed[id].score === completed[id].total
+    );
+  }
+
+  // ── Show full-screen celebration ──
+  function showAllDoneCelebration() {
+    const ov = document.getElementById('allDoneOverlay');
+    if (!ov) return;
+    // Generate floating particles
+    const pc = document.getElementById('celebrateParticles');
+    pc.innerHTML = '';
+    const emojis = ['🎊','🎉','✨','🎭','🎨','🎬','🎵','💃','🌈','🏆','🇹🇼','⭐','🎶','🎪','🎀'];
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'celebrate-particle';
+      p.textContent = emojis[i % emojis.length];
+      p.style.cssText = `left:${(i / 30 * 100 + (Math.random() - .5) * 8).toFixed(1)}%;` +
+        `animation-delay:${(Math.random() * 4.5).toFixed(2)}s;` +
+        `animation-duration:${(3.8 + Math.random() * 3.5).toFixed(2)}s;` +
+        `font-size:${14 + Math.floor(Math.random() * 18)}px;`;
+      pc.appendChild(p);
+    }
+    closeQuiz();
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
   // ── Drag to scroll ──
@@ -715,9 +757,17 @@ const GAME_DATA = {
       : '繼續加油！台灣的故事等著你慢慢探索。';
 
     // Save completion
+    const isPerfect = (score === total);
     completed[curEvent.id] = { score, total, date: new Date().toISOString() };
     localStorage.setItem('twpop_quiz', JSON.stringify(completed));
-    markPinDone(curEvent.id);
+    markPinDone(curEvent.id, isPerfect);
+
+    // If all 7 events are perfectly completed (first time), show celebration
+    if (isPerfect && checkAllPerfect() && !completed.__allDoneCelebrated) {
+      completed.__allDoneCelebrated = true;
+      localStorage.setItem('twpop_quiz', JSON.stringify(completed));
+      setTimeout(() => showAllDoneCelebration(), 1900);
+    }
 
     document.getElementById('quizArea').innerHTML = `
       <div class="quiz-result">
@@ -740,11 +790,30 @@ const GAME_DATA = {
   window.quizRetry    = function() { startQuiz(curEvent.id); };
   window.quizBackToMap = function() { closeQuiz(); };
 
-  // Back button & ESC
+  // Back button & ESC (quiz)
   backBtn.addEventListener('click', closeQuiz);
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && overlay.classList.contains('open')) closeQuiz();
+    if (e.key === 'Escape') {
+      const celebOv = document.getElementById('allDoneOverlay');
+      if (celebOv && celebOv.classList.contains('open')) {
+        celebOv.classList.remove('open');
+        document.body.style.overflow = '';
+      } else if (overlay.classList.contains('open')) {
+        closeQuiz();
+      }
+    }
   });
+
+  // Celebration overlay buttons
+  const allDoneOv = document.getElementById('allDoneOverlay');
+  if (allDoneOv) {
+    function closeCelebration() {
+      allDoneOv.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('celebrateClose').addEventListener('click', closeCelebration);
+    document.getElementById('celebrateToEvents').addEventListener('click', closeCelebration);
+  }
 
   // ── Init ──
   buildFooterDots();

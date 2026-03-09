@@ -1235,10 +1235,15 @@ footer {
   color: rgba(255,255,255,.35);
   transition: all .3s var(--transition);
 }
-.map-footer-dot.done {
-  background: var(--primary);
-  border-color: var(--primary);
+.map-footer-dot.done-partial {
+  background: #FB923C;
+  border-color: #FB923C;
   color: white;
+}
+.map-footer-dot.done-perfect {
+  background: #FFD700;
+  border-color: #FFD700;
+  color: #1a1200;
 }
 .map-footer-text {
   font-size: 12px;
@@ -1280,9 +1285,14 @@ footer {
   transform: scale(1.18) translateY(-2px);
   border-color: rgba(255,255,255,.8);
 }
-.map-pin.done .pin-body {
-  background: var(--pc, var(--primary));
-  border-color: var(--pc, var(--primary));
+.map-pin.done-partial .pin-body {
+  background: #FB923C;
+  border-color: #FB923C;
+}
+.map-pin.done-perfect .pin-body {
+  background: #FFD700;
+  border-color: #FFD700;
+  box-shadow: 0 0 18px rgba(255,215,0,.55), 0 4px 20px rgba(0,0,0,.6);
 }
 
 .pin-emoji { font-size: 16px; line-height: 1; }
@@ -1291,7 +1301,8 @@ footer {
   color: rgba(255,255,255,.55);
   line-height: 1;
 }
-.map-pin.done .pin-num { color: rgba(255,255,255,.8); }
+.map-pin.done-partial .pin-num { color: rgba(255,255,255,.85); }
+.map-pin.done-perfect .pin-num { color: rgba(20,14,0,.8); }
 
 /* Pulsing ring */
 .pin-ring {
@@ -1305,7 +1316,8 @@ footer {
   animation: pinPulse 2.4s ease-out infinite;
   pointer-events: none;
 }
-.map-pin.done .pin-ring { display: none; }
+.map-pin.done-partial .pin-ring,
+.map-pin.done-perfect .pin-ring { display: none; }
 @keyframes pinPulse {
   0%   { transform: translate(-50%,-50%) scale(1);   opacity: .7; }
   100% { transform: translate(-50%,-50%) scale(2.6); opacity: 0; }
@@ -1524,4 +1536,134 @@ footer {
 }
 @media (max-width: 480px) {
   .map-stage { width: 900px; height: 360px; }
+}
+
+/* ============================================================
+   ALL DONE CELEBRATION OVERLAY
+   ============================================================ */
+.celebrate-overlay {
+  position: fixed; inset: 0;
+  z-index: 5000;
+  background: linear-gradient(135deg, #080C10 0%, #0d1824 55%, #180822 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+  overflow: hidden;
+}
+.celebrate-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Floating particles */
+.celebrate-particles {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.celebrate-particle {
+  position: absolute;
+  bottom: -60px;
+  animation: particleFloat linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  will-change: transform, opacity;
+}
+@keyframes particleFloat {
+  0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
+  8%   { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(-115vh) rotate(720deg); opacity: 0; }
+}
+
+/* Central card */
+.celebrate-card {
+  position: relative; z-index: 2;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 28px;
+  padding: 3rem 2.5rem;
+  max-width: 520px; width: 100%;
+  text-align: center;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 32px 80px rgba(0,0,0,.7);
+  animation: celebrateCardIn .65s cubic-bezier(0.16,1,.3,1);
+}
+@keyframes celebrateCardIn {
+  from { opacity: 0; transform: translateY(48px) scale(.88); }
+  to   { opacity: 1; transform: none; }
+}
+
+.celebrate-trophy {
+  font-size: 5.5rem;
+  margin-bottom: 14px;
+  display: block;
+  animation: trophyBounce .8s cubic-bezier(0.16,1,.3,1) .15s both;
+}
+@keyframes trophyBounce {
+  from { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.12) rotate(4deg); }
+  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.celebrate-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  font-weight: 900; color: #fff;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.celebrate-sub {
+  font-family: var(--font-tc);
+  font-size: 15px; color: rgba(255,255,255,.7);
+  line-height: 1.75; margin-bottom: 22px;
+}
+.celebrate-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1000;
+  font-family: var(--font-sans);
+  font-size: 13px; font-weight: 800;
+  letter-spacing: .06em;
+  padding: 9px 26px; border-radius: 100px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 24px rgba(255,215,0,.45);
+}
+.celebrate-invite {
+  font-family: var(--font-tc);
+  font-size: 15px; color: rgba(255,255,255,.58);
+  margin-bottom: 2rem;
+}
+.celebrate-actions {
+  display: flex; gap: 12px; justify-content: center;
+  flex-wrap: wrap;
+}
+.celebrate-btn-primary {
+  display: inline-block;
+  padding: 13px 28px;
+  background: var(--primary); color: white;
+  border-radius: 100px;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 700;
+  text-decoration: none;
+  transition: opacity .2s, transform .2s;
+  border: none; cursor: pointer;
+}
+.celebrate-btn-primary:hover { opacity: .88; transform: translateY(-2px); }
+.celebrate-btn-sec {
+  padding: 13px 28px;
+  background: rgba(255,255,255,.08); color: rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 100px;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.celebrate-btn-sec:hover { background: rgba(255,255,255,.15); color: white; }
+
+@media (max-width: 480px) {
+  .celebrate-card { padding: 2.2rem 1.5rem; }
+  .celebrate-trophy { font-size: 4rem; }
 }
