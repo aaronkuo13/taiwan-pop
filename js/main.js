@@ -518,6 +518,7 @@ const GAME_DATA = {
 
   // ── State ──
   let curEvent = null, curQ = 0, score = 0, answered = false;
+  let shuffledAns = 0, shuffledOpts = [];
 
   // ── Build footer dots ──
   function buildFooterDots() {
@@ -688,13 +689,23 @@ const GAME_DATA = {
     document.getElementById('quizProgFill').style.width  = `${(curQ / total) * 100}%`;
 
     const q = curEvent.questions[curQ];
+
+    // Shuffle options (Fisher-Yates on index array)
+    const idxs = [0, 1, 2, 3];
+    for (let k = idxs.length - 1; k > 0; k--) {
+      const j = Math.floor(Math.random() * (k + 1));
+      [idxs[k], idxs[j]] = [idxs[j], idxs[k]];
+    }
+    shuffledOpts = idxs.map(k => q.opts[k]);
+    shuffledAns  = idxs.indexOf(q.ans);
+
     const area = document.getElementById('quizArea');
     area.innerHTML = `
       <div class="quiz-q-card">
         <p class="quiz-q-num">Q${curQ + 1} · ${curEvent.title}</p>
         <p class="quiz-q-text">${q.q}</p>
         <div class="quiz-opts" id="quizOpts">
-          ${q.opts.map((o, i) => `
+          ${shuffledOpts.map((o, i) => `
             <button class="quiz-opt" onclick="quizChoose(${i})">
               <span style="margin-right:6px;opacity:.4;font-style:normal">${['Ａ','Ｂ','Ｃ','Ｄ'][i]}.</span>${o}
               <span class="quiz-opt-mark"></span>
@@ -720,15 +731,14 @@ const GAME_DATA = {
   window.quizChoose = function(i) {
     if (answered) return;
     answered = true;
-    const q    = curEvent.questions[curQ];
     const btns = document.querySelectorAll('.quiz-opt');
     btns.forEach(b => b.disabled = true);
-    const correct = (i === q.ans);
+    const correct = (i === shuffledAns);
     btns[i].classList.add(correct ? 'correct' : 'wrong');
     btns[i].querySelector('.quiz-opt-mark').textContent = correct ? '✓' : '✗';
     if (!correct) {
-      btns[q.ans].classList.add('correct');
-      btns[q.ans].querySelector('.quiz-opt-mark').textContent = '✓';
+      btns[shuffledAns].classList.add('correct');
+      btns[shuffledAns].querySelector('.quiz-opt-mark').textContent = '✓';
     }
     if (correct) score++;
     updateDot(curQ, correct);
