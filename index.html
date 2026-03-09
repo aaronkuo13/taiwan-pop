@@ -25,6 +25,7 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#articles" class="nav-link">最新消息</a></li>
         <li><a href="#events" class="nav-link">七大活動</a></li>
+        <li><a href="#quiz" class="nav-link">文化探索</a></li>
         <li><a href="#calendar" class="nav-link">行事曆</a></li>
         <li><a href="#gallery" class="nav-link">活動花絮</a></li>
         <li><a href="#contact" class="nav-link nav-cta">聯絡我們</a></li>
@@ -200,6 +201,82 @@
     </div>
   </section>
 
+  <!-- ======= DISCOVER: NYC MAP QUIZ ======= -->
+  <section id="quiz" class="section section-dark">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">DISCOVER</span>
+        <h2 class="section-title">探索台灣 × 紐約</h2>
+        <p class="section-sub">滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅</p>
+      </div>
+
+      <div class="map-wrap" data-reveal>
+        <div class="map-scroll" id="mapScroll">
+          <div class="map-stage" id="mapStage">
+            <img src="images/nyc-map.png" alt="紐約市像素地圖" class="map-img" draggable="false">
+
+            <!-- 01 林懷民 @ Lincoln Center, Upper West Side -->
+            <button class="map-pin" data-qid="lin-hwai-min" style="--pc:#8B4513;left:51%;top:16%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎭</span><span class="pin-num">01</span></div>
+              <div class="pin-label"><strong>林懷民講座</strong><span>Lincoln Center</span></div>
+            </button>
+
+            <!-- 02 NSO @ Carnegie Hall, Midtown -->
+            <button class="map-pin" data-qid="nso-paiwan" style="--pc:#1a6b3c;left:46%;top:34%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎵</span><span class="pin-num">02</span></div>
+              <div class="pin-label"><strong>NSO × 泰武古謠</strong><span>Carnegie Hall</span></div>
+            </button>
+
+            <!-- 03 布希維克 @ Bushwick, Brooklyn -->
+            <button class="map-pin" data-qid="bushwick" style="--pc:#e8472a;left:81%;top:48%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎨</span><span class="pin-num">03</span></div>
+              <div class="pin-label"><strong>布希維克街頭藝術節</strong><span>Bushwick, Brooklyn</span></div>
+            </button>
+
+            <!-- 04 影展 @ IFC Center, Greenwich Village -->
+            <button class="map-pin" data-qid="film" style="--pc:#1a3a6b;left:39%;top:66%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎬</span><span class="pin-num">04</span></div>
+              <div class="pin-label"><strong>臺灣主題影展</strong><span>IFC Center, Village</span></div>
+            </button>
+
+            <!-- 05 同志大遊行 @ 5th Ave, Midtown -->
+            <button class="map-pin" data-qid="pride" style="--pc:#9b30d9;left:44%;top:42%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🏳️‍🌈</span><span class="pin-num">05</span></div>
+              <div class="pin-label"><strong>紐約同志大遊行</strong><span>5th Ave, Manhattan</span></div>
+            </button>
+
+            <!-- 06 翃舞製作 @ The Joyce Theater, Chelsea -->
+            <button class="map-pin" data-qid="horse" style="--pc:#c47a00;left:37%;top:54%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">💃</span><span class="pin-num">06</span></div>
+              <div class="pin-label"><strong>翃舞製作</strong><span>Joyce Theater, Chelsea</span></div>
+            </button>
+
+            <!-- 07 SummerStage @ Central Park -->
+            <button class="map-pin" data-qid="summerstage" style="--pc:#0d6b8c;left:63%;top:26%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🌙</span><span class="pin-num">07</span></div>
+              <div class="pin-label"><strong>Taiwanese Waves</strong><span>Central Park SummerStage</span></div>
+            </button>
+
+            <div class="map-hint-badge" id="mapHintBadge">← 滑動探索地圖 →</div>
+          </div>
+        </div>
+
+        <!-- Progress footer -->
+        <div class="map-footer">
+          <div class="map-footer-dots" id="mapFooterDots"></div>
+          <p class="map-footer-text">已探索 <strong id="mapDoneCount">0</strong> / 7 個台灣文化主題</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ======= CALENDAR ======= -->
   <section id="calendar" class="section">
     <div class="container">
@@ -292,6 +369,7 @@
           <ul>
             <li><a href="#articles">最新消息</a></li>
             <li><a href="#events">七大活動</a></li>
+            <li><a href="#quiz">文化探索</a></li>
             <li><a href="#calendar">行事曆</a></li>
             <li><a href="#gallery">活動花絮</a></li>
           </ul>
@@ -334,6 +412,28 @@
         <p class="modal-desc" id="modalDesc"></p>
         <a href="#" class="modal-cta">了解更多詳情 →</a>
       </div>
+    </div>
+  </div>
+
+  <!-- ======= QUIZ OVERLAY ======= -->
+  <div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="台灣文化問答遊戲">
+    <div class="quiz-inner">
+      <button class="quiz-back" id="quizBackBtn">← 返回地圖</button>
+      <div class="quiz-hd">
+        <p class="quiz-ev-label" id="quizEvLabel"></p>
+        <h2 class="quiz-ev-title" id="quizEvTitle"></h2>
+      </div>
+      <div class="quiz-dots" id="quizDots"></div>
+      <div class="quiz-prog-wrap">
+        <div class="quiz-prog-label">
+          <span id="quizProgText"></span>
+          <span id="quizProgScore"></span>
+        </div>
+        <div class="quiz-prog-bar-track">
+          <div class="quiz-prog-fill" id="quizProgFill" style="width:0%"></div>
+        </div>
+      </div>
+      <div id="quizArea"></div>
     </div>
   </div>
 
