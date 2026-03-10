@@ -23,13 +23,14 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#articles" class="nav-link">最新消息</a></li>
-        <li><a href="#events" class="nav-link">七大活動</a></li>
-        <li><a href="#quiz" class="nav-link">文化探索</a></li>
-        <li><a href="#calendar" class="nav-link">行事曆</a></li>
-        <li><a href="#gallery" class="nav-link">活動花絮</a></li>
-        <li><a href="#contact" class="nav-link nav-cta">聯絡我們</a></li>
+        <li><a href="#articles" class="nav-link" data-i18n="nav-news">最新消息</a></li>
+        <li><a href="#events"   class="nav-link" data-i18n="nav-events">七大活動</a></li>
+        <li><a href="#quiz"     class="nav-link" data-i18n="nav-discover">文化探索</a></li>
+        <li><a href="#calendar" class="nav-link" data-i18n="nav-calendar">行事曆</a></li>
+        <li><a href="#gallery"  class="nav-link" data-i18n="nav-gallery">活動花絮</a></li>
+        <li><a href="#contact"  class="nav-link nav-cta" data-i18n="nav-contact">聯絡我們</a></li>
       </ul>
+      <!-- lang toggle injected by JS -->
     </div>
   </nav>
 
@@ -48,10 +49,10 @@
     <div class="banner-content">
       <p class="banner-tag">Taiwan × New York ✦ 2026</p>
       <h1 class="banner-title">Taiwan <span>Pop</span></h1>
-      <p class="banner-sub">台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場</p>
+      <p class="banner-sub" data-i18n-html="banner-sub">台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場</p>
       <div class="banner-btns">
-        <a href="#events" class="btn btn-primary">探索活動</a>
-        <a href="#articles" class="btn btn-ghost">最新消息</a>
+        <a href="#events"   class="btn btn-primary" data-i18n="btn-explore">探索活動</a>
+        <a href="#articles" class="btn btn-ghost"   data-i18n="btn-news">最新消息</a>
       </div>
     </div>
     <a href="#articles" class="scroll-down" aria-label="向下捲動">
@@ -64,140 +65,76 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">NEWS</span>
-        <h2 class="section-title">最新消息</h2>
-        <p class="section-sub">掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
+        <h2 class="section-title" data-i18n="sec-news-title">最新消息</h2>
+        <p class="section-sub" data-i18n="sec-news-sub">掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
       </div>
       <div class="articles-grid">
 
         <article class="article-card">
           <a href="#" class="article-img-wrap">
             <img src="https://picsum.photos/600/400?random=1" alt="Taiwan Pop 計畫正式啟動" loading="lazy">
-            <span class="article-cat">官方公告</span>
+            <span class="article-cat" data-i18n="art-1-cat">官方公告</span>
           </a>
           <div class="article-body">
             <span class="article-date">2026.03.01</span>
-            <h3><a href="#">Taiwan Pop 計畫正式啟動！台灣文化將在紐約發聲</a></h3>
-            <p>台灣文化部攜手紐約文化局，共同推出 Taiwan Pop 文化交流計畫，七大藝文展演於 2026 年在紐約各地精彩登場。</p>
+            <h3><a href="#" data-i18n="art-1-title">Taiwan Pop 計畫正式啟動！台灣文化將在紐約發聲</a></h3>
+            <p data-i18n="art-1-desc">台灣文化部攜手紐約文化局，共同推出 Taiwan Pop 文化交流計畫，七大藝文展演於 2026 年在紐約各地精彩登場。</p>
           </div>
         </article>
 
         <article class="article-card">
           <a href="#" class="article-img-wrap">
             <img src="https://picsum.photos/600/400?random=2" alt="林懷民 × 紐約" loading="lazy">
-            <span class="article-cat">活動預告</span>
+            <span class="article-cat" data-i18n="art-2-cat">活動預告</span>
           </a>
           <div class="article-body">
             <span class="article-date">2026.02.20</span>
-            <h3><a href="#">雲門舞集創辦人林懷民將赴紐約展開大師講座</a></h3>
-            <p>臺美藝文大師系列講座首場邀請林懷民現身紐約，暢談台灣當代藝術創作、身體美學與跨文化對話。</p>
+            <h3><a href="#" data-i18n="art-2-title">雲門舞集創辦人林懷民將赴紐約展開大師講座</a></h3>
+            <p data-i18n="art-2-desc">臺美藝文大師系列講座首場邀請林懷民現身紐約，暢談台灣當代藝術創作、身體美學與跨文化對話。</p>
           </div>
         </article>
 
         <article class="article-card">
           <a href="#" class="article-img-wrap">
             <img src="https://picsum.photos/600/400?random=3" alt="SummerStage 台灣之夜" loading="lazy">
-            <span class="article-cat">活動預告</span>
+            <span class="article-cat" data-i18n="art-3-cat">活動預告</span>
           </a>
           <div class="article-body">
             <span class="article-date">2026.02.10</span>
-            <h3><a href="#">中央公園 SummerStage「Taiwanese Waves」盛夏登場</a></h3>
-            <p>Taiwan Pop 壓軸活動確認進駐紐約著名戶外演出場地 SummerStage，帶來融合台灣當代音樂與視覺的跨界演出。</p>
+            <h3><a href="#" data-i18n="art-3-title">中央公園 SummerStage「Taiwanese Waves」盛夏登場</a></h3>
+            <p data-i18n="art-3-desc">Taiwan Pop 壓軸活動確認進駐紐約著名戶外演出場地 SummerStage，帶來融合台灣當代音樂與視覺的跨界演出。</p>
           </div>
         </article>
 
         <article class="article-card">
           <a href="#" class="article-img-wrap">
             <img src="https://picsum.photos/600/400?random=4" alt="什麼是 Taiwan Pop" loading="lazy">
-            <span class="article-cat">專題報導</span>
+            <span class="article-cat" data-i18n="art-4-cat">專題報導</span>
           </a>
           <div class="article-body">
             <span class="article-date">2026.01.28</span>
-            <h3><a href="#">什麼是 Taiwan Pop？一個讓台灣文化被看見的計畫</a></h3>
-            <p>從當代舞蹈、原住民古謠、街頭藝術到電影影展，Taiwan Pop 不只是音樂，而是多元台灣文化的全面展演。</p>
+            <h3><a href="#" data-i18n="art-4-title">什麼是 Taiwan Pop？一個讓台灣文化被看見的計畫</a></h3>
+            <p data-i18n="art-4-desc">從當代舞蹈、原住民古謠、街頭藝術到電影影展，Taiwan Pop 不只是音樂，而是多元台灣文化的全面展演。</p>
           </div>
         </article>
 
       </div>
       <div class="section-more">
-        <a href="#" class="btn btn-outline">查看更多消息</a>
+        <a href="#" class="btn btn-outline" data-i18n="btn-more-news">查看更多消息</a>
       </div>
     </div>
   </section>
 
-  <!-- ======= SIX EVENTS ======= -->
+  <!-- ======= SEVEN EVENTS (JS-rendered) ======= -->
   <section id="events" class="section section-dark">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">EVENTS</span>
-        <h2 class="section-title">七大主題活動</h2>
-        <p class="section-sub">2026 年，七場跨領域藝文展演，在紐約呈現最真實的台灣</p>
+        <h2 class="section-title" data-i18n="sec-events-title">七大主題活動</h2>
+        <p class="section-sub" data-i18n="sec-events-sub">2026 年，七場跨領域藝文展演，在紐約呈現最真實的台灣</p>
       </div>
-      <div class="events-grid">
-
-        <div class="event-card">
-          <div class="event-num">01</div>
-          <div class="event-icon">🎭</div>
-          <h3>臺美藝文大師系列講座<br><small>─ 林懷民</small></h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.05.01</p>
-          <p class="event-desc">雲門舞集創辦人林懷民將於 5 月 1 日在紐約親身登場，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-        <div class="event-card">
-          <div class="event-num">02</div>
-          <div class="event-icon">🎼</div>
-          <h3>NSO × 泰武古謠</h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.05.19</p>
-          <p class="event-desc">5 月 19 日，國家交響樂團（NSO）攜手屏東泰武國小古謠傳唱隊，以當代管弦與排灣族千年古謠的相遇，呈現台灣最深層的音樂靈魂。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-        <div class="event-card">
-          <div class="event-num">03</div>
-          <div class="event-icon">🎨</div>
-          <h3>布希維克街頭藝術節</h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.05.28 – 05.30</p>
-          <p class="event-desc">5 月 28 日至 30 日，三天藝術盛典！台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-        <div class="event-card">
-          <div class="event-num">04</div>
-          <div class="event-icon">🎬</div>
-          <h3>臺灣主題影展</h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.06 前四週</p>
-          <p class="event-desc">6 月前四週，精選台灣當代電影與紀錄片，每週於紐約影展場地輪番放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-        <div class="event-card">
-          <div class="event-num">05</div>
-          <div class="event-icon">🌈</div>
-          <h3>紐約同志大遊行</h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.06.28</p>
-          <p class="event-desc">6 月 28 日，Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-        <div class="event-card">
-          <div class="event-num">06</div>
-          <div class="event-icon">💃</div>
-          <h3>翃舞製作</h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.07.17 – 07.18</p>
-          <p class="event-desc">7 月 17 日至 18 日，翃舞製作以當代舞蹈語彙回應台灣社會文化，在紐約舞台呈現融合東方美學與當代肢體語言的精彩舞作，展現台灣舞蹈的國際高度。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-        <div class="event-card">
-          <div class="event-num">07</div>
-          <div class="event-icon">🎵</div>
-          <h3>"SummerStage"<br>Taiwanese Waves</h3>
-          <p class="event-date"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> 2026.08.16</p>
-          <p class="event-desc">Taiwan Pop 壓軸鉅獻！8 月 16 日在紐約中央公園 SummerStage 舉辦台灣音樂之夜，集結台灣當代音樂人，以最震撼的現場演出向紐約致敬。</p>
-          <a href="#" class="event-link">了解更多 →</a>
-        </div>
-
-      </div>
+      <!-- Cards injected by renderEvents() in main.js -->
+      <div class="events-grid"></div>
     </div>
   </section>
 
@@ -206,8 +143,8 @@
     <div class="container">
       <div class="section-header" data-reveal>
         <span class="section-tag">DISCOVER</span>
-        <h2 class="section-title">探索台灣 × 紐約</h2>
-        <p class="section-sub">滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅</p>
+        <h2 class="section-title" data-i18n="sec-discover-title">探索台灣 × 紐約</h2>
+        <p class="section-sub" data-i18n="sec-discover-sub">滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅</p>
       </div>
 
       <div class="map-wrap" data-reveal>
@@ -264,14 +201,18 @@
               <div class="pin-label"><strong>Taiwanese Waves</strong><span>Central Park SummerStage</span></div>
             </button>
 
-            <div class="map-hint-badge" id="mapHintBadge">← 滑動探索地圖 →</div>
+            <div class="map-hint-badge" id="mapHintBadge" data-i18n="map-hint">← 滑動探索地圖 →</div>
           </div>
         </div>
 
         <!-- Progress footer -->
         <div class="map-footer">
           <div class="map-footer-dots" id="mapFooterDots"></div>
-          <p class="map-footer-text">已探索 <strong id="mapDoneCount">0</strong> / 7 個台灣文化主題</p>
+          <p class="map-footer-text">
+            <span data-i18n="map-prefix">已探索</span>
+            <strong id="mapDoneCount">0</strong> / 7
+            <span data-i18n="map-suffix">個台灣文化主題</span>
+          </p>
         </div>
       </div>
     </div>
@@ -282,8 +223,8 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">SCHEDULE</span>
-        <h2 class="section-title">活動行事曆</h2>
-        <p class="section-sub">掌握所有活動日期，提前規劃您的參與計畫</p>
+        <h2 class="section-title" data-i18n="sec-cal-title">活動行事曆</h2>
+        <p class="section-sub" data-i18n="sec-cal-sub">掌握所有活動日期，提前規劃您的參與計畫</p>
       </div>
       <div class="calendar-layout">
         <div class="calendar-box">
@@ -297,11 +238,11 @@
           </div>
           <div class="cal-grid" id="calGrid"></div>
           <div class="cal-legend">
-            <span class="cal-dot"></span><span>活動日期</span>
+            <span class="cal-dot"></span><span data-i18n="cal-legend">活動日期</span>
           </div>
         </div>
         <div class="upcoming-box">
-          <h3>近期活動</h3>
+          <h3 data-i18n="cal-upcoming-h">近期活動</h3>
           <ul class="upcoming-list" id="upcomingList"></ul>
         </div>
       </div>
@@ -313,8 +254,8 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">GALLERY</span>
-        <h2 class="section-title">活動花絮</h2>
-        <p class="section-sub">回顧精彩活動瞬間，感受 Taiwan Pop 的無限活力</p>
+        <h2 class="section-title" data-i18n="sec-gallery-title">活動花絮</h2>
+        <p class="section-sub" data-i18n="sec-gallery-sub">回顧精彩活動瞬間，感受 Taiwan Pop 的無限活力</p>
       </div>
       <div class="gallery-grid">
         <div class="gallery-item gallery-item--large">
@@ -351,7 +292,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <p class="footer-logo">Taiwan <span>Pop</span></p>
-          <p class="footer-desc">Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。</p>
+          <p class="footer-desc" data-i18n="footer-desc">Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。</p>
           <div class="social-links">
             <a href="#" aria-label="Instagram" class="social-link">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
@@ -365,21 +306,21 @@
           </div>
         </div>
         <div class="footer-col">
-          <h4>快速連結</h4>
+          <h4 data-i18n="footer-links-h">快速連結</h4>
           <ul>
-            <li><a href="#articles">最新消息</a></li>
-            <li><a href="#events">七大活動</a></li>
-            <li><a href="#quiz">文化探索</a></li>
-            <li><a href="#calendar">行事曆</a></li>
-            <li><a href="#gallery">活動花絮</a></li>
+            <li><a href="#articles" data-i18n="footer-news">最新消息</a></li>
+            <li><a href="#events"   data-i18n="footer-events">七大活動</a></li>
+            <li><a href="#quiz"     data-i18n="footer-discover">文化探索</a></li>
+            <li><a href="#calendar" data-i18n="footer-cal">行事曆</a></li>
+            <li><a href="#gallery"  data-i18n="footer-gallery">活動花絮</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>聯絡資訊</h4>
+          <h4 data-i18n="footer-contact-h">聯絡資訊</h4>
           <ul class="contact-list">
             <li>📧 info@taiwanpop.com</li>
             <li>📍 New York, NY / 台灣 台北市</li>
-            <li>🕐 週一至週五 09:00–18:00 (TST)</li>
+            <li data-i18n="footer-hours">🕐 週一至週五 09:00–18:00 (TST)</li>
           </ul>
         </div>
       </div>
@@ -410,7 +351,7 @@
           </span>
         </div>
         <p class="modal-desc" id="modalDesc"></p>
-        <a href="#" class="modal-cta">了解更多詳情 →</a>
+        <a href="#" class="modal-cta" data-i18n="modal-cta">了解更多詳情 →</a>
       </div>
     </div>
   </div>
@@ -418,7 +359,7 @@
   <!-- ======= QUIZ OVERLAY ======= -->
   <div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="台灣文化問答遊戲">
     <div class="quiz-inner">
-      <button class="quiz-back" id="quizBackBtn">← 返回地圖</button>
+      <button class="quiz-back" id="quizBackBtn" data-i18n="quiz-back">← 返回地圖</button>
       <div class="quiz-hd">
         <p class="quiz-ev-label" id="quizEvLabel"></p>
         <h2 class="quiz-ev-title" id="quizEvTitle"></h2>
@@ -442,13 +383,13 @@
     <div class="celebrate-particles" id="celebrateParticles"></div>
     <div class="celebrate-card">
       <span class="celebrate-trophy">🏆</span>
-      <h2 class="celebrate-title">台灣文化全制霸！</h2>
-      <p class="celebrate-sub">你以全滿分征服了所有七大主題！<br>對台灣文化的熱情與了解，令我們驕傲。</p>
-      <div class="celebrate-badge">✨ 七大文化探索者 ✨</div>
-      <p class="celebrate-invite">準備好親臨紐約，感受這些文化盛事了嗎？</p>
+      <h2 class="celebrate-title" data-i18n="cel-title">台灣文化全制霸！</h2>
+      <p class="celebrate-sub" data-i18n-html="cel-sub">你以全滿分征服了所有七大主題！<br>對台灣文化的熱情與了解，令我們驕傲。</p>
+      <div class="celebrate-badge" data-i18n="cel-badge">✨ 七大文化探索者 ✨</div>
+      <p class="celebrate-invite" data-i18n="cel-invite">準備好親臨紐約，感受這些文化盛事了嗎？</p>
       <div class="celebrate-actions">
-        <a href="#events" class="celebrate-btn-primary" id="celebrateToEvents">前往活動頁面 →</a>
-        <button class="celebrate-btn-sec" id="celebrateClose">繼續探索</button>
+        <a href="#events" class="celebrate-btn-primary" id="celebrateToEvents" data-i18n="cel-to-events">前往活動頁面 →</a>
+        <button class="celebrate-btn-sec" id="celebrateClose" data-i18n="cel-close">繼續探索</button>
       </div>
     </div>
   </div>

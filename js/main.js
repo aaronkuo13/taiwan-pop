@@ -4,51 +4,202 @@
 
 'use strict';
 
-/* ---------- Events Data ----------
-   Update this array with real event information
-   ---------------------------------------------------------- */
+/* ---------- Language Strings (ZH / EN) ---------- */
+const LANG = {
+  zh: {
+    /* Navbar */
+    'nav-news':'最新消息','nav-events':'七大活動','nav-discover':'文化探索',
+    'nav-calendar':'行事曆','nav-gallery':'活動花絮','nav-contact':'聯絡我們',
+    /* Banner */
+    'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
+    'btn-explore':'探索活動','btn-news':'最新消息',
+    /* Articles */
+    'sec-news-title':'最新消息',
+    'sec-news-sub':'掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話',
+    'art-1-cat':'官方公告',
+    'art-1-title':'Taiwan Pop 計畫正式啟動！台灣文化將在紐約發聲',
+    'art-1-desc':'台灣文化部攜手紐約文化局，共同推出 Taiwan Pop 文化交流計畫，七大藝文展演於 2026 年在紐約各地精彩登場。',
+    'art-2-cat':'活動預告',
+    'art-2-title':'雲門舞集創辦人林懷民將赴紐約展開大師講座',
+    'art-2-desc':'臺美藝文大師系列講座首場邀請林懷民現身紐約，暢談台灣當代藝術創作、身體美學與跨文化對話。',
+    'art-3-cat':'活動預告',
+    'art-3-title':'中央公園 SummerStage「Taiwanese Waves」盛夏登場',
+    'art-3-desc':'Taiwan Pop 壓軸活動確認進駐紐約著名戶外演出場地 SummerStage，帶來融合台灣當代音樂與視覺的跨界演出。',
+    'art-4-cat':'專題報導',
+    'art-4-title':'什麼是 Taiwan Pop？一個讓台灣文化被看見的計畫',
+    'art-4-desc':'從當代舞蹈、原住民古謠、街頭藝術到電影影展，Taiwan Pop 不只是音樂，而是多元台灣文化的全面展演。',
+    'btn-more-news':'查看更多消息',
+    /* Events */
+    'sec-events-title':'七大主題活動',
+    'sec-events-sub':'2026 年，七場跨領域藝文展演，在紐約呈現最真實的台灣',
+    /* Discover */
+    'sec-discover-title':'探索台灣 × 紐約',
+    'sec-discover-sub':'滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅',
+    'map-hint':'← 滑動探索地圖 →',
+    'map-prefix':'已探索','map-suffix':'個台灣文化主題',
+    /* Calendar */
+    'sec-cal-title':'活動行事曆',
+    'sec-cal-sub':'掌握所有活動日期，提前規劃您的參與計畫',
+    'cal-upcoming-h':'近期活動','cal-legend':'活動日期','cal-no-events':'暫無近期活動',
+    /* Gallery */
+    'sec-gallery-title':'活動花絮',
+    'sec-gallery-sub':'回顧精彩活動瞬間，感受 Taiwan Pop 的無限活力',
+    /* Footer */
+    'footer-desc':'Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
+    'footer-links-h':'快速連結','footer-contact-h':'聯絡資訊',
+    'footer-news':'最新消息','footer-events':'七大活動','footer-discover':'文化探索',
+    'footer-cal':'行事曆','footer-gallery':'活動花絮','footer-hours':'週一至週五 09:00–18:00 (TST)',
+    /* Modal */
+    'modal-cta':'了解更多詳情 →',
+    /* Quiz UI */
+    'quiz-back':'← 返回地圖',
+    'quiz-next-q':'下一題 →','quiz-see-result':'查看結果 →',
+    'quiz-retry':'再試一次','quiz-back-map':'回到地圖 ↗',
+    'quiz-res-perfect':'完美！你對台灣文化的了解讓我們驕傲！',
+    'quiz-res-good':'答得不錯！你已經對台灣有相當的認識了。',
+    'quiz-res-keep':'繼續加油！台灣的故事等著你慢慢探索。',
+    /* Celebration */
+    'cel-title':'台灣文化全制霸！',
+    'cel-sub':'你以全滿分征服了所有七大主題！<br>對台灣文化的熱情與了解，令我們驕傲。',
+    'cel-badge':'✨ 七大文化探索者 ✨',
+    'cel-invite':'準備好親臨紐約，感受這些文化盛事了嗎？',
+    'cel-to-events':'前往活動頁面 →','cel-close':'繼續探索',
+    /* Calendar internals */
+    months:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+    shortMonths:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
+    weekdays:['日','一','二','三','四','五','六'],
+    calTitle:(y,mn)=>`${y} 年 ${mn}`,
+  },
+  en: {
+    /* Navbar */
+    'nav-news':'News','nav-events':'Events','nav-discover':'Discover',
+    'nav-calendar':'Calendar','nav-gallery':'Gallery','nav-contact':'Contact',
+    /* Banner */
+    'banner-sub':'Taiwan Ministry of Culture × NYC Dept. of Cultural Affairs<br>Seven Cultural Events, New York 2026',
+    'btn-explore':'Explore Events','btn-news':'Latest News',
+    /* Articles */
+    'sec-news-title':'Latest News',
+    'sec-news-sub':'Stay up to date with Taiwan Pop and the cultural dialogue between Taiwan and New York',
+    'art-1-cat':'Announcement',
+    'art-1-title':'Taiwan Pop Officially Launched — Taiwan Culture Coming to New York',
+    'art-1-desc':"Taiwan's Ministry of Culture and NYC's Dept. of Cultural Affairs jointly launch the Taiwan Pop cultural exchange, bringing seven spectacular arts events across New York in 2026.",
+    'art-2-cat':'Preview',
+    'art-2-title':'Cloud Gate Founder Lin Hwai-min to Give Masterclass in New York',
+    'art-2-desc':"The first Taiwan-US Arts Master Series invites Lin Hwai-min to New York to share his five-decade creative journey and Taiwan's contemporary arts with the world.",
+    'art-3-cat':'Preview',
+    'art-3-title':'"Taiwanese Waves" at Central Park SummerStage This Summer',
+    'art-3-desc':"Taiwan Pop's grand finale is confirmed at New York's iconic outdoor venue SummerStage, featuring a cross-disciplinary show blending Taiwan's contemporary music and visual arts.",
+    'art-4-cat':'Feature',
+    'art-4-title':"What Is Taiwan Pop? A Campaign to Put Taiwan's Culture on the World Stage",
+    'art-4-desc':"From contemporary dance and indigenous chants to street art and film — Taiwan Pop is more than music. It's a full showcase of Taiwan's diverse cultural identity.",
+    'btn-more-news':'More News',
+    /* Events */
+    'sec-events-title':'Seven Cultural Events',
+    'sec-events-sub':'Seven cross-disciplinary arts events in 2026, presenting the most authentic Taiwan in New York',
+    /* Discover */
+    'sec-discover-title':'Discover Taiwan × New York',
+    'sec-discover-sub':"Scroll the map to find each event's location. Click to begin your Taiwan cultural exploration",
+    'map-hint':'← Scroll to Explore →',
+    'map-prefix':'Explored','map-suffix':'Cultural Themes',
+    /* Calendar */
+    'sec-cal-title':'Event Calendar',
+    'sec-cal-sub':'Mark your calendar and plan your visit in advance',
+    'cal-upcoming-h':'Upcoming Events','cal-legend':'Event Date','cal-no-events':'No upcoming events',
+    /* Gallery */
+    'sec-gallery-title':'Gallery',
+    'sec-gallery-sub':'Relive the highlights and feel the energy of Taiwan Pop',
+    /* Footer */
+    'footer-desc':'Taiwan Pop is an annual cultural exchange program by the Taiwan Ministry of Culture and NYC Dept. of Cultural Affairs, showcasing Taiwan to the world through seven arts events.',
+    'footer-links-h':'Quick Links','footer-contact-h':'Contact',
+    'footer-news':'News','footer-events':'Events','footer-discover':'Discover',
+    'footer-cal':'Calendar','footer-gallery':'Gallery','footer-hours':'Mon–Fri 09:00–18:00 (TST)',
+    /* Modal */
+    'modal-cta':'Learn More →',
+    /* Quiz UI */
+    'quiz-back':'← Back to Map',
+    'quiz-next-q':'Next →','quiz-see-result':'See Results →',
+    'quiz-retry':'Try Again','quiz-back-map':'Back to Map ↗',
+    'quiz-res-perfect':'Perfect! Your knowledge of Taiwanese culture fills us with pride!',
+    'quiz-res-good':'Well done! You already have a solid understanding of Taiwan.',
+    'quiz-res-keep':"Keep going! The story of Taiwan is waiting to be explored.",
+    /* Celebration */
+    'cel-title':'Taiwan Cultural Grand Master!',
+    'cel-sub':"You've aced all seven themes with a perfect score!<br>Your passion and knowledge of Taiwanese culture fills us with pride.",
+    'cel-badge':'✨ Seven Cultural Explorer ✨',
+    'cel-invite':'Ready to experience these cultural events in New York?',
+    'cel-to-events':'Go to Events →','cel-close':'Keep Exploring',
+    /* Calendar internals */
+    months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    shortMonths:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
+    weekdays:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    calTitle:(y,mn)=>`${mn} ${y}`,
+  }
+};
+
+/* ---------- Events Data ---------- */
 const EVENTS = [
   {
-    num: '01', icon: '🎭',
-    date: '2026-05-01', title: '臺美藝文大師系列講座 ─ 林懷民',
-    location: 'New York, NY',
-    desc: '雲門舞集創辦人林懷民將於 5 月 1 日在紐約親身登場，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。'
+    num:'01', icon:'🎭',
+    date:'2026-05-01',
+    title:'臺美藝文大師系列講座 ─ 林懷民',
+    title_en:'Taiwan-US Arts Master Lecture — Lin Hwai-min',
+    location:'Lincoln Center, New York, NY',
+    desc:'雲門舞集創辦人林懷民將於 5 月 1 日在紐約親身登場，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。',
+    desc_en:"Cloud Gate founder Lin Hwai-min takes the stage in New York on May 1st, sharing five decades of creative vision and Taiwan's contemporary arts with the world. Not to be missed."
   },
   {
-    num: '02', icon: '🎼',
-    date: '2026-05-19', title: 'NSO × 泰武古謠',
-    location: 'New York, NY',
-    desc: '5 月 19 日，國家交響樂團（NSO）攜手屏東泰武國小古謠傳唱隊，以當代管弦與排灣族千年古謠的相遇，呈現台灣最深層的音樂靈魂。'
+    num:'02', icon:'🎼',
+    date:'2026-05-19',
+    title:'NSO × 泰武古謠',
+    title_en:'NSO × Taiwu Ancient Ballads',
+    location:'Carnegie Hall, New York, NY',
+    desc:'5 月 19 日，國家交響樂團（NSO）攜手屏東泰武國小古謠傳唱隊，以當代管弦與排灣族千年古謠的相遇，呈現台灣最深層的音樂靈魂。',
+    desc_en:"On May 19th, the National Symphony Orchestra joins the Taiwu Elementary Ancient Ballads Choir — a meeting of contemporary orchestral music and thousand-year-old Paiwan chants, revealing the deepest soul of Taiwan's music."
   },
   {
-    num: '03', icon: '🎨',
-    date: '2026-05-28', endDate: '2026-05-30', title: '布希維克街頭藝術節',
-    location: 'Bushwick, Brooklyn, NY',
-    desc: '5 月 28 日至 30 日，三天藝術盛典！台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。'
+    num:'03', icon:'🎨',
+    date:'2026-05-28', endDate:'2026-05-30',
+    title:'布希維克街頭藝術節',
+    title_en:'Bushwick Street Art Festival',
+    location:'Bushwick Collective, Brooklyn, NY',
+    desc:'5 月 28 日至 30 日，三天藝術盛典！台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。',
+    desc_en:"May 28–30, a three-day art extravaganza! Taiwanese visual artists take over Brooklyn's art hub Bushwick, leaving Taiwan's mark on the city's most vibrant streets through murals, installations, and live creation."
   },
   {
-    num: '04', icon: '🎬',
-    date: '2026-06-01', endDate: '2026-06-28', title: '臺灣主題影展',
-    location: 'New York, NY',
-    desc: '6 月前四週，精選台灣當代電影與紀錄片，每週於紐約影展場地輪番放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。'
+    num:'04', icon:'🎬',
+    date:'2026-06-01', endDate:'2026-06-28',
+    title:'臺灣主題影展',
+    title_en:'Taiwan Film Festival NYC',
+    location:'IFC Center, Greenwich Village, NY',
+    desc:'6 月前四週，精選台灣當代電影與紀錄片，每週於紐約影展場地輪番放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。',
+    desc_en:"Every week in June, curated Taiwanese films and documentaries screen in New York, inviting international audiences to discover Taiwan's landscapes, people, and contemporary life through film."
   },
   {
-    num: '05', icon: '🌈',
-    date: '2026-06-28', title: '紐約同志大遊行',
-    location: 'Manhattan, New York, NY',
-    desc: '6 月 28 日，Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。'
+    num:'05', icon:'🌈',
+    date:'2026-06-28',
+    title:'紐約同志大遊行',
+    title_en:'NYC Pride March',
+    location:'5th Avenue, Manhattan, NY',
+    desc:'6 月 28 日，Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。',
+    desc_en:"On June 28th, the Taiwan Pop delegation marches in the world's largest Pride parade, broadcasting Taiwan's values of diversity and inclusion and showcasing Taiwan's pioneering role in Asian human rights."
   },
   {
-    num: '06', icon: '💃',
-    date: '2026-07-17', endDate: '2026-07-18', title: '翃舞製作',
-    location: 'New York, NY',
-    desc: '7 月 17 日至 18 日，翃舞製作以當代舞蹈語彙回應台灣社會文化，在紐約舞台呈現融合東方美學與當代肢體語言的精彩舞作，展現台灣舞蹈的國際高度。'
+    num:'06', icon:'💃',
+    date:'2026-07-17', endDate:'2026-07-18',
+    title:'翃舞製作',
+    title_en:'Horse Dance Productions',
+    location:'The Joyce Theater, Chelsea, NY',
+    desc:'7 月 17 日至 18 日，翃舞製作以當代舞蹈語彙回應台灣社會文化，在紐約舞台呈現融合東方美學與當代肢體語言的精彩舞作，展現台灣舞蹈的國際高度。',
+    desc_en:'July 17–18, Horse Dance Productions responds to Taiwanese society and culture through contemporary dance vocabulary, presenting works that fuse Eastern aesthetics and contemporary movement on the New York stage.'
   },
   {
-    num: '07', icon: '🎵',
-    date: '2026-08-16', title: '"SummerStage" Taiwanese Waves',
-    location: 'Central Park SummerStage, New York, NY',
-    desc: 'Taiwan Pop 壓軸鉅獻！8 月 16 日在紐約中央公園 SummerStage 舉辦台灣音樂之夜，集結台灣當代音樂人，以最震撼的現場演出向紐約致敬。'
+    num:'07', icon:'🎵',
+    date:'2026-08-16',
+    title:'"SummerStage" Taiwanese Waves',
+    title_en:'"SummerStage" Taiwanese Waves',
+    location:'Central Park SummerStage, New York, NY',
+    desc:'Taiwan Pop 壓軸鉅獻！8 月 16 日在紐約中央公園 SummerStage 舉辦台灣音樂之夜，集結台灣當代音樂人，以最震撼的現場演出向紐約致敬。',
+    desc_en:'The grand Taiwan Pop finale! On August 16th at Central Park SummerStage, a night of Taiwanese music brings together contemporary Taiwanese artists for an electrifying live show in tribute to New York.'
   },
 ];
 
@@ -217,27 +368,51 @@ const GAME_DATA = {
   }
 };
 
+/* ---------- Render Events Cards (called by initLang on switch) ---------- */
+function renderEvents() {
+  const lang = window.currentLang || 'zh';
+  const grid = document.querySelector('#events .events-grid');
+  if (!grid) return;
+
+  const svgCal = `<svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`;
+
+  grid.innerHTML = EVENTS.map(ev => {
+    const t = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+    const d = (lang === 'en' && ev.desc_en)  ? ev.desc_en  : ev.desc;
+    const dateStr = ev.endDate
+      ? `${ev.date.replace(/-/g,'.')} – ${ev.endDate.replace(/-/g,'.')}`
+      : ev.date.replace(/-/g,'.');
+    const learnMore = lang === 'en' ? 'Learn More →' : '了解更多 →';
+    return `
+      <div class="event-card">
+        <div class="event-num">${ev.num}</div>
+        <div class="event-icon">${ev.icon}</div>
+        <h3>${t}</h3>
+        <p class="event-date">${svgCal} ${dateStr}</p>
+        <p class="event-desc">${d}</p>
+        <a href="#" class="event-link">${learnMore}</a>
+      </div>`;
+  }).join('');
+}
+
 /* ---------- Navbar: transparent → solid on scroll ---------- */
 (function initNavbar() {
-  const navbar = document.getElementById('navbar');
+  const navbar    = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
+  const navLinks  = document.getElementById('navLinks');
 
-  // Scroll handler
   function onScroll() {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Mobile menu
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     navLinks.classList.toggle('open');
     hamburger.setAttribute('aria-label', navLinks.classList.contains('open') ? '關閉選單' : '開啟選單');
   });
 
-  // Close menu on nav link click
   navLinks.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
@@ -267,15 +442,15 @@ const GAME_DATA = {
 
 /* ---------- Calendar ---------- */
 (function initCalendar() {
-  const grid      = document.getElementById('calGrid');
-  const title     = document.getElementById('calTitle');
-  const prevBtn   = document.getElementById('prevMonth');
-  const nextBtn   = document.getElementById('nextMonth');
-  const upcoming  = document.getElementById('upcomingList');
+  const grid     = document.getElementById('calGrid');
+  const title    = document.getElementById('calTitle');
+  const prevBtn  = document.getElementById('prevMonth');
+  const nextBtn  = document.getElementById('nextMonth');
+  const upcoming = document.getElementById('upcomingList');
 
   if (!grid) return;
 
-  // Build eventMap: single-day → one key; multi-day (endDate) → one key per day in range
+  // Build eventMap: single-day → one key; multi-day → one key per day in range
   const eventMap = {};
   function addEventToMap(key, ev) {
     if (!eventMap[key]) eventMap[key] = [];
@@ -293,40 +468,38 @@ const GAME_DATA = {
     }
   });
 
-  // Start on the month of the first upcoming event
   const today = new Date();
   let current = new Date(today.getFullYear(), today.getMonth(), 1);
 
-  // Jump to first event month if it's in the future
   const firstEvent = EVENTS.map(e => new Date(e.date)).sort((a, b) => a - b)[0];
   if (firstEvent && firstEvent > today) {
     current = new Date(firstEvent.getFullYear(), firstEvent.getMonth(), 1);
   }
 
-  const monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-  const shortMonths = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-
   function pad(n) { return String(n).padStart(2, '0'); }
   function dateKey(y, m, d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
 
   function renderCalendar() {
+    const L     = LANG[window.currentLang || 'zh'];
     const year  = current.getFullYear();
     const month = current.getMonth();
 
-    title.textContent = `${year} 年 ${monthNames[month]}`;
+    title.textContent = L.calTitle(year, L.months[month]);
 
-    const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+    // Update weekday headers
+    const wdSpans = document.querySelectorAll('.cal-weekdays span');
+    wdSpans.forEach((span, i) => { if (L.weekdays[i]) span.textContent = L.weekdays[i]; });
+
+    const firstDay    = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const daysInPrev  = new Date(year, month, 0).getDate();
 
     grid.innerHTML = '';
 
-    // Prev month tail
     for (let i = firstDay - 1; i >= 0; i--) {
       appendDay(daysInPrev - i, 'other-month', null);
     }
 
-    // Current month
     for (let d = 1; d <= daysInMonth; d++) {
       const key = dateKey(year, month, d);
       const isToday = (
@@ -338,8 +511,7 @@ const GAME_DATA = {
       appendDay(d, isToday ? 'today' : '', evs.length ? evs : null, key);
     }
 
-    // Next month leading
-    const total = firstDay + daysInMonth;
+    const total     = firstDay + daysInMonth;
     const remainder = total % 7 === 0 ? 0 : 7 - (total % 7);
     for (let d = 1; d <= remainder; d++) {
       appendDay(d, 'other-month', null);
@@ -359,7 +531,10 @@ const GAME_DATA = {
 
     if (events && events.length) {
       el.classList.add('has-event');
-      el.title = events.map(e => e.title).join(', ');
+      el.title = events.map(e => {
+        const lang = window.currentLang || 'zh';
+        return (lang === 'en' && e.title_en) ? e.title_en : e.title;
+      }).join(', ');
 
       const dots = document.createElement('div');
       dots.className = 'cal-dot-wrap';
@@ -377,6 +552,8 @@ const GAME_DATA = {
   }
 
   function renderUpcoming() {
+    const L    = LANG[window.currentLang || 'zh'];
+    const lang = window.currentLang || 'zh';
     upcoming.innerHTML = '';
 
     const upcomingEvents = EVENTS
@@ -386,7 +563,7 @@ const GAME_DATA = {
       .slice(0, 5);
 
     if (!upcomingEvents.length) {
-      upcoming.innerHTML = '<li style="color:var(--text-muted);font-size:14px">暫無近期活動</li>';
+      upcoming.innerHTML = `<li style="color:var(--text-muted);font-size:14px">${L['cal-no-events']}</li>`;
       return;
     }
 
@@ -396,23 +573,24 @@ const GAME_DATA = {
       li.className = 'upcoming-item';
       li.style.cursor = 'pointer';
 
-      // Build date range badge if multi-day
+      const evTitle = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+
       let rangeHtml = '';
       if (ev.endDate) {
         const [ey, em, ed] = ev.endDate.split('-').map(Number);
         const rangeStr = (em === m)
-          ? `${d}–${ed} ${shortMonths[m - 1]}`
-          : `${shortMonths[m - 1]} ${d} – ${shortMonths[em - 1]} ${ed}`;
+          ? `${d}–${ed} ${L.shortMonths[m - 1]}`
+          : `${L.shortMonths[m - 1]} ${d} – ${L.shortMonths[em - 1]} ${ed}`;
         rangeHtml = `<span class="upcoming-range">${rangeStr}</span>`;
       }
 
       li.innerHTML = `
         <div class="upcoming-date-badge">
           <span class="day">${d}</span>
-          <span class="month">${shortMonths[m - 1]}</span>
+          <span class="month">${L.shortMonths[m - 1]}</span>
         </div>
         <div class="upcoming-info">
-          <h4>${ev.title}</h4>
+          <h4>${evTitle}</h4>
           ${rangeHtml}
           <p>${ev.location}</p>
         </div>
@@ -422,17 +600,13 @@ const GAME_DATA = {
     });
   }
 
-  prevBtn.addEventListener('click', () => {
-    current.setMonth(current.getMonth() - 1);
-    renderCalendar();
-  });
-
-  nextBtn.addEventListener('click', () => {
-    current.setMonth(current.getMonth() + 1);
-    renderCalendar();
-  });
+  prevBtn.addEventListener('click', () => { current.setMonth(current.getMonth() - 1); renderCalendar(); });
+  nextBtn.addEventListener('click', () => { current.setMonth(current.getMonth() + 1); renderCalendar(); });
 
   renderCalendar();
+
+  // Expose for language switch re-render
+  window.reRenderCalendar = renderCalendar;
 })();
 
 /* ---------- Scroll-reveal animation ---------- */
@@ -474,15 +648,21 @@ const GAME_DATA = {
   if (!backdrop) return;
 
   function openModal(ev) {
+    const lang  = window.currentLang || 'zh';
+    const t     = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+    const desc  = (lang === 'en' && ev.desc_en)  ? ev.desc_en  : ev.desc;
+    const cta   = LANG[lang]['modal-cta'];
+
     document.getElementById('modalNum').textContent   = `EVENT ${ev.num || ''}`;
     document.getElementById('modalIcon').textContent  = ev.icon || '';
-    document.getElementById('modalTitle').textContent = ev.title;
+    document.getElementById('modalTitle').textContent = t;
     const dateDisplay = ev.endDate
       ? `${ev.date.replace(/-/g, '.')} – ${ev.endDate.replace(/-/g, '.')}`
       : ev.date.replace(/-/g, '.');
-    document.getElementById('modalDate').querySelector('span').textContent = dateDisplay;
+    document.getElementById('modalDate').querySelector('span').textContent     = dateDisplay;
     document.getElementById('modalLocation').querySelector('span').textContent = ev.location;
-    document.getElementById('modalDesc').textContent  = ev.desc || '';
+    document.getElementById('modalDesc').textContent = desc || '';
+    document.querySelector('.modal-cta').textContent = cta;
 
     backdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -497,7 +677,6 @@ const GAME_DATA = {
   backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  // Expose globally so calendar can call it
   window.openModal = openModal;
 })();
 
@@ -513,14 +692,11 @@ const GAME_DATA = {
 
   if (!overlay || !mapScroll) return;
 
-  // localStorage for completed events
   const completed = JSON.parse(localStorage.getItem('twpop_quiz') || '{}');
 
-  // ── State ──
   let curEvent = null, curQ = 0, score = 0, answered = false;
   let shuffledAns = 0, shuffledOpts = [];
 
-  // ── Build footer dots ──
   function buildFooterDots() {
     footerDots.innerHTML = '';
     Object.values(GAME_DATA).forEach(ev => {
@@ -536,7 +712,6 @@ const GAME_DATA = {
     doneCount.textContent = Object.keys(completed).filter(k => k !== '__allDoneCelebrated').length;
   }
 
-  // ── Mark pin as done (partial or perfect) ──
   function markPinDone(id, isPerfect) {
     const pin = mapStage.querySelector(`[data-qid="${id}"]`);
     if (pin) {
@@ -551,7 +726,6 @@ const GAME_DATA = {
     doneCount.textContent = Object.keys(completed).filter(k => k !== '__allDoneCelebrated').length;
   }
 
-  // ── Apply completed state on load ──
   function applyCompleted() {
     Object.entries(completed).forEach(([id, data]) => {
       if (id === '__allDoneCelebrated') return;
@@ -559,18 +733,15 @@ const GAME_DATA = {
     });
   }
 
-  // ── Check if all 7 events are perfectly completed ──
   function checkAllPerfect() {
     return Object.keys(GAME_DATA).every(id =>
       completed[id] && completed[id].score === completed[id].total
     );
   }
 
-  // ── Show full-screen celebration ──
   function showAllDoneCelebration() {
     const ov = document.getElementById('allDoneOverlay');
     if (!ov) return;
-    // Generate floating particles
     const pc = document.getElementById('celebrateParticles');
     pc.innerHTML = '';
     const emojis = ['🎊','🎉','✨','🎭','🎨','🎬','🎵','💃','🌈','🏆','🇹🇼','⭐','🎶','🎪','🎀'];
@@ -584,12 +755,28 @@ const GAME_DATA = {
         `font-size:${14 + Math.floor(Math.random() * 18)}px;`;
       pc.appendChild(p);
     }
+    // Update celebration text for current language
+    const lang = window.currentLang || 'zh';
+    const L = LANG[lang];
+    const titleEl = ov.querySelector('.celebrate-title');
+    const subEl   = ov.querySelector('.celebrate-sub');
+    const badgeEl = ov.querySelector('.celebrate-badge');
+    const invEl   = ov.querySelector('.celebrate-invite');
+    const toEvEl  = document.getElementById('celebrateToEvents');
+    const closeEl = document.getElementById('celebrateClose');
+    if (titleEl) titleEl.textContent = L['cel-title'];
+    if (subEl)   subEl.innerHTML     = L['cel-sub'];
+    if (badgeEl) badgeEl.textContent = L['cel-badge'];
+    if (invEl)   invEl.textContent   = L['cel-invite'];
+    if (toEvEl)  toEvEl.textContent  = L['cel-to-events'];
+    if (closeEl) closeEl.textContent = L['cel-close'];
+
     closeQuiz();
     ov.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
-  // ── Drag to scroll ──
+  // Drag-to-scroll
   let isDragging = false, dragStartX = 0, dragScrollLeft = 0;
   mapScroll.addEventListener('mousedown', e => {
     isDragging = true;
@@ -608,7 +795,7 @@ const GAME_DATA = {
     mapScroll.scrollLeft = dragScrollLeft - (x - dragStartX) * 1.4;
   });
 
-  // ── Scroll hint ──
+  // Scroll hint
   const quizSection = document.getElementById('quiz');
   if (quizSection && hintBadge) {
     const obs = new IntersectionObserver(entries => {
@@ -621,22 +808,21 @@ const GAME_DATA = {
     obs.observe(quizSection);
   }
 
-  // ── Pin click handlers ──
+  // Pin click handlers
   mapStage.querySelectorAll('.map-pin').forEach(pin => {
     pin.addEventListener('click', () => startQuiz(pin.dataset.qid));
   });
 
-  // ── Start quiz ──
   function startQuiz(id) {
-    curEvent  = GAME_DATA[id];
-    curQ      = 0;
-    score     = 0;
-    answered  = false;
+    curEvent = GAME_DATA[id];
+    curQ     = 0;
+    score    = 0;
+    answered = false;
     if (!curEvent) return;
 
-    document.getElementById('quizEvLabel').textContent  = curEvent.title;
-    document.getElementById('quizEvLabel').style.color  = curEvent.color;
-    document.getElementById('quizEvTitle').textContent  = curEvent.subtitle;
+    document.getElementById('quizEvLabel').textContent = curEvent.title;
+    document.getElementById('quizEvLabel').style.color = curEvent.color;
+    document.getElementById('quizEvTitle').textContent = curEvent.subtitle;
     document.getElementById('quizProgFill').style.background = curEvent.color;
 
     buildDots();
@@ -652,7 +838,6 @@ const GAME_DATA = {
     document.body.style.overflow = '';
   }
 
-  // ── Score dots ──
   function buildDots() {
     const row = document.getElementById('quizDots');
     row.innerHTML = '';
@@ -681,16 +866,16 @@ const GAME_DATA = {
     }
   }
 
-  // ── Render question ──
   function renderQuestion() {
     const total = curEvent.questions.length;
+    const L     = LANG[window.currentLang || 'zh'];
     document.getElementById('quizProgText').textContent  = `Q${curQ + 1} / ${total}`;
     document.getElementById('quizProgScore').textContent = `${score} / ${total}`;
     document.getElementById('quizProgFill').style.width  = `${(curQ / total) * 100}%`;
 
     const q = curEvent.questions[curQ];
 
-    // Shuffle options (Fisher-Yates on index array)
+    // Fisher-Yates shuffle
     const idxs = [0, 1, 2, 3];
     for (let k = idxs.length - 1; k > 0; k--) {
       const j = Math.floor(Math.random() * (k + 1));
@@ -698,6 +883,8 @@ const GAME_DATA = {
     }
     shuffledOpts = idxs.map(k => q.opts[k]);
     shuffledAns  = idxs.indexOf(q.ans);
+
+    const nextLabel = curQ < total - 1 ? L['quiz-next-q'] : L['quiz-see-result'];
 
     const area = document.getElementById('quizArea');
     area.innerHTML = `
@@ -719,7 +906,7 @@ const GAME_DATA = {
         <button class="quiz-next" id="quizNext"
           style="background:${curEvent.color}"
           onclick="quizNext()">
-          ${curQ < total - 1 ? '下一題 →' : '查看結果 →'}
+          ${nextLabel}
         </button>
       </div>
     `;
@@ -727,7 +914,6 @@ const GAME_DATA = {
     overlay.scrollTop = 0;
   }
 
-  // Exposed globally for inline onclick
   window.quizChoose = function(i) {
     if (answered) return;
     answered = true;
@@ -752,27 +938,23 @@ const GAME_DATA = {
     renderQuestion();
   };
 
-  // ── Show result ──
   function showResult() {
     const total = curEvent.questions.length;
+    const L     = LANG[window.currentLang || 'zh'];
     document.getElementById('quizProgFill').style.width  = '100%';
     document.getElementById('quizProgScore').textContent = `${score} / ${total}`;
 
     const pct   = score / total;
     const emoji = pct === 1 ? '🏆' : pct >= 0.6 ? '🎉' : '💪';
-    const msg   = pct === 1
-      ? '完美！你對台灣文化的了解讓我們驕傲！'
-      : pct >= 0.6
-      ? '答得不錯！你已經對台灣有相當的認識了。'
-      : '繼續加油！台灣的故事等著你慢慢探索。';
+    const msg   = pct === 1 ? L['quiz-res-perfect']
+                : pct >= 0.6 ? L['quiz-res-good']
+                : L['quiz-res-keep'];
 
-    // Save completion
     const isPerfect = (score === total);
     completed[curEvent.id] = { score, total, date: new Date().toISOString() };
     localStorage.setItem('twpop_quiz', JSON.stringify(completed));
     markPinDone(curEvent.id, isPerfect);
 
-    // If all 7 events are perfectly completed (first time), show celebration
     if (isPerfect && checkAllPerfect() && !completed.__allDoneCelebrated) {
       completed.__allDoneCelebrated = true;
       localStorage.setItem('twpop_quiz', JSON.stringify(completed));
@@ -790,8 +972,8 @@ const GAME_DATA = {
         </div>
         <div class="quiz-result-actions">
           <button class="quiz-result-btn" style="background:${curEvent.color};color:white"
-            onclick="quizRetry()">再試一次</button>
-          <button class="quiz-result-btn sec" onclick="quizBackToMap()">回到地圖 ↗</button>
+            onclick="quizRetry()">${L['quiz-retry']}</button>
+          <button class="quiz-result-btn sec" onclick="quizBackToMap()">${L['quiz-back-map']}</button>
         </div>
       </div>
     `;
@@ -800,7 +982,6 @@ const GAME_DATA = {
   window.quizRetry    = function() { startQuiz(curEvent.id); };
   window.quizBackToMap = function() { closeQuiz(); };
 
-  // Back button & ESC (quiz)
   backBtn.addEventListener('click', closeQuiz);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
@@ -814,7 +995,6 @@ const GAME_DATA = {
     }
   });
 
-  // Celebration overlay buttons
   const allDoneOv = document.getElementById('allDoneOverlay');
   if (allDoneOv) {
     function closeCelebration() {
@@ -825,7 +1005,61 @@ const GAME_DATA = {
     document.getElementById('celebrateToEvents').addEventListener('click', closeCelebration);
   }
 
-  // ── Init ──
   buildFooterDots();
   applyCompleted();
+})();
+
+/* ---------- Language Init (runs last — sets lang after all IIFEs ready) ---------- */
+(function initLang() {
+  // Detect preference: saved → browser lang → default zh
+  const saved      = localStorage.getItem('twpop_lang');
+  const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  window.currentLang = saved || (browserLang.startsWith('zh') ? 'zh' : 'en');
+
+  // Inject ZH | EN pill toggle into navbar
+  const navContainer = document.querySelector('#navbar .nav-container');
+  if (navContainer) {
+    const tgl = document.createElement('div');
+    tgl.className = 'lang-toggle';
+    tgl.setAttribute('aria-label', 'Switch language');
+    tgl.innerHTML = '<button class="lang-btn" data-lang="zh">ZH</button>' +
+                    '<button class="lang-btn" data-lang="en">EN</button>';
+    navContainer.appendChild(tgl);
+    tgl.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => window.setLang(btn.dataset.lang));
+    });
+  }
+
+  window.setLang = function(lang) {
+    window.currentLang = lang;
+    localStorage.setItem('twpop_lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+    const L = LANG[lang];
+
+    // Update all [data-i18n] text nodes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.dataset.i18n;
+      if (L[k] !== undefined) el.textContent = L[k];
+    });
+
+    // Update [data-i18n-html] nodes (allow <br> etc.)
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const k = el.dataset.i18nHtml;
+      if (L[k] !== undefined) el.innerHTML = L[k];
+    });
+
+    // Toggle active state
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    // Re-render dynamic sections
+    renderEvents();
+    if (window.reRenderCalendar) window.reRenderCalendar();
+  };
+
+  // Apply on load
+  window.setLang(window.currentLang);
+  // Render events on initial load (events grid is empty in HTML)
+  renderEvents();
 })();
