@@ -1671,18 +1671,19 @@ footer {
 /* ============================================================
    LANGUAGE TOGGLE PILL  (ZH | EN)
    ============================================================ */
+
+/* The pill itself */
 .lang-toggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 2px;
   background: rgba(0,0,0,.08);
   border-radius: 100px;
   padding: 3px;
-  margin-left: 12px;
   flex-shrink: 0;
 }
 
-/* Transparent navbar (on banner) */
+/* Transparent navbar state (banner area) */
 #navbar:not(.scrolled) .lang-toggle {
   background: rgba(255,255,255,.15);
 }
@@ -1702,22 +1703,36 @@ footer {
   line-height: 1.4;
 }
 
-/* Active pill */
 .lang-btn.active {
   background: white;
   color: var(--text);
   box-shadow: 0 1px 4px rgba(0,0,0,.14);
 }
 
-/* On transparent navbar */
-#navbar:not(.scrolled) .lang-btn { color: rgba(255,255,255,.65); }
-#navbar:not(.scrolled) .lang-btn.active {
-  background: rgba(255,255,255,.22);
-  color: white;
-  box-shadow: none;
+/* Transparent navbar: lighter text */
+#navbar:not(.scrolled) .lang-btn        { color: rgba(255,255,255,.65); }
+#navbar:not(.scrolled) .lang-btn.active { background: rgba(255,255,255,.22); color: white; box-shadow: none; }
+
+/* ── Desktop: nav-lang-item is a regular flex item in nav-links ── */
+.nav-lang-item {
+  display: flex;
+  align-items: center;
+  /* extra gap before the pill to visually separate from CTA */
+  margin-left: 6px;
 }
 
+/* ── Mobile: inside hamburger dropdown ── */
 @media (max-width: 768px) {
-  .lang-toggle { margin-left: 8px; }
-  .lang-btn { padding: 4px 8px; font-size: 10px; }
+  .nav-lang-item {
+    margin-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 4px;
+    justify-content: center;
+  }
+
+  /* Force dark colours — dropdown has a white background */
+  .nav-lang-item .lang-toggle          { background: rgba(0,0,0,.06) !important; }
+  .nav-lang-item .lang-btn             { color: var(--text-muted) !important; font-size: 12px; padding: 5px 14px; }
+  .nav-lang-item .lang-btn.active      { background: white !important; color: var(--text) !important; box-shadow: 0 1px 4px rgba(0,0,0,.12) !important; }
 }

@@ -1016,16 +1016,20 @@ function renderEvents() {
   const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
   window.currentLang = saved || (browserLang.startsWith('zh') ? 'zh' : 'en');
 
-  // Inject ZH | EN pill toggle into navbar
-  const navContainer = document.querySelector('#navbar .nav-container');
-  if (navContainer) {
-    const tgl = document.createElement('div');
-    tgl.className = 'lang-toggle';
-    tgl.setAttribute('aria-label', 'Switch language');
-    tgl.innerHTML = '<button class="lang-btn" data-lang="zh">ZH</button>' +
-                    '<button class="lang-btn" data-lang="en">EN</button>';
-    navContainer.appendChild(tgl);
-    tgl.querySelectorAll('.lang-btn').forEach(btn => {
+  // Inject ZH | EN pill toggle into navLinks as the last <li>
+  // → desktop: appears inline in nav row
+  // → mobile: appears inside hamburger dropdown
+  const navLinks = document.getElementById('navLinks');
+  if (navLinks) {
+    const li = document.createElement('li');
+    li.className = 'nav-lang-item';
+    li.innerHTML =
+      '<div class="lang-toggle" aria-label="Switch language">' +
+      '<button class="lang-btn" data-lang="zh">ZH</button>' +
+      '<button class="lang-btn" data-lang="en">EN</button>' +
+      '</div>';
+    navLinks.appendChild(li);
+    li.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => window.setLang(btn.dataset.lang));
     });
   }
