@@ -1157,16 +1157,17 @@ function renderEvents() {
   ];
 
   const S = {
-    pos:        { x: 50, y: 50 }, // overwritten below after DOM refs are ready
-    waypoints:  [],
-    dir:        'front',
-    moving:     false,
-    paused:     false,
-    pendingQid: null,
-    collected:  new Set(),
-    active:     new Set(CARDS.map(c => c.id)),
-    lastTime:   null,
-    raf:        null,
+    pos:         { x: 50, y: 50 }, // overwritten below after DOM refs are ready
+    waypoints:   [],
+    dir:         'front',
+    moving:      false,
+    paused:      false,
+    pendingQid:  null,
+    collected:   new Set(),
+    active:      new Set(CARDS.map(c => c.id)),
+    recentWrong: new Set(), // answered wrong — suppressed until a-we walks away
+    lastTime:    null,
+    raf:         null,
   };
 
   const mapStage      = document.getElementById('mapStage');
@@ -1241,10 +1242,9 @@ function renderEvents() {
       if (dir === 'E') tx = Math.min(95, tx + dist);
       if (dir === 'W') tx = Math.max(5,  tx - dist);
       const arrows = { N:'↑北', S:'↓南', E:'→東', W:'←西' };
-      if (diceResult) {
-        diceResult.textContent = `${arrows[dir]} × ${steps} 步`;
-        diceResult.classList.remove('hidden');
-      }
+      // Show result in button label
+      const lbl = diceBtn ? diceBtn.querySelector('.dice-label') : null;
+      if (lbl) lbl.textContent = `${arrows[dir]} × ${steps} 步`;
       moveDirect(tx, ty);
     }, 500);
   };
@@ -1259,6 +1259,14 @@ function renderEvents() {
     if (S.waypoints.length === 0) {
       S.moving = false;
       charEl.classList.remove('moving');
+      updateDOM(); // re-enable dice button
+      // Restore dice label after short delay
+      if (diceBtn) {
+        const lbl = diceBtn.querySelector('.dice-label');
+        if (lbl && lbl.textContent !== '擲骰子') {
+          setTimeout(() => { if (lbl) lbl.textContent = '擲骰子'; }, 1200);
+        }
+      }
       if (S.pendingQid) {
         const qid  = S.pendingQid;
         S.pendingQid = null;
@@ -1295,7 +1303,13 @@ function renderEvents() {
       if (!S.active.has(c.id)) continue;
       const dx = c.x - S.pos.x;
       const dy = (c.y - S.pos.y) * ASPECT;
-      if (Math.sqrt(dx * dx + dy * dy) < ENC_R) { showCard(c); break; }
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      // If answered wrong recently, clear suppression only once far enough away
+      if (S.recentWrong.has(c.id)) {
+        if (dist > ENC_R * 3) S.recentWrong.delete(c.id);
+        continue;
+      }
+      if (dist < ENC_R) { showCard(c); break; }
     }
   }
 
@@ -1320,6 +1334,7 @@ function renderEvents() {
       cmResult.textContent = '🎉 正確！卡片收藏成功';
       cmResult.className   = 'cm-result correct';
     } else {
+      S.recentWrong.add(card.id); // suppress re-trigger until a-we walks away
       cmResult.textContent = '❌ 答錯了，下次路過再試試！';
       cmResult.className   = 'cm-result wrong';
     }

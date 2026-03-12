@@ -210,13 +210,14 @@
           </div>
         </div>
 
+        <!-- Floating dice button over map -->
+        <button id="diceBtn" class="dice-btn" onclick="aweDiceRoll()">
+          <span class="dice-icon">🎲</span>
+          <span class="dice-label">擲骰子</span>
+        </button>
+
         <!-- Progress footer -->
         <div class="map-footer">
-          <button id="diceBtn" class="dice-btn" onclick="aweDiceRoll()">
-            <span class="dice-icon">🎲</span>
-            <span class="dice-label">擲骰子</span>
-          </button>
-          <span id="diceResult" class="dice-result hidden"></span>
           <div class="map-footer-dots" id="mapFooterDots"></div>
           <p class="map-footer-text">
             <span data-i18n="map-prefix">已探索</span>
