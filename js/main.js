@@ -927,10 +927,8 @@ function renderEvents() {
     obs.observe(quizSection);
   }
 
-  // Pin click handlers
-  mapStage.querySelectorAll('.map-pin').forEach(pin => {
-    pin.addEventListener('click', () => startQuiz(pin.dataset.qid));
-  });
+  // Expose startQuiz for a-we system
+  window._startQuiz = startQuiz;
 
   function startQuiz(id) {
     curEvent = GAME_DATA[id];
@@ -1132,6 +1130,220 @@ function renderEvents() {
 
   buildFooterDots();
   applyCompleted();
+})();
+
+/* ---------- A-WE Character System ---------- */
+(function initAwe() {
+  const AWE_SPEED = 10;        // % map-width per second
+  const ASPECT    = 1600 / 520; // mapStage w/h ratio — for isotropic distance
+  const ENC_R     = 4;          // encounter trigger radius (normalised %)
+
+  const CARDS = [
+    { id:'k01', x:35, y:47, fact:'雲門舞集由林懷民創立於 1973 年', ans:true },
+    { id:'k02', x:54, y:36, fact:'台灣是亞洲第一個同婚合法化的地區（2019年）', ans:true },
+    { id:'k03', x:40, y:62, fact:'排灣族泰武古謠已列入文化部無形文化資產', ans:true },
+    { id:'k04', x:72, y:44, fact:'布希維克（Bushwick）位於曼哈頓', ans:false },
+    { id:'k05', x:62, y:65, fact:'NSO 全名是 National Symphony Orchestra（不含 of Taiwan）', ans:false },
+    { id:'k06', x:15, y:40, fact:'林肯中心位於紐約上西城（Upper West Side）', ans:true },
+    { id:'k07', x:30, y:55, fact:'卡內基音樂廳建於 1891 年', ans:true },
+    { id:'k08', x:50, y:20, fact:'台灣電影《悲情城市》首部入圍威尼斯影展競賽', ans:true },
+    { id:'k09', x:44, y:72, fact:'IFC Center 位於格林威治村（Greenwich Village）', ans:true },
+    { id:'k10', x:76, y:30, fact:'紐約同志大遊行每年在 6 月舉行', ans:true },
+    { id:'k11', x:22, y:68, fact:'翃舞製作是以原住民文化為核心的舞蹈公司', ans:false },
+    { id:'k12', x:60, y:50, fact:'Central Park SummerStage 是免費戶外演出場地', ans:true },
+    { id:'k13', x:36, y:28, fact:'台灣護照免簽國家數全球排名前 40 名', ans:true },
+    { id:'k14', x:80, y:62, fact:'台灣電影金馬獎比金曲獎歷史更悠久', ans:true },
+    { id:'k15', x:12, y:58, fact:'珍珠奶茶發源於台中', ans:true },
+  ];
+
+  const S = {
+    pos:        { x: 50, y: 50 }, // overwritten below after DOM refs are ready
+    waypoints:  [],
+    dir:        'front',
+    moving:     false,
+    paused:     false,
+    pendingQid: null,
+    collected:  new Set(),
+    active:     new Set(CARDS.map(c => c.id)),
+    lastTime:   null,
+    raf:        null,
+  };
+
+  const mapStage     = document.getElementById('mapStage');
+  const charEl       = document.getElementById('aweChar');
+  const spriteEl     = document.getElementById('aweSprite');
+  const counterEl    = document.getElementById('cardCountNum');
+  const cardModal    = document.getElementById('cardModal');
+  const cmFact       = document.getElementById('cmFact');
+  const cmResult     = document.getElementById('cmResult');
+  const completeModal = document.getElementById('aweComplete');
+  if (!charEl || !mapStage) return;
+
+  /* Start at center of the visible viewport, not the full 1600px map */
+  const mapScrollEl = document.getElementById('mapScroll');
+  const stageW      = mapStage.offsetWidth || 1600;
+  S.pos.x = mapScrollEl
+    ? (mapScrollEl.scrollLeft + mapScrollEl.clientWidth / 2) / stageW * 100
+    : 20;
+
+  /* --- Inject encounter dots --- */
+  CARDS.forEach(c => {
+    const dot = document.createElement('div');
+    dot.className = 'encounter-dot';
+    dot.id = 'enc-' + c.id;
+    dot.style.left = c.x + '%';
+    dot.style.top  = c.y + '%';
+    mapStage.appendChild(dot);
+  });
+
+  /* --- Pin click → move a-we --- */
+  mapStage.querySelectorAll('.map-pin').forEach(pin => {
+    pin.addEventListener('click', () => {
+      const x = parseFloat(pin.style.left);
+      const y = parseFloat(pin.style.top);
+      moveTo(x, y, pin.dataset.qid);
+    });
+  });
+
+  updateDOM();
+
+  /* --- Movement --- */
+  function moveTo(tx, ty, qid) {
+    if (S.paused) return;
+    S.waypoints  = [{ x: tx, y: S.pos.y }, { x: tx, y: ty }];
+    S.pendingQid = qid;
+    if (!S.moving) {
+      S.moving   = true;
+      S.lastTime = null;
+      S.raf      = requestAnimationFrame(tick);
+    }
+  }
+
+  function tick(ts) {
+    if (!S.lastTime) S.lastTime = ts;
+    const dt = Math.min((ts - S.lastTime) / 1000, 0.1);
+    S.lastTime = ts;
+
+    if (S.paused) { S.raf = requestAnimationFrame(tick); return; }
+
+    if (S.waypoints.length === 0) {
+      S.moving = false;
+      charEl.classList.remove('moving');
+      if (S.pendingQid) {
+        const qid  = S.pendingQid;
+        S.pendingQid = null;
+        window._startQuiz && window._startQuiz(qid);
+      }
+      return;
+    }
+
+    const wp   = S.waypoints[0];
+    const dx   = wp.x - S.pos.x;
+    const dy   = wp.y - S.pos.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const step = AWE_SPEED * dt;
+
+    if (Math.abs(dx) > 0.2)      S.dir = dx > 0 ? 'right' : 'left';
+    else if (Math.abs(dy) > 0.2) S.dir = dy > 0 ? 'front' : 'back';
+
+    if (dist <= step) {
+      S.pos = { x: wp.x, y: wp.y };
+      S.waypoints.shift();
+    } else {
+      S.pos.x += (dx / dist) * step;
+      S.pos.y += (dy / dist) * step;
+    }
+
+    checkEncounters();
+    updateDOM();
+    S.raf = requestAnimationFrame(tick);
+  }
+
+  /* --- Encounter detection --- */
+  function checkEncounters() {
+    for (const c of CARDS) {
+      if (!S.active.has(c.id)) continue;
+      const dx = c.x - S.pos.x;
+      const dy = (c.y - S.pos.y) * ASPECT;
+      if (Math.sqrt(dx * dx + dy * dy) < ENC_R) { showCard(c); break; }
+    }
+  }
+
+  function showCard(card) {
+    S.paused = true;
+    charEl.classList.remove('moving');
+    cmFact.textContent         = card.fact;
+    cmResult.textContent       = '';
+    cmResult.className         = 'cm-result hidden';
+    cardModal.dataset.cid      = card.id;
+    cardModal.dataset.cans     = card.ans;
+    cardModal.classList.remove('hidden');
+  }
+
+  window.aweAnswer = function(userAns) {
+    const card    = CARDS.find(c => c.id === cardModal.dataset.cid);
+    const correct = (userAns === (cardModal.dataset.cans === 'true'));
+    if (correct) {
+      S.collected.add(card.id);
+      S.active.delete(card.id);
+      const dot = document.getElementById('enc-' + card.id);
+      if (dot) dot.classList.add('collected');
+      cmResult.textContent = '🎉 正確！卡片收藏成功';
+      cmResult.className   = 'cm-result correct';
+    } else {
+      cmResult.textContent = '❌ 答錯了，下次路過再試試！';
+      cmResult.className   = 'cm-result wrong';
+    }
+    updateCounter();
+    setTimeout(() => {
+      cardModal.classList.add('hidden');
+      S.paused = false;
+      if (S.collected.size === CARDS.length) { showCompletion(); return; }
+      if (S.moving || S.waypoints.length > 0 || S.pendingQid) {
+        S.moving   = true;
+        S.lastTime = null;
+        S.raf      = requestAnimationFrame(tick);
+      }
+    }, 1400);
+  };
+
+  /* --- DOM helpers --- */
+  function updateDOM() {
+    charEl.style.left = S.pos.x + '%';
+    charEl.style.top  = S.pos.y + '%';
+    spriteEl.src = 'images/awe-' + S.dir + '.png';
+    charEl.classList.toggle('moving', S.moving && !S.paused);
+  }
+
+  function updateCounter() {
+    if (counterEl) counterEl.textContent = S.collected.size;
+  }
+
+  /* --- Completion --- */
+  function showCompletion() {
+    if (!completeModal) return;
+    const container = document.getElementById('aweCelebConfetti');
+    container.innerHTML = '';
+    const colors = ['#FF4D75','#008F7A','#FFD700','#FF6B35','#A8E6CF','#FF85A1','#B5EAD7'];
+    for (let i = 0; i < 80; i++) {
+      const d = document.createElement('div');
+      d.className = 'confetti-piece';
+      d.style.cssText =
+        `left:${(Math.random()*100).toFixed(1)}%;` +
+        `background:${colors[i % colors.length]};` +
+        `animation-delay:${(Math.random()*2).toFixed(2)}s;` +
+        `animation-duration:${(2 + Math.random()*2).toFixed(2)}s;` +
+        `width:${(6 + Math.random()*8).toFixed(0)}px;` +
+        `height:${(6 + Math.random()*8).toFixed(0)}px;` +
+        `transform:rotate(${(Math.random()*360).toFixed(0)}deg)`;
+      container.appendChild(d);
+    }
+    completeModal.classList.remove('hidden');
+  }
+
+  window.aweCloseComplete = function() {
+    completeModal.classList.add('hidden');
+  };
 })();
 
 /* ---------- Language Init (runs last — sets lang after all IIFEs ready) ---------- */

@@ -202,6 +202,11 @@
             </button>
 
             <div class="map-hint-badge" id="mapHintBadge" data-i18n="map-hint">← 滑動探索地圖 →</div>
+
+            <!-- a-we character -->
+            <div id="aweChar" class="awe-char">
+              <img id="aweSprite" src="images/awe-front.png" alt="a-we">
+            </div>
           </div>
         </div>
 
@@ -213,6 +218,7 @@
             <strong id="mapDoneCount">0</strong> / 7
             <span data-i18n="map-suffix">個台灣文化主題</span>
           </p>
+          <p class="map-card-text">📚 <strong id="cardCountNum">0</strong> / 15</p>
         </div>
       </div>
     </div>
@@ -355,6 +361,30 @@
         <a href="#events" class="celebrate-btn-primary" id="celebrateToEvents" data-i18n="cel-to-events">前往活動頁面 →</a>
         <button class="celebrate-btn-sec" id="celebrateClose" data-i18n="cel-close">繼續探索</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ======= KNOWLEDGE CARD MODAL ======= -->
+  <div id="cardModal" class="card-modal hidden">
+    <div class="card-box">
+      <div class="card-icon">✨</div>
+      <p id="cmFact" class="card-fact"></p>
+      <div class="card-choices">
+        <button class="card-btn card-true"  onclick="aweAnswer(true)">○ 正確</button>
+        <button class="card-btn card-false" onclick="aweAnswer(false)">✕ 錯誤</button>
+      </div>
+      <p id="cmResult" class="cm-result hidden"></p>
+    </div>
+  </div>
+
+  <!-- ======= AWE COMPLETION MODAL ======= -->
+  <div id="aweComplete" class="awe-complete hidden">
+    <div id="aweCelebConfetti"></div>
+    <div class="awe-complete-content">
+      <img src="images/awe-complete.png" alt="讚見!!">
+      <h2>知識卡全部收集！</h2>
+      <p>你已探索紐約文化地圖的每個角落！</p>
+      <button onclick="aweCloseComplete()">繼續探索</button>
     </div>
   </div>
 
