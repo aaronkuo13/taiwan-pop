@@ -1139,43 +1139,47 @@ function renderEvents() {
   const ENC_R     = 4;          // encounter trigger radius (normalised %)
 
   const CARDS = [
-    { id:'k01', x:35, y:47, fact:'雲門舞集由林懷民創立於 1973 年', ans:true },
-    { id:'k02', x:54, y:36, fact:'台灣是亞洲第一個同婚合法化的地區（2019年）', ans:true },
-    { id:'k03', x:40, y:62, fact:'排灣族泰武古謠已列入文化部無形文化資產', ans:true },
-    { id:'k04', x:72, y:44, fact:'布希維克（Bushwick）位於曼哈頓', ans:false },
-    { id:'k05', x:62, y:65, fact:'NSO 全名是 National Symphony Orchestra（不含 of Taiwan）', ans:false },
-    { id:'k06', x:15, y:40, fact:'林肯中心位於紐約上西城（Upper West Side）', ans:true },
-    { id:'k07', x:30, y:55, fact:'卡內基音樂廳建於 1891 年', ans:true },
-    { id:'k08', x:50, y:20, fact:'台灣電影《悲情城市》首部入圍威尼斯影展競賽', ans:true },
-    { id:'k09', x:44, y:72, fact:'IFC Center 位於格林威治村（Greenwich Village）', ans:true },
-    { id:'k10', x:76, y:30, fact:'紐約同志大遊行每年在 6 月舉行', ans:true },
-    { id:'k11', x:22, y:68, fact:'翃舞製作是以原住民文化為核心的舞蹈公司', ans:false },
-    { id:'k12', x:60, y:50, fact:'Central Park SummerStage 是免費戶外演出場地', ans:true },
-    { id:'k13', x:36, y:28, fact:'台灣護照免簽國家數全球排名前 40 名', ans:true },
-    { id:'k14', x:80, y:62, fact:'台灣電影金馬獎比金曲獎歷史更悠久', ans:true },
-    { id:'k15', x:12, y:58, fact:'珍珠奶茶發源於台中', ans:true },
+    { id:'k01', x:35, y:47, img:'https://picsum.photos/seed/tw001/400/200', fact:'雲門舞集由林懷民創立於 1973 年', ans:true },
+    { id:'k02', x:54, y:36, img:'https://picsum.photos/seed/tw002/400/200', fact:'台灣是亞洲第一個同婚合法化的地區（2019年）', ans:true },
+    { id:'k03', x:40, y:62, img:'https://picsum.photos/seed/tw003/400/200', fact:'排灣族泰武古謠已列入文化部無形文化資產', ans:true },
+    { id:'k04', x:72, y:44, img:'https://picsum.photos/seed/tw004/400/200', fact:'布希維克（Bushwick）位於曼哈頓', ans:false },
+    { id:'k05', x:62, y:65, img:'https://picsum.photos/seed/tw005/400/200', fact:'NSO 全名是 National Symphony Orchestra（不含 of Taiwan）', ans:false },
+    { id:'k06', x:15, y:40, img:'https://picsum.photos/seed/tw006/400/200', fact:'林肯中心位於紐約上西城（Upper West Side）', ans:true },
+    { id:'k07', x:30, y:55, img:'https://picsum.photos/seed/tw007/400/200', fact:'卡內基音樂廳建於 1891 年', ans:true },
+    { id:'k08', x:50, y:20, img:'https://picsum.photos/seed/tw008/400/200', fact:'台灣電影《悲情城市》首部入圍威尼斯影展競賽', ans:true },
+    { id:'k09', x:44, y:72, img:'https://picsum.photos/seed/tw009/400/200', fact:'IFC Center 位於格林威治村（Greenwich Village）', ans:true },
+    { id:'k10', x:76, y:30, img:'https://picsum.photos/seed/tw010/400/200', fact:'紐約同志大遊行每年在 6 月舉行', ans:true },
+    { id:'k11', x:22, y:68, img:'https://picsum.photos/seed/tw011/400/200', fact:'翃舞製作是以原住民文化為核心的舞蹈公司', ans:false },
+    { id:'k12', x:60, y:50, img:'https://picsum.photos/seed/tw012/400/200', fact:'Central Park SummerStage 是免費戶外演出場地', ans:true },
+    { id:'k13', x:36, y:28, img:'https://picsum.photos/seed/tw013/400/200', fact:'台灣護照免簽國家數全球排名前 40 名', ans:true },
+    { id:'k14', x:80, y:62, img:'https://picsum.photos/seed/tw014/400/200', fact:'台灣電影金馬獎比金曲獎歷史更悠久', ans:true },
+    { id:'k15', x:12, y:58, img:'https://picsum.photos/seed/tw015/400/200', fact:'珍珠奶茶發源於台中', ans:true },
   ];
 
   const S = {
-    pos:        { x: 50, y: 50 }, // overwritten below after DOM refs are ready
-    waypoints:  [],
-    dir:        'front',
-    moving:     false,
-    paused:     false,
-    pendingQid: null,
-    collected:  new Set(),
-    active:     new Set(CARDS.map(c => c.id)),
-    lastTime:   null,
-    raf:        null,
+    pos:         { x: 50, y: 50 }, // overwritten below after DOM refs are ready
+    waypoints:   [],
+    dir:         'front',
+    moving:      false,
+    paused:      false,
+    pendingQid:  null,
+    collected:   new Set(),
+    active:      new Set(CARDS.map(c => c.id)),
+    recentWrong: new Set(), // answered wrong — suppressed until a-we walks away
+    lastTime:    null,
+    raf:         null,
   };
 
-  const mapStage     = document.getElementById('mapStage');
-  const charEl       = document.getElementById('aweChar');
-  const spriteEl     = document.getElementById('aweSprite');
-  const counterEl    = document.getElementById('cardCountNum');
-  const cardModal    = document.getElementById('cardModal');
-  const cmFact       = document.getElementById('cmFact');
-  const cmResult     = document.getElementById('cmResult');
+  const mapStage      = document.getElementById('mapStage');
+  const charEl        = document.getElementById('aweChar');
+  const spriteEl      = document.getElementById('aweSprite');
+  const counterEl     = document.getElementById('cardCountNum');
+  const cardModal     = document.getElementById('cardModal');
+  const cmFact        = document.getElementById('cmFact');
+  const cmResult      = document.getElementById('cmResult');
+  const cmImg         = document.getElementById('cmImg');
+  const diceBtn       = document.getElementById('diceBtn');
+  const diceResult    = document.getElementById('diceResult');
   const completeModal = document.getElementById('aweComplete');
   if (!charEl || !mapStage) return;
 
@@ -1185,16 +1189,6 @@ function renderEvents() {
   S.pos.x = mapScrollEl
     ? (mapScrollEl.scrollLeft + mapScrollEl.clientWidth / 2) / stageW * 100
     : 20;
-
-  /* --- Inject encounter dots --- */
-  CARDS.forEach(c => {
-    const dot = document.createElement('div');
-    dot.className = 'encounter-dot';
-    dot.id = 'enc-' + c.id;
-    dot.style.left = c.x + '%';
-    dot.style.top  = c.y + '%';
-    mapStage.appendChild(dot);
-  });
 
   /* --- Pin click → move a-we --- */
   mapStage.querySelectorAll('.map-pin').forEach(pin => {
@@ -1219,6 +1213,42 @@ function renderEvents() {
     }
   }
 
+  /* Straight-line movement for dice rolls (no quiz trigger) */
+  function moveDirect(tx, ty) {
+    if (S.paused) return;
+    S.waypoints  = [{ x: tx, y: ty }];
+    S.pendingQid = null;
+    if (!S.moving) {
+      S.moving   = true;
+      S.lastTime = null;
+      S.raf      = requestAnimationFrame(tick);
+    }
+  }
+
+  /* Dice roll — exposed globally */
+  const DICE_DIRS = ['N', 'S', 'E', 'W'];
+  const DICE_STEP = 8; // % per step
+  window.aweDiceRoll = function() {
+    if (S.paused || S.moving) return;
+    if (diceBtn) { diceBtn.disabled = true; diceBtn.classList.add('rolling'); }
+    setTimeout(() => {
+      if (diceBtn) { diceBtn.classList.remove('rolling'); }
+      const dir   = DICE_DIRS[Math.floor(Math.random() * 4)];
+      const steps = Math.floor(Math.random() * 6) + 1;
+      const dist  = steps * DICE_STEP;
+      let tx = S.pos.x, ty = S.pos.y;
+      if (dir === 'N') ty = Math.max(5,  ty - dist);
+      if (dir === 'S') ty = Math.min(95, ty + dist);
+      if (dir === 'E') tx = Math.min(95, tx + dist);
+      if (dir === 'W') tx = Math.max(5,  tx - dist);
+      const arrows = { N:'↑北', S:'↓南', E:'→東', W:'←西' };
+      // Show result in button label
+      const lbl = diceBtn ? diceBtn.querySelector('.dice-label') : null;
+      if (lbl) lbl.textContent = `${arrows[dir]} × ${steps} 步`;
+      moveDirect(tx, ty);
+    }, 500);
+  };
+
   function tick(ts) {
     if (!S.lastTime) S.lastTime = ts;
     const dt = Math.min((ts - S.lastTime) / 1000, 0.1);
@@ -1229,6 +1259,14 @@ function renderEvents() {
     if (S.waypoints.length === 0) {
       S.moving = false;
       charEl.classList.remove('moving');
+      updateDOM(); // re-enable dice button
+      // Restore dice label after short delay
+      if (diceBtn) {
+        const lbl = diceBtn.querySelector('.dice-label');
+        if (lbl && lbl.textContent !== '擲骰子') {
+          setTimeout(() => { if (lbl) lbl.textContent = '擲骰子'; }, 1200);
+        }
+      }
       if (S.pendingQid) {
         const qid  = S.pendingQid;
         S.pendingQid = null;
@@ -1265,13 +1303,20 @@ function renderEvents() {
       if (!S.active.has(c.id)) continue;
       const dx = c.x - S.pos.x;
       const dy = (c.y - S.pos.y) * ASPECT;
-      if (Math.sqrt(dx * dx + dy * dy) < ENC_R) { showCard(c); break; }
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      // If answered wrong recently, clear suppression only once far enough away
+      if (S.recentWrong.has(c.id)) {
+        if (dist > ENC_R * 3) S.recentWrong.delete(c.id);
+        continue;
+      }
+      if (dist < ENC_R) { showCard(c); break; }
     }
   }
 
   function showCard(card) {
     S.paused = true;
     charEl.classList.remove('moving');
+    if (cmImg) cmImg.src       = card.img || '';
     cmFact.textContent         = card.fact;
     cmResult.textContent       = '';
     cmResult.className         = 'cm-result hidden';
@@ -1286,11 +1331,10 @@ function renderEvents() {
     if (correct) {
       S.collected.add(card.id);
       S.active.delete(card.id);
-      const dot = document.getElementById('enc-' + card.id);
-      if (dot) dot.classList.add('collected');
       cmResult.textContent = '🎉 正確！卡片收藏成功';
       cmResult.className   = 'cm-result correct';
     } else {
+      S.recentWrong.add(card.id); // suppress re-trigger until a-we walks away
       cmResult.textContent = '❌ 答錯了，下次路過再試試！';
       cmResult.className   = 'cm-result wrong';
     }
@@ -1313,6 +1357,7 @@ function renderEvents() {
     charEl.style.top  = S.pos.y + '%';
     spriteEl.src = 'images/awe-' + S.dir + '.png';
     charEl.classList.toggle('moving', S.moving && !S.paused);
+    if (diceBtn) diceBtn.disabled = S.moving || S.paused;
   }
 
   function updateCounter() {

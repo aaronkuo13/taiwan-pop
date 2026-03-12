@@ -210,6 +210,12 @@
           </div>
         </div>
 
+        <!-- Floating dice button over map -->
+        <button id="diceBtn" class="dice-btn" onclick="aweDiceRoll()">
+          <span class="dice-icon">🎲</span>
+          <span class="dice-label">擲骰子</span>
+        </button>
+
         <!-- Progress footer -->
         <div class="map-footer">
           <div class="map-footer-dots" id="mapFooterDots"></div>
@@ -367,7 +373,16 @@
   <!-- ======= KNOWLEDGE CARD MODAL ======= -->
   <div id="cardModal" class="card-modal hidden">
     <div class="card-box">
-      <div class="card-icon">✨</div>
+      <div class="card-header">
+        <span class="card-header-icon">🎲</span>
+        <div>
+          <div class="card-header-title">隨機事件！</div>
+          <div class="card-header-sub">回答問題，收集這張知識卡</div>
+        </div>
+      </div>
+      <div class="card-img-wrap">
+        <img id="cmImg" src="" alt="知識卡圖片" class="card-img">
+      </div>
       <p id="cmFact" class="card-fact"></p>
       <div class="card-choices">
         <button class="card-btn card-true"  onclick="aweAnswer(true)">○ 正確</button>
