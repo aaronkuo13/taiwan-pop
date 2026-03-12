@@ -9,7 +9,7 @@ const LANG = {
   zh: {
     /* Navbar */
     'nav-news':'最新消息','nav-events':'七大活動','nav-discover':'文化探索',
-    'nav-calendar':'行事曆','nav-gallery':'活動花絮','nav-contact':'聯絡我們',
+    'nav-calendar':'行事曆','nav-contact':'聯絡我們',
     /* Banner */
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
     'btn-explore':'探索活動','btn-news':'最新消息',
@@ -41,14 +41,11 @@ const LANG = {
     'sec-cal-title':'活動行事曆',
     'sec-cal-sub':'掌握所有活動日期，提前規劃您的參與計畫',
     'cal-upcoming-h':'近期活動','cal-legend':'活動日期','cal-no-events':'暫無近期活動',
-    /* Gallery */
-    'sec-gallery-title':'活動花絮',
-    'sec-gallery-sub':'回顧精彩活動瞬間，感受 Taiwan Pop 的無限活力',
     /* Footer */
     'footer-desc':'Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
     'footer-links-h':'快速連結','footer-contact-h':'聯絡資訊',
     'footer-news':'最新消息','footer-events':'七大活動','footer-discover':'文化探索',
-    'footer-cal':'行事曆','footer-gallery':'活動花絮','footer-hours':'週一至週五 09:00–18:00 (TST)',
+    'footer-cal':'行事曆','footer-hours':'週一至週五 09:00–18:00 (TST)',
     /* Map Pins */
     'pin-1':'林懷民講座','pin-2':'NSO × 泰武古謠','pin-3':'布希維克街頭藝術節',
     'pin-4':'臺灣主題影展','pin-5':'紐約同志大遊行','pin-6':'翃舞製作','pin-7':'Taiwanese Waves',
@@ -76,7 +73,7 @@ const LANG = {
   en: {
     /* Navbar */
     'nav-news':'News','nav-events':'Events','nav-discover':'Discover',
-    'nav-calendar':'Calendar','nav-gallery':'Gallery','nav-contact':'Contact',
+    'nav-calendar':'Calendar','nav-contact':'Contact',
     /* Banner */
     'banner-sub':'Taiwan Ministry of Culture × NYC Dept. of Cultural Affairs<br>Seven Cultural Events, New York 2026',
     'btn-explore':'Explore Events','btn-news':'Latest News',
@@ -108,14 +105,11 @@ const LANG = {
     'sec-cal-title':'Event Calendar',
     'sec-cal-sub':'Mark your calendar and plan your visit in advance',
     'cal-upcoming-h':'Upcoming Events','cal-legend':'Event Date','cal-no-events':'No upcoming events',
-    /* Gallery */
-    'sec-gallery-title':'Gallery',
-    'sec-gallery-sub':'Relive the highlights and feel the energy of Taiwan Pop',
     /* Footer */
     'footer-desc':'Taiwan Pop is an annual cultural exchange program by the Taiwan Ministry of Culture and NYC Dept. of Cultural Affairs, showcasing Taiwan to the world through seven arts events.',
     'footer-links-h':'Quick Links','footer-contact-h':'Contact',
     'footer-news':'News','footer-events':'Events','footer-discover':'Discover',
-    'footer-cal':'Calendar','footer-gallery':'Gallery','footer-hours':'Mon–Fri 09:00–18:00 (TST)',
+    'footer-cal':'Calendar','footer-hours':'Mon–Fri 09:00–18:00 (TST)',
     /* Map Pins */
     'pin-1':'Lin Hwai-min Lecture','pin-2':'NSO × Taiwu Ballads','pin-3':'Bushwick Street Art Festival',
     'pin-4':'Taiwan Film Festival','pin-5':'NYC Pride March','pin-6':'H·Art·Ch Dance','pin-7':'Taiwanese Waves',
@@ -746,7 +740,7 @@ function renderEvents() {
   document.head.appendChild(style);
 
   const targets = document.querySelectorAll(
-    '.article-card, .event-card, .gallery-item, .upcoming-item, .calendar-box, .upcoming-box'
+    '.article-card, .event-card, .upcoming-item, .calendar-box, .upcoming-box'
   );
 
   targets.forEach((el, i) => {
