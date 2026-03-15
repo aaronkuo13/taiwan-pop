@@ -1132,6 +1132,521 @@ function renderEvents() {
   applyCompleted();
 })();
 
+/* ---------- Board Game 文化大富翁 ---------- */
+(function initBoardGame() {
+
+  /* ── 常數 ── */
+  const TOTAL_LAPS  = 3;
+  const CPU_HIT_RATE = 0.6; // 電腦答對率
+
+  /* ── 36格棋盤定義 ── */
+  const SPACES = [
+    { type:'start',     label:'出發點',   icon:'🏁' },
+    { type:'zone',      zone:'lin-hwai-min', qIdx:0, label:'林懷民①', icon:'🎭' },
+    { type:'zone',      zone:'lin-hwai-min', qIdx:1, label:'林懷民②', icon:'🎭' },
+    { type:'zone',      zone:'lin-hwai-min', qIdx:2, label:'林懷民③', icon:'🎭' },
+    { type:'chance',    label:'機會',     icon:'🎴' },
+    { type:'zone',      zone:'nso-paiwan', qIdx:0, label:'NSO①',   icon:'🎵' },
+    { type:'zone',      zone:'nso-paiwan', qIdx:1, label:'NSO②',   icon:'🎵' },
+    { type:'zone',      zone:'nso-paiwan', qIdx:2, label:'NSO③',   icon:'🎵' },
+    { type:'fate',      label:'命運',     icon:'💀' },
+    { type:'zone',      zone:'bushwick', qIdx:0, label:'布希維克①', icon:'🎨' },
+    { type:'zone',      zone:'bushwick', qIdx:1, label:'布希維克②', icon:'🎨' },
+    { type:'zone',      zone:'bushwick', qIdx:2, label:'布希維克③', icon:'🎨' },
+    { type:'rest',      label:'休息',     icon:'😴' },
+    { type:'zone',      zone:'film', qIdx:0, label:'影展①',   icon:'🎬' },
+    { type:'zone',      zone:'film', qIdx:1, label:'影展②',   icon:'🎬' },
+    { type:'zone',      zone:'film', qIdx:2, label:'影展③',   icon:'🎬' },
+    { type:'chance',    label:'機會',     icon:'🎴' },
+    { type:'knowledge', kIdx:0, label:'知識①',   icon:'❓' },
+    { type:'zone',      zone:'pride', qIdx:0, label:'同志①',   icon:'🌈' },
+    { type:'zone',      zone:'pride', qIdx:1, label:'同志②',   icon:'🌈' },
+    { type:'zone',      zone:'pride', qIdx:2, label:'同志③',   icon:'🌈' },
+    { type:'fate',      label:'命運',     icon:'💀' },
+    { type:'zone',      zone:'horse', qIdx:0, label:'翃舞①',   icon:'💃' },
+    { type:'zone',      zone:'horse', qIdx:1, label:'翃舞②',   icon:'💃' },
+    { type:'zone',      zone:'horse', qIdx:2, label:'翃舞③',   icon:'💃' },
+    { type:'rest',      label:'休息',     icon:'😴' },
+    { type:'knowledge', kIdx:1, label:'知識②',   icon:'❓' },
+    { type:'zone',      zone:'summerstage', qIdx:0, label:'舞台①',  icon:'🌙' },
+    { type:'zone',      zone:'summerstage', qIdx:1, label:'舞台②',  icon:'🌙' },
+    { type:'zone',      zone:'summerstage', qIdx:2, label:'舞台③',  icon:'🌙' },
+    { type:'chance',    label:'機會',     icon:'🎴' },
+    { type:'knowledge', kIdx:2, label:'知識③',   icon:'❓' },
+    { type:'fate',      label:'命運',     icon:'💀' },
+    { type:'knowledge', kIdx:3, label:'知識④',   icon:'❓' },
+    { type:'chance',    label:'機會',     icon:'🎴' },
+    { type:'fate',      label:'命運',     icon:'💀' },
+  ];
+
+  /* ── 知識問答 (4題，從GAME_DATA各主題剩餘題目取) ── */
+  const KNOWLEDGE_QS = [
+    GAME_DATA['lin-hwai-min'].questions[3],   // 書法太極
+    GAME_DATA['nso-paiwan'].questions[3],     // 布農族祈禱小米豐收歌
+    GAME_DATA['horse'].questions[3],          // 兩廳院名稱
+    GAME_DATA['pride'].questions[3],          // 西門町LGBTQ+
+  ];
+
+  /* ── 機會牌 (12張) ── */
+  const CHANCE_CARDS = [
+    { text:'你在社群分享 Taiwan Pop，演算法大爆發！', effect:'前進 3 格', fn: p => moveBy(p, 3) },
+    { text:'林懷民大師親自指導你的步伐！',           effect:'前進 2 格', fn: p => moveBy(p, 2) },
+    { text:'發現台灣小吃攤，精力充沛！',             effect:'再骰一次',  fn: p => grantExtraRoll(p) },
+    { text:'雲門舞集表演票抽中啦！',                 effect:'前進 4 格', fn: p => moveBy(p, 4) },
+    { text:'台灣觀光局贊助旅費！',                   effect:'前進 2 格', fn: p => moveBy(p, 2) },
+    { text:'遇到同鄉台灣人互相打氣！',               effect:'再骰一次',  fn: p => grantExtraRoll(p) },
+    { text:'在中央公園遇到好心紐約客帶路',           effect:'前進 1 格', fn: p => moveBy(p, 1) },
+    { text:'意外成為 Taiwan Pop 網紅代言人！',        effect:'前進 3 格', fn: p => moveBy(p, 3) },
+    { text:'台灣外交部特別招待，搭頭等艙回出發點！', effect:'移動到出發點', fn: p => moveToStart(p) },
+    { text:'紐約地鐵嚴重延誤',                       effect:'後退 2 格', fn: p => moveBy(p, -2) },
+    { text:'路過珍珠奶茶店，買了一杯慢慢喝',         effect:'無事，繼續走', fn: () => {} },
+    { text:'收到 SummerStage 貴賓票，直奔現場！',    effect:'前進 3 格', fn: p => moveBy(p, 3) },
+  ];
+
+  /* ── 命運牌 (12張) ── */
+  const FATE_CARDS = [
+    { text:'護照忘在旅館，跑回去拿',               effect:'後退 3 格', fn: p => moveBy(p, -3) },
+    { text:'踩到紐約口香糖，鞋子黏住了',           effect:'停一回合',  fn: p => setSkip(p) },
+    { text:'搞錯地鐵方向，坐到終點站',             effect:'後退 4 格', fn: p => moveBy(p, -4) },
+    { text:'行李太重，走路超慢',                   effect:'後退 2 格', fn: p => moveBy(p, -2) },
+    { text:'遇上紐約暴雨，忘了帶傘',               effect:'後退 1 格', fn: p => moveBy(p, -1) },
+    { text:'時差太嚴重，在 Central Park 長椅睡著', effect:'停一回合',  fn: p => setSkip(p) },
+    { text:'被紐約街頭藝人邀請上台跳舞，耽誤時間', effect:'後退 2 格', fn: p => moveBy(p, -2) },
+    { text:'台灣媒體採訪你對活動的感想！',         effect:'前進 2 格', fn: p => moveBy(p, 2) },
+    { text:'意外接受 CNN 採訪，介紹台灣文化！',    effect:'前進 3 格', fn: p => moveBy(p, 3) },
+    { text:'找到一張 Carnegie Hall 掉落的貴賓券！',effect:'前進 2 格', fn: p => moveBy(p, 2) },
+    { text:'介紹台灣食物讓美國朋友大讚！',         effect:'前進 1 格', fn: p => moveBy(p, 1) },
+    { text:'成功在 Bushwick 留下一幅塗鴉留念！',   effect:'前進 2 格', fn: p => moveBy(p, 2) },
+  ];
+
+  /* ── 遊戲狀態 ── */
+  const G = {
+    players: [
+      { id:'human', name:'玩家',  icon:'🎒', pos:0, laps:0, skip:false },
+      { id:'cpu',   name:'小丸子',icon:'🤖', pos:0, laps:0, skip:false },
+    ],
+    turn:       0,        // 0=human, 1=cpu
+    phase:      'roll',   // roll | question | card | cpu | gameover
+    extraRoll:  false,
+    chancePool: shuffle([...Array(12).keys()]),
+    fatePool:   shuffle([...Array(12).keys()]),
+    prevPos:    [0, 0],   // position before last move (for rollback on wrong answer)
+  };
+
+  /* ── DOM refs ── */
+  const boardEl      = document.getElementById('bgBoard');
+  const diceBtnEl    = document.getElementById('bgDiceBtn');
+  const diceLabelEl  = document.getElementById('bgDiceLabel');
+  const diceIconEl   = document.getElementById('bgDiceIcon');
+  const diceResultEl = document.getElementById('bgDiceResult');
+  const turnMsgEl    = document.getElementById('bgTurnMsg');
+  const qModal       = document.getElementById('bgQuestionModal');
+  const qZone        = document.getElementById('bgQZone');
+  const qText        = document.getElementById('bgQText');
+  const qOpts        = document.getElementById('bgQOpts');
+  const qResult      = document.getElementById('bgQResult');
+  const qNext        = document.getElementById('bgQNext');
+  const cardModal    = document.getElementById('bgCardModal');
+  const cardBox      = document.getElementById('bgCardBox');
+  const cardType     = document.getElementById('bgCardType');
+  const cardText     = document.getElementById('bgCardText');
+  const cardEffect   = document.getElementById('bgCardEffect');
+  const winModal     = document.getElementById('bgWinModal');
+
+  if (!boardEl) return;
+
+  /* ── Build board: calculate oval positions for 36 spaces ── */
+  const BW = boardEl.offsetWidth  || 680;
+  const BH = boardEl.offsetHeight || 440;
+  const cx = BW / 2, cy = BH / 2;
+  const rx = BW * 0.44, ry = BH * 0.40;
+
+  // Draw SVG track ellipse
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('class','bg-track-svg');
+  svg.setAttribute('viewBox',`0 0 ${BW} ${BH}`);
+  const ellipse = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+  ellipse.setAttribute('cx', cx); ellipse.setAttribute('cy', cy);
+  ellipse.setAttribute('rx', rx); ellipse.setAttribute('ry', ry);
+  ellipse.setAttribute('fill','none');
+  ellipse.setAttribute('stroke','rgba(255,255,255,.12)');
+  ellipse.setAttribute('stroke-width','2');
+  ellipse.setAttribute('stroke-dasharray','6 4');
+  svg.appendChild(ellipse);
+  boardEl.appendChild(svg);
+
+  // Place spaces
+  const spaceEls = SPACES.map((sp, i) => {
+    const angle = (i / SPACES.length) * 2 * Math.PI - Math.PI / 2;
+    const x = cx + rx * Math.cos(angle);
+    const y = cy + ry * Math.sin(angle);
+
+    const el = document.createElement('div');
+    el.className = 'bg-space bg-space--' + sp.type;
+    if (sp.zone) el.dataset.zone = sp.zone;
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+    el.innerHTML  = `<span class="bg-space-icon">${sp.icon}</span><span class="bg-space-num">${i}</span>`;
+    el.title = sp.label;
+    boardEl.appendChild(el);
+    return { el, x, y };
+  });
+
+  // Place player pieces
+  const pieceEls = G.players.map(p => {
+    const piece = document.createElement('div');
+    piece.className = `bg-piece bg-piece--${p.id}`;
+    piece.textContent = p.icon;
+    boardEl.appendChild(piece);
+    return piece;
+  });
+  updatePieces();
+
+  /* ── Helpers ── */
+  function spacePos(idx) { return spaceEls[idx]; }
+
+  function updatePieces() {
+    G.players.forEach((p, i) => {
+      const sp = spacePos(p.pos);
+      pieceEls[i].style.left = sp.x + 'px';
+      pieceEls[i].style.top  = sp.y + 'px';
+    });
+  }
+
+  function updateStatusBar() {
+    document.getElementById('bgPlayerPos').textContent  = G.players[0].pos;
+    document.getElementById('bgPlayerLaps').textContent = G.players[0].laps;
+    document.getElementById('bgCpuPos').textContent     = G.players[1].pos;
+    document.getElementById('bgCpuLaps').textContent    = G.players[1].laps;
+  }
+
+  function setTurnMsg(msg) { if (turnMsgEl) turnMsgEl.textContent = msg; }
+  function setDiceResult(txt) { if (diceResultEl) diceResultEl.textContent = txt; }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function drawCard(pool, deck) {
+    if (pool.length === 0) pool.push(...shuffle([...Array(deck.length).keys()]));
+    return deck[pool.shift()];
+  }
+
+  function advancePos(player, steps) {
+    const prev = player.pos;
+    let next = (prev + steps + SPACES.length) % SPACES.length;
+    // Count laps: each time pos wraps past 0
+    if (steps > 0) {
+      const raw = prev + steps;
+      const lapsGained = Math.floor(raw / SPACES.length);
+      if (lapsGained > 0) {
+        player.laps += lapsGained;
+        if (player.laps >= TOTAL_LAPS) { player.pos = next; return true; } // win!
+      }
+    }
+    player.pos = next;
+    return false;
+  }
+
+  /* ── Card effect helpers ── */
+  function moveBy(playerIdx, steps) {
+    const p = G.players[playerIdx];
+    const won = advancePos(p, steps);
+    updatePieces();
+    updateStatusBar();
+    if (won) { setTimeout(() => showWin(playerIdx), 600); }
+  }
+
+  function moveToStart(playerIdx) {
+    const p = G.players[playerIdx];
+    if (p.pos !== 0) { p.laps += 1; }
+    p.pos = 0;
+    if (p.laps >= TOTAL_LAPS) { updatePieces(); updateStatusBar(); setTimeout(() => showWin(playerIdx), 600); return; }
+    updatePieces();
+    updateStatusBar();
+  }
+
+  function grantExtraRoll(playerIdx) {
+    if (playerIdx === 0) { G.extraRoll = true; }
+  }
+
+  function setSkip(playerIdx) { G.players[playerIdx].skip = true; }
+
+  /* ── Roll dice ── */
+  window.bgRollDice = function() {
+    if (G.phase !== 'roll') return;
+    if (diceBtnEl) { diceBtnEl.disabled = true; diceBtnEl.classList.add('rolling'); }
+    setTimeout(() => {
+      if (diceBtnEl) diceBtnEl.classList.remove('rolling');
+      const roll = Math.floor(Math.random() * 6) + 1;
+      setDiceResult(`🎲 ${roll}`);
+      diceLabelEl.textContent = roll + ' 步';
+      doMove(0, roll);
+    }, 500);
+  };
+
+  function doMove(playerIdx, roll) {
+    const p  = G.players[playerIdx];
+    G.prevPos[playerIdx] = p.pos;
+    const won = advancePos(p, roll);
+    updatePieces();
+    updateStatusBar();
+
+    if (won) { setTimeout(() => showWin(playerIdx), 600); return; }
+
+    const sp = SPACES[p.pos];
+    setTimeout(() => landOn(playerIdx, sp), 450);
+  }
+
+  function landOn(playerIdx, sp) {
+    switch (sp.type) {
+      case 'start':
+        endTurn(playerIdx);
+        break;
+      case 'rest':
+        setSkip(playerIdx);
+        setTurnMsg(playerIdx === 0 ? '😴 踩到休息格，下回合跳過' : '🤖 小丸子在休息...');
+        endTurn(playerIdx);
+        break;
+      case 'chance':
+        showCard(playerIdx, 'chance');
+        break;
+      case 'fate':
+        showCard(playerIdx, 'fate');
+        break;
+      case 'zone':
+      case 'knowledge':
+        showQuestion(playerIdx, sp);
+        break;
+      default:
+        endTurn(playerIdx);
+    }
+  }
+
+  /* ── Question ── */
+  function showQuestion(playerIdx, sp) {
+    G.phase = 'question';
+    let q;
+    if (sp.type === 'zone') {
+      q = GAME_DATA[sp.zone].questions[sp.qIdx];
+      const zd = GAME_DATA[sp.zone];
+      qZone.textContent = zd.emoji + ' ' + zd.title;
+      qZone.style.background = zd.colorLight;
+      qZone.style.color = zd.color;
+    } else {
+      q = KNOWLEDGE_QS[sp.kIdx];
+      qZone.textContent = '❓ 知識問答';
+      qZone.style.background = '#e6f7f4';
+      qZone.style.color = 'var(--primary)';
+    }
+
+    qText.textContent = q.q;
+    qOpts.innerHTML = '';
+    qResult.className = 'bg-modal-result hidden';
+    qResult.innerHTML = '';
+    qNext.className = 'bg-modal-next hidden';
+    qModal.classList.remove('hidden');
+
+    // Shuffle answer options (maintain correct index)
+    const indices = shuffle([0, 1, 2, 3]);
+    const correctOrigIdx = q.ans; // always 0 in GAME_DATA
+
+    if (playerIdx === 1) {
+      // CPU auto-answer
+      const willCorrect = Math.random() < CPU_HIT_RATE;
+      const chosenIdx = willCorrect ? correctOrigIdx : (correctOrigIdx + 1 + Math.floor(Math.random() * 3)) % 4;
+      indices.forEach((origIdx, pos) => {
+        const btn = document.createElement('button');
+        btn.className = 'bg-opt-btn';
+        btn.textContent = q.opts[origIdx];
+        btn.disabled = true;
+        qOpts.appendChild(btn);
+      });
+      setTurnMsg('🤖 小丸子思考中...');
+      setTimeout(() => {
+        const isCorrect = (chosenIdx === correctOrigIdx);
+        const displayPos = indices.indexOf(chosenIdx);
+        qOpts.children[displayPos].classList.add(isCorrect ? 'correct' : 'wrong');
+        handleAnswer(playerIdx, isCorrect, q);
+      }, 1500);
+    } else {
+      indices.forEach(origIdx => {
+        const btn = document.createElement('button');
+        btn.className = 'bg-opt-btn';
+        btn.textContent = q.opts[origIdx];
+        btn.onclick = () => {
+          Array.from(qOpts.children).forEach(b => b.disabled = true);
+          const isCorrect = (origIdx === correctOrigIdx);
+          btn.classList.add(isCorrect ? 'correct' : 'wrong');
+          handleAnswer(playerIdx, isCorrect, q);
+        };
+        qOpts.appendChild(btn);
+      });
+    }
+  }
+
+  function handleAnswer(playerIdx, isCorrect, q) {
+    if (isCorrect) {
+      qResult.className = 'bg-modal-result correct';
+      qResult.innerHTML = `✅ 答對了！<br><small>${q.fact}</small>`;
+    } else {
+      qResult.className = 'bg-modal-result wrong';
+      qResult.innerHTML = `❌ 答錯了！正確答案是「${q.opts[q.ans]}」<br><small>${q.fact}</small>`;
+      // Roll back position
+      G.players[playerIdx].pos = G.prevPos[playerIdx];
+      // If laps were gained on this move, subtract them back
+      // (simple: just recalc - since we only move forward by dice roll 1-6, max 1 lap gained)
+      updatePieces();
+      updateStatusBar();
+    }
+    qNext.className = 'bg-modal-next';
+    qNext.dataset.player = playerIdx;
+    qNext.dataset.correct = isCorrect ? '1' : '0';
+  }
+
+  window.bgQuestionDone = function() {
+    qModal.classList.add('hidden');
+    G.phase = 'roll';
+    endTurn(parseInt(qNext.dataset.player));
+  };
+
+  /* ── Chance / Fate Card ── */
+  function showCard(playerIdx, type) {
+    G.phase = 'card';
+    const card = type === 'chance'
+      ? drawCard(G.chancePool, CHANCE_CARDS)
+      : drawCard(G.fatePool,   FATE_CARDS);
+
+    cardBox.className = `bg-card-box bg-card-box--${type}`;
+    cardType.textContent  = type === 'chance' ? '🎴 機會！' : '💀 命運！';
+    cardText.textContent  = card.text;
+    cardEffect.textContent = '→ ' + card.effect;
+    cardModal.classList.remove('hidden');
+
+    cardModal.dataset.player = playerIdx;
+    cardModal.dataset.fn = JSON.stringify({ type, text: card.text, effect: card.effect });
+    // Store fn reference
+    cardModal._pendingFn = () => card.fn(playerIdx);
+  }
+
+  window.bgCardDone = function() {
+    cardModal.classList.add('hidden');
+    const playerIdx = parseInt(cardModal.dataset.player);
+    if (cardModal._pendingFn) { cardModal._pendingFn(); cardModal._pendingFn = null; }
+    G.phase = 'roll';
+    // Check win after card effect
+    if (G.players[playerIdx].laps >= TOTAL_LAPS) {
+      setTimeout(() => showWin(playerIdx), 300);
+      return;
+    }
+    if (!G.extraRoll) {
+      endTurn(playerIdx);
+    } else {
+      G.extraRoll = false;
+      enableRoll();
+    }
+  };
+
+  /* ── End turn / CPU turn ── */
+  function endTurn(playerIdx) {
+    if (G.phase === 'gameover') return;
+    if (G.extraRoll && playerIdx === 0) {
+      G.extraRoll = false;
+      setTurnMsg('🎲 再骰一次！');
+      enableRoll();
+      return;
+    }
+    G.turn = playerIdx === 0 ? 1 : 0;
+    if (G.turn === 1) {
+      setTurnMsg('🤖 小丸子的回合...');
+      setDiceResult('');
+      if (diceBtnEl) diceBtnEl.disabled = true;
+      setTimeout(cpuTurn, 1200);
+    } else {
+      if (G.players[0].skip) {
+        G.players[0].skip = false;
+        setTurnMsg('😴 你在休息，跳過本回合');
+        setTimeout(() => endTurn(0), 1500);
+      } else {
+        enableRoll();
+      }
+    }
+  }
+
+  function enableRoll() {
+    G.phase = 'roll';
+    G.turn  = 0;
+    setTurnMsg('輪到你了！');
+    diceLabelEl.textContent = '擲骰子';
+    if (diceBtnEl) diceBtnEl.disabled = false;
+  }
+
+  function cpuTurn() {
+    if (G.phase === 'gameover') return;
+    if (G.players[1].skip) {
+      G.players[1].skip = false;
+      setTurnMsg('🤖 小丸子在休息...');
+      setTimeout(() => endTurn(1), 1200);
+      return;
+    }
+    const roll = Math.floor(Math.random() * 6) + 1;
+    setDiceResult(`🎲 ${roll}`);
+    setTurnMsg(`🤖 小丸子擲出 ${roll} 步`);
+    G.phase = 'cpu';
+    setTimeout(() => doMove(1, roll), 800);
+  }
+
+  /* ── Win ── */
+  function showWin(playerIdx) {
+    G.phase = 'gameover';
+    const isHuman = playerIdx === 0;
+    winModal.classList.remove('hidden');
+    document.getElementById('bgWinIcon').textContent  = isHuman ? '🎉' : '🤖';
+    document.getElementById('bgWinTitle').textContent = isHuman ? '恭喜你獲勝！' : '小丸子獲勝！';
+    document.getElementById('bgWinSub').textContent   = isHuman
+      ? '你成功繞行紐約三圈，探索了所有台灣文化活動！'
+      : '別氣餒，再試一次讓你更了解台灣文化！';
+    // Confetti
+    const container = document.getElementById('bgWinConfetti');
+    container.innerHTML = '';
+    const colors = ['#FF4D75','#008F7A','#FFD700','#FF6B35','#A8E6CF'];
+    for (let i = 0; i < 60; i++) {
+      const d = document.createElement('div');
+      d.className = 'confetti-piece';
+      d.style.cssText =
+        `left:${(Math.random()*100).toFixed(1)}%;` +
+        `background:${colors[i%colors.length]};` +
+        `animation-delay:${(Math.random()*1.5).toFixed(2)}s;` +
+        `animation-duration:${(2+Math.random()*2).toFixed(2)}s;` +
+        `width:${(6+Math.random()*8).toFixed(0)}px;height:${(6+Math.random()*8).toFixed(0)}px;`;
+      container.appendChild(d);
+    }
+  }
+
+  window.bgRestart = function() {
+    winModal.classList.add('hidden');
+    G.players.forEach(p => { p.pos = 0; p.laps = 0; p.skip = false; });
+    G.turn      = 0;
+    G.extraRoll = false;
+    G.chancePool = shuffle([...Array(12).keys()]);
+    G.fatePool   = shuffle([...Array(12).keys()]);
+    G.prevPos    = [0, 0];
+    updatePieces();
+    updateStatusBar();
+    setDiceResult('');
+    enableRoll();
+  };
+
+  /* ── Init ── */
+  updateStatusBar();
+  enableRoll();
+
+})();
+
 /* ---------- A-WE Character System ---------- */
 (function initAwe() {
   const AWE_SPEED = 10;        // % map-width per second

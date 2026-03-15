@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Taiwan Pop — 台灣文化部 × 紐約文化局合作計畫，2026 年七大精彩活動在紐約登場">
   <title>Taiwan Pop — Taiwan × New York 2026</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -137,6 +137,88 @@
       <div class="events-grid"></div>
     </div>
   </section>
+
+  <!-- ======= BOARD GAME ======= -->
+  <section id="board-game" class="section section-dark">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">GAME</span>
+        <h2 class="section-title">文化大富翁</h2>
+        <p class="section-sub">擲骰子環遊紐約，探索台灣文化！先完成三圈獲勝</p>
+      </div>
+
+      <!-- Status bar -->
+      <div class="bg-status-bar">
+        <div class="bg-player-card bg-player-card--human">
+          <span class="bg-pc-icon">🎒</span>
+          <div class="bg-pc-info">
+            <span class="bg-pc-name">玩家</span>
+            <span class="bg-pc-lap">第 <strong id="bgPlayerLaps">0</strong> / 3 圈</span>
+          </div>
+          <span class="bg-pc-pos">格 <strong id="bgPlayerPos">0</strong></span>
+        </div>
+        <div class="bg-status-center">
+          <div id="bgTurnMsg" class="bg-turn-msg">輪到你了！</div>
+          <div id="bgDiceResult" class="bg-dice-result-display"></div>
+        </div>
+        <div class="bg-player-card bg-player-card--cpu">
+          <span class="bg-pc-icon">🤖</span>
+          <div class="bg-pc-info">
+            <span class="bg-pc-name">小丸子</span>
+            <span class="bg-pc-lap">第 <strong id="bgCpuLaps">0</strong> / 3 圈</span>
+          </div>
+          <span class="bg-pc-pos">格 <strong id="bgCpuPos">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Board -->
+      <div class="bg-board-wrap">
+        <div class="bg-board" id="bgBoard">
+          <!-- spaces and pieces injected by JS -->
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="bg-controls">
+        <button id="bgDiceBtn" class="bg-dice-btn" onclick="bgRollDice()">
+          <span id="bgDiceIcon">🎲</span>
+          <span id="bgDiceLabel">擲骰子</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= BG: Question Modal ======= -->
+  <div id="bgQuestionModal" class="bg-modal hidden" role="dialog">
+    <div class="bg-modal-box">
+      <div class="bg-modal-zone" id="bgQZone"></div>
+      <p class="bg-modal-q" id="bgQText"></p>
+      <div class="bg-modal-opts" id="bgQOpts"></div>
+      <div class="bg-modal-result hidden" id="bgQResult"></div>
+      <button class="bg-modal-next hidden" id="bgQNext" onclick="bgQuestionDone()">繼續 →</button>
+    </div>
+  </div>
+
+  <!-- ======= BG: Chance / Fate Card Modal ======= -->
+  <div id="bgCardModal" class="bg-modal hidden" role="dialog">
+    <div class="bg-card-box" id="bgCardBox">
+      <div class="bg-card-type" id="bgCardType"></div>
+      <p class="bg-card-text" id="bgCardText"></p>
+      <p class="bg-card-effect" id="bgCardEffect"></p>
+      <button class="bg-modal-next" onclick="bgCardDone()">確認</button>
+    </div>
+  </div>
+
+  <!-- ======= BG: Win Modal ======= -->
+  <div id="bgWinModal" class="bg-modal hidden" role="dialog">
+    <div class="bg-win-box">
+      <div class="bg-win-confetti" id="bgWinConfetti"></div>
+      <p class="bg-win-icon" id="bgWinIcon"></p>
+      <h2 class="bg-win-title" id="bgWinTitle"></h2>
+      <p class="bg-win-sub" id="bgWinSub"></p>
+      <button class="bg-dice-btn" onclick="bgRestart()">再玩一次 🎲</button>
+    </div>
+  </div>
 
   <!-- ======= DISCOVER: NYC MAP QUIZ ======= -->
   <section id="quiz" class="section section-dark">
@@ -403,6 +485,6 @@
     </div>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>
