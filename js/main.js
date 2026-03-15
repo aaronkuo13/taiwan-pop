@@ -1136,108 +1136,154 @@ function renderEvents() {
 (function initBoardGame() {
 
   /* ── 常數 ── */
-  const TOTAL_LAPS  = 3;
-  const CPU_HIT_RATE = 0.6; // 電腦答對率
+  const TOTAL_LAPS        = 3;
+  const CPU_HIT_RATE_NORM = 0.50;
+  const CPU_HIT_RATE_SEEN = 0.80;
 
-  /* ── 36格棋盤定義 ── */
+  /* ── 40格棋盤定義 ── */
   const SPACES = [
-    { type:'start',     label:'出發點',   icon:'🏁' },
-    { type:'zone',      zone:'lin-hwai-min', qIdx:0, label:'林懷民①', icon:'🎭' },
-    { type:'zone',      zone:'lin-hwai-min', qIdx:1, label:'林懷民②', icon:'🎭' },
-    { type:'zone',      zone:'lin-hwai-min', qIdx:2, label:'林懷民③', icon:'🎭' },
-    { type:'chance',    label:'機會',     icon:'🎴' },
-    { type:'zone',      zone:'nso-paiwan', qIdx:0, label:'NSO①',   icon:'🎵' },
-    { type:'zone',      zone:'nso-paiwan', qIdx:1, label:'NSO②',   icon:'🎵' },
-    { type:'zone',      zone:'nso-paiwan', qIdx:2, label:'NSO③',   icon:'🎵' },
-    { type:'fate',      label:'命運',     icon:'💀' },
-    { type:'zone',      zone:'bushwick', qIdx:0, label:'布希維克①', icon:'🎨' },
-    { type:'zone',      zone:'bushwick', qIdx:1, label:'布希維克②', icon:'🎨' },
-    { type:'zone',      zone:'bushwick', qIdx:2, label:'布希維克③', icon:'🎨' },
-    { type:'rest',      label:'休息',     icon:'😴' },
-    { type:'zone',      zone:'film', qIdx:0, label:'影展①',   icon:'🎬' },
-    { type:'zone',      zone:'film', qIdx:1, label:'影展②',   icon:'🎬' },
-    { type:'zone',      zone:'film', qIdx:2, label:'影展③',   icon:'🎬' },
-    { type:'chance',    label:'機會',     icon:'🎴' },
-    { type:'knowledge', kIdx:0, label:'知識①',   icon:'❓' },
-    { type:'zone',      zone:'pride', qIdx:0, label:'同志①',   icon:'🌈' },
-    { type:'zone',      zone:'pride', qIdx:1, label:'同志②',   icon:'🌈' },
-    { type:'zone',      zone:'pride', qIdx:2, label:'同志③',   icon:'🌈' },
-    { type:'fate',      label:'命運',     icon:'💀' },
-    { type:'zone',      zone:'horse', qIdx:0, label:'翃舞①',   icon:'💃' },
-    { type:'zone',      zone:'horse', qIdx:1, label:'翃舞②',   icon:'💃' },
-    { type:'zone',      zone:'horse', qIdx:2, label:'翃舞③',   icon:'💃' },
-    { type:'rest',      label:'休息',     icon:'😴' },
-    { type:'knowledge', kIdx:1, label:'知識②',   icon:'❓' },
-    { type:'zone',      zone:'summerstage', qIdx:0, label:'舞台①',  icon:'🌙' },
-    { type:'zone',      zone:'summerstage', qIdx:1, label:'舞台②',  icon:'🌙' },
-    { type:'zone',      zone:'summerstage', qIdx:2, label:'舞台③',  icon:'🌙' },
-    { type:'chance',    label:'機會',     icon:'🎴' },
-    { type:'knowledge', kIdx:2, label:'知識③',   icon:'❓' },
-    { type:'fate',      label:'命運',     icon:'💀' },
-    { type:'knowledge', kIdx:3, label:'知識④',   icon:'❓' },
-    { type:'chance',    label:'機會',     icon:'🎴' },
-    { type:'fate',      label:'命運',     icon:'💀' },
+    { type:'start',         label:'出發點',      icon:'🏁' },
+    { type:'zone', zone:'lin-hwai-min', qIdx:0, label:'林懷民①', icon:'🎭' },
+    { type:'zone', zone:'lin-hwai-min', qIdx:1, label:'林懷民②', icon:'🎭' },
+    { type:'zone', zone:'lin-hwai-min', qIdx:2, label:'林懷民③', icon:'🎭' },
+    { type:'chance',        label:'機會',        icon:'🎴' },
+    { type:'zone', zone:'nso-paiwan', qIdx:0,   label:'NSO①',    icon:'🎵' },
+    { type:'zone', zone:'nso-paiwan', qIdx:1,   label:'NSO②',    icon:'🎵' },
+    { type:'zone', zone:'nso-paiwan', qIdx:2,   label:'NSO③',    icon:'🎵' },
+    { type:'fate',          label:'命運',        icon:'💀' },
+    { type:'zone', zone:'bushwick', qIdx:0,     label:'布希維克①', icon:'🎨' },
+    { type:'zone', zone:'bushwick', qIdx:1,     label:'布希維克②', icon:'🎨' },
+    { type:'zone', zone:'bushwick', qIdx:2,     label:'布希維克③', icon:'🎨' },
+    { type:'corner-chance', label:'機會角',      icon:'🎴' },
+    { type:'free',          label:'免費通過',    icon:'🎁' },
+    { type:'zone', zone:'film', qIdx:0,         label:'影展①',   icon:'🎬' },
+    { type:'zone', zone:'film', qIdx:1,         label:'影展②',   icon:'🎬' },
+    { type:'zone', zone:'film', qIdx:2,         label:'影展③',   icon:'🎬' },
+    { type:'fate',          label:'命運',        icon:'💀' },
+    { type:'zone', zone:'pride', qIdx:0,        label:'同志①',   icon:'🌈' },
+    { type:'zone', zone:'pride', qIdx:1,        label:'同志②',   icon:'🌈' },
+    { type:'corner-fate',   label:'命運角',      icon:'💀' },
+    { type:'zone', zone:'pride', qIdx:2,        label:'同志③',   icon:'🌈' },
+    { type:'chance',        label:'機會',        icon:'🎴' },
+    { type:'zone', zone:'horse', qIdx:0,        label:'翃舞①',   icon:'💃' },
+    { type:'zone', zone:'horse', qIdx:1,        label:'翃舞②',   icon:'💃' },
+    { type:'zone', zone:'horse', qIdx:2,        label:'翃舞③',   icon:'💃' },
+    { type:'fate',          label:'命運',        icon:'💀' },
+    { type:'zone', zone:'summerstage', qIdx:0,  label:'舞台①',   icon:'🌙' },
+    { type:'zone', zone:'summerstage', qIdx:1,  label:'舞台②',   icon:'🌙' },
+    { type:'zone', zone:'summerstage', qIdx:2,  label:'舞台③',   icon:'🌙' },
+    { type:'rest',          label:'休息',        icon:'😴' },
+    { type:'free',          label:'免費通過',    icon:'🎁' },
+    { type:'corner-chance', label:'機會角',      icon:'🎴' },
+    { type:'fate',          label:'命運',        icon:'💀' },
+    { type:'free',          label:'免費通過',    icon:'🎁' },
+    { type:'rest',          label:'休息',        icon:'😴' },
+    { type:'free',          label:'免費通過',    icon:'🎁' },
+    { type:'chance',        label:'機會',        icon:'🎴' },
+    { type:'free',          label:'免費通過',    icon:'🎁' },
+    { type:'fate',          label:'命運',        icon:'💀' },
   ];
 
-  /* ── 知識問答 (4題，從GAME_DATA各主題剩餘題目取) ── */
-  const KNOWLEDGE_QS = [
-    GAME_DATA['lin-hwai-min'].questions[3],   // 書法太極
-    GAME_DATA['nso-paiwan'].questions[3],     // 布農族祈禱小米豐收歌
-    GAME_DATA['horse'].questions[3],          // 兩廳院名稱
-    GAME_DATA['pride'].questions[3],          // 西門町LGBTQ+
+  /* ── 矩形棋盤各格像素位置 (1080×760) ── */
+  /* l=left, t=top, w=width, h=height */
+  const RECTS = [
+    {l:  0, t:660, w:100, h:100}, // [0]  START (BL corner)
+    {l:100, t:660, w: 80, h:100}, // [1]  林懷民①
+    {l:180, t:660, w: 80, h:100}, // [2]  林懷民②
+    {l:260, t:660, w: 80, h:100}, // [3]  林懷民③
+    {l:340, t:660, w: 80, h:100}, // [4]  機會
+    {l:420, t:660, w: 80, h:100}, // [5]  NSO①
+    {l:500, t:660, w: 80, h:100}, // [6]  NSO②
+    {l:580, t:660, w: 80, h:100}, // [7]  NSO③
+    {l:660, t:660, w: 80, h:100}, // [8]  命運
+    {l:740, t:660, w: 80, h:100}, // [9]  布希維克①
+    {l:820, t:660, w: 80, h:100}, // [10] 布希維克②
+    {l:900, t:660, w: 80, h:100}, // [11] 布希維克③
+    {l:980, t:660, w:100, h:100}, // [12] 機會角 (BR corner)
+    {l:980, t:580, w:100, h: 80}, // [13] 免費通過
+    {l:980, t:500, w:100, h: 80}, // [14] 影展①
+    {l:980, t:420, w:100, h: 80}, // [15] 影展②
+    {l:980, t:340, w:100, h: 80}, // [16] 影展③
+    {l:980, t:260, w:100, h: 80}, // [17] 命運
+    {l:980, t:180, w:100, h: 80}, // [18] 同志①
+    {l:980, t:100, w:100, h: 80}, // [19] 同志②
+    {l:980, t:  0, w:100, h:100}, // [20] 命運角 (TR corner)
+    {l:900, t:  0, w: 80, h:100}, // [21] 同志③
+    {l:820, t:  0, w: 80, h:100}, // [22] 機會
+    {l:740, t:  0, w: 80, h:100}, // [23] 翃舞①
+    {l:660, t:  0, w: 80, h:100}, // [24] 翃舞②
+    {l:580, t:  0, w: 80, h:100}, // [25] 翃舞③
+    {l:500, t:  0, w: 80, h:100}, // [26] 命運
+    {l:420, t:  0, w: 80, h:100}, // [27] 舞台①
+    {l:340, t:  0, w: 80, h:100}, // [28] 舞台②
+    {l:260, t:  0, w: 80, h:100}, // [29] 舞台③
+    {l:180, t:  0, w: 80, h:100}, // [30] 休息
+    {l:100, t:  0, w: 80, h:100}, // [31] 免費通過
+    {l:  0, t:  0, w:100, h:100}, // [32] 機會角 (TL corner)
+    {l:  0, t:100, w:100, h: 80}, // [33] 命運
+    {l:  0, t:180, w:100, h: 80}, // [34] 免費通過
+    {l:  0, t:260, w:100, h: 80}, // [35] 休息
+    {l:  0, t:340, w:100, h: 80}, // [36] 免費通過
+    {l:  0, t:420, w:100, h: 80}, // [37] 機會
+    {l:  0, t:500, w:100, h: 80}, // [38] 免費通過
+    {l:  0, t:580, w:100, h: 80}, // [39] 命運
   ];
 
-  /* ── 機會牌 (12張) ── */
+  /* ── 角色方向 ── */
+  function spaceDir(idx) {
+    if (idx >= 1  && idx <= 12) return 'right';
+    if (idx >= 13 && idx <= 20) return 'back';
+    if (idx >= 21 && idx <= 32) return 'left';
+    return 'front'; // 0, 33-39
+  }
+
+  /* ── 機會牌 (10張) ── */
   const CHANCE_CARDS = [
-    { text:'你在社群分享 Taiwan Pop，演算法大爆發！', effect:'前進 3 格', fn: p => moveBy(p, 3) },
-    { text:'林懷民大師親自指導你的步伐！',           effect:'前進 2 格', fn: p => moveBy(p, 2) },
-    { text:'發現台灣小吃攤，精力充沛！',             effect:'再骰一次',  fn: p => grantExtraRoll(p) },
-    { text:'雲門舞集表演票抽中啦！',                 effect:'前進 4 格', fn: p => moveBy(p, 4) },
-    { text:'台灣觀光局贊助旅費！',                   effect:'前進 2 格', fn: p => moveBy(p, 2) },
-    { text:'遇到同鄉台灣人互相打氣！',               effect:'再骰一次',  fn: p => grantExtraRoll(p) },
-    { text:'在中央公園遇到好心紐約客帶路',           effect:'前進 1 格', fn: p => moveBy(p, 1) },
-    { text:'意外成為 Taiwan Pop 網紅代言人！',        effect:'前進 3 格', fn: p => moveBy(p, 3) },
-    { text:'台灣外交部特別招待，搭頭等艙回出發點！', effect:'移動到出發點', fn: p => moveToStart(p) },
-    { text:'紐約地鐵嚴重延誤',                       effect:'後退 2 格', fn: p => moveBy(p, -2) },
-    { text:'路過珍珠奶茶店，買了一杯慢慢喝',         effect:'無事，繼續走', fn: () => {} },
-    { text:'收到 SummerStage 貴賓票，直奔現場！',    effect:'前進 3 格', fn: p => moveBy(p, 3) },
+    { text:'你在社群分享 Taiwan Pop，演算法大爆發！',       effect:'前進 3 格',   fn: p => moveBy(p, 3) },
+    { text:'林懷民大師親自指導你的步伐！',                  effect:'前進 2 格',   fn: p => moveBy(p, 2) },
+    { text:'發現台灣小吃攤，精力充沛！',                    effect:'再骰一次',    fn: p => grantExtraRoll(p) },
+    { text:'雲門舞集表演票抽中啦！',                        effect:'前進 4 格',   fn: p => moveBy(p, 4) },
+    { text:'台灣觀光局贊助旅費！',                          effect:'前進 2 格',   fn: p => moveBy(p, 2) },
+    { text:'遇到同鄉台灣人互相打氣！',                      effect:'再骰一次',    fn: p => grantExtraRoll(p) },
+    { text:'意外成為 Taiwan Pop 網紅代言人！',               effect:'前進 3 格',   fn: p => moveBy(p, 3) },
+    { text:'台灣外交部特別招待，搭頭等艙回出發點！',         effect:'移動到出發點', fn: p => moveToStart(p) },
+    { text:'紐約地鐵嚴重延誤',                              effect:'後退 2 格',   fn: p => moveBy(p, -2) },
+    { text:'收到 SummerStage 貴賓票，直奔現場！',            effect:'前進 3 格',   fn: p => moveBy(p, 3) },
   ];
 
-  /* ── 命運牌 (12張) ── */
+  /* ── 命運牌 (10張) ── */
   const FATE_CARDS = [
-    { text:'護照忘在旅館，跑回去拿',               effect:'後退 3 格', fn: p => moveBy(p, -3) },
-    { text:'踩到紐約口香糖，鞋子黏住了',           effect:'停一回合',  fn: p => setSkip(p) },
-    { text:'搞錯地鐵方向，坐到終點站',             effect:'後退 4 格', fn: p => moveBy(p, -4) },
-    { text:'行李太重，走路超慢',                   effect:'後退 2 格', fn: p => moveBy(p, -2) },
-    { text:'遇上紐約暴雨，忘了帶傘',               effect:'後退 1 格', fn: p => moveBy(p, -1) },
-    { text:'時差太嚴重，在 Central Park 長椅睡著', effect:'停一回合',  fn: p => setSkip(p) },
-    { text:'被紐約街頭藝人邀請上台跳舞，耽誤時間', effect:'後退 2 格', fn: p => moveBy(p, -2) },
-    { text:'台灣媒體採訪你對活動的感想！',         effect:'前進 2 格', fn: p => moveBy(p, 2) },
-    { text:'意外接受 CNN 採訪，介紹台灣文化！',    effect:'前進 3 格', fn: p => moveBy(p, 3) },
-    { text:'找到一張 Carnegie Hall 掉落的貴賓券！',effect:'前進 2 格', fn: p => moveBy(p, 2) },
-    { text:'介紹台灣食物讓美國朋友大讚！',         effect:'前進 1 格', fn: p => moveBy(p, 1) },
-    { text:'成功在 Bushwick 留下一幅塗鴉留念！',   effect:'前進 2 格', fn: p => moveBy(p, 2) },
+    { text:'護照忘在旅館，跑回去拿',                       effect:'後退 3 格', fn: p => moveBy(p, -3) },
+    { text:'踩到紐約口香糖，鞋子黏住了',                   effect:'停一回合',  fn: p => setSkip(p) },
+    { text:'搞錯地鐵方向，坐到終點站',                     effect:'後退 4 格', fn: p => moveBy(p, -4) },
+    { text:'行李太重，走路超慢',                           effect:'後退 2 格', fn: p => moveBy(p, -2) },
+    { text:'遇上紐約暴雨，忘了帶傘',                       effect:'後退 1 格', fn: p => moveBy(p, -1) },
+    { text:'時差太嚴重，在 Central Park 長椅睡著',          effect:'停一回合',  fn: p => setSkip(p) },
+    { text:'被紐約街頭藝人邀請上台跳舞，耽誤時間',          effect:'後退 2 格', fn: p => moveBy(p, -2) },
+    { text:'台灣媒體採訪你對活動的感想！',                  effect:'前進 2 格', fn: p => moveBy(p, 2) },
+    { text:'意外接受 CNN 採訪，介紹台灣文化！',             effect:'前進 3 格', fn: p => moveBy(p, 3) },
+    { text:'找到一張 Carnegie Hall 掉落的貴賓券！',         effect:'前進 2 格', fn: p => moveBy(p, 2) },
   ];
 
   /* ── 遊戲狀態 ── */
   const G = {
     players: [
-      { id:'human', name:'玩家',  icon:'🎒', pos:0, laps:0, skip:false },
-      { id:'cpu',   name:'小丸子',icon:'🤖', pos:0, laps:0, skip:false },
+      { id:'human', name:'a-we', pos:0, laps:0, skip:false, freePass:false },
+      { id:'cpu',   name:'yoyo', pos:0, laps:0, skip:false, freePass:false },
     ],
-    turn:       0,        // 0=human, 1=cpu
-    phase:      'roll',   // roll | question | card | cpu | gameover
+    turn:       0,
+    phase:      'roll',
     extraRoll:  false,
-    chancePool: shuffle([...Array(12).keys()]),
-    fatePool:   shuffle([...Array(12).keys()]),
-    prevPos:    [0, 0],   // position before last move (for rollback on wrong answer)
+    chancePool: shuffle([...Array(10).keys()]),
+    fatePool:   shuffle([...Array(10).keys()]),
+    prevPos:    [0, 0],
+    visited:    [new Set(), new Set()],
   };
 
   /* ── DOM refs ── */
   const boardEl      = document.getElementById('bgBoard');
   const diceBtnEl    = document.getElementById('bgDiceBtn');
   const diceLabelEl  = document.getElementById('bgDiceLabel');
-  const diceIconEl   = document.getElementById('bgDiceIcon');
   const diceResultEl = document.getElementById('bgDiceResult');
   const turnMsgEl    = document.getElementById('bgTurnMsg');
   const qModal       = document.getElementById('bgQuestionModal');
@@ -1252,67 +1298,99 @@ function renderEvents() {
   const cardText     = document.getElementById('bgCardText');
   const cardEffect   = document.getElementById('bgCardEffect');
   const winModal     = document.getElementById('bgWinModal');
+  const boardWrap    = document.getElementById('bgBoardWrap');
 
   if (!boardEl) return;
 
-  /* ── Build board: calculate oval positions for 36 spaces ── */
-  const BW = boardEl.offsetWidth  || 680;
-  const BH = boardEl.offsetHeight || 440;
-  const cx = BW / 2, cy = BH / 2;
-  const rx = BW * 0.44, ry = BH * 0.40;
+  /* ── 棋盤縮放 ── */
+  const BOARD_W = 1080, BOARD_H = 760;
+  function scaleBoard() {
+    const ww = boardWrap ? boardWrap.offsetWidth : window.innerWidth;
+    const scale = Math.min(1, ww / BOARD_W);
+    boardEl.style.transform = `scale(${scale})`;
+    boardEl.style.transformOrigin = 'top left';
+    if (boardWrap) boardWrap.style.height = (BOARD_H * scale) + 'px';
+  }
+  scaleBoard();
+  window.addEventListener('resize', scaleBoard);
 
-  // Draw SVG track ellipse
-  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-  svg.setAttribute('class','bg-track-svg');
-  svg.setAttribute('viewBox',`0 0 ${BW} ${BH}`);
-  const ellipse = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
-  ellipse.setAttribute('cx', cx); ellipse.setAttribute('cy', cy);
-  ellipse.setAttribute('rx', rx); ellipse.setAttribute('ry', ry);
-  ellipse.setAttribute('fill','none');
-  ellipse.setAttribute('stroke','rgba(255,255,255,.12)');
-  ellipse.setAttribute('stroke-width','2');
-  ellipse.setAttribute('stroke-dasharray','6 4');
-  svg.appendChild(ellipse);
-  boardEl.appendChild(svg);
-
-  // Place spaces
-  const spaceEls = SPACES.map((sp, i) => {
-    const angle = (i / SPACES.length) * 2 * Math.PI - Math.PI / 2;
-    const x = cx + rx * Math.cos(angle);
-    const y = cy + ry * Math.sin(angle);
-
+  /* ── 建立棋盤格 ── */
+  SPACES.forEach((sp, i) => {
+    const r = RECTS[i];
     const el = document.createElement('div');
-    el.className = 'bg-space bg-space--' + sp.type;
+    el.className = 'bg-cell bg-cell--' + sp.type;
     if (sp.zone) el.dataset.zone = sp.zone;
-    el.style.left = x + 'px';
-    el.style.top  = y + 'px';
-    el.innerHTML  = `<span class="bg-space-icon">${sp.icon}</span><span class="bg-space-num">${i}</span>`;
+    el.style.left   = r.l + 'px';
+    el.style.top    = r.t + 'px';
+    el.style.width  = r.w + 'px';
+    el.style.height = r.h + 'px';
     el.title = sp.label;
+    el.innerHTML = `<span class="bg-cell-icon">${sp.icon}</span><span class="bg-cell-num">${i}</span>`;
     boardEl.appendChild(el);
-    return { el, x, y };
   });
 
-  // Place player pieces
-  const pieceEls = G.players.map(p => {
-    const piece = document.createElement('div');
-    piece.className = `bg-piece bg-piece--${p.id}`;
-    piece.textContent = p.icon;
-    boardEl.appendChild(piece);
-    return piece;
+  /* ── 中心區域 ── */
+  const centerEl = document.createElement('div');
+  centerEl.className = 'bg-center';
+  centerEl.innerHTML = `
+    <div class="bg-center-title">文化大富翁</div>
+    <div class="bg-card-piles">
+      <div class="bg-card-pile bg-card-pile--chance"><span>🎴</span><span>機會</span></div>
+      <div class="bg-card-pile bg-card-pile--fate"><span>💀</span><span>命運</span></div>
+    </div>
+  `;
+  boardEl.appendChild(centerEl);
+
+  /* ── 棋子 ── */
+  const PIECE_IMGS = [
+    { front:'images/awe-front.png',  back:'images/awe-back.png',  left:'images/awe-left.png',  right:'images/awe-right.png'  },
+    { front:'images/yoyo-front.png', back:'images/yoyo-back.png', left:'images/yoyo-left.png', right:'images/yoyo-right.png' },
+  ];
+
+  const pieceEls = G.players.map((p, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = `bg-piece bg-piece--${p.id}`;
+
+    const diceAnim = document.createElement('div');
+    diceAnim.className = 'bg-dice-anim hidden';
+    wrap.appendChild(diceAnim);
+
+    const img = document.createElement('img');
+    img.className = 'bg-piece-img';
+    img.src = PIECE_IMGS[i].front;
+    img.alt = p.name;
+    wrap.appendChild(img);
+
+    boardEl.appendChild(wrap);
+    return { wrap, img, diceAnim };
   });
-  updatePieces();
 
-  /* ── Helpers ── */
-  function spacePos(idx) { return spaceEls[idx]; }
-
-  function updatePieces() {
-    G.players.forEach((p, i) => {
-      const sp = spacePos(p.pos);
-      pieceEls[i].style.left = sp.x + 'px';
-      pieceEls[i].style.top  = sp.y + 'px';
-    });
+  function getPieceCenter(idx) {
+    const r = RECTS[idx];
+    return { cx: r.l + r.w / 2, cy: r.t + r.h / 2 };
   }
 
+  function placePiece(playerIdx, spaceIdx, offsetX) {
+    const { cx, cy } = getPieceCenter(spaceIdx);
+    const PIECE_SIZE = 52;
+    const wrap = pieceEls[playerIdx].wrap;
+    wrap.style.left = (cx - PIECE_SIZE / 2 + (offsetX || 0)) + 'px';
+    wrap.style.top  = (cy - PIECE_SIZE / 2) + 'px';
+  }
+
+  function updatePieceDir(playerIdx, dir) {
+    pieceEls[playerIdx].img.src = PIECE_IMGS[playerIdx][dir];
+  }
+
+  function updateAllPieces() {
+    G.players.forEach((p, i) => {
+      placePiece(i, p.pos, i === 0 ? -14 : 14);
+      updatePieceDir(i, spaceDir(p.pos));
+    });
+  }
+  updateAllPieces();
+
+  /* ── Helpers ── */
   function updateStatusBar() {
     document.getElementById('bgPlayerPos').textContent  = G.players[0].pos;
     document.getElementById('bgPlayerLaps').textContent = G.players[0].laps;
@@ -1336,113 +1414,153 @@ function renderEvents() {
     return deck[pool.shift()];
   }
 
-  function advancePos(player, steps) {
-    const prev = player.pos;
-    let next = (prev + steps + SPACES.length) % SPACES.length;
-    // Count laps: each time pos wraps past 0
-    if (steps > 0) {
-      const raw = prev + steps;
-      const lapsGained = Math.floor(raw / SPACES.length);
-      if (lapsGained > 0) {
-        player.laps += lapsGained;
-        if (player.laps >= TOTAL_LAPS) { player.pos = next; return true; } // win!
+  /* ── 骰子動畫 ── */
+  const DICE_FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+  function runDiceAnim(playerIdx, finalRoll, onDone) {
+    const { diceAnim } = pieceEls[playerIdx];
+    diceAnim.classList.remove('hidden');
+    let frame = 0;
+    const FRAMES = 14;
+    const timer = setInterval(() => {
+      frame++;
+      diceAnim.textContent = DICE_FACES[Math.floor(Math.random() * 6)];
+      diceAnim.classList.remove('bg-dice-pop');
+      void diceAnim.offsetWidth; // reflow
+      diceAnim.classList.add('bg-dice-pop');
+      if (frame >= FRAMES) {
+        clearInterval(timer);
+        diceAnim.textContent = DICE_FACES[finalRoll - 1];
+        setTimeout(() => {
+          diceAnim.classList.add('hidden');
+          onDone();
+        }, 400);
+      }
+    }, 60);
+  }
+
+  /* ── 逐格移動動畫 ── */
+  function animateMove(playerIdx, stepsLeft, onDone) {
+    if (stepsLeft <= 0) { onDone(); return; }
+    const p = G.players[playerIdx];
+    const nextPos = (p.pos + 1) % SPACES.length;
+    if (nextPos === 0 && p.pos !== 0) {
+      p.laps += 1;
+      if (p.laps >= TOTAL_LAPS) {
+        p.pos = 0;
+        updateAllPieces();
+        updateStatusBar();
+        setTimeout(() => showWin(playerIdx), 300);
+        return;
       }
     }
-    player.pos = next;
+    p.pos = nextPos;
+    placePiece(playerIdx, p.pos, playerIdx === 0 ? -14 : 14);
+    updatePieceDir(playerIdx, spaceDir(p.pos));
+    updateStatusBar();
+    setTimeout(() => animateMove(playerIdx, stepsLeft - 1, onDone), 200);
+  }
+
+  /* ── 位移輔助 (用於卡牌效果) ── */
+  function advancePos(player, steps) {
+    if (steps > 0) {
+      for (let i = 0; i < steps; i++) {
+        const next = (player.pos + 1) % SPACES.length;
+        if (next === 0 && player.pos !== 0) {
+          player.laps += 1;
+          if (player.laps >= TOTAL_LAPS) { player.pos = next; return true; }
+        }
+        player.pos = next;
+      }
+    } else {
+      player.pos = ((player.pos + steps) % SPACES.length + SPACES.length) % SPACES.length;
+    }
     return false;
   }
 
-  /* ── Card effect helpers ── */
+  /* ── 卡牌效果輔助 ── */
   function moveBy(playerIdx, steps) {
     const p = G.players[playerIdx];
     const won = advancePos(p, steps);
-    updatePieces();
+    updateAllPieces();
     updateStatusBar();
-    if (won) { setTimeout(() => showWin(playerIdx), 600); }
+    if (won) setTimeout(() => showWin(playerIdx), 600);
   }
 
   function moveToStart(playerIdx) {
     const p = G.players[playerIdx];
-    if (p.pos !== 0) { p.laps += 1; }
+    if (p.pos !== 0) p.laps += 1;
     p.pos = 0;
-    if (p.laps >= TOTAL_LAPS) { updatePieces(); updateStatusBar(); setTimeout(() => showWin(playerIdx), 600); return; }
-    updatePieces();
+    if (p.laps >= TOTAL_LAPS) { updateAllPieces(); updateStatusBar(); setTimeout(() => showWin(playerIdx), 600); return; }
+    updateAllPieces();
     updateStatusBar();
   }
 
   function grantExtraRoll(playerIdx) {
-    if (playerIdx === 0) { G.extraRoll = true; }
+    if (playerIdx === 0) G.extraRoll = true;
   }
 
   function setSkip(playerIdx) { G.players[playerIdx].skip = true; }
 
-  /* ── Roll dice ── */
+  /* ── 擲骰子 ── */
   window.bgRollDice = function() {
     if (G.phase !== 'roll') return;
     if (diceBtnEl) { diceBtnEl.disabled = true; diceBtnEl.classList.add('rolling'); }
-    setTimeout(() => {
+    const roll = Math.floor(Math.random() * 6) + 1;
+    setDiceResult('🎲 ' + roll);
+    if (diceLabelEl) diceLabelEl.textContent = roll + ' 步';
+    G.phase = 'moving';
+    runDiceAnim(0, roll, () => {
       if (diceBtnEl) diceBtnEl.classList.remove('rolling');
-      const roll = Math.floor(Math.random() * 6) + 1;
-      setDiceResult(`🎲 ${roll}`);
-      diceLabelEl.textContent = roll + ' 步';
-      doMove(0, roll);
-    }, 500);
+      G.prevPos[0] = G.players[0].pos;
+      animateMove(0, roll, () => {
+        if (G.phase === 'gameover') return;
+        landOn(0, SPACES[G.players[0].pos], G.players[0].pos);
+      });
+    });
   };
 
-  function doMove(playerIdx, roll) {
-    const p  = G.players[playerIdx];
-    G.prevPos[playerIdx] = p.pos;
-    const won = advancePos(p, roll);
-    updatePieces();
-    updateStatusBar();
-
-    if (won) { setTimeout(() => showWin(playerIdx), 600); return; }
-
-    const sp = SPACES[p.pos];
-    setTimeout(() => landOn(playerIdx, sp), 450);
-  }
-
-  function landOn(playerIdx, sp) {
+  /* ── 落地處理 ── */
+  function landOn(playerIdx, sp, spaceIdx) {
+    const p = G.players[playerIdx];
+    if (sp.type === 'free') { endTurn(playerIdx); return; }
+    if (sp.type === 'zone' && p.freePass) {
+      p.freePass = false;
+      setTurnMsg(playerIdx === 0 ? '🎁 免費通過！' : '🤖 yoyo 免費通過！');
+      endTurn(playerIdx);
+      return;
+    }
     switch (sp.type) {
       case 'start':
-        endTurn(playerIdx);
-        break;
+        endTurn(playerIdx); break;
       case 'rest':
         setSkip(playerIdx);
-        setTurnMsg(playerIdx === 0 ? '😴 踩到休息格，下回合跳過' : '🤖 小丸子在休息...');
-        endTurn(playerIdx);
-        break;
+        setTurnMsg(playerIdx === 0 ? '😴 踩到休息格，下回合跳過' : '🤖 yoyo 在休息...');
+        endTurn(playerIdx); break;
       case 'chance':
-        showCard(playerIdx, 'chance');
-        break;
+      case 'corner-chance':
+        showCard(playerIdx, 'chance'); break;
       case 'fate':
-        showCard(playerIdx, 'fate');
-        break;
+      case 'corner-fate':
+        showCard(playerIdx, 'fate'); break;
       case 'zone':
-      case 'knowledge':
-        showQuestion(playerIdx, sp);
-        break;
+        showQuestion(playerIdx, sp, spaceIdx); break;
       default:
         endTurn(playerIdx);
     }
   }
 
-  /* ── Question ── */
-  function showQuestion(playerIdx, sp) {
+  /* ── 問題 ── */
+  function showQuestion(playerIdx, sp, spaceIdx) {
     G.phase = 'question';
-    let q;
-    if (sp.type === 'zone') {
-      q = GAME_DATA[sp.zone].questions[sp.qIdx];
-      const zd = GAME_DATA[sp.zone];
-      qZone.textContent = zd.emoji + ' ' + zd.title;
-      qZone.style.background = zd.colorLight;
-      qZone.style.color = zd.color;
-    } else {
-      q = KNOWLEDGE_QS[sp.kIdx];
-      qZone.textContent = '❓ 知識問答';
-      qZone.style.background = '#e6f7f4';
-      qZone.style.color = 'var(--primary)';
-    }
+    const wasVisited = G.visited[playerIdx].has(spaceIdx);
+    G.visited[playerIdx].add(spaceIdx);
+    const cpuRate = wasVisited ? CPU_HIT_RATE_SEEN : CPU_HIT_RATE_NORM;
+
+    const q = GAME_DATA[sp.zone].questions[sp.qIdx];
+    const zd = GAME_DATA[sp.zone];
+    qZone.textContent = zd.emoji + ' ' + zd.title;
+    qZone.style.background = zd.colorLight;
+    qZone.style.color = zd.color;
 
     qText.textContent = q.q;
     qOpts.innerHTML = '';
@@ -1451,22 +1569,20 @@ function renderEvents() {
     qNext.className = 'bg-modal-next hidden';
     qModal.classList.remove('hidden');
 
-    // Shuffle answer options (maintain correct index)
     const indices = shuffle([0, 1, 2, 3]);
-    const correctOrigIdx = q.ans; // always 0 in GAME_DATA
+    const correctOrigIdx = q.ans;
 
     if (playerIdx === 1) {
-      // CPU auto-answer
-      const willCorrect = Math.random() < CPU_HIT_RATE;
+      const willCorrect = Math.random() < cpuRate;
       const chosenIdx = willCorrect ? correctOrigIdx : (correctOrigIdx + 1 + Math.floor(Math.random() * 3)) % 4;
-      indices.forEach((origIdx, pos) => {
+      indices.forEach(origIdx => {
         const btn = document.createElement('button');
         btn.className = 'bg-opt-btn';
         btn.textContent = q.opts[origIdx];
         btn.disabled = true;
         qOpts.appendChild(btn);
       });
-      setTurnMsg('🤖 小丸子思考中...');
+      setTurnMsg('🤖 yoyo 思考中...');
       setTimeout(() => {
         const isCorrect = (chosenIdx === correctOrigIdx);
         const displayPos = indices.indexOf(chosenIdx);
@@ -1496,11 +1612,8 @@ function renderEvents() {
     } else {
       qResult.className = 'bg-modal-result wrong';
       qResult.innerHTML = `❌ 答錯了！正確答案是「${q.opts[q.ans]}」<br><small>${q.fact}</small>`;
-      // Roll back position
       G.players[playerIdx].pos = G.prevPos[playerIdx];
-      // If laps were gained on this move, subtract them back
-      // (simple: just recalc - since we only move forward by dice roll 1-6, max 1 lap gained)
-      updatePieces();
+      updateAllPieces();
       updateStatusBar();
     }
     qNext.className = 'bg-modal-next';
@@ -1514,22 +1627,18 @@ function renderEvents() {
     endTurn(parseInt(qNext.dataset.player));
   };
 
-  /* ── Chance / Fate Card ── */
+  /* ── 卡牌 ── */
   function showCard(playerIdx, type) {
     G.phase = 'card';
     const card = type === 'chance'
       ? drawCard(G.chancePool, CHANCE_CARDS)
       : drawCard(G.fatePool,   FATE_CARDS);
-
     cardBox.className = `bg-card-box bg-card-box--${type}`;
-    cardType.textContent  = type === 'chance' ? '🎴 機會！' : '💀 命運！';
-    cardText.textContent  = card.text;
+    cardType.textContent   = type === 'chance' ? '🎴 機會！' : '💀 命運！';
+    cardText.textContent   = card.text;
     cardEffect.textContent = '→ ' + card.effect;
     cardModal.classList.remove('hidden');
-
     cardModal.dataset.player = playerIdx;
-    cardModal.dataset.fn = JSON.stringify({ type, text: card.text, effect: card.effect });
-    // Store fn reference
     cardModal._pendingFn = () => card.fn(playerIdx);
   }
 
@@ -1538,31 +1647,17 @@ function renderEvents() {
     const playerIdx = parseInt(cardModal.dataset.player);
     if (cardModal._pendingFn) { cardModal._pendingFn(); cardModal._pendingFn = null; }
     G.phase = 'roll';
-    // Check win after card effect
-    if (G.players[playerIdx].laps >= TOTAL_LAPS) {
-      setTimeout(() => showWin(playerIdx), 300);
-      return;
-    }
-    if (!G.extraRoll) {
-      endTurn(playerIdx);
-    } else {
-      G.extraRoll = false;
-      enableRoll();
-    }
+    if (G.players[playerIdx].laps >= TOTAL_LAPS) { setTimeout(() => showWin(playerIdx), 300); return; }
+    if (!G.extraRoll) { endTurn(playerIdx); } else { G.extraRoll = false; enableRoll(); }
   };
 
-  /* ── End turn / CPU turn ── */
+  /* ── 回合結束 / CPU 回合 ── */
   function endTurn(playerIdx) {
     if (G.phase === 'gameover') return;
-    if (G.extraRoll && playerIdx === 0) {
-      G.extraRoll = false;
-      setTurnMsg('🎲 再骰一次！');
-      enableRoll();
-      return;
-    }
+    if (G.extraRoll && playerIdx === 0) { G.extraRoll = false; setTurnMsg('🎲 再骰一次！'); enableRoll(); return; }
     G.turn = playerIdx === 0 ? 1 : 0;
     if (G.turn === 1) {
-      setTurnMsg('🤖 小丸子的回合...');
+      setTurnMsg('🤖 yoyo 的回合...');
       setDiceResult('');
       if (diceBtnEl) diceBtnEl.disabled = true;
       setTimeout(cpuTurn, 1200);
@@ -1581,7 +1676,7 @@ function renderEvents() {
     G.phase = 'roll';
     G.turn  = 0;
     setTurnMsg('輪到你了！');
-    diceLabelEl.textContent = '擲骰子';
+    if (diceLabelEl) diceLabelEl.textContent = '擲骰子';
     if (diceBtnEl) diceBtnEl.disabled = false;
   }
 
@@ -1589,28 +1684,35 @@ function renderEvents() {
     if (G.phase === 'gameover') return;
     if (G.players[1].skip) {
       G.players[1].skip = false;
-      setTurnMsg('🤖 小丸子在休息...');
+      setTurnMsg('🤖 yoyo 在休息...');
       setTimeout(() => endTurn(1), 1200);
       return;
     }
     const roll = Math.floor(Math.random() * 6) + 1;
-    setDiceResult(`🎲 ${roll}`);
-    setTurnMsg(`🤖 小丸子擲出 ${roll} 步`);
-    G.phase = 'cpu';
-    setTimeout(() => doMove(1, roll), 800);
+    setDiceResult('🎲 ' + roll);
+    setTurnMsg('🤖 yoyo 擲出 ' + roll + ' 步');
+    G.phase = 'moving';
+    G.prevPos[1] = G.players[1].pos;
+    runDiceAnim(1, roll, () => {
+      animateMove(1, roll, () => {
+        if (G.phase === 'gameover') return;
+        landOn(1, SPACES[G.players[1].pos], G.players[1].pos);
+      });
+    });
   }
 
-  /* ── Win ── */
+  /* ── 獲勝 ── */
   function showWin(playerIdx) {
     G.phase = 'gameover';
     const isHuman = playerIdx === 0;
     winModal.classList.remove('hidden');
     document.getElementById('bgWinIcon').textContent  = isHuman ? '🎉' : '🤖';
-    document.getElementById('bgWinTitle').textContent = isHuman ? '恭喜你獲勝！' : '小丸子獲勝！';
+    document.getElementById('bgWinTitle').textContent = isHuman ? '恭喜你獲勝！' : 'yoyo 獲勝！';
     document.getElementById('bgWinSub').textContent   = isHuman
       ? '你成功繞行紐約三圈，探索了所有台灣文化活動！'
       : '別氣餒，再試一次讓你更了解台灣文化！';
-    // Confetti
+    const winImg = document.getElementById('bgWinImg');
+    if (winImg) winImg.classList.toggle('hidden', !isHuman);
     const container = document.getElementById('bgWinConfetti');
     container.innerHTML = '';
     const colors = ['#FF4D75','#008F7A','#FFD700','#FF6B35','#A8E6CF'];
@@ -1629,23 +1731,25 @@ function renderEvents() {
 
   window.bgRestart = function() {
     winModal.classList.add('hidden');
-    G.players.forEach(p => { p.pos = 0; p.laps = 0; p.skip = false; });
-    G.turn      = 0;
-    G.extraRoll = false;
-    G.chancePool = shuffle([...Array(12).keys()]);
-    G.fatePool   = shuffle([...Array(12).keys()]);
+    G.players.forEach(p => { p.pos = 0; p.laps = 0; p.skip = false; p.freePass = false; });
+    G.turn       = 0;
+    G.extraRoll  = false;
+    G.chancePool = shuffle([...Array(10).keys()]);
+    G.fatePool   = shuffle([...Array(10).keys()]);
     G.prevPos    = [0, 0];
-    updatePieces();
+    G.visited    = [new Set(), new Set()];
+    updateAllPieces();
     updateStatusBar();
     setDiceResult('');
     enableRoll();
   };
 
-  /* ── Init ── */
+  /* ── 初始化 ── */
   updateStatusBar();
   enableRoll();
 
 })();
+
 
 /* ---------- A-WE Character System ---------- */
 (function initAwe() {

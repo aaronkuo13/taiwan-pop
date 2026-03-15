@@ -150,9 +150,9 @@
       <!-- Status bar -->
       <div class="bg-status-bar">
         <div class="bg-player-card bg-player-card--human">
-          <span class="bg-pc-icon">🎒</span>
+          <img src="images/awe-front.png" class="bg-pc-avatar" alt="a-we">
           <div class="bg-pc-info">
-            <span class="bg-pc-name">玩家</span>
+            <span class="bg-pc-name">a-we（你）</span>
             <span class="bg-pc-lap">第 <strong id="bgPlayerLaps">0</strong> / 3 圈</span>
           </div>
           <span class="bg-pc-pos">格 <strong id="bgPlayerPos">0</strong></span>
@@ -162,9 +162,9 @@
           <div id="bgDiceResult" class="bg-dice-result-display"></div>
         </div>
         <div class="bg-player-card bg-player-card--cpu">
-          <span class="bg-pc-icon">🤖</span>
+          <img src="images/yoyo-front.png" class="bg-pc-avatar" alt="yoyo">
           <div class="bg-pc-info">
-            <span class="bg-pc-name">小丸子</span>
+            <span class="bg-pc-name">yoyo（電腦）</span>
             <span class="bg-pc-lap">第 <strong id="bgCpuLaps">0</strong> / 3 圈</span>
           </div>
           <span class="bg-pc-pos">格 <strong id="bgCpuPos">0</strong></span>
@@ -172,9 +172,9 @@
       </div>
 
       <!-- Board -->
-      <div class="bg-board-wrap">
+      <div class="bg-board-wrap" id="bgBoardWrap">
         <div class="bg-board" id="bgBoard">
-          <!-- spaces and pieces injected by JS -->
+          <!-- spaces, center area, and pieces injected by JS -->
         </div>
       </div>
 
@@ -213,6 +213,7 @@
   <div id="bgWinModal" class="bg-modal hidden" role="dialog">
     <div class="bg-win-box">
       <div class="bg-win-confetti" id="bgWinConfetti"></div>
+      <img id="bgWinImg" class="bg-win-img hidden" src="images/awe-complete.png" alt="a-we 獲勝">
       <p class="bg-win-icon" id="bgWinIcon"></p>
       <h2 class="bg-win-title" id="bgWinTitle"></h2>
       <p class="bg-win-sub" id="bgWinSub"></p>
