@@ -25,6 +25,16 @@ const LANG = {
     'art-4-title':'什麼是 Taiwan Pop？一個讓台灣文化被看見的計畫',
     'art-4-desc':'從當代舞蹈、原住民古謠、街頭藝術到電影影展，Taiwan Pop 不只是音樂，而是多元台灣文化的全面展演。',
     'btn-more-news':'查看更多消息',
+    /* Concept */
+    'concept-title':'臺灣<em>尚趴</em>',
+    'concept-slogan':'Feel the Pop · 曼哈頓的臺灣日常',
+    'concept-manifesto':'台灣文化不是博物館裡的展品，而是此刻正在發生的生活日常。2026 年，Taiwan Pop 以塗鴉為語言，以藝術為媒介，帶著七大展演橫跨曼哈頓——從大師講座到中央公園夏日舞台，讓紐約在這個夏天，看見最真實的台灣。',
+    'concept-p1-title':'紐文中心<br>文化地標',
+    'concept-p1-desc':'紐文中心作為黑潮計畫的實體品牌中心，透過塗鴉次文化元素融入公務大樓外觀，成為曼哈頓最具辨識度的台灣文化打卡地標。每一位走進這裡的訪客，都是台灣文化的第一手見證者。',
+    'concept-p2-title':'線性串連<br>整個夏天',
+    'concept-p2-desc':'從 5 月的林懷民大師講座，到 8 月中央公園的 Taiwanese Waves，七個活動成為每一個行銷波段的節點，以連續出現的主視覺建立視覺覆蓋，讓整個紐約的夏天都有台灣的聲音。',
+    'concept-p3-title':'Taiwan Pop<br>視覺覆蓋',
+    'concept-p3-desc':'一個以紐約塗鴉文化為靈魂的主視覺，持續出現在街頭廣告、在地商家、活動現場。每一杯貼著主視覺的手搖飲、每一個茄芷袋，都是行走在曼哈頓的台灣文化宣言。',
     /* Events */
     'sec-events-title':'七大主題活動',
     'sec-events-sub':'2026 年，七場跨領域藝文展演，在紐約呈現最真實的台灣',
@@ -89,6 +99,16 @@ const LANG = {
     'art-4-title':"What Is Taiwan Pop? A Campaign to Put Taiwan's Culture on the World Stage",
     'art-4-desc':"From contemporary dance and indigenous chants to street art and film — Taiwan Pop is more than music. It's a full showcase of Taiwan's diverse cultural identity.",
     'btn-more-news':'More News',
+    /* Concept */
+    'concept-title':'Taiwan <em>Pops</em>',
+    'concept-slogan':'Feel the Pop · Taiwanese Daily Life in Manhattan',
+    'concept-manifesto':"Taiwan's culture isn't confined to museums — it's alive, unfolding in the streets right now. In 2026, Taiwan Pop speaks through graffiti, moves through art, and arrives in Manhattan with seven events stretching from masterclass to outdoor stage — letting New York feel the most authentic Taiwan.",
+    'concept-p1-title':'Cultural Hub<br>in Manhattan',
+    'concept-p1-desc':"The Taiwanese Cultural Center serves as the physical brand hub of the Black Current Project. Through graffiti-infused architecture, it becomes Manhattan's most recognizable Taiwan cultural landmark — a space where every visitor witnesses Taiwan's culture firsthand.",
+    'concept-p2-title':'Seven Events<br>All Summer Long',
+    'concept-p2-desc':"From Lin Hwai-min's masterclass in May to Taiwanese Waves at Central Park in August, seven events anchor each campaign wave — building sustained visual coverage that ensures Taiwan's voice is heard throughout New York's entire summer.",
+    'concept-p3-title':'Taiwan Pop<br>Visual Identity',
+    'concept-p3-desc':"A single visual identity rooted in New York's graffiti culture appears across billboards, local shops, and event venues. Every branded bubble tea cup, every tote bag on the subway, is a Taiwan cultural statement walking through Manhattan.",
     /* Events */
     'sec-events-title':'Seven Cultural Events',
     'sec-events-sub':'Seven cross-disciplinary arts events in 2026, presenting the most authentic Taiwan in New York',
