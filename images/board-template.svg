@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 760" width="1080" height="760" style="font-family:'Noto Sans TC',sans-serif">
+
+  <!-- Board background -->
+  <rect width="1080" height="760" fill="#F5F0E8" stroke="#333" stroke-width="2"/>
+
+  <!-- CENTER INNER AREA -->
+  <rect x="100" y="100" width="880" height="560" fill="#EDE8D8" stroke="#999" stroke-width="1"/>
+
+  <!-- Center title -->
+  <text x="540" y="148" text-anchor="middle" font-size="22" fill="#777" font-weight="bold">文化大富翁</text>
+  <text x="540" y="170" text-anchor="middle" font-size="12" fill="#AAA">Taiwan Pop Cultural Monopoly</text>
+
+  <!-- 機會牌堆 -->
+  <rect x="230" y="205" width="120" height="168" rx="8" fill="#F9A825" stroke="#E65100" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="290" y="276" text-anchor="middle" dominant-baseline="central" font-size="22" fill="#5C3D00" font-weight="bold">機會</text>
+  <text x="290" y="300" text-anchor="middle" font-size="9" fill="#7A4F00">CHANCE DECK</text>
+  <text x="290" y="318" text-anchor="middle" font-size="8" fill="#AAA">card-chance.svg</text>
+  <text x="290" y="332" text-anchor="middle" font-size="7" fill="#AAA">120 × 168 px</text>
+
+  <!-- 命運牌堆 -->
+  <rect x="730" y="205" width="120" height="168" rx="8" fill="#6A1B9A" stroke="#4A148C" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="790" y="276" text-anchor="middle" dominant-baseline="central" font-size="22" fill="white" font-weight="bold">命運</text>
+  <text x="790" y="300" text-anchor="middle" font-size="9" fill="#E0C3FF">FATE DECK</text>
+  <text x="790" y="318" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">card-fate.svg</text>
+  <text x="790" y="332" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.5)">120 × 168 px</text>
+
+  <!-- 中央遊戲資訊區 (JS rendered) -->
+  <rect x="155" y="415" width="770" height="165" rx="6" fill="rgba(0,0,0,0.04)" stroke="#CCC" stroke-dasharray="4,3"/>
+  <text x="540" y="442" text-anchor="middle" font-size="11" fill="#888" font-weight="bold">遊戲資訊區（由 JavaScript 動態渲染）</text>
+  <text x="540" y="464" text-anchor="middle" font-size="9" fill="#AAA">玩家資訊 ／ 骰子動畫 ／ 圈數顯示</text>
+  <text x="540" y="482" text-anchor="middle" font-size="9" fill="#AAA">🎲 骰子點數在角色頭上跑動 → 停定後才開始一格一格跳</text>
+  <text x="540" y="500" text-anchor="middle" font-size="9" fill="#AAA">a-we（玩家）　　yoyo（電腦 · 正確率 50%）</text>
+  <text x="540" y="518" text-anchor="middle" font-size="9" fill="#AAA">繞 3 圈後獲勝 → 顯示 awe-complete.png</text>
+  <text x="540" y="537" text-anchor="middle" font-size="8" fill="#CCC">答對留在格子 ／ 答錯退回原格 ／ 機會命運角落抽牌</text>
+  <text x="540" y="554" text-anchor="middle" font-size="8" fill="#CCC">踩過的格子再次到訪：重新出題 ／ yoyo 第二次正確率升為 80%</text>
+
+  <!-- 色彩圖例 -->
+  <rect x="115" y="592" width="850" height="54" rx="4" fill="rgba(0,0,0,0.05)"/>
+  <text x="540" y="608" text-anchor="middle" font-size="8" fill="#666" font-weight="bold">色彩圖例 COLOR LEGEND</text>
+  <rect x="125" y="614" width="11" height="8" fill="#6D4C41"/><text x="139" y="622" font-size="7" fill="#444">林懷民</text>
+  <rect x="183" y="614" width="11" height="8" fill="#1A237E"/><text x="197" y="622" font-size="7" fill="#444">NSO</text>
+  <rect x="228" y="614" width="11" height="8" fill="#BF360C"/><text x="242" y="622" font-size="7" fill="#444">布希維克</text>
+  <rect x="298" y="614" width="11" height="8" fill="#4A148C"/><text x="312" y="622" font-size="7" fill="#444">臺灣影展</text>
+  <rect x="368" y="614" width="11" height="8" fill="#AD1457"/><text x="382" y="622" font-size="7" fill="#444">同志遊行</text>
+  <rect x="438" y="614" width="11" height="8" fill="#1B5E20"/><text x="452" y="622" font-size="7" fill="#444">翃舞</text>
+  <rect x="483" y="614" width="11" height="8" fill="#7B5E1C"/><text x="497" y="622" font-size="7" fill="#444">夏日舞台</text>
+  <rect x="553" y="614" width="11" height="8" fill="#F9A825"/><text x="567" y="622" font-size="7" fill="#444">機會格</text>
+  <rect x="607" y="614" width="11" height="8" fill="#E65100"/><text x="621" y="622" font-size="7" fill="#444">機會角</text>
+  <rect x="661" y="614" width="11" height="8" fill="#6A1B9A"/><text x="675" y="622" font-size="7" fill="#444">命運格</text>
+  <rect x="715" y="614" width="11" height="8" fill="#4A148C"/><text x="729" y="622" font-size="7" fill="#444">命運角</text>
+  <rect x="769" y="614" width="11" height="8" fill="#2E7D32"/><text x="783" y="622" font-size="7" fill="#444">休息格</text>
+  <rect x="823" y="614" width="11" height="8" fill="#455A64"/><text x="837" y="622" font-size="7" fill="#444">免費通過</text>
+  <rect x="888" y="614" width="11" height="8" fill="#00897B"/><text x="902" y="622" font-size="7" fill="#444">出發點</text>
+  <text x="540" y="640" text-anchor="middle" font-size="7" fill="#999">總尺寸 1080 × 760 px　｜　角格 100 × 100 px　｜　上下邊格 80 × 100 px　｜　左右邊格 100 × 80 px</text>
+
+  <!-- ===== CORNER SPACES ===== -->
+
+  <!-- [0] 出發點 START — bottom-left -->
+  <rect x="0" y="660" width="100" height="100" fill="#00897B" stroke="#222" stroke-width="2"/>
+  <text x="50" y="694" text-anchor="middle" font-size="9" fill="white" font-weight="bold">出發點</text>
+  <text x="50" y="713" text-anchor="middle" font-size="14" fill="white" font-weight="bold">START</text>
+  <text x="5" y="756" font-size="8" fill="rgba(255,255,255,0.6)">[0]</text>
+
+  <!-- [12] 機會角 — bottom-right -->
+  <rect x="980" y="660" width="100" height="100" fill="#E65100" stroke="#222" stroke-width="2"/>
+  <text x="1030" y="694" text-anchor="middle" font-size="8" fill="white" font-weight="bold">機會角</text>
+  <text x="1030" y="713" text-anchor="middle" font-size="12" fill="white" font-weight="bold">CHANCE</text>
+  <text x="1075" y="756" text-anchor="end" font-size="8" fill="rgba(255,255,255,0.6)">[12]</text>
+
+  <!-- [20] 命運角 — top-right -->
+  <rect x="980" y="0" width="100" height="100" fill="#4A148C" stroke="#222" stroke-width="2"/>
+  <text x="1030" y="34" text-anchor="middle" font-size="8" fill="white" font-weight="bold">命運角</text>
+  <text x="1030" y="53" text-anchor="middle" font-size="12" fill="white" font-weight="bold">FATE</text>
+  <text x="1075" y="14" text-anchor="end" font-size="8" fill="rgba(255,255,255,0.6)">[20]</text>
+
+  <!-- [32] 機會角 — top-left -->
+  <rect x="0" y="0" width="100" height="100" fill="#E65100" stroke="#222" stroke-width="2"/>
+  <text x="50" y="34" text-anchor="middle" font-size="8" fill="white" font-weight="bold">機會角</text>
+  <text x="50" y="53" text-anchor="middle" font-size="12" fill="white" font-weight="bold">CHANCE</text>
+  <text x="5" y="14" font-size="8" fill="rgba(255,255,255,0.6)">[32]</text>
+
+  <!-- ===== BOTTOM ROW [1]–[11]  y=660 h=100 w=80 ===== -->
+
+  <rect x="100" y="660" width="80" height="100" fill="#6D4C41" stroke="#222" stroke-width="1"/>
+  <text transform="translate(140,698)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="0">林懷民</tspan><tspan x="0" dy="13" font-size="10">①</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[1]</tspan></text>
+
+  <rect x="180" y="660" width="80" height="100" fill="#6D4C41" stroke="#222" stroke-width="1"/>
+  <text transform="translate(220,698)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="0">林懷民</tspan><tspan x="0" dy="13" font-size="10">②</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[2]</tspan></text>
+
+  <rect x="260" y="660" width="80" height="100" fill="#6D4C41" stroke="#222" stroke-width="1"/>
+  <text transform="translate(300,698)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="0">林懷民</tspan><tspan x="0" dy="13" font-size="10">③</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[3]</tspan></text>
+
+  <rect x="340" y="660" width="80" height="100" fill="#F9A825" stroke="#222" stroke-width="1"/>
+  <text transform="translate(380,705)" text-anchor="middle" font-size="13" fill="white" font-weight="bold"><tspan x="0" dy="0">機會</tspan><tspan x="0" dy="16" font-size="7" opacity="0.7">[4]</tspan></text>
+
+  <rect x="420" y="660" width="80" height="100" fill="#1A237E" stroke="#222" stroke-width="1"/>
+  <text transform="translate(460,698)" text-anchor="middle" font-size="9" fill="white"><tspan x="0" dy="0">NSO</tspan><tspan x="0" dy="14" font-size="10">①</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[5]</tspan></text>
+
+  <rect x="500" y="660" width="80" height="100" fill="#1A237E" stroke="#222" stroke-width="1"/>
+  <text transform="translate(540,698)" text-anchor="middle" font-size="9" fill="white"><tspan x="0" dy="0">NSO</tspan><tspan x="0" dy="14" font-size="10">②</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[6]</tspan></text>
+
+  <rect x="580" y="660" width="80" height="100" fill="#1A237E" stroke="#222" stroke-width="1"/>
+  <text transform="translate(620,698)" text-anchor="middle" font-size="9" fill="white"><tspan x="0" dy="0">NSO</tspan><tspan x="0" dy="14" font-size="10">③</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[7]</tspan></text>
+
+  <rect x="660" y="660" width="80" height="100" fill="#6A1B9A" stroke="#222" stroke-width="1"/>
+  <text transform="translate(700,705)" text-anchor="middle" font-size="13" fill="white" font-weight="bold"><tspan x="0" dy="0">命運</tspan><tspan x="0" dy="16" font-size="7" opacity="0.7">[8]</tspan></text>
+
+  <rect x="740" y="660" width="80" height="100" fill="#BF360C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(780,698)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="0">布希維克</tspan><tspan x="0" dy="13" font-size="10">①</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[9]</tspan></text>
+
+  <rect x="820" y="660" width="80" height="100" fill="#BF360C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(860,698)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="0">布希維克</tspan><tspan x="0" dy="13" font-size="10">②</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[10]</tspan></text>
+
+  <rect x="900" y="660" width="80" height="100" fill="#BF360C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(940,698)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="0">布希維克</tspan><tspan x="0" dy="13" font-size="10">③</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[11]</tspan></text>
+
+  <!-- ===== RIGHT COLUMN [13]–[19]  x=980 w=100 h=80 (bottom→top) ===== -->
+
+  <rect x="980" y="580" width="100" height="80" fill="#455A64" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,620) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">免費通過 <tspan font-size="7" opacity="0.6">[13]</tspan></text>
+
+  <rect x="980" y="500" width="100" height="80" fill="#4A148C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,540) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">影展<tspan font-size="10">①</tspan> <tspan font-size="7" opacity="0.6">[14]</tspan></text>
+
+  <rect x="980" y="420" width="100" height="80" fill="#4A148C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,460) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">影展<tspan font-size="10">②</tspan> <tspan font-size="7" opacity="0.6">[15]</tspan></text>
+
+  <rect x="980" y="340" width="100" height="80" fill="#4A148C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,380) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">影展<tspan font-size="10">③</tspan> <tspan font-size="7" opacity="0.6">[16]</tspan></text>
+
+  <rect x="980" y="260" width="100" height="80" fill="#6A1B9A" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,300) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="13" fill="white" font-weight="bold">命運 <tspan font-size="7" opacity="0.6">[17]</tspan></text>
+
+  <rect x="980" y="180" width="100" height="80" fill="#AD1457" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,220) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="7" fill="white">同志遊行<tspan font-size="10">①</tspan> <tspan font-size="7" opacity="0.6">[18]</tspan></text>
+
+  <rect x="980" y="100" width="100" height="80" fill="#AD1457" stroke="#222" stroke-width="1"/>
+  <text transform="translate(1030,140) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="7" fill="white">同志遊行<tspan font-size="10">②</tspan> <tspan font-size="7" opacity="0.6">[19]</tspan></text>
+
+  <!-- ===== TOP ROW [21]–[31]  y=0 h=100 w=80 (right→left) ===== -->
+
+  <rect x="900" y="0" width="80" height="100" fill="#AD1457" stroke="#222" stroke-width="1"/>
+  <text transform="translate(940,50) rotate(180)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="-13">同志遊行</tspan><tspan x="0" dy="13" font-size="10">③</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[21]</tspan></text>
+
+  <rect x="820" y="0" width="80" height="100" fill="#F9A825" stroke="#222" stroke-width="1"/>
+  <text transform="translate(860,50) rotate(180)" text-anchor="middle" font-size="13" fill="white" font-weight="bold"><tspan x="0" dy="-8">機會</tspan><tspan x="0" dy="16" font-size="7" opacity="0.7">[22]</tspan></text>
+
+  <rect x="740" y="0" width="80" height="100" fill="#1B5E20" stroke="#222" stroke-width="1"/>
+  <text transform="translate(780,50) rotate(180)" text-anchor="middle" font-size="9" fill="white"><tspan x="0" dy="-13">翃舞</tspan><tspan x="0" dy="14" font-size="10">①</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[23]</tspan></text>
+
+  <rect x="660" y="0" width="80" height="100" fill="#1B5E20" stroke="#222" stroke-width="1"/>
+  <text transform="translate(700,50) rotate(180)" text-anchor="middle" font-size="9" fill="white"><tspan x="0" dy="-13">翃舞</tspan><tspan x="0" dy="14" font-size="10">②</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[24]</tspan></text>
+
+  <rect x="580" y="0" width="80" height="100" fill="#1B5E20" stroke="#222" stroke-width="1"/>
+  <text transform="translate(620,50) rotate(180)" text-anchor="middle" font-size="9" fill="white"><tspan x="0" dy="-13">翃舞</tspan><tspan x="0" dy="14" font-size="10">③</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[25]</tspan></text>
+
+  <rect x="500" y="0" width="80" height="100" fill="#6A1B9A" stroke="#222" stroke-width="1"/>
+  <text transform="translate(540,50) rotate(180)" text-anchor="middle" font-size="13" fill="white" font-weight="bold"><tspan x="0" dy="-8">命運</tspan><tspan x="0" dy="16" font-size="7" opacity="0.7">[26]</tspan></text>
+
+  <rect x="420" y="0" width="80" height="100" fill="#7B5E1C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(460,50) rotate(180)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="-13">夏日舞台</tspan><tspan x="0" dy="13" font-size="10">①</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[27]</tspan></text>
+
+  <rect x="340" y="0" width="80" height="100" fill="#7B5E1C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(380,50) rotate(180)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="-13">夏日舞台</tspan><tspan x="0" dy="13" font-size="10">②</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[28]</tspan></text>
+
+  <rect x="260" y="0" width="80" height="100" fill="#7B5E1C" stroke="#222" stroke-width="1"/>
+  <text transform="translate(300,50) rotate(180)" text-anchor="middle" font-size="7" fill="white"><tspan x="0" dy="-13">夏日舞台</tspan><tspan x="0" dy="13" font-size="10">③</tspan><tspan x="0" dy="13" font-size="7" opacity="0.6">[29]</tspan></text>
+
+  <rect x="180" y="0" width="80" height="100" fill="#2E7D32" stroke="#222" stroke-width="1"/>
+  <text transform="translate(220,50) rotate(180)" text-anchor="middle" font-size="9" fill="white" font-weight="bold"><tspan x="0" dy="-13">休息</tspan><tspan x="0" dy="13" font-size="7">跳過回合</tspan><tspan x="0" dy="12" font-size="7" opacity="0.6">[30]</tspan></text>
+
+  <rect x="100" y="0" width="80" height="100" fill="#455A64" stroke="#222" stroke-width="1"/>
+  <text transform="translate(140,50) rotate(180)" text-anchor="middle" font-size="8" fill="white"><tspan x="0" dy="-6">免費通過</tspan><tspan x="0" dy="14" font-size="7" opacity="0.6">[31]</tspan></text>
+
+  <!-- ===== LEFT COLUMN [33]–[39]  x=0 w=100 h=80 (top→bottom) ===== -->
+
+  <rect x="0" y="100" width="100" height="80" fill="#6A1B9A" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,140) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="13" fill="white" font-weight="bold">命運 <tspan font-size="7" opacity="0.6">[33]</tspan></text>
+
+  <rect x="0" y="180" width="100" height="80" fill="#455A64" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,220) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">免費通過 <tspan font-size="7" opacity="0.6">[34]</tspan></text>
+
+  <rect x="0" y="260" width="100" height="80" fill="#2E7D32" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,300) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="9" fill="white" font-weight="bold">休息 <tspan font-size="7">跳過回合</tspan> <tspan font-size="7" opacity="0.6">[35]</tspan></text>
+
+  <rect x="0" y="340" width="100" height="80" fill="#455A64" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,380) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">免費通過 <tspan font-size="7" opacity="0.6">[36]</tspan></text>
+
+  <rect x="0" y="420" width="100" height="80" fill="#F9A825" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,460) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="13" fill="white" font-weight="bold">機會 <tspan font-size="7" opacity="0.6">[37]</tspan></text>
+
+  <rect x="0" y="500" width="100" height="80" fill="#455A64" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,540) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="8" fill="white">免費通過 <tspan font-size="7" opacity="0.6">[38]</tspan></text>
+
+  <rect x="0" y="580" width="100" height="80" fill="#6A1B9A" stroke="#222" stroke-width="1"/>
+  <text transform="translate(50,620) rotate(90)" text-anchor="middle" dominant-baseline="central" font-size="13" fill="white" font-weight="bold">命運 <tspan font-size="7" opacity="0.6">[39]</tspan></text>
+
+  <!-- ===== DIMENSION ANNOTATIONS ===== -->
+  <line x1="0" y1="654" x2="100" y2="654" stroke="#888" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <text x="50" y="651" text-anchor="middle" font-size="7" fill="#888">100px</text>
+  <line x1="100" y1="654" x2="180" y2="654" stroke="#888" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <text x="140" y="651" text-anchor="middle" font-size="7" fill="#888">80px</text>
+  <line x1="1074" y1="660" x2="1074" y2="760" stroke="#888" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <text transform="translate(1077,710) rotate(90)" text-anchor="middle" font-size="7" fill="#888">100px</text>
+  <line x1="1074" y1="580" x2="1074" y2="660" stroke="#888" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <text transform="translate(1077,620) rotate(90)" text-anchor="middle" font-size="7" fill="#888">80px</text>
+
+</svg>
