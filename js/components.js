@@ -2,19 +2,19 @@
 
 /* ---------- Shared Navbar + Footer Component Injection ---------- */
 (function injectComponents() {
-  const isHome = !window.location.pathname.includes('events');
+  const path = window.location.pathname;
+  const page = path.includes('events')   ? 'events'
+             : path.includes('calendar') ? 'calendar'
+             : 'home';
 
   /* ── Links: resolve relative to current page ── */
-  const home  = isHome ? ''          : 'index.html';
-  const ev    = isHome ? 'events.html' : '';
-
   const href = {
-    logo:     isHome ? '#'                   : 'index.html',
-    news:     home + '#articles',
-    events:   ev   + '#events',
-    calendar: home + '#calendar',
-    contact:  home + '#contact',
-    quiz:     ev   + '#quiz',
+    logo:     page === 'home'     ? '#'              : 'index.html',
+    news:     page === 'home'     ? '#articles'      : 'index.html#articles',
+    events:   page === 'events'   ? '#events'        : 'events.html',
+    calendar: page === 'calendar' ? '#'              : 'calendar.html',
+    contact:  page === 'home'     ? '#contact'       : 'index.html#contact',
+    quiz:     page === 'events'   ? '#quiz'          : 'events.html#quiz',
   };
 
   /* ── Navbar ── */

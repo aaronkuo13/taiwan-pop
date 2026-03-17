@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Taiwan Pop — 活動行事曆，掌握 2026 年七大藝文展演日期">
+  <title>活動行事曆 — Taiwan Pop</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K6V2LJ748H');
+  </script>
+</head>
+<body>
+
+  <!-- ======= NAVIGATION (injected by components.js) ======= -->
+  <nav id="navbar"></nav>
+
+  <!-- ======= CALENDAR ======= -->
+  <section id="calendar" class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">SCHEDULE</span>
+        <h2 class="section-title" data-i18n="sec-cal-title">活動行事曆</h2>
+        <p class="section-sub" data-i18n="sec-cal-sub">掌握所有活動日期，提前規劃您的參與計畫</p>
+      </div>
+      <div class="calendar-layout">
+        <div class="calendar-box">
+          <div class="cal-nav">
+            <button id="prevMonth" aria-label="上個月">&#8249;</button>
+            <h3 id="calTitle"></h3>
+            <button id="nextMonth" aria-label="下個月">&#8250;</button>
+          </div>
+          <div class="cal-weekdays">
+            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend">
+            <span class="cal-dot"></span><span data-i18n="cal-legend">活動日期</span>
+          </div>
+        </div>
+        <div class="upcoming-box">
+          <h3 data-i18n="cal-upcoming-h">近期活動</h3>
+          <ul class="upcoming-list" id="upcomingList"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER (injected by components.js) ======= -->
+  <footer id="contact"></footer>
+
+  <!-- ======= EVENT MODAL ======= -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <p class="modal-num" id="modalNum"></p>
+        <div class="modal-icon" id="modalIcon"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose" aria-label="關閉">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <span class="modal-meta-item" id="modalDate">
+            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+            <span></span>
+          </span>
+          <span class="modal-meta-item" id="modalLocation">
+            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1a5 5 0 0 1 5 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 0 1 5-5zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+            <span></span>
+          </span>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <a href="#" class="modal-cta" data-i18n="modal-cta">了解更多詳情 →</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/lang.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/lang-init.js"></script>
+</body>
+</html>
