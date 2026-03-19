@@ -893,24 +893,21 @@ ul { list-style: none; }
 
 .event-card--secondary .event-card-meta { margin-bottom: 0; font-size: 11px; }
 
-/* CTA button (primary cards only) */
+/* CTA text (primary cards — bottom-right small link) */
 .event-card-cta {
   margin-top: auto;
   display: block;
-  text-align: center;
-  background: var(--primary);
-  color: #fff;
+  text-align: right;
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: .5px;
-  padding: 10px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background var(--transition);
+  color: rgba(255,255,255,.35);
+  transition: color var(--transition);
+  padding-top: 10px;
 }
 
-.event-card-cta:hover { background: var(--primary-light); color: #fff; }
+.event-card--primary:hover .event-card-cta { color: rgba(255,255,255,.75); }
 
 /* Secondary card hover — whole card acts as link */
 .event-card--secondary:hover { transform: translateY(-2px); }

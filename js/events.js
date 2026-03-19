@@ -27,7 +27,7 @@ function renderEvents() {
     const target = ev.externalUrl ? 'target="_blank" rel="noopener"' : '';
     const cta    = L['event-cta'] || '了解更多・立即報名 →';
     return `
-      <div class="event-card event-card--primary card--${catId}">
+      <a href="${href}" class="event-card event-card--primary card--${catId}" ${target}>
         <div class="event-card-img">
           <img src="https://picsum.photos/600/320?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
           <span class="event-card-pill pill--${catId}">${L[`cat-${catId}-label`]}</span>
@@ -39,9 +39,9 @@ function renderEvents() {
             <span>${dateStr(ev)}</span>
             <span>${ev.location}</span>
           </div>
-          <a href="${href}" class="event-card-cta" ${target}>${cta}</a>
+          <span class="event-card-cta">${cta}</span>
         </div>
-      </div>`;
+      </a>`;
   }
 
   function secondaryCard(ev, catId) {
