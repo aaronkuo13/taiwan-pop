@@ -4,7 +4,7 @@
 const LANG = {
   zh: {
     /* Navbar */
-    'nav-news':'最新消息','nav-events':'七大活動','nav-discover':'文化探索',
+    'nav-news':'最新消息','nav-events':'展演活動','nav-discover':'文化探索',
     'nav-calendar':'行事曆','nav-contact':'聯絡我們',
     /* Banner */
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
@@ -36,8 +36,15 @@ const LANG = {
     'concept-p3-title':'Taiwan Pop<br>視覺覆蓋',
     'concept-p3-desc':'一個以紐約塗鴉文化為靈魂的主視覺，持續出現在街頭廣告、在地商家、活動現場。每一杯貼著主視覺的手搖飲、每一個茄芷袋，都是行走在曼哈頓的台灣文化宣言。',
     /* Events */
-    'sec-events-title':'七大主題活動',
-    'sec-events-sub':'2026 年，七場跨領域藝文展演，在紐約呈現最真實的台灣',
+    'sec-events-title':'展演活動',
+    'sec-events-sub':'2026 年，十二場跨領域藝文展演，以三大主題在紐約呈現最真實的台灣',
+    'cat-sound-label':'身體與聲音',
+    'cat-sound-sub':'現場表演・音樂・舞蹈',
+    'cat-image-label':'影像與敘事',
+    'cat-image-sub':'電影・視覺藝術・文學',
+    'cat-street-label':'街頭與生活',
+    'cat-street-sub':'藝術節・遊行・城市現場',
+    'event-cta':'了解更多・立即報名 →',
     /* Discover */
     'sec-discover-title':'探索台灣 × 紐約',
     'sec-discover-sub':'滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅',
@@ -50,7 +57,7 @@ const LANG = {
     /* Footer */
     'footer-desc':'Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
     'footer-links-h':'快速連結','footer-contact-h':'聯絡資訊',
-    'footer-news':'最新消息','footer-events':'七大活動','footer-discover':'文化探索',
+    'footer-news':'最新消息','footer-events':'展演活動','footer-discover':'文化探索',
     'footer-cal':'行事曆','footer-hours':'週一至週五 09:00–18:00 (TST)',
     /* Map Pins */
     'pin-1':'林懷民講座','pin-2':'NSO × 泰武古謠','pin-3':'布希維克街頭藝術節',
@@ -110,8 +117,15 @@ const LANG = {
     'concept-p3-title':'Taiwan Pop<br>Visual Identity',
     'concept-p3-desc':"A single visual identity rooted in New York's graffiti culture appears across billboards, local shops, and event venues. Every branded bubble tea cup, every tote bag on the subway, is a Taiwan cultural statement walking through Manhattan.",
     /* Events */
-    'sec-events-title':'Seven Cultural Events',
-    'sec-events-sub':'Seven cross-disciplinary arts events in 2026, presenting the most authentic Taiwan in New York',
+    'sec-events-title':'Performances',
+    'sec-events-sub':'Twelve cross-disciplinary arts events in 2026, presenting the most authentic Taiwan in New York across three themes',
+    'cat-sound-label':'Body & Sound',
+    'cat-sound-sub':'Live Performance · Music · Dance',
+    'cat-image-label':'Image & Narrative',
+    'cat-image-sub':'Film · Visual Arts · Literature',
+    'cat-street-label':'Street & Life',
+    'cat-street-sub':'Festival · Parade · Urban Scene',
+    'event-cta':'Learn More · Register →',
     /* Discover */
     'sec-discover-title':'Discover Taiwan × New York',
     'sec-discover-sub':"Scroll the map to find each event's location. Click to begin your Taiwan cultural exploration",

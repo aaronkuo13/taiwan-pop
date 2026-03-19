@@ -1,69 +1,161 @@
 'use strict';
 
 /* ---------- Events Data ---------- */
+/* category: 'sound' | 'image' | 'street'  isPrimary: true = 主要活動 / false = 其他活動 */
 const EVENTS = [
-  {
-    num:'01', icon:'🎭',
-    date:'2026-05-01',
-    title:'臺美藝文大師系列講座 ─ 林懷民',
-    title_en:'Taiwan-US Arts Master Lecture — Lin Hwai-min',
-    location:'Lincoln Center, New York, NY',
-    desc:'雲門舞集創辦人林懷民將於 5 月 1 日在紐約親身登場，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。',
-    desc_en:"Cloud Gate founder Lin Hwai-min takes the stage in New York on May 1st, sharing five decades of creative vision and Taiwan's contemporary arts with the world. Not to be missed."
-  },
+
+  /* ── 身體與聲音 · 主要活動 ── */
   {
     num:'02', icon:'🎼',
     date:'2026-05-19',
     title:'NSO × 泰武古謠',
     title_en:'NSO × Taiwu Ancient Ballads',
+    subtitle:'交響樂 × 排灣族千年古謠',
+    subtitle_en:'Symphony Orchestra × Paiwan Ancient Chant',
     location:'Carnegie Hall, New York, NY',
     desc:'5 月 19 日，國家交響樂團（NSO）攜手屏東泰武國小古謠傳唱隊，以當代管弦與排灣族千年古謠的相遇，呈現台灣最深層的音樂靈魂。',
-    desc_en:"On May 19th, the National Symphony Orchestra joins the Taiwu Elementary Ancient Ballads Choir — a meeting of contemporary orchestral music and thousand-year-old Paiwan chants, revealing the deepest soul of Taiwan's music."
-  },
-  {
-    num:'03', icon:'🎨',
-    date:'2026-05-28', endDate:'2026-05-30',
-    title:'布希維克街頭藝術節',
-    title_en:'Bushwick Street Art Festival',
-    location:'Bushwick Collective, Brooklyn, NY',
-    desc:'5 月 28 日至 30 日，三天藝術盛典！台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。',
-    desc_en:"May 28–30, a three-day art extravaganza! Taiwanese visual artists take over Brooklyn's art hub Bushwick, leaving Taiwan's mark on the city's most vibrant streets through murals, installations, and live creation."
-  },
-  {
-    num:'04', icon:'🎬',
-    date:'2026-06-01', endDate:'2026-06-28',
-    title:'臺灣主題影展',
-    title_en:'Taiwan Film Festival NYC',
-    location:'IFC Center, Greenwich Village, NY',
-    desc:'6 月前四週，精選台灣當代電影與紀錄片，每週於紐約影展場地輪番放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。',
-    desc_en:"Every week in June, curated Taiwanese films and documentaries screen in New York, inviting international audiences to discover Taiwan's landscapes, people, and contemporary life through film."
-  },
-  {
-    num:'05', icon:'🌈',
-    date:'2026-06-28',
-    title:'紐約同志大遊行',
-    title_en:'NYC Pride March',
-    location:'5th Avenue, Manhattan, NY',
-    desc:'6 月 28 日，Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。',
-    desc_en:"On June 28th, the Taiwan Pop delegation marches in the world's largest Pride parade, broadcasting Taiwan's values of diversity and inclusion and showcasing Taiwan's pioneering role in Asian human rights."
+    desc_en:"On May 19th, the National Symphony Orchestra joins the Taiwu Elementary Ancient Ballads Choir — a meeting of contemporary orchestral music and thousand-year-old Paiwan chants, revealing the deepest soul of Taiwan's music.",
+    category:'sound', isPrimary:true, externalUrl:'',
   },
   {
     num:'06', icon:'💃',
     date:'2026-07-17', endDate:'2026-07-18',
     title:'翃舞製作',
-    title_en:'Horse Dance Productions',
+    title_en:'H·Art·Ch Dance Company',
+    subtitle:'當代舞蹈演出',
+    subtitle_en:'Contemporary Dance Performance',
     location:'The Joyce Theater, Chelsea, NY',
     desc:'7 月 17 日至 18 日，翃舞製作以當代舞蹈語彙回應台灣社會文化，在紐約舞台呈現融合東方美學與當代肢體語言的精彩舞作，展現台灣舞蹈的國際高度。',
-    desc_en:'July 17–18, Horse Dance Productions responds to Taiwanese society and culture through contemporary dance vocabulary, presenting works that fuse Eastern aesthetics and contemporary movement on the New York stage.'
+    desc_en:'July 17–18, H·Art·Ch Dance Company responds to Taiwanese society and culture through contemporary dance, presenting works that fuse Eastern aesthetics and contemporary movement on the New York stage.',
+    category:'sound', isPrimary:true, externalUrl:'',
   },
   {
     num:'07', icon:'🎵',
     date:'2026-08-16',
     title:'"SummerStage" Taiwanese Waves',
     title_en:'"SummerStage" Taiwanese Waves',
+    subtitle:'台灣當代音樂之夜',
+    subtitle_en:'A Night of Taiwanese Contemporary Music',
     location:'Central Park SummerStage, New York, NY',
     desc:'Taiwan Pop 壓軸鉅獻！8 月 16 日在紐約中央公園 SummerStage 舉辦台灣音樂之夜，集結台灣當代音樂人，以最震撼的現場演出向紐約致敬。',
-    desc_en:'The grand Taiwan Pop finale! On August 16th at Central Park SummerStage, a night of Taiwanese music brings together contemporary Taiwanese artists for an electrifying live show in tribute to New York.'
+    desc_en:'The grand Taiwan Pop finale! On August 16th at Central Park SummerStage, a night of Taiwanese music brings together contemporary Taiwanese artists for an electrifying live show in tribute to New York.',
+    category:'sound', isPrimary:true, externalUrl:'',
+  },
+
+  /* ── 身體與聲音 · 其他活動 ── */
+  {
+    num:'08', icon:'🥁',
+    date:'2026-08-12', endDate:'2026-08-14',
+    title:'砲臺舞蹈節',
+    title_en:'Fort Dance Festival',
+    subtitle:'麥藍堤亞舞團',
+    subtitle_en:'Malandain Ballet Biarritz',
+    location:'哈德遜河岸公園, New York, NY',
+    desc:'麥藍堤亞舞團帶來融合台灣原住民族身體記憶與當代舞蹈語彙的精彩演出，在哈德遜河岸公園戶外場地呈現台灣當代舞蹈的力與美。',
+    desc_en:'A spectacular outdoor performance blending Taiwanese indigenous body memory with contemporary dance vocabulary, presented at the Hudson River Park waterfront stage.',
+    category:'sound', isPrimary:false, externalUrl:'',
+  },
+  {
+    num:'09', icon:'🎸',
+    date:'2026-08-01', endDate:'2026-09-30',
+    title:'徐崇育爵士樂團',
+    title_en:'Hsu Chung-yu Jazz Ensemble',
+    subtitle:'Clave de Taiwan 美國巡演',
+    subtitle_en:'Clave de Taiwan US Tour',
+    location:'紐約 × 邁阿密',
+    desc:'台灣爵士吉他手徐崇育率領 Clave de Taiwan 樂團，以融合台灣民謠與拉丁爵士的獨特音樂語言，展開紐約至邁阿密的美國巡迴演出。',
+    desc_en:'Taiwanese jazz guitarist Hsu Chung-yu leads Clave de Taiwan on a US tour from New York to Miami, blending Taiwanese folk melodies with Latin jazz in a unique musical voice.',
+    category:'sound', isPrimary:false, externalUrl:'',
+  },
+  {
+    num:'10', icon:'🎪',
+    date:'2026-08-12', endDate:'2026-08-16',
+    title:'國際偶戲藝穗節',
+    title_en:'International Puppet Arts Fringe Festival',
+    subtitle:'飛人集社《初生》',
+    subtitle_en:'Fei-Performers《Birth》',
+    location:'克萊門特中心, New York, NY',
+    desc:'飛人集社以《初生》登上紐約國際偶戲藝穗節，以精緻偶戲技藝呈現台灣當代表演藝術，探索生命誕生與消逝的詩意敘事。',
+    desc_en:'Fei-Performers brings 《Birth》to the New York International Puppet Arts Fringe, presenting a poetic narrative of life and loss through exquisite Taiwanese puppetry and contemporary performance.',
+    category:'sound', isPrimary:false, externalUrl:'',
+  },
+
+  /* ── 影像與敘事 · 主要活動 ── */
+  {
+    num:'01', icon:'🎭',
+    date:'2026-05-01',
+    title:'林懷民大師講座',
+    title_en:'Lin Hwai-min Masterclass',
+    subtitle:'臺美藝文系列・雲門舞集創辦人',
+    subtitle_en:'Taiwan–US Arts Series · Cloud Gate Founder',
+    location:'Lincoln Center, New York, NY',
+    desc:'雲門舞集創辦人林懷民將於 5 月 1 日在紐約親身登場，分享橫跨半世紀的創作歷程與台灣當代藝術的國際視野，是不可錯過的藝文饗宴。',
+    desc_en:"Cloud Gate founder Lin Hwai-min takes the stage in New York on May 1st, sharing five decades of creative vision and Taiwan's contemporary arts with the world. Not to be missed.",
+    category:'image', isPrimary:true, externalUrl:'',
+  },
+  {
+    num:'04', icon:'🎬',
+    date:'2026-06-01', endDate:'2026-06-28',
+    title:'臺灣主題影展',
+    title_en:'Taiwan Film Festival NYC',
+    subtitle:'臺灣電影主題策劃放映',
+    subtitle_en:'Curated Taiwanese Cinema Programme',
+    location:'IFC Center, Greenwich Village, NY',
+    desc:'6 月前四週，精選台灣當代電影與紀錄片，每週於紐約影展場地輪番放映，讓國際觀眾透過鏡頭認識台灣的土地、人文與當代生活故事。',
+    desc_en:"Every week in June, curated Taiwanese films and documentaries screen in New York, inviting international audiences to discover Taiwan's landscapes, people, and contemporary life through film.",
+    category:'image', isPrimary:true, externalUrl:'',
+  },
+
+  /* ── 影像與敘事 · 其他活動 ── */
+  {
+    num:'11', icon:'🎞️',
+    date:'2026-06-01', endDate:'2026-07-31',
+    title:'紐約亞洲影展',
+    title_en:'New York Asian Film Festival',
+    subtitle:'第25屆・4部臺灣片入選',
+    subtitle_en:'25th Edition · 4 Taiwanese Films Selected',
+    location:'林肯電影中心, New York, NY',
+    desc:'第 25 屆紐約亞洲影展共有 4 部臺灣電影入選，於林肯電影中心與紐約觀眾相遇，展現臺灣電影的多元視野與創作能量。',
+    desc_en:'The 25th New York Asian Film Festival features 4 selected Taiwanese films screening at Lincoln Center, showcasing the diversity and creative energy of contemporary Taiwanese cinema.',
+    category:'image', isPrimary:false, externalUrl:'',
+  },
+  {
+    num:'12', icon:'🖥️',
+    date:'2026-04-03', endDate:'2027-04-03',
+    title:'鄭淑麗個展',
+    title_en:'Shu Lea Cheang Solo Exhibition',
+    subtitle:'互動電影裝置',
+    subtitle_en:'Interactive Film Installation',
+    location:'Leslie-Lohman Museum, New York, NY',
+    desc:'台灣錄像藝術先驅鄭淑麗在 Leslie-Lohman 美術館展出互動電影裝置新作，以其標誌性的身體政治與性別議題，挑戰觀者的感官認知邊界。',
+    desc_en:'Taiwanese video art pioneer Shu Lea Cheang presents a new interactive film installation at Leslie-Lohman Museum, challenging perceptions through her signature exploration of body politics and gender.',
+    category:'image', isPrimary:false, externalUrl:'',
+  },
+
+  /* ── 街頭與生活 · 主要活動 ── */
+  {
+    num:'03', icon:'🎨',
+    date:'2026-05-28', endDate:'2026-05-30',
+    title:'布希維克街頭藝術節',
+    title_en:'Bushwick Street Art Festival',
+    subtitle:'台灣視覺藝術家 × 街頭壁畫',
+    subtitle_en:'Taiwanese Visual Artists × Street Murals',
+    location:'Bushwick Collective, Brooklyn, NY',
+    desc:'5 月 28 日至 30 日，三天藝術盛典！台灣視覺藝術家進駐布魯克林藝術重鎮 Bushwick，以壁畫、裝置與現場創作，在紐約最具活力的街頭留下台灣的印記。',
+    desc_en:"May 28–30, a three-day art extravaganza! Taiwanese visual artists take over Brooklyn's art hub Bushwick, leaving Taiwan's mark on the city's most vibrant streets through murals, installations, and live creation.",
+    category:'street', isPrimary:true, externalUrl:'',
+  },
+  {
+    num:'05', icon:'🌈',
+    date:'2026-06-28',
+    title:'紐約同志大遊行',
+    title_en:'NYC Pride March',
+    subtitle:'Taiwan 彩虹代表隊',
+    subtitle_en:'Taiwan Rainbow Delegation',
+    location:'5th Avenue, Manhattan, NY',
+    desc:'6 月 28 日，Taiwan Pop 代表隊盛裝參與世界最大同志遊行，以台灣驕傲的多元包容價值向全球發聲，展現台灣在亞洲人權進步的先行姿態。',
+    desc_en:"On June 28th, the Taiwan Pop delegation marches in the world's largest Pride parade, broadcasting Taiwan's values of diversity and inclusion and showcasing Taiwan's pioneering role in Asian human rights.",
+    category:'street', isPrimary:true, externalUrl:'',
   },
 ];
 

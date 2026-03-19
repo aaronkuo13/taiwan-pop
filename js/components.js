@@ -30,7 +30,7 @@
         </button>
         <ul class="nav-links" id="navLinks">
           <li><a href="${href.news}"     class="nav-link" data-i18n="nav-news">最新消息</a></li>
-          <li><a href="${href.events}"   class="nav-link" data-i18n="nav-events">七大活動</a></li>
+          <li><a href="${href.events}"   class="nav-link" data-i18n="nav-events">展演活動</a></li>
           <li><a href="${href.calendar}" class="nav-link" data-i18n="nav-calendar">行事曆</a></li>
           <li><a href="${href.contact}"  class="nav-link nav-cta" data-i18n="nav-contact">聯絡我們</a></li>
         </ul>
@@ -63,7 +63,7 @@
             <h4 data-i18n="footer-links-h">快速連結</h4>
             <ul>
               <li><a href="${href.news}"     data-i18n="footer-news">最新消息</a></li>
-              <li><a href="${href.events}"   data-i18n="footer-events">七大活動</a></li>
+              <li><a href="${href.events}"   data-i18n="footer-events">展演活動</a></li>
               <li><a href="${href.quiz}"     data-i18n="footer-discover">文化探索</a></li>
               <li><a href="${href.calendar}" data-i18n="footer-cal">行事曆</a></li>
               <li><a href="https://tccny.moc.gov.tw/ch/Default.aspx" target="_blank" rel="noopener">紐文臺北文化中心</a></li>
