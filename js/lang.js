@@ -4,7 +4,7 @@
 const LANG = {
   zh: {
     /* Navbar */
-    'nav-news':'最新消息','nav-events':'七大活動','nav-discover':'文化探索',
+    'nav-news':'最新消息','nav-events':'展演活動','nav-discover':'文化探索',
     'nav-calendar':'行事曆','nav-contact':'聯絡我們',
     /* Banner */
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
@@ -57,7 +57,7 @@ const LANG = {
     /* Footer */
     'footer-desc':'Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
     'footer-links-h':'快速連結','footer-contact-h':'聯絡資訊',
-    'footer-news':'最新消息','footer-events':'七大活動','footer-discover':'文化探索',
+    'footer-news':'最新消息','footer-events':'展演活動','footer-discover':'文化探索',
     'footer-cal':'行事曆','footer-hours':'週一至週五 09:00–18:00 (TST)',
     /* Map Pins */
     'pin-1':'林懷民講座','pin-2':'NSO × 泰武古謠','pin-3':'布希維克街頭藝術節',
