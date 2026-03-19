@@ -11,11 +11,11 @@
   `;
   document.head.appendChild(style);
 
-  const targets = document.querySelectorAll(
+  const autoTargets = document.querySelectorAll(
     '.article-card, .event-card, .upcoming-item, .calendar-box, .upcoming-box'
   );
 
-  targets.forEach((el, i) => {
+  autoTargets.forEach((el, i) => {
     el.classList.add('reveal');
     el.style.transitionDelay = `${(i % 4) * 80}ms`;
   });
@@ -29,5 +29,6 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  targets.forEach(el => observer.observe(el));
+  /* Observe both auto-tagged and manually-tagged .reveal elements */
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 })();
