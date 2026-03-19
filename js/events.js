@@ -27,7 +27,7 @@ function renderEvents() {
     const target = ev.externalUrl ? 'target="_blank" rel="noopener"' : '';
     const cta    = L['event-cta'] || '了解更多・立即報名 →';
     return `
-      <div class="event-card event-card--primary">
+      <div class="event-card event-card--primary card--${catId}">
         <div class="event-card-img">
           <img src="https://picsum.photos/600/320?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
           <span class="event-card-pill pill--${catId}">${L[`cat-${catId}-label`]}</span>
@@ -50,7 +50,7 @@ function renderEvents() {
     const href   = ev.externalUrl || '#';
     const target = ev.externalUrl ? 'target="_blank" rel="noopener"' : '';
     return `
-      <a href="${href}" class="event-card event-card--secondary" ${target}>
+      <a href="${href}" class="event-card event-card--secondary card--${catId}" ${target}>
         <div class="event-card-img">
           <img src="https://picsum.photos/400/180?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
           <span class="event-card-pill event-card-pill--sm pill--${catId}">${L[`cat-${catId}-label`]}</span>
