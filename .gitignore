@@ -1,2 +1,7 @@
 .DS_Store
 .claude/
+
+# AI Memory & Internal Workflow Docs (Do not push to GitHub)
+MEMORY.md
+CLAUDE.md
+temp_file/
