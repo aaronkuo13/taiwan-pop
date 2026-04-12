@@ -6,13 +6,15 @@
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Brand: Magenta as primary */
-  --primary:       #f52281;
-  --primary-light: #ff5ca8;
-  --primary-dark:  #c4005e;
-  /* Brand: Neon Green as accent */
-  --accent:        #00ff00;
-  --accent-light:  #66ff66;
+  /* Brand: Neon Green as primary */
+  --primary:       #00ff00;
+  --primary-light: #66ff66;
+  --primary-dark:  #00cc00;
+  /* Brand: Magenta as accent */
+  --accent:        #f52281;
+  --accent-light:  #ff5ca8;
+  /* Utility/Secondary: Bright Blue */
+  --secondary:     #0082d2;
   /* All-black base */
   --bg:            #000000;
   --bg-alt:        #0a0a0a;
@@ -48,7 +50,8 @@ body {
   font-size: 16px;
   line-height: 1.7;
   color: var(--text);
-  background: var(--bg);
+  background: var(--bg) url('../images/Taiwan Pop_Supporting Graphic 3_星光背景_拆圖版.webp') no-repeat center center fixed;
+  background-size: cover;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -92,7 +95,11 @@ ul { list-style: none; }
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
-  color: var(--primary);
+  color: var(--secondary);
+  background: rgba(0, 130, 210, 0.15);
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 130, 210, 0.3);
   text-transform: uppercase;
   margin-bottom: 12px;
 }
@@ -136,15 +143,18 @@ ul { list-style: none; }
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: #fff;
+  background: rgba(0,0,0,0.6);
+  color: var(--primary);
   border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0,255,0,.2);
+  backdrop-filter: blur(4px);
 }
 .btn-primary:hover {
-  background: var(--primary-dark);
-  border-color: var(--primary-dark);
+  background: var(--primary);
+  color: #000;
+  border-color: var(--primary);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245,34,129,.45);
+  box-shadow: 0 6px 20px rgba(0,255,0,.6);
 }
 
 .btn-ghost {
@@ -248,18 +258,23 @@ ul { list-style: none; }
 #navbar.scrolled .nav-link:hover { color: var(--primary); background: rgba(245,34,129,.1); }
 
 .nav-cta {
-  background: var(--primary);
-  color: #fff !important;
+  background: rgba(0,0,0,0.6);
+  color: var(--primary) !important;
+  border: 1px solid var(--primary);
   border-radius: 50px;
   padding: 8px 20px;
+  box-shadow: 0 0 8px rgba(0,255,0,0.3);
+  backdrop-filter: blur(4px);
 }
 .nav-cta:hover {
-  background: var(--primary-dark) !important;
+  background: var(--primary) !important;
+  color: #000 !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245,34,129,.5);
+  box-shadow: 0 4px 16px rgba(0,255,0,0.6);
 }
 
-#navbar.scrolled .nav-cta { color: #fff !important; }
+#navbar.scrolled .nav-cta { color: var(--primary) !important; }
+#navbar.scrolled .nav-cta:hover { color: #000 !important; }
 
 /* Hamburger */
 .hamburger {
@@ -359,19 +374,19 @@ ul { list-style: none; }
   width: clamp(280px, 50vw, 560px);
   height: auto;
   /* neon glow matching the logo's green/magenta */
-  filter: drop-shadow(0 0 24px rgba(0,255,0,.5))
-          drop-shadow(0 0 48px rgba(245,34,129,.35));
+  filter: drop-shadow(0 0 24px rgba(0,255,0,.8))
+          drop-shadow(0 0 48px rgba(0,130,210,.5));
   animation: logoGlow 3s ease-in-out infinite;
 }
 
 @keyframes logoGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 20px rgba(0,255,0,.45))
-            drop-shadow(0 0 40px rgba(245,34,129,.30));
+    filter: drop-shadow(0 0 20px rgba(0,255,0,.6))
+            drop-shadow(0 0 40px rgba(245,34,129,.4));
   }
   50% {
-    filter: drop-shadow(0 0 32px rgba(0,255,0,.70))
-            drop-shadow(0 0 60px rgba(245,34,129,.50));
+    filter: drop-shadow(0 0 36px rgba(0,255,0,.9))
+            drop-shadow(0 0 64px rgba(0,130,210,.6));
   }
 }
 
@@ -456,8 +471,8 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: #00ff00;
-  text-shadow: 0 0 10px rgba(0,255,0,.5);
+  color: var(--secondary);
+  text-shadow: 0 0 10px rgba(0,130,210,.5);
   margin-bottom: 24px;
   display: block;
 }
@@ -854,12 +869,26 @@ ul { list-style: none; }
   color: #fff;
 }
 
+.pillar-text p.pillar-subtitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 420px;
+}
+
 .pillar-text p {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 2;
   color: rgba(255,255,255,.6);
   font-weight: 300;
-  max-width: 400px;
+  max-width: 420px;
+}
+
+.pillar-text p strong {
+  font-weight: 700;
+  color: rgba(255,255,255,.9);
 }
 
 /* ── Responsive ── */
