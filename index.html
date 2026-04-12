@@ -28,7 +28,7 @@
   <section id="banner">
     <div class="video-bg">
       <iframe
-        src="https://www.youtube.com/embed/OBHgltFLVK0?autoplay=1&mute=1&loop=1&playlist=OBHgltFLVK0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3"
+        src="https://www.youtube.com/embed/kYnsfLi-U8s?autoplay=1&mute=1&loop=1&playlist=kYnsfLi-U8s&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3"
         frameborder="0"
         allow="autoplay; encrypted-media; picture-in-picture"
         allowfullscreen
@@ -55,56 +55,105 @@
   <!-- ======= CURATORIAL CONCEPT ======= -->
   <section id="concept">
 
-    <!-- Part 1: 主圖 + 策展宣言 -->
-    <div class="concept-hero">
-      <div class="concept-hero-img">
-        <img src="https://picsum.photos/900/1100?grayscale&random=10" alt="Taiwan Pop 主視覺" loading="lazy">
-      </div>
-      <div class="concept-hero-text">
-        <span class="concept-label">策展理念 · Curatorial Concept</span>
-        <h2 class="concept-title" data-i18n-html="concept-title">臺灣<em>尚趴</em></h2>
-        <p class="concept-slogan" data-i18n="concept-slogan">Feel the Pop · 曼哈頓的臺灣日常</p>
-        <div class="concept-divider"></div>
-        <p class="concept-manifesto" data-i18n="concept-manifesto">台灣文化不是博物館裡的展品，而是此刻正在發生的生活日常。2026 年，Taiwan Pop 以塗鴉為語言，以藝術為媒介，帶著七大展演橫跨曼哈頓——從大師講座到中央公園夏日舞台，讓紐約在這個夏天，看見最真實的台灣。</p>
-      </div>
+    <!-- Part A: 策展宣言 Accordion -->
+    <div class="concept-section-header">
+      <span class="concept-label">策展理念 · Curatorial Concept</span>
     </div>
 
-    <!-- Part 2: 三大策略 交錯圖文 -->
+    <div class="concept-accordion">
+
+      <!-- Panel 01 — 黑潮理念（預設展開） -->
+      <div class="concept-panel concept-panel--active">
+        <div class="panel-bg">
+          <img src="https://picsum.photos/900/700?grayscale&random=51" alt="黑潮理念" loading="lazy">
+        </div>
+        <div class="panel-content">
+          <span class="panel-num">01</span>
+          <h2 class="panel-title" data-i18n="concept-kuro">黑潮理念</h2>
+          <div class="panel-body">
+            <p class="panel-sub" data-i18n="concept-sub1">黑潮，從臺灣東岸出發、持續向北流動的暖流</p>
+            <p class="panel-desc" data-i18n="concept-sub1-body">它有自己的溫度、方向與速度。穿越日本海域，橫渡太平洋，帶著熱帶的記憶進入寒冷的水域，在不知不覺中改變那裡的溫度。</p>
+          </div>
+          <span class="panel-hint" data-i18n="concept-expand-hint">點擊展開</span>
+        </div>
+      </div>
+
+      <!-- Panel 02 — 臺灣尚趴 -->
+      <div class="concept-panel">
+        <div class="panel-bg">
+          <img src="https://picsum.photos/900/700?grayscale&random=52" alt="臺灣尚趴" loading="lazy">
+        </div>
+        <div class="panel-content">
+          <span class="panel-num">02</span>
+          <h2 class="panel-title" data-i18n="concept-pop">臺灣尚趴</h2>
+          <div class="panel-body">
+            <p class="panel-sub" data-i18n="concept-sub2">臺灣文化在世界之中的移動，也有類似的軌跡</p>
+            <p class="panel-desc" data-i18n="concept-sub2-body">紐約文化中心在紐約已走過三十五年。這段時間裡，無數音樂會、展覽、電影與講座，在曼哈頓的核心持續發聲。這些內容沒有急於定義臺灣的位置，而是在累積一種被看見、被感受的經驗。聲音、影像、身體與故事，自然地進入這座城市的感知之中。</p>
+          </div>
+          <span class="panel-hint" data-i18n="concept-expand-hint">點擊展開</span>
+        </div>
+      </div>
+
+      <!-- Panel 03 — 曼哈頓的臺灣日常 -->
+      <div class="concept-panel">
+        <div class="panel-bg">
+          <img src="https://picsum.photos/900/700?grayscale&random=53" alt="曼哈頓的臺灣日常" loading="lazy">
+        </div>
+        <div class="panel-content">
+          <span class="panel-num">03</span>
+          <h2 class="panel-title" data-i18n="concept-nyc">曼哈頓的臺灣日常</h2>
+          <div class="panel-body">
+            <p class="panel-sub" data-i18n="concept-sub3">2026年的夏天，這些長年累積的能量，將重新轉化</p>
+            <p class="panel-desc" data-i18n="concept-sub3-body">將文化滲入城市的日常紋理中，在音樂廳的舞台上、電影院的銀幕前、布魯克林的牆面、哈德遜河岸的草地、遊行的人群之中，以及你手中那杯手搖飲的杯身。臺灣文化將常態地出現在曼哈頓的生活場域裡。</p>
+            <p class="panel-closing" data-i18n="concept-closing">流動本身，自帶方向與力量。</p>
+          </div>
+          <span class="panel-hint" data-i18n="concept-expand-hint">點擊展開</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="concept-theme-divider">
+      <span data-i18n="concept-themes-label">三大展演策略 · Three Themes</span>
+    </div>
+
+    <!-- Part B: 三大策略 交錯圖文 -->
     <div class="concept-pillars">
 
       <div class="pillar-row">
         <div class="pillar-img">
-          <img src="https://picsum.photos/900/600?random=21" alt="文化Hub" loading="lazy">
-          <span class="pillar-img-badge">紐文中心 · Manhattan Hub</span>
+          <img src="https://picsum.photos/900/600?random=21" alt="身體與聲音" loading="lazy">
+          <span class="pillar-img-badge">SOUND · 身體與聲音</span>
         </div>
         <div class="pillar-text pillar-text--magenta">
-          <span class="pillar-num">01 · 文化 HUB</span>
-          <h3 data-i18n-html="concept-p1-title">紐文中心<br>文化地標</h3>
-          <p data-i18n="concept-p1-desc">紐文中心作為黑潮計畫的實體品牌中心，透過塗鴉次文化元素融入公務大樓外觀，成為曼哈頓最具辨識度的台灣文化打卡地標。每一位走進這裡的訪客，都是台灣文化的第一手見證者。</p>
+          <span class="pillar-num">SOUND</span>
+          <h3 data-i18n-html="concept-p1-title">Feel the Beat.<br>身體與聲音</h3>
+          <p data-i18n="concept-p1-desc">從泰武山上傳承千年的排灣古謠，到當代舞台上精準到毫秒的舞蹈；從爵士樂手在跨文化合奏中的即興延展，到中央公園夏日舞台向整座城市釋放的聲音能量。這個節奏存在於身體、聲音，以及現場的空氣之中。唯有置身其中，才能真正感受。</p>
         </div>
       </div>
 
       <div class="pillar-row pillar-row--reverse">
         <div class="pillar-img">
-          <img src="https://picsum.photos/900/600?random=31" alt="七大展演" loading="lazy">
-          <span class="pillar-img-badge">2026 · MAY → AUG</span>
+          <img src="https://picsum.photos/900/600?random=31" alt="影像與敘事" loading="lazy">
+          <span class="pillar-img-badge">IMAGE · 影像與敘事</span>
         </div>
         <div class="pillar-text pillar-text--green">
-          <span class="pillar-num">02 · 七大展演</span>
-          <h3 data-i18n-html="concept-p2-title">線性串連<br>整個夏天</h3>
-          <p data-i18n="concept-p2-desc">從 5 月的林懷民大師講座，到 8 月中央公園的 Taiwanese Waves，七個活動成為每一個行銷波段的節點，以連續出現的主視覺建立視覺覆蓋，讓整個紐約的夏天都有台灣的聲音。</p>
+          <span class="pillar-num">IMAGE</span>
+          <h3 data-i18n-html="concept-p2-title">Feel the Story.<br>影像與敘事</h3>
+          <p data-i18n="concept-p2-desc">臺灣是一個持續生成故事的地方。這座島嶼的地理多重交疊，歷史並行展開，認同在流動中成形。創作者往往在時代的縫隙之中，從邊界觀看，再將視野轉譯成可以被感知的形式。每一個故事都是入口，走進去，將遇見另一種觀看世界的方式。</p>
         </div>
       </div>
 
       <div class="pillar-row">
         <div class="pillar-img">
-          <img src="https://picsum.photos/900/600?random=41" alt="識別覆蓋" loading="lazy">
-          <span class="pillar-img-badge">Taiwan Pop · Visual Identity</span>
+          <img src="https://picsum.photos/900/600?random=41" alt="街頭與生活" loading="lazy">
+          <span class="pillar-img-badge">STREET · 街頭與生活</span>
         </div>
         <div class="pillar-text pillar-text--blue">
-          <span class="pillar-num">03 · 識別覆蓋</span>
-          <h3 data-i18n-html="concept-p3-title">Taiwan Pop<br>視覺覆蓋</h3>
-          <p data-i18n="concept-p3-desc">一個以紐約塗鴉文化為靈魂的主視覺，持續出現在街頭廣告、在地商家、活動現場。每一杯貼著主視覺的手搖飲、每一個茄芷袋，都是行走在曼哈頓的台灣文化宣言。</p>
+          <span class="pillar-num">STREET</span>
+          <h3 data-i18n-html="concept-p3-title">Feel the Vibe.<br>街頭與生活</h3>
+          <p data-i18n="concept-p3-desc">臺灣文化在不同環境中，始終保有蓬勃的生命力。它能在不同語境中落地，在異質的文化場域中持續延伸，並以當下的語言與環境對話，同時維持自身的核心氣質。多元並存，使文化更加飽滿。臺灣蓬勃的文化生命力，總能在各個角落找到自己的位置。</p>
         </div>
       </div>
 
@@ -186,6 +235,7 @@
   <script src="js/navbar.js"></script>
   <script src="js/events.js"></script>
   <script src="js/reveal.js"></script>
+  <script src="js/concept-accordion.js"></script>
   <script src="js/lang-init.js"></script>
 </body>
 </html>
