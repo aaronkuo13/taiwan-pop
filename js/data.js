@@ -4,18 +4,19 @@
 /* category: 'sound' | 'image' | 'street'  isPrimary: true = 主要活動 / false = 其他活動 */
 const EVENTS = [
 
-  /* ── 身體與聲音 · 主要活動 ── */
   {
     num:'02', icon:'🎼',
     date:'2026-05-19',
-    title:'NSO《來自臺灣》美國巡演',
+    title:'NSO《來自臺灣》2026室內樂美國巡演',
     title_en:'From Formosa: Taiwan Philharmonic Chamber Ensemble 2026 US Tour',
     subtitle:'交響樂 × 排灣族古謠 · Feel the Roots.',
     subtitle_en:'Symphony Orchestra × Paiwan Ancient Ballads · Feel the Roots.',
     location:'Merkin Concert Hall, Kaufman Music Center, New York',
     desc:'2026 年「美國臺灣傳統週」，國家交響樂團肩負文化外交使命赴美演出，由首席小提琴家鄧皓敦領銜，攜手排灣族古謠演唱團體「TBT 泰武古謠傳唱」同台，讓山上的聲音與音樂廳的弦樂交會在同一個晚上。演出涵蓋蕭泰然《原住民組曲》及陳可嘉受委託的世界首演新作。',
     desc_en:"Celebrating Taiwanese American Heritage Week, the Taiwan Philharmonic embarks on a cultural diplomacy tour to the United States. Led by Concertmaster Hao-Tun Teng, the ensemble is joined by the Taiwu Ballads Troupe (TBT) — bringing the voices of the mountain into the same evening as the concert hall's strings. The program includes Tyzen Hsiao's Aboriginal Suite and the world premiere of a new work by Ke-Chia Chen.",
-    category:'sound', isPrimary:true, externalUrl:'',
+    long_desc: '2026 年適逢「美國臺灣傳統週」，國家交響樂團肩負文化外交使命赴美演出，以「島嶼之音」為核心，呈現臺灣音樂從傳統走向國際的精湛實力。\n\n由首席小提琴家鄧皓敦領銜，攜手小提琴家陳怡茹、中提琴家陳猶白、大提琴家連亦先，以及鋼琴家嚴俊傑組成室內樂陣容，並邀請排灣族古謠演唱團體「TBT 泰武古謠傳唱」同台，讓山上的聲音與音樂廳的弦樂交會在同一個晚上。\n演出曲目涵蓋蕭泰然經典《原住民組曲》、客家新創作品，以及臺灣作曲家陳可嘉受委託的世界首演新作，從原住民古謠到當代鋼琴五重奏，向在場的紐約觀眾遞出最動人的臺灣音樂名片。\n\n展演團隊：\n國家交響樂團 (Taiwan Philharmonic)\n前身「聯合實驗管絃樂團」成立於 1986 年，2014 年改隸國家表演藝術中心，以「臺灣愛樂」立足國際。三十多年來持續耕耘，是臺灣最重要的交響樂團。\nTBT 泰武古謠傳唱\n屏東縣泰武鄉泰武國小師生組成，守護排灣族傳統複音吟唱逾二十年，2009 年登錄屏東縣定無形文化資產，多次受邀赴歐美演出。',
+    long_desc_en: "Celebrating Taiwanese American Heritage Week, the National Symphony Orchestra of Taiwan embarks on a cultural diplomacy tour to the United States. The program centers on the \"Sounds of the Island\" — a journey through Taiwan's musical landscape from indigenous tradition to contemporary composition.\n\nLed by Concertmaster Hao-Tun Teng alongside violinist Yi-Ru Chen, violist You-Bai Chen, cellist Yi-Hsien Lien, and pianist Chun-Chieh Yen, the ensemble is joined by the Taiwu Ballads Troupe (TBT) — singers from Taiwan's Paiwan indigenous community — bringing the voices of the mountain into the same evening as the concert hall's strings.\nThe program spans Tyzen Hsiao's iconic Aboriginal Suite, newly commissioned Hakka compositions, and the world premiere of a new work by Taiwanese composer Ke-Chia Chen. From the raw beauty of indigenous chant to contemporary piano quintet, this concert offers New York audiences a portrait of Taiwan's musical depth and range.\n\nPerformers:\nTaiwan Philharmonic (National Symphony Orchestra)\nFounded in 1986, the Taiwan Philharmonic has performed across Asia, Europe, and the Americas, establishing itself as Taiwan's foremost orchestra and a leading voice for Taiwanese music on the international stage.\nTaiwu Ballads Troupe (TBT)\nBased at Taiwu Elementary School in Pingtung County, TBT has preserved and performed the polyphonic chant tradition of the Paiwan people for over two decades. Designated as intangible cultural heritage in 2009, the troupe has performed extensively in Europe and the United States.",
+    category:'sound', isPrimary:true, externalUrl:''
   },
   {
     num:'06', icon:'💃',
@@ -27,7 +28,9 @@ const EVENTS = [
     location:'Skirball Cultural Center, New York',
     desc:'《羽人》以強烈而細膩的身體語言，描繪人在束縛之中仍渴望自由。編舞家賴翃中大膽解構傳統戲曲元素：象徵權力的「翎子」化為意識的延伸，失去槍頭的「藤桿」則架起浮動的牢籠，作品揉合太極與當代舞蹈語彙。2023 年於法國外亞維儂藝術節 20 場演出完售。',
     desc_en:'BIRDY explores the tension between freedom and constraint through a refined physical language. Choreographer LAI Hung-chung deconstructs traditional Peking opera — pheasant feathers become extensions of consciousness; rattan poles form fluid, cage-like structures. Blending Tai Chi with contemporary dance, the work resonated at the 2023 Festival Off Avignon with 20 sold-out performances.',
-    category:'sound', isPrimary:true, externalUrl:'',
+    long_desc: '「所有的自由飛翔，都是從限制開始的？」\n\n《羽人》以強烈而細膩的身體語言，描繪人在束縛之中仍渴望自由。編舞家賴翃中大膽解構傳統戲曲元素：象徵權力的「翎子」化為意識的延伸，失去槍頭的「藤桿」則架起浮動的牢籠。作品揉合太極與當代舞蹈語彙，以身體呼吸、重心與張力探索生命的韌性。\n\n2023 年，《羽人》於法國外亞維儂藝術節登台，20 場演出完售，40 度熱浪也無法阻止觀眾排隊候補。在不斷變動的世界裡，舞者將引領觀眾看見羽翼如何聚散，並朝向心之所向飛行。\n\n展演團隊：\n翃舞製作\n由賴翃中創立，作品以傳統身體技藝與當代舞蹈語彙的深度交融為核心，多次受邀至歐洲、亞洲各大藝術節演出。',
+    long_desc_en: '"Is all flight born from limitation?"\n\nBIRDY, choreographed by LAI Hung-chung, explores the tension between freedom and constraint through a refined physical language. Drawing from traditional Peking opera, the Ling Zi — pheasant feathers once symbolic of power — become extensions of consciousness. Rattan poles, derived from spears, form fluid, cage-like structures that both confine and release. Blending Tai Chi with contemporary dance, the choreography embodies resilience through breath, balance, and tension.\n\nPresented at the 2023 Festival Off Avignon with 20 sold-out performances, BIRDY resonated strongly with international audiences. In a constantly shifting world, it invites us to witness wings that gather and disperse, moving toward possibility and inner direction.\n\nCompany:\nHORSE Dance Theatre\nFounded by LAI Hung-chung, HORSE Dance Theatre has performed extensively at major festivals across Europe and Asia, bringing Taiwan\'s contemporary dance to international stages.',
+    category:'sound', isPrimary:true, externalUrl:''
   },
   {
     num:'07', icon:'🎵',
@@ -39,45 +42,47 @@ const EVENTS = [
     location:'Rumsey Playfield, Central Park, New York',
     desc:'Taiwanese Waves 自 2016 年起每年在紐約 SummerStage 舉辦，是近 40 年歷史中第一個以亞洲音樂為核心策展理念取得官方邀請的節目。2026 年第七屆演出陣容：9m88、YELLOW 黃宣、ØZI、Mong Tong 夢東，由 Chinatown Records 華埠錄音擔任音樂策展協力。現場設臺灣美食攤位，免費入場。',
     desc_en:"Taiwanese Waves has taken place annually at SummerStage since 2016 — the first program in its nearly 40-year history officially invited based on a curatorial vision centered on Asian music. The 2026 seventh edition features 9m88, YELLOW, ØZI, and Mong Tong, with curation support from Chinatown Records. Taiwanese food vendors from 886 and Wen Wen on-site. Free admission.",
-    category:'sound', isPrimary:true, externalUrl:'',
+    long_desc: 'Taiwanese Waves 的命名，含有「來自臺灣的新音樂浪潮」之意，自 2016 年起每年在紐約 SummerStage 舉辦，是近 40 年歷史的 SummerStage 音樂節中，第一個以亞洲音樂為核心策展理念、正式取得官方邀請函的節目。2026 年邁入第七屆，由物子巡演工作室策展，今年著重呈現臺灣創作 R&B 歌手，以及具備海外巡演經驗的獨立樂團。\n\n演出陣容包括 9m88、YELLOW 黃宣、ØZI、Mong Tong 夢東，並由紐約在地的 Chinatown Records 華埠錄音擔任音樂策展協力。現場另設臺灣美食攤位，與紐約在地臺灣餐廳「886」、「文文」合作，從聽覺到味覺，全面體驗臺灣文化。\n\n演出陣容：\n9m88：風格橫跨 R&B、Neo-Soul、Jazz 等，首張創作專輯《平庸之上》獲金曲獎最佳新人獎。\nYELLOW 黃宣：風格橫跨靈魂樂、Jazz 與電子領域，2021 年金音創作獎得主。\nØZI：臺灣 R&B 創作歌手，首張同名專輯獲金曲獎最佳新人獎，將登 NBA 紐約主場。\nMong Tong 夢東：來自臺灣的迷幻搖滾雙人組，以臺灣神秘主義藝術為創作根基。\nChinatown Records 華埠錄音：由紐約在地 DJ 創立，致力保存與分享來自唐人街老唱片的聲音記憶。',
+    long_desc_en: "The name Taiwanese Waves carries the meaning of \"a new wave of music from Taiwan.\" Since 2016, Taiwanese Waves has taken place annually at SummerStage — becoming the first program in SummerStage's nearly 40-year history to be officially invited based on a curatorial vision centered on Asian music. Now entering its seventh edition, the 2026 program is curated by Woozi Studio and spotlights Taiwanese R&B artists alongside independent bands with international touring experience.\n\nThe lineup features 9m88, YELLOW, ØZI, and Mong Tong, with musical curation support from New York's own Chinatown Records. Taiwanese food vendors from NYC's beloved Taiwanese restaurants 886 and Wen Wen will be on-site, extending the experience from sound to taste.\n\nArtists:\n9m88: An artist spanning R&B, Neo-Soul, and Jazz, winning Best New Artist at the Golden Melody Awards.\nYELLOW: Singer and producer spanning soul, R&B, and jazz, winner of the 12th Golden Indie Music Award.\nØZI: Taiwanese R&B singer-songwriter whose debut won Best New Artist at the Golden Melody Awards.\nMong Tong: A psychedelic rock duo whose music draws on Taiwanese mystical art and nostalgic folk iconography.\nChinatown Records: Dedicated to preserving the archives of Chinatown Mandarin vinyl, CDs, and cassettes.",
+    category:'sound', isPrimary:true, externalUrl:''
   },
 
   /* ── 身體與聲音 · 其他活動 ── */
   {
     num:'08', icon:'🥁',
     date:'2026-08-12', endDate:'2026-08-14',
-    title:'砲臺舞蹈節',
-    title_en:'Fort Dance Festival',
+    title:'(待更新) 砲臺舞蹈節',
+    title_en:'(TBD) Fort Dance Festival',
     subtitle:'麥藍堤亞舞團',
     subtitle_en:'Malandain Ballet Biarritz',
     location:'哈德遜河岸公園, New York, NY',
     desc:'麥藍堤亞舞團帶來融合台灣原住民族身體記憶與當代舞蹈語彙的精彩演出，在哈德遜河岸公園戶外場地呈現台灣當代舞蹈的力與美。',
     desc_en:'A spectacular outdoor performance blending Taiwanese indigenous body memory with contemporary dance vocabulary, presented at the Hudson River Park waterfront stage.',
-    category:'sound', isPrimary:false, externalUrl:'',
+    category:'sound', isPrimary:false, externalUrl:''
   },
   {
     num:'09', icon:'🎸',
     date:'2026-08-01', endDate:'2026-09-30',
-    title:'徐崇育爵士樂團',
-    title_en:'Hsu Chung-yu Jazz Ensemble',
+    title:'(待更新) 徐崇育爵士樂團',
+    title_en:'(TBD) Hsu Chung-yu Jazz Ensemble',
     subtitle:'Clave de Taiwan 美國巡演',
     subtitle_en:'Clave de Taiwan US Tour',
     location:'紐約 × 邁阿密',
     desc:'台灣爵士吉他手徐崇育率領 Clave de Taiwan 樂團，以融合台灣民謠與拉丁爵士的獨特音樂語言，展開紐約至邁阿密的美國巡迴演出。',
     desc_en:'Taiwanese jazz guitarist Hsu Chung-yu leads Clave de Taiwan on a US tour from New York to Miami, blending Taiwanese folk melodies with Latin jazz in a unique musical voice.',
-    category:'sound', isPrimary:false, externalUrl:'',
+    category:'sound', isPrimary:false, externalUrl:''
   },
   {
     num:'10', icon:'🎪',
     date:'2026-08-12', endDate:'2026-08-16',
-    title:'國際偶戲藝穗節',
-    title_en:'International Puppet Arts Fringe Festival',
+    title:'(待更新) 國際偶戲藝穗節',
+    title_en:'(TBD) International Puppet Arts Fringe Festival',
     subtitle:'飛人集社《初生》',
     subtitle_en:'Fei-Performers《Birth》',
     location:'克萊門特中心, New York, NY',
     desc:'飛人集社以《初生》登上紐約國際偶戲藝穗節，以精緻偶戲技藝呈現台灣當代表演藝術，探索生命誕生與消逝的詩意敘事。',
     desc_en:'Fei-Performers brings 《Birth》to the New York International Puppet Arts Fringe, presenting a poetic narrative of life and loss through exquisite Taiwanese puppetry and contemporary performance.',
-    category:'sound', isPrimary:false, externalUrl:'',
+    category:'sound', isPrimary:false, externalUrl:''
   },
 
   /* ── 影像與敘事 · 主要活動 ── */
@@ -91,7 +96,9 @@ const EVENTS = [
     location:'Asia Society, New York',
     desc:'這場對話邀請雲門舞集創辦人林懷民，與美國舞蹈節（ADF）執行長 Jodee Nimerichter 共同出席，由亞洲協會總監 Rachel Cooper 主持，回顧臺灣與美國之間數十年的藝術交流歷程。透過個人故事與幕後視角，揭示跨國夥伴關係如何塑造了雲門從臺灣走向世界舞台的旅程。',
     desc_en:'Cloud Gate founder Lin Hwai-min and ADF Executive Director Jodee Nimerichter join together in conversation, moderated by Asia Society\'s Rachel Cooper. Together they reflect on decades of artistic exchange between Taiwan and the United States, and how cross-border partnerships shaped Cloud Gate\'s journey from Taiwan to the world stage.',
-    category:'image', isPrimary:true, externalUrl:'',
+    long_desc: '1973 年，雲門舞集在臺灣成立，成為華語世界第一個當代舞蹈團體。此後半個世紀，雲門從一個島嶼出發，走上全世界的舞台，成為臺灣文化在國際上最被認識的名字之一。\n\n這場對話邀請雲門舞集創辦人林懷民，與美國舞蹈節（ADF）執行長 Jodee Nimerichter 共同出席，由亞洲協會全球表演藝術與文化外交總監 Rachel Cooper 主持，回顧臺灣與美國之間數十年的藝術交流歷程。美國舞蹈節是雲門成長路上重要的合作夥伴，亞洲協會則是最早將雲門介紹給美國觀眾的機構之一。透過個人故事與幕後視角，這場對話將揭示這些跨國夥伴關係如何塑造了雲門從臺灣走向世界舞台的旅程。\n本活動由駐紐約臺北文化中心、中華民國文化部共同支持呈現。\n\n主講人：\n林懷民 ─ 雲門舞集創辦人，2019 年底卸任藝術總監。曾獲美國舞蹈節終身成就獎及各國際殊榮，並獲《時代》雜誌選為「亞洲英雄」。\nJodee Nimerichter ─ 美國舞蹈節執行長，推動多項重要合作計畫。\n主持人：Rachel Cooper ─ 亞洲協會全球表演藝術與文化外交總監。',
+    long_desc_en: "In 1973, Cloud Gate Dance Theatre was founded in Taiwan — the first contemporary dance company in the Chinese-speaking world. Over the fifty years since, Cloud Gate traveled from a single island to stages across the world, becoming one of the most recognized names in Taiwanese culture internationally.\n\nThis conversation brings together Cloud Gate founder Lin Hwai-min and Jodee Nimerichter, Executive Director of the American Dance Festival (ADF), moderated by Rachel Cooper, Director of Global Performing Arts and Culture as Diplomacy at Asia Society. Together, they reflect on decades of artistic exchange between Taiwan and the United States.\n\nADF was a formative partner in Cloud Gate's growth; Asia Society was among the earliest institutions to introduce the company to U.S. audiences. Through personal stories and behind-the-scenes insight, the conversation reveals how these cross-border partnerships shaped Cloud Gate's journey from Taiwan to the world stage.\n\nSpeakers:\nLin Hwai-min: Founder of Cloud Gate Dance Theatre, whose honors include the Samuel H. Scripps / American Dance Festival Award for Lifetime Achievement.\nJodee Nimerichter: Executive Director of the American Dance Festival.\nModerator: Rachel Cooper, Director of Global Performing Arts and Culture as Diplomacy, Asia Society.",
+    category:'image', isPrimary:true, externalUrl:''
   },
   {
     num:'04', icon:'🎬',
@@ -103,33 +110,35 @@ const EVENTS = [
     location:'Metrograph, 7 Ludlow St, New York',
     desc:'Metrograph 電影院自 2018 年起與駐紐約臺北文化中心深度合作，歷屆台灣影展場場爆滿。2026 年以「邊界、遷徙、歸屬」為主軸，策劃放映 10 部長片及 1 場短片選集，分三大策展方向：新浪潮起點、離散與遷徙、跨界合作，並邀請影人出席開幕。',
     desc_en:"Metrograph has partnered with the Taipei Cultural Center in New York since 2018, with every Taiwanese film program selling out. In 2026, Between Worlds presents 10 features and a short film program across three strands — New Wave Foundations, Diaspora Stories, and Cross-Border Collaborations — organized around the themes of borders, migration, and belonging.",
-    category:'image', isPrimary:true, externalUrl:'',
+    long_desc: 'Metrograph 電影院創立於 2016 年，位於曼哈頓下東城，是紐約最具辨識度的藝術電影院之一，深受東亞電影愛好者支持。駐紐約臺北文化中心自 2018 年起與 Metrograph 建立合作關係，歷屆台灣主題影展場場爆滿。\n\n2026 年雙方再度合作，推出「世界之間：跨越疆界的臺灣電影」影展，以「邊界」、「遷徙」、「歸屬」為主軸，透過經典與當代作品並陳，描繪臺灣電影如何在跨文化語境中建構新的敘事語言。預計放映 10 部長片及 1 場短片選集，分三大策展方向：\n\n- 新浪潮起點：蔡明亮《青少年哪吒》、侯孝賢《尼羅河女兒》、楊德昌《一一》\n- 離散與遷徙：關錦鵬《三個女人的故事》、李安《喜宴》、黃熙《女兒的女兒》\n- 跨界合作：鄒時擎《左撇子女孩》、曾佩裕《藍色太陽宮》、舒淇《女孩》等。\n\n影展將邀請影人出席開幕，部分影片亦於 Metrograph At Home 線上平台同步放映。',
+    long_desc_en: "Metrograph, founded in 2016 in Manhattan's Lower East Side, is one of New York's most distinguished independent cinemas and a gathering place for East Asian film enthusiasts. The Taipei Cultural Center in New York has partnered with Metrograph since 2018, presenting sold-out Taiwanese film programs.\n\nIn 2026, the two institutions reunite for Between Worlds: Taiwanese Cinema Across Borders — a program organized around the themes of borders, migration, and belonging, presenting classic and contemporary Taiwanese films alongside one another to trace how Taiwanese cinema has built new narrative languages across cultures.\nThe program includes 10 features and a short film program, across three curatorial strands:\n\n- New Wave Foundations: Tsai Ming-liang's Rebels of the Neon God, Hou Hsiao-hsien's Daughter of the Nile, Edward Yang's Yi Yi\n- Diaspora Stories: Stanley Kwan's Full Moon in New York, Ang Lee's The Wedding Banquet, Singing Chen's Daughter's Daughter\n- Cross-Border Collaborations: Works including Tsou Shih-ching's Left Handed Girl, Angie Chen's Blue Sun Palace, and Shu Qi's Girl.\nFilmmakers will be invited to attend the opening program; selected titles will also stream on Metrograph At Home.",
+    category:'image', isPrimary:true, externalUrl:''
   },
 
   /* ── 影像與敘事 · 其他活動 ── */
   {
     num:'11', icon:'🎞️',
     date:'2026-06-01', endDate:'2026-07-31',
-    title:'紐約亞洲影展',
-    title_en:'New York Asian Film Festival',
+    title:'(待更新) 紐約亞洲影展',
+    title_en:'(TBD) New York Asian Film Festival',
     subtitle:'第25屆・4部臺灣片入選',
     subtitle_en:'25th Edition · 4 Taiwanese Films Selected',
     location:'林肯電影中心, New York, NY',
     desc:'第 25 屆紐約亞洲影展共有 4 部臺灣電影入選，於林肯電影中心與紐約觀眾相遇，展現臺灣電影的多元視野與創作能量。',
     desc_en:'The 25th New York Asian Film Festival features 4 selected Taiwanese films screening at Lincoln Center, showcasing the diversity and creative energy of contemporary Taiwanese cinema.',
-    category:'image', isPrimary:false, externalUrl:'',
+    category:'image', isPrimary:false, externalUrl:''
   },
   {
     num:'12', icon:'🖥️',
     date:'2026-04-03', endDate:'2027-04-03',
-    title:'鄭淑麗個展',
-    title_en:'Shu Lea Cheang Solo Exhibition',
+    title:'(待更新) 鄭淑麗個展',
+    title_en:'(TBD) Shu Lea Cheang Solo Exhibition',
     subtitle:'互動電影裝置',
     subtitle_en:'Interactive Film Installation',
     location:'Leslie-Lohman Museum, New York, NY',
     desc:'台灣錄像藝術先驅鄭淑麗在 Leslie-Lohman 美術館展出互動電影裝置新作，以其標誌性的身體政治與性別議題，挑戰觀者的感官認知邊界。',
     desc_en:'Taiwanese video art pioneer Shu Lea Cheang presents a new interactive film installation at Leslie-Lohman Museum, challenging perceptions through her signature exploration of body politics and gender.',
-    category:'image', isPrimary:false, externalUrl:'',
+    category:'image', isPrimary:false, externalUrl:''
   },
 
   /* ── 街頭與生活 · 主要活動 ── */
@@ -143,7 +152,9 @@ const EVENTS = [
     location:'Bushwick, Brooklyn, New York',
     desc:'駐紐約臺北文化中心邀請五位臺灣壁畫藝術家（黑雞先生、Colasa、VASTAR、ALLO、Candy Kuo）參與第 15 屆布希維克街頭藝術節，各自進行一幅大型壁畫現地創作。5 月 30 日正式開幕，壓軸歌手 Bone Thugs-N-Harmony 登台，免費參加。',
     desc_en:"The Taipei Cultural Center in New York brings five Taiwanese mural artists — Mr. Ogay, Colasa, VASTAR, ALLO, and Candy Kuo — to the 15th Bushwick Collective Block Party. Each creates one large-scale mural on-site in Bushwick. The Block Party on May 30 features ~50 new works and a headline performance by Bone Thugs-N-Harmony. Free admission.",
-    category:'street', isPrimary:true, externalUrl:'',
+    long_desc: '布希維克街頭藝術計畫（The Bushwick Collective）由 Joseph Ficalora 於 2012 年發起，過去 15 年間在布魯克林布希維克區創作逾 2,300 幅壁畫，是全球最享譽盛名的露天街頭藝術計畫之一。每年舉辦的「布希維克街頭藝術節」是紐約規模最大的街頭藝術與音樂盛典，免費參加，每年吸引數千人到場。\n\n2026 年，駐紐約臺北文化中心與布希維克街頭藝術計畫合作，邀請五位臺灣壁畫藝術家參與第 15 屆藝術節，各自在布希維克區進行一幅大型壁畫現地創作，期間並進行現場創作示範與眾互動。完成的壁畫作品將在當地展示一年，成為臺美文化交流的永久印記。\n\n藝術節期間同步舉辦相關活動，包括 5 月 27 日由 Brooklyn Street Art 共同創辦人主持的藝術家講座、5 月 28 日開幕之夜現場壁畫繪製，以及 5 月 30 日第 15 屆正式開幕。\n\n參展藝術家：\n黑雞先生 (Mr. Ogay)：以幽默手法批判時事，將「醜陋」視為語彙，探討既有美學想。\nColasa：融合東西方藝術的街頭藝術家，跨足時尚與行動藝術。\nVASTAR：以老美式漫畫風格著稱，以噴漆、廢鐵、木材等媒材與雕塑藝術融合為街頭創作。\nALLO 愛羅：前特殊教育教師，以俐落線條描繪女性肖像為標誌，強調「自由」與「連結」。\nCandy Kuo：台裔美籍壁畫藝術家，以寫實手法探討自然群性與環境間的關係。',
+    long_desc_en: "The Bushwick Collective was founded by Joseph Ficalora in 2012. Over the past fifteen years, more than 2,300 murals have been created across the Bushwick neighborhood of Brooklyn, making it one of the most celebrated open-air street art programs in the world. The annual Bushwick Collective Block Party is New York's largest street art and music festival, free to attend, drawing thousands of visitors each year.\n\nIn 2026, the Taipei Cultural Center in New York partners with the Bushwick Collective to bring five Taiwanese mural artists to the 15th edition of the festival. Each artist will create one large-scale mural on-site in Bushwick during the production period, with public demonstrations and interactions during the festival days. The completed murals will remain on view for one year, leaving a lasting mark of Taiwan-US cultural exchange on the streets of Brooklyn.\n\nArtists:\nMr. Ogay: His signature figures become vehicles for pointed social commentary delivered with humor.\nColasa: His work explores the formal possibilities of graffiti between abstraction and figuration, fusing Eastern and Western visual languages.\nVASTAR: Known for his American classic comic style, translating imagery into public murals.\nALLO: A former special education teacher whose portraits emphasize freedom and connection.\nCandy Kuo: A Taiwanese-American mural artist whose figurative work depicts local flora and fauna, exploring the relationship between nature, women, and environment.",
+    category:'street', isPrimary:true, externalUrl:''
   },
   {
     num:'05', icon:'🌈',
@@ -155,8 +166,10 @@ const EVENTS = [
     location:'5th Avenue, Manhattan, New York',
     desc:'《魯保羅變裝皇后秀》冠軍妮妃雅（Nymphia Wind）擔任策展與領銜演出，攜手臺灣變裝皇后 Tina Banana 與 Yolanda Mesula，以「檳榔西施」為主題打造花車。透過霓虹裝置、電子音樂與身體展演，讓臺灣美學在全球最具指標性的同志遊行現場發光。',
     desc_en:"RuPaul's Drag Race winner Nymphia Wind curates and leads the performance, joined by Taiwanese drag queens Tina Banana and Yolanda Mesula. Their float, themed around the Betel Nut Beauty, reinterprets a distinctly Taiwanese cultural figure through neon installations, electronic music, and performance at the world's most iconic Pride event.",
-    category:'street', isPrimary:true, externalUrl:'',
-  },
+    long_desc: '紐約同志遊行每年都是全球最具規模與能見度的 Pride 活動之一。2026 年，由《魯保羅變裝皇后秀》冠軍妮妃雅（Nymphia Wind）擔任策展與領銜演出，攜手臺灣變裝皇后 Tina Banana 與 Yolanda Mesula，以「檳榔西施」為主題打造花車，將臺灣街頭文化與其獨特的身體美學帶進紐約街頭。\n\n「檳榔西施」是臺灣特有的文化景象：在公路邊、霓虹下、夜色之中，以直接而鮮明的姿態存在。她的形象交織性感、勞動、庶民生活與地方經驗，承載著臺灣街頭文化複雜而鮮明的視覺記憶。\n\n本次創作透過花車設計、霓虹裝置、電子音樂、服裝造型與身體展演，將這個形象轉譯為具有主體性的當代表述，讓來自臺灣的身體、語彙與美學，在全球最具指標性的同志遊行現場，展現出自身的節奏、尺度與光芒。\n\n地點：Manhattan（遊行路線通常沿第五大道南行）\n費用：免費觀看',
+    long_desc_en: "The New York City Pride March is one of the largest and most visible Pride events in the world each year. In 2026, Nymphia Wind, winner of RuPaul's Drag Race, serves as curator and lead performer, joined by Taiwanese drag performers Tina Banana and Yolanda Mesula. Together they will create a float themed around the Betel Nut Beauty — bringing Taiwanese street culture and its distinctive embodied aesthetics into the streets of New York.\n\nThe Betel Nut Beauty is a uniquely Taiwanese cultural figure: present along roadsides, beneath neon lights, and in the night, with a presence that is direct and unmistakable. Her image intertwines sensuality, labor, everyday working-class life, and local experience, carrying the layered visual memory of Taiwanese street culture.\n\nThrough float design, neon installations, electronic music, costume, and performance, this project reinterprets the figure as a contemporary expression with its own agency — allowing bodies, visual language, and aesthetics from Taiwan to express their own rhythm, scale, and radiance at one of the world's most iconic Pride events.\n\nLocation: Manhattan (typically south along Fifth Avenue)\nAdmission: Free to attend",
+    category:'street', isPrimary:true, externalUrl:''
+  }
 ];
 
 /* ---------- Quiz Game Data ---------- */

@@ -27,7 +27,7 @@ function renderEvents() {
     const target = ev.externalUrl ? 'target="_blank" rel="noopener"' : '';
     const cta    = L['event-cta'] || '了解更多・立即報名 →';
     return `
-      <a href="${href}" class="event-card event-card--primary card--${catId}" ${target}>
+      <div class="event-card event-card--primary card--${catId}" onclick="window.openModalByNum('${ev.num}')" style="cursor: pointer;">
         <div class="event-card-img">
           <img src="https://picsum.photos/600/320?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
           <span class="event-card-pill pill--${catId}">${L[`cat-${catId}-label`]}</span>
@@ -41,7 +41,7 @@ function renderEvents() {
           </div>
           <span class="event-card-cta">${cta}</span>
         </div>
-      </a>`;
+      </div>`;
   }
 
   function secondaryCard(ev, catId) {
@@ -50,7 +50,7 @@ function renderEvents() {
     const href   = ev.externalUrl || '#';
     const target = ev.externalUrl ? 'target="_blank" rel="noopener"' : '';
     return `
-      <a href="${href}" class="event-card event-card--secondary card--${catId}" ${target}>
+      <div class="event-card event-card--secondary card--${catId}" onclick="window.openModalByNum('${ev.num}')" style="cursor: pointer;">
         <div class="event-card-img">
           <img src="https://picsum.photos/400/180?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
           <span class="event-card-pill event-card-pill--sm pill--${catId}">${L[`cat-${catId}-label`]}</span>
@@ -63,7 +63,7 @@ function renderEvents() {
             <span>${ev.location}</span>
           </div>
         </div>
-      </a>`;
+      </div>`;
   }
 
   grid.innerHTML = CATEGORIES.map(cat => {
@@ -76,7 +76,7 @@ function renderEvents() {
       </div>` : '';
 
     return `
-      <div class="events-category">
+      <div class="events-category" id="cat-${cat.id}">
         <div class="events-cat-header cat-header--${cat.id}">
           <span class="events-cat-code">${cat.code}</span>
           <h3 class="events-cat-name">${L[cat.labelKey] || ''}</h3>

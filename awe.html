@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Taiwan Pop — 展演活動，2026 年十二場跨領域藝文展演在紐約登場">
+  <title>Taiwan Pop — a-we 小冒險</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K6V2LJ748H');
+  </script>
+  <link rel="stylesheet" href="css/awe.css">
+</head>
+<body>
+  <nav id="navbar"></nav>
+
+  <!-- ======= BOARD GAME ======= -->
+  <section id="board-game" class="section section-dark">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">GAME</span>
+        <h2 class="section-title">文化大富翁</h2>
+        <p class="section-sub">擲骰子環遊紐約，探索台灣文化！先完成三圈獲勝</p>
+      </div>
+
+      <!-- Status bar -->
+      <div class="bg-status-bar">
+        <div class="bg-player-card bg-player-card--human">
+          <img src="images/awe-front.png" class="bg-pc-avatar" alt="a-we">
+          <div class="bg-pc-info">
+            <span class="bg-pc-name">a-we（你）</span>
+            <span class="bg-pc-lap">第 <strong id="bgPlayerLaps">0</strong> / 3 圈</span>
+          </div>
+          <span class="bg-pc-pos">格 <strong id="bgPlayerPos">0</strong></span>
+        </div>
+        <div class="bg-status-center">
+          <div id="bgTurnMsg" class="bg-turn-msg">輪到你了！</div>
+          <div id="bgDiceResult" class="bg-dice-result-display"></div>
+        </div>
+        <div class="bg-player-card bg-player-card--cpu">
+          <img src="images/yoyo-front.png" class="bg-pc-avatar" alt="yoyo">
+          <div class="bg-pc-info">
+            <span class="bg-pc-name">yoyo（電腦）</span>
+            <span class="bg-pc-lap">第 <strong id="bgCpuLaps">0</strong> / 3 圈</span>
+          </div>
+          <span class="bg-pc-pos">格 <strong id="bgCpuPos">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Board -->
+      <div class="bg-board-wrap" id="bgBoardWrap">
+        <div class="bg-board" id="bgBoard">
+          <!-- spaces, center area, and pieces injected by JS -->
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="bg-controls">
+        <button id="bgDiceBtn" class="bg-dice-btn" onclick="bgRollDice()">
+          <span id="bgDiceIcon">🎲</span>
+          <span id="bgDiceLabel">擲骰子</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= BG: Question Modal ======= -->
+  <div id="bgQuestionModal" class="bg-modal hidden" role="dialog">
+    <div class="bg-modal-box">
+      <div class="bg-modal-zone" id="bgQZone"></div>
+      <p class="bg-modal-q" id="bgQText"></p>
+      <div class="bg-modal-opts" id="bgQOpts"></div>
+      <div class="bg-modal-result hidden" id="bgQResult"></div>
+      <button class="bg-modal-next hidden" id="bgQNext" onclick="bgQuestionDone()">繼續 →</button>
+    </div>
+  </div>
+
+  <!-- ======= BG: Chance / Fate Card Modal ======= -->
+  <div id="bgCardModal" class="bg-modal hidden" role="dialog">
+    <div class="bg-card-box" id="bgCardBox">
+      <div class="bg-card-type" id="bgCardType"></div>
+      <p class="bg-card-text" id="bgCardText"></p>
+      <p class="bg-card-effect" id="bgCardEffect"></p>
+      <button class="bg-modal-next" onclick="bgCardDone()">確認</button>
+    </div>
+  </div>
+
+  <!-- ======= BG: Win Modal ======= -->
+  <div id="bgWinModal" class="bg-modal hidden" role="dialog">
+    <div class="bg-win-box">
+      <div class="bg-win-confetti" id="bgWinConfetti"></div>
+      <img id="bgWinImg" class="bg-win-img hidden" src="images/awe-complete.png" alt="a-we 獲勝">
+      <p class="bg-win-icon" id="bgWinIcon"></p>
+      <h2 class="bg-win-title" id="bgWinTitle"></h2>
+      <p class="bg-win-sub" id="bgWinSub"></p>
+      <button class="bg-dice-btn" onclick="bgRestart()">再玩一次 🎲</button>
+    </div>
+  </div>
+
+  <!-- ======= DISCOVER: NYC MAP QUIZ ======= -->
+  <section id="quiz" class="section section-dark">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="section-tag">DISCOVER</span>
+        <h2 class="section-title" data-i18n="sec-discover-title">探索台灣 × 紐約</h2>
+        <p class="section-sub" data-i18n="sec-discover-sub">滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅</p>
+      </div>
+
+      <div class="map-wrap" data-reveal>
+        <div class="map-scroll" id="mapScroll">
+          <div class="map-stage" id="mapStage">
+            <img src="images/nyc-map.png" alt="紐約市像素地圖" class="map-img" draggable="false">
+
+            <!-- 01 林懷民 @ Lincoln Center -->
+            <button class="map-pin" data-qid="lin-hwai-min" style="--pc:#8B4513;left:8%;top:32%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎭</span><span class="pin-num">01</span></div>
+              <div class="pin-label"><strong data-i18n="pin-1">林懷民講座</strong><span>Lincoln Center</span></div>
+            </button>
+
+            <!-- 02 NSO @ Carnegie Hall -->
+            <button class="map-pin" data-qid="nso-paiwan" style="--pc:#1a6b3c;left:26%;top:68%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎵</span><span class="pin-num">02</span></div>
+              <div class="pin-label"><strong data-i18n="pin-2">NSO × 泰武古謠</strong><span>Carnegie Hall</span></div>
+            </button>
+
+            <!-- 03 布希維克 @ Bushwick, Brooklyn -->
+            <button class="map-pin" data-qid="bushwick" style="--pc:#e8472a;left:84%;top:52%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎨</span><span class="pin-num">03</span></div>
+              <div class="pin-label"><strong data-i18n="pin-3">布希維克街頭藝術節</strong><span>Bushwick, Brooklyn</span></div>
+            </button>
+
+            <!-- 04 影展 @ IFC Center, Greenwich Village -->
+            <button class="map-pin" data-qid="film" style="--pc:#1a3a6b;left:68%;top:74%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🎬</span><span class="pin-num">04</span></div>
+              <div class="pin-label"><strong data-i18n="pin-4">臺灣主題影展</strong><span>IFC Center, Village</span></div>
+            </button>
+
+            <!-- 05 同志大遊行 @ 5th Ave -->
+            <button class="map-pin" data-qid="pride" style="--pc:#9b30d9;left:48%;top:28%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🏳️‍🌈</span><span class="pin-num">05</span></div>
+              <div class="pin-label"><strong data-i18n="pin-5">紐約同志大遊行</strong><span>5th Ave, Manhattan</span></div>
+            </button>
+
+            <!-- 06 翃舞製作 @ The Joyce Theater, Chelsea -->
+            <button class="map-pin" data-qid="horse" style="--pc:#c47a00;left:19%;top:50%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">💃</span><span class="pin-num">06</span></div>
+              <div class="pin-label"><strong data-i18n="pin-6">翃舞製作</strong><span>Joyce Theater, Chelsea</span></div>
+            </button>
+
+            <!-- 07 SummerStage @ Central Park -->
+            <button class="map-pin" data-qid="summerstage" style="--pc:#0d6b8c;left:58%;top:40%">
+              <div class="pin-ring"></div>
+              <div class="pin-body"><span class="pin-emoji">🌙</span><span class="pin-num">07</span></div>
+              <div class="pin-label"><strong data-i18n="pin-7">Taiwanese Waves</strong><span>Central Park SummerStage</span></div>
+            </button>
+
+            <div class="map-hint-badge" id="mapHintBadge" data-i18n="map-hint">← 滑動探索地圖 →</div>
+
+            <!-- a-we character -->
+            <div id="aweChar" class="awe-char">
+              <img id="aweSprite" src="images/awe-front.png" alt="a-we">
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating dice button over map -->
+        <button id="diceBtn" class="dice-btn" onclick="aweDiceRoll()">
+          <span class="dice-icon">🎲</span>
+          <span class="dice-label">擲骰子</span>
+        </button>
+
+        <!-- Progress footer -->
+        <div class="map-footer">
+          <div class="map-footer-dots" id="mapFooterDots"></div>
+          <p class="map-footer-text">
+            <span data-i18n="map-prefix">已探索</span>
+            <strong id="mapDoneCount">0</strong> / 7
+            <span data-i18n="map-suffix">個台灣文化主題</span>
+          </p>
+          <p class="map-card-text">📚 <strong id="cardCountNum">0</strong> / 15</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER (injected by components.js) ======= -->
+  <footer id="contact"></footer>
+
+  <!-- ======= EVENT MODAL ======= -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <p class="modal-num" id="modalNum"></p>
+        <div class="modal-icon" id="modalIcon"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose" aria-label="關閉">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <span class="modal-meta-item" id="modalDate">
+            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+            <span></span>
+          </span>
+          <span class="modal-meta-item" id="modalLocation">
+            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1a5 5 0 0 1 5 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 0 1 5-5zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+            <span></span>
+          </span>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <a href="#" class="modal-cta" data-i18n="modal-cta">了解更多詳情 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= QUIZ OVERLAY ======= -->
+  <div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="台灣文化問答遊戲">
+    <div class="quiz-inner">
+      <button class="quiz-back" id="quizBackBtn" data-i18n="quiz-back">← 返回地圖</button>
+      <div class="quiz-hd">
+        <p class="quiz-ev-label" id="quizEvLabel"></p>
+        <h2 class="quiz-ev-title" id="quizEvTitle"></h2>
+      </div>
+      <div class="quiz-dots" id="quizDots"></div>
+      <div class="quiz-prog-wrap">
+        <div class="quiz-prog-label">
+          <span id="quizProgText"></span>
+          <span id="quizProgScore"></span>
+        </div>
+        <div class="quiz-prog-bar-track">
+          <div class="quiz-prog-fill" id="quizProgFill" style="width:0%"></div>
+        </div>
+      </div>
+      <div id="quizArea"></div>
+    </div>
+  </div>
+
+  <!-- ======= ALL DONE CELEBRATION ======= -->
+  <div class="celebrate-overlay" id="allDoneOverlay">
+    <div class="celebrate-particles" id="celebrateParticles"></div>
+    <div class="celebrate-card">
+      <span class="celebrate-trophy">🏆</span>
+      <h2 class="celebrate-title" data-i18n="cel-title">台灣文化全制霸！</h2>
+      <p class="celebrate-sub" data-i18n-html="cel-sub">你以全滿分征服了所有七大主題！<br>對台灣文化的熱情與了解，令我們驕傲。</p>
+      <div class="celebrate-badge" data-i18n="cel-badge">✨ 七大文化探索者 ✨</div>
+      <p class="celebrate-invite" data-i18n="cel-invite">準備好親臨紐約，感受這些文化盛事了嗎？</p>
+      <div class="celebrate-actions">
+        <a href="#events" class="celebrate-btn-primary" id="celebrateToEvents" data-i18n="cel-to-events">前往活動頁面 →</a>
+        <button class="celebrate-btn-sec" id="celebrateClose" data-i18n="cel-close">繼續探索</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= KNOWLEDGE CARD MODAL ======= -->
+  <div id="cardModal" class="card-modal hidden">
+    <div class="card-box">
+      <div class="card-header">
+        <span class="card-header-icon">🎲</span>
+        <div>
+          <div class="card-header-title">隨機事件！</div>
+          <div class="card-header-sub">回答問題，收集這張知識卡</div>
+        </div>
+      </div>
+      <div class="card-img-wrap">
+        <img id="cmImg" src="" alt="知識卡圖片" class="card-img">
+      </div>
+      <p id="cmFact" class="card-fact"></p>
+      <div class="card-choices">
+        <button class="card-btn card-true"  onclick="aweAnswer(true)">○ 正確</button>
+        <button class="card-btn card-false" onclick="aweAnswer(false)">✕ 錯誤</button>
+      </div>
+      <p id="cmResult" class="cm-result hidden"></p>
+    </div>
+  </div>
+
+  <!-- ======= AWE COMPLETION MODAL ======= -->
+  <div id="aweComplete" class="awe-complete hidden">
+    <div id="aweCelebConfetti"></div>
+    <div class="awe-complete-content">
+      <img src="images/awe-complete.png" alt="讚見!!">
+      <h2>知識卡全部收集！</h2>
+      <p>你已探索紐約文化地圖的每個角落！</p>
+      <button onclick="aweCloseComplete()">繼續探索</button>
+    </div>
+  </div>
+
+
+  <footer id="contact"></footer>
+  <script src="js/lang.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/board-game.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/lang-init.js"></script>
+</body>
+</html>
