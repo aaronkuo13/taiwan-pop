@@ -5,7 +5,7 @@ const LANG = {
   zh: {
     /* Navbar */
     'nav-concept':'黑潮理念',
-    'nav-news':'最新消息','nav-events':'展演活動','nav-discover':'文化探索',
+    'nav-news':'最新消息','nav-events':'展演活動','nav-awe':'a-we小冒險','nav-discover':'文化探索',
     'nav-calendar':'行事曆','nav-contact':'聯絡我們',
     /* Banner */
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
@@ -165,7 +165,7 @@ const LANG = {
   en: {
     /* Navbar */
     'nav-concept':'Black Current',
-    'nav-news':'News','nav-events':'Events','nav-discover':'Discover',
+    'nav-news':'News','nav-events':'Events','nav-awe':'a-we Adventure','nav-discover':'Discover',
     'nav-calendar':'Calendar','nav-contact':'Contact',
     /* Banner */
     'banner-sub':'Taiwan Ministry of Culture × NYC Dept. of Cultural Affairs<br>Seven Cultural Events, New York 2026',

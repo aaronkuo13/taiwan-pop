@@ -6,6 +6,7 @@
   const page = path.includes('events')   ? 'events'
              : path.includes('calendar') ? 'calendar'
              : path.includes('concept')  ? 'concept'
+             : path.includes('awe')      ? 'awe'
              : 'home';
 
   /* ── Links: resolve relative to current page ── */
@@ -14,9 +15,10 @@
     concept:  page === 'concept'  ? '#'              : 'concept.html',
     news:     page === 'home'     ? '#articles'      : 'index.html#articles',
     events:   page === 'events'   ? '#events'        : 'events.html',
+    awe:      page === 'awe'      ? '#'              : 'awe.html',
     calendar: page === 'calendar' ? '#'              : 'calendar.html',
     contact:  page === 'home'     ? '#contact'       : 'index.html#contact',
-    quiz:     page === 'events'   ? '#quiz'          : 'events.html#quiz',
+    quiz:     page === 'awe'      ? '#quiz'          : 'awe.html#quiz',
   };
 
   /* ── Navbar ── */
@@ -25,7 +27,7 @@
     nav.innerHTML = `
       <div class="nav-container">
         <a href="${href.logo}" class="nav-logo">
-          Taiwan <span>Pop</span>
+          <img src="images/taiwanpop_green.png" alt="Taiwan Pop" class="nav-logo-img">
         </a>
         <button class="hamburger" id="hamburger" aria-label="開啟選單">
           <span></span><span></span><span></span>
@@ -34,8 +36,8 @@
           <li><a href="${href.concept}"  class="nav-link" data-i18n="nav-concept">黑潮理念</a></li>
           <li><a href="${href.news}"     class="nav-link" data-i18n="nav-news">最新消息</a></li>
           <li><a href="${href.events}"   class="nav-link" data-i18n="nav-events">展演活動</a></li>
+          <li><a href="${href.awe}"      class="nav-link" data-i18n="nav-awe">a-we小冒險</a></li>
           <li><a href="${href.calendar}" class="nav-link" data-i18n="nav-calendar">行事曆</a></li>
-          <li><a href="${href.contact}"  class="nav-link nav-cta" data-i18n="nav-contact">聯絡我們</a></li>
         </ul>
         <!-- lang toggle injected by lang-init.js -->
       </div>`;
@@ -68,6 +70,7 @@
               <li><a href="${href.concept}"  data-i18n="nav-concept">黑潮理念</a></li>
               <li><a href="${href.news}"     data-i18n="footer-news">最新消息</a></li>
               <li><a href="${href.events}"   data-i18n="footer-events">展演活動</a></li>
+              <li><a href="${href.awe}"      data-i18n="nav-awe">a-we小冒險</a></li>
               <li><a href="${href.quiz}"     data-i18n="footer-discover">文化探索</a></li>
               <li><a href="${href.calendar}" data-i18n="footer-cal">行事曆</a></li>
               <li><a href="https://tccny.moc.gov.tw/ch/Default.aspx" target="_blank" rel="noopener">紐文臺北文化中心</a></li>
