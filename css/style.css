@@ -1342,14 +1342,15 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 
-.event-card--primary .event-card-img { height: 160px; }
-.event-card--secondary .event-card-img { height: 90px; }
+.event-card--primary .event-card-img   { aspect-ratio: 4/5; height: auto; }
+.event-card--secondary .event-card-img { aspect-ratio: 4/5; height: auto; }
 
 .event-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(.65);
+  object-position: center top;
+  filter: brightness(.85);
   transition: transform .5s ease, filter .5s ease;
 }
 
@@ -1651,6 +1652,51 @@ ul { list-style: none; }
   margin-bottom: 3px;
 }
 
+
+/* ============================================================
+   FEATURED BANNER (events.html top)
+   ============================================================ */
+#featured-event {
+  padding-top: var(--nav-h);
+  padding-bottom: 32px;
+  background: #000;
+  border-bottom: 1px solid var(--border);
+}
+
+.featured-banner {
+  display: block;
+  width: calc(100% - 80px);
+  max-width: 1280px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.featured-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .featured-banner {
+    width: calc(100% - 32px);
+  }
+}
+
+/* Compact section-header modifier (below banner) */
+.section-header--compact {
+  margin-bottom: 40px;
+}
+.section-header--compact .section-title {
+  font-size: clamp(18px, 2.2vw, 26px);
+}
+.section-header--compact .section-sub {
+  font-size: 14px;
+}
 
 /* ============================================================
    EVENT DETAIL PAGE

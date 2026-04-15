@@ -29,7 +29,7 @@ function renderEvents() {
     return `
       <div class="event-card event-card--primary card--${catId}" onclick="location.href='event.html?num=${ev.num}'" style="cursor: pointer;">
         <div class="event-card-img">
-          <img src="https://picsum.photos/600/320?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
+          <img src="${ev.img || `https://picsum.photos/600/320?grayscale&random=${ev.num}`}" alt="${t}" loading="lazy">
           <span class="event-card-pill pill--${catId}">${L[`cat-${catId}-label`]}</span>
         </div>
         <div class="event-card-body">
@@ -52,7 +52,7 @@ function renderEvents() {
     return `
       <div class="event-card event-card--secondary card--${catId}" onclick="location.href='event.html?num=${ev.num}'" style="cursor: pointer;">
         <div class="event-card-img">
-          <img src="https://picsum.photos/400/180?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
+          <img src="${ev.img || `https://picsum.photos/400/180?grayscale&random=${ev.num}`}" alt="${t}" loading="lazy">
           <span class="event-card-pill event-card-pill--sm pill--${catId}">${L[`cat-${catId}-label`]}</span>
         </div>
         <div class="event-card-body">
@@ -88,4 +88,24 @@ function renderEvents() {
         ${secondaryHtml}
       </div>`;
   }).join('');
+}
+
+/* ---------- Featured Banner (upcoming event) ---------- */
+function renderFeaturedBanner() {
+  const el = document.getElementById('featured-event');
+  if (!el) return;
+
+  const today = new Date().toISOString().slice(0, 10);
+
+  const sorted = EVENTS
+    .filter(e => (e.endDate || e.date) >= today)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  const ev = sorted[0] || EVENTS.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  const title = ev.title_en || ev.title;
+
+  el.innerHTML = `
+    <a href="event.html?num=${ev.num}" class="featured-banner">
+      <img src="images/banner_sample.png" alt="${title}" loading="eager">
+    </a>`;
 }

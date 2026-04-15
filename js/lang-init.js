@@ -48,11 +48,13 @@
 
     // Re-render dynamic sections
     renderEvents();
+    if (typeof renderFeaturedBanner === 'function') renderFeaturedBanner();
     if (window.reRenderCalendar) window.reRenderCalendar();
   };
 
   // Apply on load
   window.setLang(window.currentLang);
-  // Render events on initial load (events grid is empty in HTML)
+  // Render events + featured banner on initial load (injected sections start empty)
   renderEvents();
+  if (typeof renderFeaturedBanner === 'function') renderFeaturedBanner();
 })();

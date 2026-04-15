@@ -6,6 +6,7 @@ const EVENTS = [
 
   {
     num:'02', icon:'🎼',
+    img:'images/展演活動_NSO《來自臺灣》2026室內樂美國巡演.png?v=2',
     date:'2026-05-19',
     title:'NSO《來自臺灣》2026室內樂美國巡演',
     title_en:'From Formosa: Taiwan Philharmonic Chamber Ensemble 2026 US Tour',
@@ -20,6 +21,7 @@ const EVENTS = [
   },
   {
     num:'06', icon:'💃',
+    img:'images/展演活動_翃舞.png',
     date:'2026-07-17', endDate:'2026-07-18',
     title:'翃舞製作《羽人》BIRDY',
     title_en:'HORSE Dance Theatre: BIRDY',
@@ -34,6 +36,7 @@ const EVENTS = [
   },
   {
     num:'07', icon:'🎵',
+    img:'images/展演活動_taiwanese wave.png',
     date:'2026-08-16',
     title:'Taiwanese Waves @ SummerStage',
     title_en:'Taiwanese Waves @ SummerStage',
@@ -88,6 +91,7 @@ const EVENTS = [
   /* ── 影像與敘事 · 主要活動 ── */
   {
     num:'01', icon:'🎭',
+    img:'images/展演活動_臺美藝文大師系列講座.png',
     date:'2026-05-01',
     title:'臺美藝文大師系列講座',
     title_en:'Across Borders, Across Bodies: Lin Hwai-min in Conversation',
@@ -98,10 +102,11 @@ const EVENTS = [
     desc_en:'Cloud Gate founder Lin Hwai-min and ADF Executive Director Jodee Nimerichter join together in conversation, moderated by Asia Society\'s Rachel Cooper. Together they reflect on decades of artistic exchange between Taiwan and the United States, and how cross-border partnerships shaped Cloud Gate\'s journey from Taiwan to the world stage.',
     long_desc: '1973 年，雲門舞集在臺灣成立，成為華語世界第一個當代舞蹈團體。此後半個世紀，雲門從一個島嶼出發，走上全世界的舞台，成為臺灣文化在國際上最被認識的名字之一。\n\n這場對話邀請雲門舞集創辦人林懷民，與美國舞蹈節（ADF）執行長 Jodee Nimerichter 共同出席，由亞洲協會全球表演藝術與文化外交總監 Rachel Cooper 主持，回顧臺灣與美國之間數十年的藝術交流歷程。美國舞蹈節是雲門成長路上重要的合作夥伴，亞洲協會則是最早將雲門介紹給美國觀眾的機構之一。透過個人故事與幕後視角，這場對話將揭示這些跨國夥伴關係如何塑造了雲門從臺灣走向世界舞台的旅程。\n本活動由駐紐約臺北文化中心、中華民國文化部共同支持呈現。\n\n主講人：\n林懷民 ─ 雲門舞集創辦人，2019 年底卸任藝術總監。曾獲美國舞蹈節終身成就獎及各國際殊榮，並獲《時代》雜誌選為「亞洲英雄」。\nJodee Nimerichter ─ 美國舞蹈節執行長，推動多項重要合作計畫。\n主持人：Rachel Cooper ─ 亞洲協會全球表演藝術與文化外交總監。',
     long_desc_en: "In 1973, Cloud Gate Dance Theatre was founded in Taiwan — the first contemporary dance company in the Chinese-speaking world. Over the fifty years since, Cloud Gate traveled from a single island to stages across the world, becoming one of the most recognized names in Taiwanese culture internationally.\n\nThis conversation brings together Cloud Gate founder Lin Hwai-min and Jodee Nimerichter, Executive Director of the American Dance Festival (ADF), moderated by Rachel Cooper, Director of Global Performing Arts and Culture as Diplomacy at Asia Society. Together, they reflect on decades of artistic exchange between Taiwan and the United States.\n\nADF was a formative partner in Cloud Gate's growth; Asia Society was among the earliest institutions to introduce the company to U.S. audiences. Through personal stories and behind-the-scenes insight, the conversation reveals how these cross-border partnerships shaped Cloud Gate's journey from Taiwan to the world stage.\n\nSpeakers:\nLin Hwai-min: Founder of Cloud Gate Dance Theatre, whose honors include the Samuel H. Scripps / American Dance Festival Award for Lifetime Achievement.\nJodee Nimerichter: Executive Director of the American Dance Festival.\nModerator: Rachel Cooper, Director of Global Performing Arts and Culture as Diplomacy, Asia Society.",
-    category:'image', isPrimary:true, externalUrl:''
+    category:'sound', isPrimary:true, externalUrl:''
   },
   {
     num:'04', icon:'🎬',
+    img:'images/展演活動_世界之間：跨越疆界的臺灣電影.png',
     date:'2026-09-01', endDate:'2026-09-30',
     title:'世界之間：跨越疆界的臺灣電影',
     title_en:'Between Worlds: Taiwanese Cinema Across Borders',
@@ -144,6 +149,7 @@ const EVENTS = [
   /* ── 街頭與生活 · 主要活動 ── */
   {
     num:'03', icon:'🎨',
+    img:'images/展演活動_布希維克街頭藝術節 臺灣藝術家參展.png',
     date:'2026-05-18', endDate:'2026-05-30',
     title:'布希維克街頭藝術節 臺灣藝術家參展',
     title_en:'The Bushwick Collective Block Party — Taiwan',
@@ -158,6 +164,7 @@ const EVENTS = [
   },
   {
     num:'05', icon:'🌈',
+    img:'images/展演活動_2026紐約同志遊行.png',
     date:'2026-06-28',
     title:'2026 紐約同志遊行',
     title_en:'2026 New York City Pride March',
