@@ -89,3 +89,53 @@ function renderEvents() {
       </div>`;
   }).join('');
 }
+
+/* ---------- Featured Banner (upcoming event) ---------- */
+function renderFeaturedBanner() {
+  const el = document.getElementById('featured-event');
+  if (!el) return;
+
+  const lang  = window.currentLang || 'zh';
+  const L     = LANG[lang];
+  const today = new Date().toISOString().slice(0, 10);
+
+  /* Upcoming = not yet ended; sort ascending by start date */
+  const sorted = EVENTS
+    .filter(e => (e.endDate || e.date) >= today)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  const ev = sorted[0] || EVENTS.slice().sort((a,b) => b.date.localeCompare(a.date))[0];
+
+  const title    = (lang === 'en' && ev.title_en)    ? ev.title_en    : ev.title;
+  const subtitle = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+  const catId    = ev.category;
+  const catLabel = L[`cat-${catId}-label`] || catId;
+
+  const dateStr = ev.endDate
+    ? `${ev.date.replace(/-/g,'.')} – ${ev.endDate.replace(/-/g,'.')}`
+    : ev.date.replace(/-/g,'.');
+
+  const upcomingLabel = lang === 'en' ? 'UPCOMING EVENT' : '即將登場';
+  const ctaLabel      = lang === 'en' ? 'Event Details →' : '查看活動詳情 →';
+
+  el.innerHTML = `
+    <div class="featured-banner">
+      <div class="featured-banner-content">
+        <div class="featured-banner-label">${upcomingLabel}</div>
+        <div class="featured-banner-meta">
+          <span class="pill--${catId}" style="font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:50px;">${catLabel}</span>
+          <span class="featured-banner-num">EVENT ${ev.num}</span>
+        </div>
+        <h2 class="featured-banner-title">${title}</h2>
+        <p class="featured-banner-sub">${subtitle}</p>
+        <div class="featured-banner-info">
+          <span>📅 &nbsp;${dateStr}</span>
+          <span>📍 &nbsp;${ev.location}</span>
+        </div>
+        <a href="event.html?num=${ev.num}" class="btn btn-primary featured-banner-cta">${ctaLabel}</a>
+      </div>
+      <div class="featured-banner-image">
+        <img src="images/banner_sample.png" alt="${title}" loading="eager">
+      </div>
+    </div>`;
+}
