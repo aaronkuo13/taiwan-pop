@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Taiwan Pop — 展演活動，2026 年十二場跨領域藝文展演在紐約登場">
-  <title>Taiwan Pop — a-we 小冒險</title>
+  <meta name="description" content="a-we NYC Run — 跑過紐約，探索台灣文化展演">
+  <title>a-we 紐約跑酷 / NYC Run — Taiwan Pop</title>
   <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,296 +18,290 @@
     gtag('js', new Date());
     gtag('config', 'G-K6V2LJ748H');
   </script>
-  <link rel="stylesheet" href="css/awe.css">
+
+  <style>
+    /* ── Page Hero ── */
+    .nyc-run-hero {
+      padding: calc(var(--nav-h) + 56px) 0 40px;
+      text-align: center;
+    }
+    .nyc-run-hero .section-tag { margin-bottom: 14px; }
+    .nyc-run-hero h1 {
+      font-family: var(--font-sans);
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .nyc-run-hero h1 span { color: var(--primary); }
+    .nyc-run-hero p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* ── Two-column layout ── */
+    .game-layout {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── Game wrapper ── */
+    .game-canvas-wrap {
+      background: #000;
+      border: 1px solid rgba(0,255,0,0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    #game-canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+    }
+
+    .game-hint {
+      text-align: center;
+      margin-top: 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-light);
+      letter-spacing: 1px;
+    }
+
+    /* ── Leaderboard ── */
+    .leaderboard {
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+    }
+    .leaderboard-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .leaderboard-header h2 {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .lb-divider {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    @media (max-width: 700px) {
+      .game-layout {
+        grid-template-columns: 1fr;
+      }
+      .leaderboard { position: static; }
+    }
+
+    #lb-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .lb-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-family: var(--font-sans);
+      transition: border-color .2s;
+    }
+    .lb-row.lb-you {
+      border-color: var(--primary);
+      background: rgba(0,255,0,0.05);
+    }
+    .lb-rank {
+      font-size: 15px;
+      min-width: 28px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .lb-name {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .lb-score {
+      font-size: 14px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+    .lb-status {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* ── Name input modal ── */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-bg.open { display: flex; }
+
+    .modal-box {
+      background: #111;
+      border: 1px solid var(--primary);
+      border-radius: 14px;
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+    .modal-box h3 {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .modal-box .modal-sub {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .modal-score {
+      font-family: var(--font-sans);
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: 4px;
+      margin-bottom: 28px;
+    }
+    .modal-box input[type="text"] {
+      display: block;
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      font-family: var(--font-sans);
+      padding: 12px 16px;
+      text-align: center;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color .2s;
+    }
+    .modal-box input[type="text"]:focus { border-color: var(--primary); }
+
+    .modal-actions { display: flex; gap: 10px; }
+    .btn-name-submit {
+      flex: 1;
+      background: var(--primary);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-name-submit:hover { opacity: .85; }
+    .btn-name-skip {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+      padding: 12px 18px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn-name-skip:hover { border-color: #fff; color: #fff; }
+  </style>
 </head>
 <body>
+
   <nav id="navbar"></nav>
 
-  <!-- ======= BOARD GAME ======= -->
-  <section id="board-game" class="section section-dark">
+  <!-- Hero -->
+  <div class="nyc-run-hero">
     <div class="container">
-      <div class="section-header" data-reveal>
-        <span class="section-tag">GAME</span>
-        <h2 class="section-title">文化大富翁</h2>
-        <p class="section-sub">擲骰子環遊紐約，探索台灣文化！先完成三圈獲勝</p>
-      </div>
-
-      <!-- Status bar -->
-      <div class="bg-status-bar">
-        <div class="bg-player-card bg-player-card--human">
-          <img src="images/awe-front.png" class="bg-pc-avatar" alt="a-we">
-          <div class="bg-pc-info">
-            <span class="bg-pc-name">a-we（你）</span>
-            <span class="bg-pc-lap">第 <strong id="bgPlayerLaps">0</strong> / 3 圈</span>
-          </div>
-          <span class="bg-pc-pos">格 <strong id="bgPlayerPos">0</strong></span>
-        </div>
-        <div class="bg-status-center">
-          <div id="bgTurnMsg" class="bg-turn-msg">輪到你了！</div>
-          <div id="bgDiceResult" class="bg-dice-result-display"></div>
-        </div>
-        <div class="bg-player-card bg-player-card--cpu">
-          <img src="images/yoyo-front.png" class="bg-pc-avatar" alt="yoyo">
-          <div class="bg-pc-info">
-            <span class="bg-pc-name">yoyo（電腦）</span>
-            <span class="bg-pc-lap">第 <strong id="bgCpuLaps">0</strong> / 3 圈</span>
-          </div>
-          <span class="bg-pc-pos">格 <strong id="bgCpuPos">0</strong></span>
-        </div>
-      </div>
-
-      <!-- Board -->
-      <div class="bg-board-wrap" id="bgBoardWrap">
-        <div class="bg-board" id="bgBoard">
-          <!-- spaces, center area, and pieces injected by JS -->
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div class="bg-controls">
-        <button id="bgDiceBtn" class="bg-dice-btn" onclick="bgRollDice()">
-          <span id="bgDiceIcon">🎲</span>
-          <span id="bgDiceLabel">擲骰子</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= BG: Question Modal ======= -->
-  <div id="bgQuestionModal" class="bg-modal hidden" role="dialog">
-    <div class="bg-modal-box">
-      <div class="bg-modal-zone" id="bgQZone"></div>
-      <p class="bg-modal-q" id="bgQText"></p>
-      <div class="bg-modal-opts" id="bgQOpts"></div>
-      <div class="bg-modal-result hidden" id="bgQResult"></div>
-      <button class="bg-modal-next hidden" id="bgQNext" onclick="bgQuestionDone()">繼續 →</button>
+      <span class="section-tag">GAME</span>
+      <h1 data-i18n-html="game-awe-title">a-we <span>紐約</span>跑酷</h1>
+      <p data-i18n="game-awe-sub">跑過紐約，跳越展演場館，探索 Taiwan Pop 文化活動</p>
     </div>
   </div>
 
-  <!-- ======= BG: Chance / Fate Card Modal ======= -->
-  <div id="bgCardModal" class="bg-modal hidden" role="dialog">
-    <div class="bg-card-box" id="bgCardBox">
-      <div class="bg-card-type" id="bgCardType"></div>
-      <p class="bg-card-text" id="bgCardText"></p>
-      <p class="bg-card-effect" id="bgCardEffect"></p>
-      <button class="bg-modal-next" onclick="bgCardDone()">確認</button>
+  <!-- Game + Leaderboard two-column -->
+  <div class="game-layout">
+
+    <!-- Left: Game -->
+    <div>
+      <div class="game-canvas-wrap">
+        <canvas id="game-canvas" width="800" height="320"></canvas>
+      </div>
+      <p class="game-hint">SPACE / ↑ / TAP — JUMP &nbsp;·&nbsp; 跳過建築物解鎖活動資訊</p>
+    </div>
+
+    <!-- Right: Leaderboard -->
+    <div class="leaderboard">
+      <div class="leaderboard-header">
+        <h2>排行榜</h2>
+        <div class="lb-divider"></div>
+        <span class="section-tag" style="margin:0">TOP 10</span>
+      </div>
+      <ul id="lb-list">
+        <li class="lb-status">載入中...</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Name Input Modal -->
+  <div class="modal-bg" id="name-modal">
+    <div class="modal-box">
+      <h3>進入排行榜！</h3>
+      <p class="modal-sub">本次得分</p>
+      <div class="modal-score" id="modal-score-val">00000</div>
+      <input type="text" id="player-name" placeholder="輸入你的名字" maxlength="16" autocomplete="off">
+      <div class="modal-actions">
+        <button class="btn-name-submit" id="name-submit">記錄分數</button>
+        <button class="btn-name-skip"   id="name-skip">略過</button>
+      </div>
     </div>
   </div>
 
-  <!-- ======= BG: Win Modal ======= -->
-  <div id="bgWinModal" class="bg-modal hidden" role="dialog">
-    <div class="bg-win-box">
-      <div class="bg-win-confetti" id="bgWinConfetti"></div>
-      <img id="bgWinImg" class="bg-win-img hidden" src="images/awe-complete.png" alt="a-we 獲勝">
-      <p class="bg-win-icon" id="bgWinIcon"></p>
-      <h2 class="bg-win-title" id="bgWinTitle"></h2>
-      <p class="bg-win-sub" id="bgWinSub"></p>
-      <button class="bg-dice-btn" onclick="bgRestart()">再玩一次 🎲</button>
-    </div>
-  </div>
-
-  <!-- ======= DISCOVER: NYC MAP QUIZ ======= -->
-  <section id="quiz" class="section section-dark">
-    <div class="container">
-      <div class="section-header" data-reveal>
-        <span class="section-tag">DISCOVER</span>
-        <h2 class="section-title" data-i18n="sec-discover-title">探索台灣 × 紐約</h2>
-        <p class="section-sub" data-i18n="sec-discover-sub">滑動地圖，找到每場活動的地點，點擊開始你的台灣文化探索之旅</p>
-      </div>
-
-      <div class="map-wrap" data-reveal>
-        <div class="map-scroll" id="mapScroll">
-          <div class="map-stage" id="mapStage">
-            <img src="images/nyc-map.png" alt="紐約市像素地圖" class="map-img" draggable="false">
-
-            <!-- 01 林懷民 @ Lincoln Center -->
-            <button class="map-pin" data-qid="lin-hwai-min" style="--pc:#8B4513;left:8%;top:32%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">🎭</span><span class="pin-num">01</span></div>
-              <div class="pin-label"><strong data-i18n="pin-1">林懷民講座</strong><span>Lincoln Center</span></div>
-            </button>
-
-            <!-- 02 NSO @ Carnegie Hall -->
-            <button class="map-pin" data-qid="nso-paiwan" style="--pc:#1a6b3c;left:26%;top:68%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">🎵</span><span class="pin-num">02</span></div>
-              <div class="pin-label"><strong data-i18n="pin-2">NSO × 泰武古謠</strong><span>Carnegie Hall</span></div>
-            </button>
-
-            <!-- 03 布希維克 @ Bushwick, Brooklyn -->
-            <button class="map-pin" data-qid="bushwick" style="--pc:#e8472a;left:84%;top:52%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">🎨</span><span class="pin-num">03</span></div>
-              <div class="pin-label"><strong data-i18n="pin-3">布希維克街頭藝術節</strong><span>Bushwick, Brooklyn</span></div>
-            </button>
-
-            <!-- 04 影展 @ IFC Center, Greenwich Village -->
-            <button class="map-pin" data-qid="film" style="--pc:#1a3a6b;left:68%;top:74%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">🎬</span><span class="pin-num">04</span></div>
-              <div class="pin-label"><strong data-i18n="pin-4">臺灣主題影展</strong><span>IFC Center, Village</span></div>
-            </button>
-
-            <!-- 05 同志大遊行 @ 5th Ave -->
-            <button class="map-pin" data-qid="pride" style="--pc:#9b30d9;left:48%;top:28%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">🏳️‍🌈</span><span class="pin-num">05</span></div>
-              <div class="pin-label"><strong data-i18n="pin-5">紐約同志大遊行</strong><span>5th Ave, Manhattan</span></div>
-            </button>
-
-            <!-- 06 翃舞製作 @ The Joyce Theater, Chelsea -->
-            <button class="map-pin" data-qid="horse" style="--pc:#c47a00;left:19%;top:50%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">💃</span><span class="pin-num">06</span></div>
-              <div class="pin-label"><strong data-i18n="pin-6">翃舞製作</strong><span>Joyce Theater, Chelsea</span></div>
-            </button>
-
-            <!-- 07 SummerStage @ Central Park -->
-            <button class="map-pin" data-qid="summerstage" style="--pc:#0d6b8c;left:58%;top:40%">
-              <div class="pin-ring"></div>
-              <div class="pin-body"><span class="pin-emoji">🌙</span><span class="pin-num">07</span></div>
-              <div class="pin-label"><strong data-i18n="pin-7">Taiwanese Waves</strong><span>Central Park SummerStage</span></div>
-            </button>
-
-            <div class="map-hint-badge" id="mapHintBadge" data-i18n="map-hint">← 滑動探索地圖 →</div>
-
-            <!-- a-we character -->
-            <div id="aweChar" class="awe-char">
-              <img id="aweSprite" src="images/awe-front.png" alt="a-we">
-            </div>
-          </div>
-        </div>
-
-        <!-- Floating dice button over map -->
-        <button id="diceBtn" class="dice-btn" onclick="aweDiceRoll()">
-          <span class="dice-icon">🎲</span>
-          <span class="dice-label">擲骰子</span>
-        </button>
-
-        <!-- Progress footer -->
-        <div class="map-footer">
-          <div class="map-footer-dots" id="mapFooterDots"></div>
-          <p class="map-footer-text">
-            <span data-i18n="map-prefix">已探索</span>
-            <strong id="mapDoneCount">0</strong> / 7
-            <span data-i18n="map-suffix">個台灣文化主題</span>
-          </p>
-          <p class="map-card-text">📚 <strong id="cardCountNum">0</strong> / 15</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= FOOTER (injected by components.js) ======= -->
   <footer id="contact"></footer>
 
-  <!-- ======= EVENT MODAL ======= -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal" id="modal">
-      <div class="modal-header">
-        <p class="modal-num" id="modalNum"></p>
-        <div class="modal-icon" id="modalIcon"></div>
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <button class="modal-close" id="modalClose" aria-label="關閉">&#x2715;</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-meta">
-          <span class="modal-meta-item" id="modalDate">
-            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-            <span></span>
-          </span>
-          <span class="modal-meta-item" id="modalLocation">
-            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1a5 5 0 0 1 5 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 0 1 5-5zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-            <span></span>
-          </span>
-        </div>
-        <p class="modal-desc" id="modalDesc"></p>
-        <a href="#" class="modal-cta" data-i18n="modal-cta">了解更多詳情 →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======= QUIZ OVERLAY ======= -->
-  <div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="台灣文化問答遊戲">
-    <div class="quiz-inner">
-      <button class="quiz-back" id="quizBackBtn" data-i18n="quiz-back">← 返回地圖</button>
-      <div class="quiz-hd">
-        <p class="quiz-ev-label" id="quizEvLabel"></p>
-        <h2 class="quiz-ev-title" id="quizEvTitle"></h2>
-      </div>
-      <div class="quiz-dots" id="quizDots"></div>
-      <div class="quiz-prog-wrap">
-        <div class="quiz-prog-label">
-          <span id="quizProgText"></span>
-          <span id="quizProgScore"></span>
-        </div>
-        <div class="quiz-prog-bar-track">
-          <div class="quiz-prog-fill" id="quizProgFill" style="width:0%"></div>
-        </div>
-      </div>
-      <div id="quizArea"></div>
-    </div>
-  </div>
-
-  <!-- ======= ALL DONE CELEBRATION ======= -->
-  <div class="celebrate-overlay" id="allDoneOverlay">
-    <div class="celebrate-particles" id="celebrateParticles"></div>
-    <div class="celebrate-card">
-      <span class="celebrate-trophy">🏆</span>
-      <h2 class="celebrate-title" data-i18n="cel-title">台灣文化全制霸！</h2>
-      <p class="celebrate-sub" data-i18n-html="cel-sub">你以全滿分征服了所有七大主題！<br>對台灣文化的熱情與了解，令我們驕傲。</p>
-      <div class="celebrate-badge" data-i18n="cel-badge">✨ 七大文化探索者 ✨</div>
-      <p class="celebrate-invite" data-i18n="cel-invite">準備好親臨紐約，感受這些文化盛事了嗎？</p>
-      <div class="celebrate-actions">
-        <a href="#events" class="celebrate-btn-primary" id="celebrateToEvents" data-i18n="cel-to-events">前往活動頁面 →</a>
-        <button class="celebrate-btn-sec" id="celebrateClose" data-i18n="cel-close">繼續探索</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======= KNOWLEDGE CARD MODAL ======= -->
-  <div id="cardModal" class="card-modal hidden">
-    <div class="card-box">
-      <div class="card-header">
-        <span class="card-header-icon">🎲</span>
-        <div>
-          <div class="card-header-title">隨機事件！</div>
-          <div class="card-header-sub">回答問題，收集這張知識卡</div>
-        </div>
-      </div>
-      <div class="card-img-wrap">
-        <img id="cmImg" src="" alt="知識卡圖片" class="card-img">
-      </div>
-      <p id="cmFact" class="card-fact"></p>
-      <div class="card-choices">
-        <button class="card-btn card-true"  onclick="aweAnswer(true)">○ 正確</button>
-        <button class="card-btn card-false" onclick="aweAnswer(false)">✕ 錯誤</button>
-      </div>
-      <p id="cmResult" class="cm-result hidden"></p>
-    </div>
-  </div>
-
-  <!-- ======= AWE COMPLETION MODAL ======= -->
-  <div id="aweComplete" class="awe-complete hidden">
-    <div id="aweCelebConfetti"></div>
-    <div class="awe-complete-content">
-      <img src="images/awe-complete.png" alt="讚見!!">
-      <h2>知識卡全部收集！</h2>
-      <p>你已探索紐約文化地圖的每個角落！</p>
-      <button onclick="aweCloseComplete()">繼續探索</button>
-    </div>
-  </div>
-
-
-  <footer id="contact"></footer>
   <script src="js/lang.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/reveal.js"></script>
-  <script src="js/modal.js"></script>
-  <script src="js/board-game.js"></script>
-  <script src="js/quiz.js"></script>
   <script src="js/lang-init.js"></script>
+  <script type="module" src="js/awe-game.js"></script>
+
 </body>
 </html>
