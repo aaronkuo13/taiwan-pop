@@ -3,7 +3,8 @@
 /* ---------- Shared Navbar + Footer Component Injection ---------- */
 (function injectComponents() {
   const path = window.location.pathname;
-  const page = path.includes('events')   ? 'events'
+  const page = path.includes('event.html') ? 'event-detail'
+             : path.includes('events')   ? 'events'
              : path.includes('calendar') ? 'calendar'
              : path.includes('concept')  ? 'concept'
              : path.includes('awe')      ? 'awe'
