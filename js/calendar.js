@@ -7,6 +7,10 @@
   const prevBtn  = document.getElementById('prevMonth');
   const nextBtn  = document.getElementById('nextMonth');
   const upcoming = document.getElementById('upcomingList');
+  const popup    = document.getElementById('calDayPopup');
+  const popupDate = document.getElementById('calDayPopupDate');
+  const popupList = document.getElementById('calDayPopupList');
+  const popupClose = document.getElementById('calDayPopupClose');
 
   if (!grid) return;
 
@@ -39,6 +43,53 @@
   function pad(n) { return String(n).padStart(2, '0'); }
   function dateKey(y, m, d) { return `${y}-${pad(m+1)}-${pad(d)}`; }
 
+  /* ── Day Popup ── */
+  function showDayPopup(events, anchorEl, label) {
+    const lang = window.currentLang || 'zh';
+    popupDate.textContent = label;
+    popupList.innerHTML = '';
+    events.forEach(ev => {
+      const t = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+      const li = document.createElement('li');
+      const a  = document.createElement('a');
+      a.href = 'event.html?num=' + ev.num;
+      a.textContent = t;
+      li.appendChild(a);
+      popupList.appendChild(li);
+    });
+
+    // Position near the anchor cell
+    const rect = anchorEl.getBoundingClientRect();
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const scrollX = window.scrollX || document.documentElement.scrollLeft;
+
+    let top  = rect.bottom + scrollY + 8;
+    let left = rect.left  + scrollX;
+
+    popup.style.display = 'block';
+
+    // Clamp so popup doesn't overflow right edge
+    const pw = popup.offsetWidth;
+    if (left + pw > window.innerWidth - 16) {
+      left = window.innerWidth - pw - 16;
+    }
+
+    popup.style.top  = top  + 'px';
+    popup.style.left = left + 'px';
+  }
+
+  function hideDayPopup() {
+    popup.style.display = 'none';
+  }
+
+  if (popupClose) popupClose.addEventListener('click', hideDayPopup);
+  document.addEventListener('click', function(e) {
+    if (popup.style.display === 'block' && !popup.contains(e.target) && !e.target.closest('.cal-day')) {
+      hideDayPopup();
+    }
+  });
+
+  /* ── Render ── */
   function renderCalendar() {
     const L     = LANG[window.currentLang || 'zh'];
     const year  = current.getFullYear();
@@ -55,9 +106,10 @@
     const daysInPrev  = new Date(year, month, 0).getDate();
 
     grid.innerHTML = '';
+    hideDayPopup();
 
     for (let i = firstDay - 1; i >= 0; i--) {
-      appendDay(daysInPrev - i, 'other-month', null);
+      appendDay(daysInPrev - i, 'other-month', null, null, L);
     }
 
     for (let d = 1; d <= daysInMonth; d++) {
@@ -68,19 +120,19 @@
         year === today.getFullYear()
       );
       const evs = eventMap[key] || [];
-      appendDay(d, isToday ? 'today' : '', evs.length ? evs : null, key);
+      appendDay(d, isToday ? 'today' : '', evs.length ? evs : null, { year, month, d, key }, L);
     }
 
     const total     = firstDay + daysInMonth;
     const remainder = total % 7 === 0 ? 0 : 7 - (total % 7);
     for (let d = 1; d <= remainder; d++) {
-      appendDay(d, 'other-month', null);
+      appendDay(d, 'other-month', null, null, L);
     }
 
     renderUpcoming();
   }
 
-  function appendDay(day, extraClass, events, key) {
+  function appendDay(day, extraClass, events, info, L) {
     const el = document.createElement('div');
     el.classList.add('cal-day');
     if (extraClass) extraClass.split(' ').filter(Boolean).forEach(c => el.classList.add(c));
@@ -91,10 +143,6 @@
 
     if (events && events.length) {
       el.classList.add('has-event');
-      el.title = events.map(e => {
-        const lang = window.currentLang || 'zh';
-        return (lang === 'en' && e.title_en) ? e.title_en : e.title;
-      }).join(', ');
 
       const dots = document.createElement('div');
       dots.className = 'cal-dot-wrap';
@@ -105,7 +153,15 @@
       });
       el.appendChild(dots);
 
-      el.addEventListener('click', () => openModal(events[0]));
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (events.length === 1) {
+          location.href = 'event.html?num=' + events[0].num;
+        } else {
+          const label = `${info.year}.${pad(info.month + 1)}.${pad(info.d)}`;
+          showDayPopup(events, el, label);
+        }
+      });
     }
 
     grid.appendChild(el);
@@ -120,7 +176,7 @@
       .map(e => ({ ...e, dateObj: new Date(e.date) }))
       .filter(e => e.dateObj >= today)
       .sort((a, b) => a.dateObj - b.dateObj)
-      .slice(0, 5);
+      .slice(0, 6);
 
     if (!upcomingEvents.length) {
       upcoming.innerHTML = `<li style="color:var(--text-muted);font-size:14px">${L['cal-no-events']}</li>`;
@@ -131,7 +187,6 @@
       const [y, m, d] = ev.date.split('-').map(Number);
       const li = document.createElement('li');
       li.className = 'upcoming-item';
-      li.style.cursor = 'pointer';
 
       const evTitle = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
 
@@ -141,21 +196,24 @@
         const rangeStr = (em === m)
           ? `${d}–${ed} ${L.shortMonths[m - 1]}`
           : `${L.shortMonths[m - 1]} ${d} – ${L.shortMonths[em - 1]} ${ed}`;
-        rangeHtml = `<span class="upcoming-range">${rangeStr}</span>`;
+        rangeHtml = `<span class="upcoming-range">${rangeStr}</span><br>`;
       }
 
       li.innerHTML = `
-        <div class="upcoming-date-badge">
-          <span class="day">${d}</span>
-          <span class="month">${L.shortMonths[m - 1]}</span>
+        <div class="upcoming-item-top">
+          <div class="upcoming-date-badge">
+            <span class="day">${d}</span>
+            <span class="month">${L.shortMonths[m - 1]}</span>
+          </div>
+          <div class="upcoming-info">
+            ${rangeHtml}
+            <h4>${evTitle}</h4>
+            <p>${ev.location}</p>
+          </div>
         </div>
-        <div class="upcoming-info">
-          <h4>${evTitle}</h4>
-          ${rangeHtml}
-          <p>${ev.location}</p>
-        </div>
+        <div class="upcoming-item-footer">${L['cal-view-detail'] || '查看詳情 →'}</div>
       `;
-      li.addEventListener('click', () => openModal(ev));
+      li.addEventListener('click', () => { location.href = 'event.html?num=' + ev.num; });
       upcoming.appendChild(li);
     });
   }

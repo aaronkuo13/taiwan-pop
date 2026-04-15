@@ -76,7 +76,7 @@ const LANG = {
     /* Calendar */
     'sec-cal-title':'活動行事曆',
     'sec-cal-sub':'掌握所有活動日期，提前規劃您的參與計畫',
-    'cal-upcoming-h':'近期活動','cal-legend':'活動日期','cal-no-events':'暫無近期活動',
+    'cal-upcoming-h':'近期活動','cal-legend':'活動日期（點擊查看詳情）','cal-no-events':'暫無近期活動','cal-view-detail':'查看詳情 →',
     /* Footer */
     'footer-desc':'Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
     'footer-links-h':'快速連結','footer-contact-h':'聯絡資訊',
@@ -242,7 +242,7 @@ const LANG = {
     /* Calendar */
     'sec-cal-title':'Event Calendar',
     'sec-cal-sub':'Mark your calendar and plan your visit in advance',
-    'cal-upcoming-h':'Upcoming Events','cal-legend':'Event Date','cal-no-events':'No upcoming events',
+    'cal-upcoming-h':'Upcoming Events','cal-legend':'Event Date (click to view)','cal-no-events':'No upcoming events','cal-view-detail':'View Details →',
     /* Footer */
     'footer-desc':'Taiwan Pop is an annual cultural exchange program by the Taiwan Ministry of Culture and NYC Dept. of Cultural Affairs, showcasing Taiwan to the world through seven arts events.',
     'footer-links-h':'Quick Links','footer-contact-h':'Contact',
