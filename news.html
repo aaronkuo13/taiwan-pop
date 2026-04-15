@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Taiwan Pop 最新消息 — 掌握 Taiwan Pop 計畫最新動態">
+  <title>最新消息 — Taiwan Pop</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K6V2LJ748H');
+  </script>
+
+  <style>
+    .news-hero {
+      padding: calc(var(--nav-h) + 60px) 0 48px;
+      text-align: center;
+    }
+    .news-hero .section-tag { margin-bottom: 16px; }
+    .news-hero h1 {
+      font-family: var(--font-sans);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .news-hero p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .news-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(0, 255, 0, 0.08);
+    }
+
+    #news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    .news-loading,
+    .news-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .news-loading::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .load-more-wrap {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 600px) {
+      #news-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar"></nav>
+
+  <div class="news-hero">
+    <div class="container">
+      <span class="section-tag">NEWS</span>
+      <h1 data-i18n="sec-news-title">最新消息</h1>
+      <p data-i18n="sec-news-sub">掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+
+      <div class="news-filters">
+        <button class="filter-btn active" data-cat="">全部</button>
+        <button class="filter-btn" data-cat="官方公告">官方公告</button>
+        <button class="filter-btn" data-cat="活動預告">活動預告</button>
+        <button class="filter-btn" data-cat="專題報導">專題報導</button>
+        <button class="filter-btn" data-cat="媒體報導">媒體報導</button>
+      </div>
+
+      <div id="news-grid">
+        <div class="news-loading">載入中</div>
+      </div>
+
+      <div class="load-more-wrap" id="load-more-wrap" style="display:none">
+        <button class="btn btn-outline" id="load-more-btn">載入更多</button>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="contact"></footer>
+
+  <script src="js/lang.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/lang-init.js"></script>
+
+  <script type="module">
+    import { db } from './js/firebase.js';
+    import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+    const PAGE_SIZE = 9;
+    let allArticles = [];
+    let filtered = [];
+    let shown = 0;
+    let currentCat = '';
+
+    function getLang() {
+      return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
+    }
+
+    function excerpt(html, maxLen = 90) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html || '';
+      const text = (tmp.textContent || tmp.innerText || '').trim();
+      return text.length > maxLen ? text.slice(0, maxLen) + '...' : text;
+    }
+
+    function formatDate(str) {
+      return (str || '').replace(/-/g, '.');
+    }
+
+    function renderCards() {
+      const grid = document.getElementById('news-grid');
+      const lang = getLang();
+      const batch = filtered.slice(0, shown);
+
+      if (batch.length === 0) {
+        grid.innerHTML = '<div class="news-empty">暫無文章</div>';
+        document.getElementById('load-more-wrap').style.display = 'none';
+        return;
+      }
+
+      grid.innerHTML = batch.map(a => {
+        const title = (lang === 'en' && a.title_en) ? a.title_en : (a.title || '');
+        const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
+        const desc = excerpt(content);
+        const img = a.coverImage || `https://picsum.photos/600/400?random=${a.id.slice(0, 6)}`;
+        return `
+          <article class="article-card">
+            <a href="article.html?id=${a.id}" class="article-img-wrap">
+              <img src="${img}" alt="${title}" loading="lazy">
+              <span class="article-cat">${a.category || ''}</span>
+            </a>
+            <div class="article-body">
+              <span class="article-date">${formatDate(a.date)}</span>
+              <h3><a href="article.html?id=${a.id}">${title}</a></h3>
+              <p>${desc}</p>
+            </div>
+          </article>`;
+      }).join('');
+
+      const wrap = document.getElementById('load-more-wrap');
+      wrap.style.display = shown < filtered.length ? 'block' : 'none';
+    }
+
+    function applyFilter(cat) {
+      currentCat = cat;
+      filtered = cat ? allArticles.filter(a => a.category === cat) : allArticles;
+      shown = PAGE_SIZE;
+      renderCards();
+    }
+
+    async function loadArticles() {
+      try {
+        const q = query(collection(db, 'articles'), where('published', '==', true));
+        const snapshot = await getDocs(q);
+        allArticles = [];
+        snapshot.forEach(doc => allArticles.push({ id: doc.id, ...doc.data() }));
+        allArticles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        applyFilter('');
+      } catch (err) {
+        console.error(err);
+        document.getElementById('news-grid').innerHTML =
+          '<div class="news-empty">載入失敗，請稍後再試</div>';
+      }
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.cat);
+      });
+    });
+
+    // Load more
+    document.getElementById('load-more-btn').addEventListener('click', () => {
+      shown += PAGE_SIZE;
+      renderCards();
+    });
+
+    // Re-render on lang change
+    window.reRenderNews = renderCards;
+
+    loadArticles();
+  </script>
+
+</body>
+</html>
