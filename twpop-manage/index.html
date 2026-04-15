@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taiwan Pop — 後台管理</title>
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #141414;
+      --bg3: #1e1e1e;
+      --border: rgba(255,255,255,.1);
+      --text: #fff;
+      --muted: rgba(255,255,255,.5);
+      --primary: #00ff00;
+      --danger: #ff4444;
+      --radius: 8px;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Login ── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .login-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-card h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .login-card .login-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+    .login-card input {
+      display: block;
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 14px;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .login-card input:focus { border-color: var(--primary); }
+    .login-card button[type="submit"] {
+      width: 100%;
+      background: var(--primary);
+      color: #000;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    #login-error { color: var(--danger); font-size: 13px; margin-top: 12px; min-height: 18px; }
+
+    /* ── Admin layout ── */
+    #admin-main { display: none; }
+    .admin-header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .admin-header .logo { font-weight: 700; font-size: 15px; }
+    .admin-header .logo span { color: var(--primary); }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
+
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .toolbar h2 { font-size: 18px; font-weight: 700; }
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+      border: none;
+      border-radius: var(--radius);
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: .85; }
+
+    /* ── Articles table ── */
+    .articles-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .articles-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .articles-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .articles-table tr:last-child td { border-bottom: none; }
+    .articles-table tr:hover td { background: rgba(255,255,255,.02); }
+
+    .table-title { font-weight: 600; font-size: 14px; }
+    .table-date { color: var(--muted); font-size: 13px; }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .badge-published { background: rgba(0,255,0,.15); color: var(--primary); }
+    .badge-draft { background: rgba(255,255,255,.08); color: var(--muted); }
+
+    .table-actions { display: flex; gap: 8px; }
+    .btn-edit, .btn-delete {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      padding: 5px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .btn-edit:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-delete:hover { border-color: var(--danger); color: var(--danger); }
+
+    .table-empty { text-align: center; padding: 48px; color: var(--muted); }
+
+    /* ── Editor modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.8);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 860px;
+      padding: 32px;
+      margin: auto;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .modal-header h3 { font-size: 18px; font-weight: 700; }
+    .btn-close {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .btn-close:hover { color: var(--text); }
+
+    /* Tabs */
+    .lang-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .lang-tab {
+      background: transparent;
+      border: none;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: .2s;
+    }
+    .lang-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    .lang-panel { display: none; }
+    .lang-panel.active { display: block; }
+
+    /* Form fields */
+    .form-row { margin-bottom: 18px; }
+    .form-row label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      color: var(--muted);
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+    .form-row input[type="text"],
+    .form-row input[type="date"],
+    .form-row input[type="url"],
+    .form-row select {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-row input:focus, .form-row select:focus { border-color: var(--primary); }
+    .form-row select option { background: var(--bg3); }
+
+    .form-row-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Quill */
+    .quill-wrap .ql-toolbar { background: var(--bg3); border-color: var(--border); border-radius: var(--radius) var(--radius) 0 0; }
+    .quill-wrap .ql-container { background: var(--bg3); border-color: var(--border); border-radius: 0 0 var(--radius) var(--radius); min-height: 200px; }
+    .quill-wrap .ql-editor { color: var(--text); min-height: 200px; }
+    .quill-wrap .ql-toolbar .ql-stroke { stroke: var(--muted); }
+    .quill-wrap .ql-toolbar .ql-fill { fill: var(--muted); }
+    .quill-wrap .ql-toolbar button:hover .ql-stroke,
+    .quill-wrap .ql-toolbar .ql-active .ql-stroke { stroke: var(--primary); }
+
+    /* Cover image */
+    .cover-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; }
+    .cover-preview-wrap { margin-top: 10px; }
+    #cover-preview {
+      max-width: 200px;
+      max-height: 120px;
+      border-radius: 6px;
+      display: none;
+      object-fit: cover;
+    }
+    .upload-section { display: flex; gap: 10px; align-items: center; }
+    .upload-section input[type="file"] { font-size: 13px; color: var(--muted); }
+    .btn-upload {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      padding: 8px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-upload:hover { border-color: var(--primary); color: var(--primary); }
+    .upload-progress { font-size: 12px; color: var(--muted); }
+
+    /* Publish toggle */
+    .publish-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 20px 0;
+    }
+    .toggle-switch { position: relative; width: 44px; height: 24px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 3px;
+      top: 3px;
+      background: var(--muted);
+      border-radius: 50%;
+      transition: .2s;
+    }
+    input:checked + .toggle-slider { background: rgba(0,255,0,.2); border-color: var(--primary); }
+    input:checked + .toggle-slider::before { transform: translateX(20px); background: var(--primary); }
+    .publish-label { font-size: 14px; font-weight: 600; }
+    .publish-status { font-size: 12px; color: var(--muted); }
+
+    /* Modal footer */
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn-cancel {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      padding: 10px 22px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-cancel:hover { border-color: var(--text); color: var(--text); }
+    .btn-save {
+      background: var(--primary);
+      color: #000;
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-save:hover { opacity: .85; }
+    .btn-save:disabled { opacity: .4; cursor: not-allowed; }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-size: 14px;
+      z-index: 999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: .3s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: var(--primary); color: var(--primary); }
+    .toast.error { border-color: var(--danger); color: var(--danger); }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <div id="login-screen">
+    <div class="login-card">
+      <h1>Taiwan Pop</h1>
+      <p class="login-sub">後台管理系統</p>
+      <form id="login-form">
+        <input type="email" id="email" placeholder="管理員信箱" required autocomplete="email">
+        <input type="password" id="password" placeholder="密碼" required autocomplete="current-password">
+        <button type="submit">登入</button>
+        <p id="login-error"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Main -->
+  <div id="admin-main">
+    <header class="admin-header">
+      <div class="logo">Taiwan <span>Pop</span> — 後台管理</div>
+      <button class="btn-logout" id="logout-btn">登出</button>
+    </header>
+
+    <div class="admin-body">
+      <div class="toolbar">
+        <h2>文章管理</h2>
+        <button class="btn-primary" id="new-article-btn">+ 新增文章</button>
+      </div>
+      <div id="articles-list">
+        <table class="articles-table">
+          <thead>
+            <tr>
+              <th>標題</th>
+              <th>分類</th>
+              <th>日期</th>
+              <th>狀態</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="articles-tbody">
+            <tr><td colspan="5" class="table-empty">載入中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor Modal -->
+  <div class="modal-overlay" id="editor-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">新增文章</h3>
+        <button class="btn-close" id="modal-close">×</button>
+      </div>
+
+      <form id="article-form">
+        <input type="hidden" id="article-id">
+
+        <!-- Lang Tabs -->
+        <div class="lang-tabs">
+          <button type="button" class="lang-tab active" data-tab="zh">中文內容</button>
+          <button type="button" class="lang-tab" data-tab="en">English Content</button>
+          <button type="button" class="lang-tab" data-tab="meta">設定</button>
+        </div>
+
+        <!-- ZH Panel -->
+        <div class="lang-panel active" id="panel-zh">
+          <div class="form-row">
+            <label>標題（中文）</label>
+            <input type="text" id="title-zh" placeholder="文章標題">
+          </div>
+          <div class="form-row">
+            <label>內容（中文）</label>
+            <div class="quill-wrap"><div id="quill-zh"></div></div>
+          </div>
+        </div>
+
+        <!-- EN Panel -->
+        <div class="lang-panel" id="panel-en">
+          <div class="form-row">
+            <label>Title (English)</label>
+            <input type="text" id="title-en" placeholder="Article title">
+          </div>
+          <div class="form-row">
+            <label>Content (English)</label>
+            <div class="quill-wrap"><div id="quill-en"></div></div>
+          </div>
+        </div>
+
+        <!-- Meta Panel -->
+        <div class="lang-panel" id="panel-meta">
+          <div class="form-row form-row-cols">
+            <div>
+              <label>分類</label>
+              <select id="category">
+                <option value="官方公告">官方公告</option>
+                <option value="活動預告">活動預告</option>
+                <option value="專題報導">專題報導</option>
+                <option value="媒體報導">媒體報導</option>
+              </select>
+            </div>
+            <div>
+              <label>日期</label>
+              <input type="date" id="art-date">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>封面圖片 URL</label>
+            <input type="url" id="cover-url" placeholder="https://...">
+            <div class="cover-preview-wrap">
+              <img id="cover-preview" alt="封面預覽">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>上傳圖片到 Storage</label>
+            <div class="upload-section">
+              <input type="file" id="image-file" accept="image/*">
+              <button type="button" class="btn-upload" id="upload-btn">上傳</button>
+              <span class="upload-progress" id="upload-progress"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publish toggle (always visible) -->
+        <div class="publish-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="published">
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="publish-label">公開發布</span>
+          <span class="publish-status" id="publish-status">草稿</span>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="cancel-btn">取消</button>
+          <button type="submit" class="btn-save" id="save-btn">儲存文章</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <script type="module">
+    import { db, auth, storage } from '../js/firebase.js';
+    import {
+      collection, getDocs, doc, getDoc, setDoc, addDoc, deleteDoc, updateDoc,
+      query, orderBy, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+    import {
+      signInWithEmailAndPassword, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+    import {
+      ref, uploadBytesResumable, getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-storage.js";
+
+    // ── Quill init ──
+    const quillZh = new Quill('#quill-zh', {
+      theme: 'snow',
+      placeholder: '輸入文章內容（中文）...',
+      modules: { toolbar: [
+        [{ header: [2, 3, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link', 'image', 'blockquote'],
+        ['clean']
+      ]}
+    });
+    const quillEn = new Quill('#quill-en', {
+      theme: 'snow',
+      placeholder: 'Enter article content (English)...',
+      modules: { toolbar: [
+        [{ header: [2, 3, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link', 'image', 'blockquote'],
+        ['clean']
+      ]}
+    });
+
+    // ── Toast ──
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast ${type} show`;
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ── Auth ──
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-main').style.display = 'block';
+        loadArticles();
+      } else {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('admin-main').style.display = 'none';
+      }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const pass  = document.getElementById('password').value;
+      const errEl = document.getElementById('login-error');
+      errEl.textContent = '';
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+      } catch (err) {
+        errEl.textContent = '登入失敗：信箱或密碼錯誤';
+      }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+    // ── Load articles ──
+    async function loadArticles() {
+      const tbody = document.getElementById('articles-tbody');
+      tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入中...</td></tr>';
+      try {
+        const snap = await getDocs(collection(db, 'articles'));
+        const articles = [];
+        snap.forEach(d => articles.push({ id: d.id, ...d.data() }));
+        articles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+        if (articles.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="table-empty">尚無文章，點擊「新增文章」開始</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = articles.map(a => `
+          <tr>
+            <td class="table-title">${a.title || '（無標題）'}</td>
+            <td><small>${a.category || ''}</small></td>
+            <td class="table-date">${(a.date || '').replace(/-/g, '.')}</td>
+            <td>
+              <span class="badge ${a.published ? 'badge-published' : 'badge-draft'}">
+                ${a.published ? '已發布' : '草稿'}
+              </span>
+            </td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-edit" data-id="${a.id}">編輯</button>
+                <button class="btn-delete" data-id="${a.id}">刪除</button>
+              </div>
+            </td>
+          </tr>`).join('');
+
+        // Bind edit/delete
+        tbody.querySelectorAll('.btn-edit').forEach(btn =>
+          btn.addEventListener('click', () => openEditor(btn.dataset.id)));
+        tbody.querySelectorAll('.btn-delete').forEach(btn =>
+          btn.addEventListener('click', () => confirmDelete(btn.dataset.id)));
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入失敗</td></tr>';
+      }
+    }
+
+    // ── Modal ──
+    function openModal() {
+      document.getElementById('editor-modal').classList.add('open');
+      // Switch to ZH tab
+      switchTab('zh');
+    }
+    function closeModal() {
+      document.getElementById('editor-modal').classList.remove('open');
+    }
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('cancel-btn').addEventListener('click', closeModal);
+
+    // Lang tabs
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+    function switchTab(tab) {
+      document.querySelectorAll('.lang-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.querySelectorAll('.lang-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tab}`));
+    }
+
+    // Published toggle label
+    document.getElementById('published').addEventListener('change', function() {
+      document.getElementById('publish-status').textContent = this.checked ? '已發布' : '草稿';
+    });
+
+    // Cover URL preview
+    document.getElementById('cover-url').addEventListener('input', function() {
+      const img = document.getElementById('cover-preview');
+      if (this.value) {
+        img.src = this.value;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+    });
+
+    // ── New article ──
+    document.getElementById('new-article-btn').addEventListener('click', () => {
+      document.getElementById('article-id').value = '';
+      document.getElementById('modal-title').textContent = '新增文章';
+      document.getElementById('title-zh').value = '';
+      document.getElementById('title-en').value = '';
+      document.getElementById('category').value = '官方公告';
+      document.getElementById('art-date').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('cover-url').value = '';
+      document.getElementById('cover-preview').style.display = 'none';
+      document.getElementById('published').checked = false;
+      document.getElementById('publish-status').textContent = '草稿';
+      quillZh.setContents([]);
+      quillEn.setContents([]);
+      openModal();
+    });
+
+    // ── Edit article ──
+    async function openEditor(id) {
+      try {
+        const snap = await getDoc(doc(db, 'articles', id));
+        if (!snap.exists()) return;
+        const a = snap.data();
+
+        document.getElementById('article-id').value = id;
+        document.getElementById('modal-title').textContent = '編輯文章';
+        document.getElementById('title-zh').value = a.title || '';
+        document.getElementById('title-en').value = a.title_en || '';
+        document.getElementById('category').value = a.category || '官方公告';
+        document.getElementById('art-date').value = a.date || '';
+        document.getElementById('cover-url').value = a.coverImage || '';
+        document.getElementById('published').checked = !!a.published;
+        document.getElementById('publish-status').textContent = a.published ? '已發布' : '草稿';
+
+        const coverImg = document.getElementById('cover-preview');
+        if (a.coverImage) { coverImg.src = a.coverImage; coverImg.style.display = 'block'; }
+        else { coverImg.style.display = 'none'; }
+
+        quillZh.root.innerHTML = a.content || '';
+        quillEn.root.innerHTML = a.content_en || '';
+
+        openModal();
+      } catch (err) {
+        console.error(err);
+        showToast('載入文章失敗', 'error');
+      }
+    }
+
+    // ── Save article ──
+    document.getElementById('article-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const saveBtn = document.getElementById('save-btn');
+      saveBtn.disabled = true;
+      saveBtn.textContent = '儲存中...';
+
+      const id = document.getElementById('article-id').value;
+      const data = {
+        title:      document.getElementById('title-zh').value.trim(),
+        title_en:   document.getElementById('title-en').value.trim(),
+        category:   document.getElementById('category').value,
+        date:       document.getElementById('art-date').value,
+        coverImage: document.getElementById('cover-url').value.trim(),
+        content:    quillZh.root.innerHTML,
+        content_en: quillEn.root.innerHTML,
+        published:  document.getElementById('published').checked,
+        updatedAt:  serverTimestamp(),
+      };
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, 'articles', id), data);
+          showToast('文章已更新');
+        } else {
+          data.createdAt = serverTimestamp();
+          await addDoc(collection(db, 'articles'), data);
+          showToast('文章已新增');
+        }
+        closeModal();
+        loadArticles();
+      } catch (err) {
+        console.error(err);
+        showToast('儲存失敗：' + err.message, 'error');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = '儲存文章';
+      }
+    });
+
+    // ── Delete ──
+    async function confirmDelete(id) {
+      if (!confirm('確定要刪除這篇文章？此操作無法復原。')) return;
+      try {
+        await deleteDoc(doc(db, 'articles', id));
+        showToast('文章已刪除');
+        loadArticles();
+      } catch (err) {
+        showToast('刪除失敗', 'error');
+      }
+    }
+
+    // ── Image upload ──
+    document.getElementById('upload-btn').addEventListener('click', async () => {
+      const fileInput = document.getElementById('image-file');
+      const file = fileInput.files[0];
+      if (!file) { showToast('請先選擇圖片', 'error'); return; }
+
+      const progress = document.getElementById('upload-progress');
+      progress.textContent = '上傳中...';
+
+      const storageRef = ref(storage, `articles/${Date.now()}_${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on('state_changed',
+        snap => {
+          const pct = Math.round(snap.bytesTransferred / snap.totalBytes * 100);
+          progress.textContent = `${pct}%`;
+        },
+        err => {
+          console.error(err);
+          progress.textContent = '';
+          showToast('上傳失敗', 'error');
+        },
+        async () => {
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          document.getElementById('cover-url').value = url;
+          const img = document.getElementById('cover-preview');
+          img.src = url;
+          img.style.display = 'block';
+          progress.textContent = '上傳完成';
+          fileInput.value = '';
+          setTimeout(() => progress.textContent = '', 2000);
+        }
+      );
+    });
+  </script>
+</body>
+</html>

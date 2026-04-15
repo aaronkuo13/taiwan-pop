@@ -50,6 +50,7 @@
     renderEvents();
     if (typeof renderFeaturedBanner === 'function') renderFeaturedBanner();
     if (window.reRenderCalendar) window.reRenderCalendar();
+    if (window.reRenderNews) window.reRenderNews();
   };
 
   // Apply on load

@@ -8,13 +8,15 @@
              : path.includes('calendar') ? 'calendar'
              : path.includes('concept')  ? 'concept'
              : path.includes('awe')      ? 'awe'
+             : path.includes('article')  ? 'article'
+             : path.includes('news')     ? 'news'
              : 'home';
 
   /* ── Links: resolve relative to current page ── */
   const href = {
     logo:     page === 'home'     ? '#'              : 'index.html',
     concept:  page === 'concept'  ? '#'              : 'concept.html',
-    news:     page === 'home'     ? '#articles'      : 'index.html#articles',
+    news:     page === 'news'     ? '#'               : 'news.html',
     events:   page === 'events'   ? '#events'        : 'events.html',
     awe:      page === 'awe'      ? '#'              : 'awe.html',
     calendar: page === 'calendar' ? '#'              : 'calendar.html',
