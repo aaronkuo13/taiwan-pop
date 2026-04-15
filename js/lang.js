@@ -10,6 +10,9 @@ const LANG = {
     /* a-we NYC Run */
     'game-awe-title':'a-we <span>紐約</span>跑酷',
     'game-awe-sub':'跑過紐約，跳越展演場館，探索 Taiwan Pop 文化活動',
+    'sec-awe-title':'a-we 紐約跑酷',
+    'sec-awe-sub':'跟著 a-We 跑過紐約，跳越展演場館，解鎖台灣文化活動資訊，登上排行榜！',
+    'home-awe-cta':'來去跑酷！',
     /* Banner */
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
     'btn-explore':'探索活動','btn-news':'最新消息',
@@ -173,6 +176,9 @@ const LANG = {
     /* a-we NYC Run */
     'game-awe-title':'a-we <span>NYC</span> Run',
     'game-awe-sub':'Run through NYC, jump over venues, discover Taiwan Pop events',
+    'sec-awe-title':'a-we NYC Run',
+    'sec-awe-sub':'Run through New York with a-We, leap over event venues, unlock cultural event info, and claim your spot on the leaderboard!',
+    'home-awe-cta':'Let\'s Run!',
     /* Banner */
     'banner-sub':'Taiwan Ministry of Culture × NYC Dept. of Cultural Affairs<br>Seven Cultural Events, New York 2026',
     'btn-explore':'Explore Events','btn-news':'Latest News',
