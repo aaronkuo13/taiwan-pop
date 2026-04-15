@@ -176,7 +176,7 @@ ul { list-style: none; }
 }
 .btn-outline:hover {
   background: var(--primary);
-  color: #fff;
+  color: #000;
   transform: translateY(-2px);
 }
 
@@ -954,7 +954,7 @@ ul { list-style: none; }
    MANIFESTO CARD — Sticker Style
    ============================================================ */
 #manifesto {
-  padding: 60px 40px 56px;
+  padding: 32px 40px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -981,7 +981,7 @@ ul { list-style: none; }
   background: #111;
   max-width: 960px;
   width: 100%;
-  padding: 44px 52px;
+  padding: 28px 52px;
   box-shadow: 7px 7px 0 var(--primary);
   transform: rotate(-1.2deg);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -1134,10 +1134,10 @@ ul { list-style: none; }
 
 @media (max-width: 768px) {
   #manifesto {
-    padding: 40px 24px 32px;
+    padding: 20px 24px 16px;
   }
   .manifesto-card {
-    padding: 36px 28px;
+    padding: 24px 28px;
     transform: none;
     box-shadow: 6px 6px 0 var(--primary);
   }
@@ -1443,10 +1443,9 @@ ul { list-style: none; }
    CALENDAR
    ============================================================ */
 .calendar-layout {
-  display: grid;
-  grid-template-columns: 1fr 360px;
+  display: flex;
+  flex-direction: column;
   gap: 40px;
-  align-items: start;
 }
 
 .calendar-box {
@@ -1489,7 +1488,7 @@ ul { list-style: none; }
 
 .cal-nav button:hover {
   background: var(--primary);
-  color: #fff;
+  color: #000;
   border-color: var(--primary);
 }
 
@@ -1575,32 +1574,61 @@ ul { list-style: none; }
 
 /* Upcoming events panel */
 .upcoming-box {
-  background: #0d0d0d;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  box-shadow: var(--shadow-md);
+  padding: 0;
 }
 
-.upcoming-box h3 {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 800;
+.upcoming-box-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+}
+
+.upcoming-box-header h3 {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.upcoming-box-divider {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
 .upcoming-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
 }
 
 .upcoming-item {
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 0;
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition);
+  text-decoration: none;
+  color: inherit;
+}
+
+.upcoming-item:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.upcoming-item-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px 12px;
 }
 
 .upcoming-date-badge {
@@ -1608,10 +1636,9 @@ ul { list-style: none; }
   width: 48px;
   text-align: center;
   background: var(--primary);
-  color: #fff;
+  color: #000;
   border-radius: var(--radius-sm);
   padding: 6px 4px;
-  box-shadow: 0 2px 8px rgba(245,34,129,.4);
 }
 
 .upcoming-date-badge .day {
@@ -1627,29 +1654,106 @@ ul { list-style: none; }
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
-  opacity: .85;
 }
 
 .upcoming-info h4 {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   line-height: 1.3;
+  color: #fff;
 }
 
 .upcoming-info p {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
+  line-height: 1.4;
 }
 
 .upcoming-range {
   display: inline-block;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--primary);
   letter-spacing: 0.4px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+}
+
+.upcoming-item-footer {
+  padding: 8px 18px 12px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+/* ── Calendar Day Popup ── */
+.cal-day-popup {
+  position: fixed;
+  z-index: 1500;
+  background: #111;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  padding: 14px 16px;
+  min-width: 220px;
+  max-width: 300px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.7);
+  display: none;
+}
+
+.cal-day-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.cal-day-popup-date {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.cal-day-popup-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+.cal-day-popup-close:hover { color: #fff; }
+
+.cal-day-popup-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cal-day-popup-list a {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,.05);
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+.cal-day-popup-list a:hover {
+  background: var(--primary);
+  color: #000;
 }
 
 
@@ -1899,7 +2003,7 @@ footer {
 
 .social-link:hover {
   background: var(--primary);
-  color: #fff;
+  color: #000;
   transform: translateY(-3px);
 }
 
@@ -1949,10 +2053,6 @@ footer {
 }
 
 @media (max-width: 1024px) {
-  .calendar-layout {
-    grid-template-columns: 1fr;
-  }
-
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -2042,8 +2142,8 @@ footer {
 }
 
 @media (max-width: 480px) {
-
   .cal-day { font-size: 12px; }
+  .upcoming-list { grid-template-columns: 1fr; }
 }
 
 /* ============================================================

@@ -33,6 +33,17 @@
         <p class="section-sub" data-i18n="sec-cal-sub">掌握所有活動日期，提前規劃您的參與計畫</p>
       </div>
       <div class="calendar-layout">
+        <!-- 近期活動（上方） -->
+        <div class="upcoming-box">
+          <div class="upcoming-box-header">
+            <h3 data-i18n="cal-upcoming-h">近期活動</h3>
+            <div class="upcoming-box-divider"></div>
+            <span class="section-tag" style="margin:0">UPCOMING</span>
+          </div>
+          <ul class="upcoming-list" id="upcomingList"></ul>
+        </div>
+
+        <!-- 行事曆（下方） -->
         <div class="calendar-box">
           <div class="cal-nav">
             <button id="prevMonth" aria-label="上個月">&#8249;</button>
@@ -47,10 +58,6 @@
             <span class="cal-dot"></span><span data-i18n="cal-legend">活動日期</span>
           </div>
         </div>
-        <div class="upcoming-box">
-          <h3 data-i18n="cal-upcoming-h">近期活動</h3>
-          <ul class="upcoming-list" id="upcomingList"></ul>
-        </div>
       </div>
     </div>
   </section>
@@ -58,30 +65,13 @@
   <!-- ======= FOOTER (injected by components.js) ======= -->
   <footer id="contact"></footer>
 
-  <!-- ======= EVENT MODAL ======= -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal" id="modal">
-      <div class="modal-header">
-        <p class="modal-num" id="modalNum"></p>
-        <div class="modal-icon" id="modalIcon"></div>
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <button class="modal-close" id="modalClose" aria-label="關閉">&#x2715;</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-meta">
-          <span class="modal-meta-item" id="modalDate">
-            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 2h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 3v9h12V5H2zm3-4v3M11 1v3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-            <span></span>
-          </span>
-          <span class="modal-meta-item" id="modalLocation">
-            <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1a5 5 0 0 1 5 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 0 1 5-5zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-            <span></span>
-          </span>
-        </div>
-        <p class="modal-desc" id="modalDesc"></p>
-        <a href="#" class="modal-cta" data-i18n="modal-cta">了解更多詳情 →</a>
-      </div>
+  <!-- ======= CALENDAR DAY POPUP ======= -->
+  <div class="cal-day-popup" id="calDayPopup">
+    <div class="cal-day-popup-header">
+      <span class="cal-day-popup-date" id="calDayPopupDate"></span>
+      <button class="cal-day-popup-close" id="calDayPopupClose" aria-label="關閉">&#x2715;</button>
     </div>
+    <ul class="cal-day-popup-list" id="calDayPopupList"></ul>
   </div>
 
   <script src="js/lang.js"></script>
@@ -90,7 +80,6 @@
   <script src="js/navbar.js"></script>
   <script src="js/events.js"></script>
   <script src="js/reveal.js"></script>
-  <script src="js/modal.js"></script>
   <script src="js/calendar.js"></script>
   <script src="js/lang-init.js"></script>
 </body>
