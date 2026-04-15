@@ -29,7 +29,7 @@ function renderEvents() {
     return `
       <div class="event-card event-card--primary card--${catId}" onclick="location.href='event.html?num=${ev.num}'" style="cursor: pointer;">
         <div class="event-card-img">
-          <img src="https://picsum.photos/600/320?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
+          <img src="${ev.img || `https://picsum.photos/600/320?grayscale&random=${ev.num}`}" alt="${t}" loading="lazy">
           <span class="event-card-pill pill--${catId}">${L[`cat-${catId}-label`]}</span>
         </div>
         <div class="event-card-body">
@@ -52,7 +52,7 @@ function renderEvents() {
     return `
       <div class="event-card event-card--secondary card--${catId}" onclick="location.href='event.html?num=${ev.num}'" style="cursor: pointer;">
         <div class="event-card-img">
-          <img src="https://picsum.photos/400/180?grayscale&random=${ev.num}" alt="${t}" loading="lazy">
+          <img src="${ev.img || `https://picsum.photos/400/180?grayscale&random=${ev.num}`}" alt="${t}" loading="lazy">
           <span class="event-card-pill event-card-pill--sm pill--${catId}">${L[`cat-${catId}-label`]}</span>
         </div>
         <div class="event-card-body">

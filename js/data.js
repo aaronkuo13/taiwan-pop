@@ -6,6 +6,7 @@ const EVENTS = [
 
   {
     num:'02', icon:'🎼',
+    img:'images/展演活動_NSO《來自臺灣》2026室內樂美國巡演.png',
     date:'2026-05-19',
     title:'NSO《來自臺灣》2026室內樂美國巡演',
     title_en:'From Formosa: Taiwan Philharmonic Chamber Ensemble 2026 US Tour',
@@ -20,6 +21,7 @@ const EVENTS = [
   },
   {
     num:'06', icon:'💃',
+    img:'images/展演活動_翃舞.png',
     date:'2026-07-17', endDate:'2026-07-18',
     title:'翃舞製作《羽人》BIRDY',
     title_en:'HORSE Dance Theatre: BIRDY',
@@ -34,6 +36,7 @@ const EVENTS = [
   },
   {
     num:'07', icon:'🎵',
+    img:'images/展演活動_taiwanese wave.png',
     date:'2026-08-16',
     title:'Taiwanese Waves @ SummerStage',
     title_en:'Taiwanese Waves @ SummerStage',
@@ -88,6 +91,7 @@ const EVENTS = [
   /* ── 影像與敘事 · 主要活動 ── */
   {
     num:'01', icon:'🎭',
+    img:'images/展演活動_臺美藝文大師系列講座.png',
     date:'2026-05-01',
     title:'臺美藝文大師系列講座',
     title_en:'Across Borders, Across Bodies: Lin Hwai-min in Conversation',
@@ -102,6 +106,7 @@ const EVENTS = [
   },
   {
     num:'04', icon:'🎬',
+    img:'images/展演活動_世界之間：跨越疆界的臺灣電影.png',
     date:'2026-09-01', endDate:'2026-09-30',
     title:'世界之間：跨越疆界的臺灣電影',
     title_en:'Between Worlds: Taiwanese Cinema Across Borders',
@@ -144,6 +149,7 @@ const EVENTS = [
   /* ── 街頭與生活 · 主要活動 ── */
   {
     num:'03', icon:'🎨',
+    img:'images/展演活動_布希維克街頭藝術節 臺灣藝術家參展.png',
     date:'2026-05-18', endDate:'2026-05-30',
     title:'布希維克街頭藝術節 臺灣藝術家參展',
     title_en:'The Bushwick Collective Block Party — Taiwan',
@@ -158,6 +164,7 @@ const EVENTS = [
   },
   {
     num:'05', icon:'🌈',
+    img:'images/展演活動_2026紐約同志遊行.png',
     date:'2026-06-28',
     title:'2026 紐約同志遊行',
     title_en:'2026 New York City Pride March',
