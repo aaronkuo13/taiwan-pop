@@ -5,8 +5,11 @@ const LANG = {
   zh: {
     /* Navbar */
     'nav-concept':'黑潮理念',
-    'nav-news':'最新消息','nav-events':'展演活動','nav-awe':'a-we小冒險','nav-discover':'文化探索',
+    'nav-news':'最新消息','nav-events':'展演活動','nav-awe':'a-we 紐約跑酷','nav-discover':'文化探索',
     'nav-calendar':'行事曆','nav-contact':'聯絡我們',
+    /* a-we NYC Run */
+    'game-awe-title':'a-we <span>紐約</span>跑酷',
+    'game-awe-sub':'跑過紐約，跳越展演場館，探索 Taiwan Pop 文化活動',
     /* Banner */
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
     'btn-explore':'探索活動','btn-news':'最新消息',
@@ -165,8 +168,11 @@ const LANG = {
   en: {
     /* Navbar */
     'nav-concept':'Black Current',
-    'nav-news':'News','nav-events':'Events','nav-awe':'a-we Adventure','nav-discover':'Discover',
+    'nav-news':'News','nav-events':'Events','nav-awe':'a-we NYC Run','nav-discover':'Discover',
     'nav-calendar':'Calendar','nav-contact':'Contact',
+    /* a-we NYC Run */
+    'game-awe-title':'a-we <span>NYC</span> Run',
+    'game-awe-sub':'Run through NYC, jump over venues, discover Taiwan Pop events',
     /* Banner */
     'banner-sub':'Taiwan Ministry of Culture × NYC Dept. of Cultural Affairs<br>Seven Cultural Events, New York 2026',
     'btn-explore':'Explore Events','btn-news':'Latest News',
