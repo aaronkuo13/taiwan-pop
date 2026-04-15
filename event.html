@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活動詳情 — Taiwan Pop 2026</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K6V2LJ748H');
+  </script>
+</head>
+<body>
+  <nav id="navbar"></nav>
+
+  <div id="eventDetailPage">
+
+    <!-- ======= HERO ======= -->
+    <section class="event-detail-hero">
+      <div class="container">
+
+        <a href="events.html" class="event-detail-back">← 返回展演活動</a>
+
+        <div class="event-detail-header">
+          <div class="event-detail-title-wrap">
+            <div class="event-detail-eyebrow">
+              <span id="detailCat" class="event-detail-cat"></span>
+              <span id="detailNum" class="event-detail-num"></span>
+            </div>
+            <h1 id="detailTitle" class="event-detail-title"></h1>
+            <p id="detailSubtitle" class="event-detail-subtitle"></p>
+          </div>
+          <a id="detailCta" class="btn btn-primary event-detail-cta" href="#">
+            了解更多・立即報名 →
+          </a>
+        </div>
+
+        <div class="event-detail-meta-row">
+          <span id="detailDate" class="event-detail-meta-item"></span>
+          <span id="detailLocation" class="event-detail-meta-item"></span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= BODY ======= -->
+    <section class="event-detail-body section">
+      <div class="container">
+        <div id="detailDesc" class="event-detail-desc"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer id="contact"></footer>
+
+  <script src="js/lang.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/lang-init.js"></script>
+  <script src="js/event-detail.js"></script>
+</body>
+</html>
