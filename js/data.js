@@ -6,7 +6,7 @@ const EVENTS = [
 
   {
     num:'02', icon:'🎼',
-    img:'images/展演活動_NSO《來自臺灣》2026室內樂美國巡演.png',
+    img:'images/展演活動_NSO《來自臺灣》2026室內樂美國巡演.png?v=2',
     date:'2026-05-19',
     title:'NSO《來自臺灣》2026室內樂美國巡演',
     title_en:'From Formosa: Taiwan Philharmonic Chamber Ensemble 2026 US Tour',
