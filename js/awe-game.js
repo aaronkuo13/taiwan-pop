@@ -4,7 +4,39 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
 /* ── Canvas dimensions ── */
-const W = 800, H = 320, GROUND_Y = 265, SPEED = 5;
+const W = 800, H = 480, GROUND_Y = 400, SPEED = 5;
+
+/* ── Obstacle definitions ── */
+/* weight: higher = appears more often (easy=3, medium=2, hard=1) */
+// sx,sy,sw,sh = content crop bbox in the source PNG (all images are 893x958)
+// w,h = game display size at natural aspect ratio (sw/sh)
+// Drawn via 9-param drawImage: content bottom aligns to GROUND_Y automatically
+const OBSTACLES = [
+  { src: 'images/場景-01-tccny.png',               sx: 271, sy: 303, sw: 351, sh: 351, w: 139, h: 139, weight: 3 },
+  { src: 'images/場景-02-empire state bldg.png',   sx: 271, sy: 203, sw: 351, sh: 551, w: 119, h: 187, weight: 1 },
+  { src: 'images/場景-03-chrysler.png',             sx: 271, sy: 203, sw: 351, sh: 551, w: 114, h: 179, weight: 1 },
+  { src: 'images/場景-04-flatiron bldg.png',       sx: 258, sy: 278, sw: 376, sh: 401, w: 140, h: 149, weight: 2 },
+  { src: 'images/場景-05-brooklyn bridge.png',     sx: 269, sy: 241, sw: 353, sh: 476, w: 121, h: 163, weight: 2 },
+  { src: 'images/場景-06-statue liberty.png',      sx: 271, sy: 203, sw: 351, sh: 551, w: 109, h: 171, weight: 2 },
+  { src: 'images/場景-07-central park.png',        sx: 246, sy: 341, sw: 401, sh: 276, w: 136, h:  94, weight: 3 },
+  { src: 'images/場景-08-merkin concert hall.png', sx: 271, sy: 266, sw: 351, sh: 426, w: 132, h: 160, weight: 2 },
+  { src: 'images/場景-09-skirball ctr.png',        sx: 271, sy: 303, sw: 351, sh: 351, w: 128, h: 128, weight: 2 },
+  { src: 'images/場景-10-metrograph cinema.png',   sx: 271, sy: 303, sw: 351, sh: 351, w: 112, h: 112, weight: 3 },
+  { src: 'images/場景-11-bushwick collective.png', sx: 271, sy: 278, sw: 351, sh: 401, w: 140, h: 160, weight: 2 },
+  { src: 'images/場景-12-hungdance.png',           sx: 271, sy: 113, sw: 351, sh: 529, w:  98, h: 147, weight: 3 },
+  { src: 'images/場景-13-graffiti spray can.png',  sx: 296, sy: 216, sw: 301, sh: 526, w:  89, h: 155, weight: 2 },
+  { src: 'images/場景-14.png',                     sx: 271, sy: 203, sw: 351, sh: 551, w:  94, h: 147, weight: 2 },
+  { src: 'images/場景-15.png',                     sx: 258, sy: 278, sw: 376, sh: 401, w: 138, h: 147, weight: 2 },
+  { src: 'images/場景-16.png',                     sx: 258, sy: 203, sw: 376, sh: 551, w: 101, h: 147, weight: 2 },
+  { src: 'images/場景-17.png',                     sx: 271, sy: 228, sw: 351, sh: 501, w: 103, h: 147, weight: 2 },
+  { src: 'images/場景-18.png',                     sx: 271, sy: 316, sw: 351, sh: 326, w: 132, h: 122, weight: 2 },
+  { src: 'images/場景-19.png',                     sx: 271, sy: 253, sw: 351, sh: 451, w: 114, h: 147, weight: 2 },
+  { src: 'images/場景-20.png',                     sx: 271, sy: 291, sw: 351, sh: 376, w: 138, h: 147, weight: 2 },
+];
+
+/* Build weighted pool once */
+const OBS_POOL = [];
+OBSTACLES.forEach((o, i) => { for (let k = 0; k < o.weight; k++) OBS_POOL.push(i); });
 
 /* ── Event data for obstacle popups ── */
 const GAME_EVENTS = [
@@ -38,6 +70,7 @@ class AWEGame {
     /* Obstacles */
     this.obs         = [];
     this.distToNext  = 500;
+    this.recentObs   = []; /* last 4 indices, for no-repeat */
 
     /* Popup */
     this.popup = null;
@@ -46,8 +79,12 @@ class AWEGame {
     this.gx = 0;
 
     /* Sprites */
-    this.imgRun  = this._loadImg('images/awe-right.png');
-    this.imgJump = this._loadImg('images/awe-front.png');
+    this.imgWalkR = this._loadImg('images/awe_v10_pink-walk_right.png');
+    this.imgWalkL = this._loadImg('images/awe_v10_pink-walk_left.png');
+    this.imgJumps = [26, 27, 28, 29, 30].map(n => this._loadImg(`images/awe_v10_pink-${n}.png`));
+
+    /* Obstacle images */
+    this.obsImgs = OBSTACLES.map(o => this._loadImg(o.src));
 
     /* Controls */
     const act = () => this._input();
@@ -82,7 +119,7 @@ class AWEGame {
     if (this.state === 'idle') {
       this.state = 'running';
     } else if (this.state === 'running' && this.p.onGround) {
-      this.p.vy       = -14;
+      this.p.vy       = -22;
       this.p.onGround = false;
     } else if (this.state === 'dead') {
       this._restart();
@@ -96,6 +133,7 @@ class AWEGame {
     this.evIdx      = 0;
     this.obs        = [];
     this.distToNext = 500;
+    this.recentObs  = [];
     this.popup      = null;
     this.gx         = 0;
     Object.assign(this.p, { y: GROUND_Y, vy: 0, onGround: true });
@@ -124,7 +162,7 @@ class AWEGame {
     }
 
     /* Player physics */
-    this.p.vy += 0.7;
+    this.p.vy += 0.68;
     this.p.y  += this.p.vy;
     if (this.p.y >= GROUND_Y) {
       this.p.y        = GROUND_Y;
@@ -140,7 +178,7 @@ class AWEGame {
     const last = this.obs[this.obs.length - 1];
     if (this.distToNext <= 0 && (!last || last.x < W - 120)) {
       this._spawn();
-      this.distToNext = 380 + Math.random() * 340;
+      this.distToNext = 500 + Math.random() * 400;
     }
 
     /* Move obstacles */
@@ -172,21 +210,39 @@ class AWEGame {
   }
 
   _spawn() {
-    const h  = 55 + Math.floor(Math.random() * 65);
-    const w  = 32 + Math.floor(Math.random() * 28);
-    const ev = GAME_EVENTS[this.evIdx % GAME_EVENTS.length];
+    /* Filter pool to exclude recently seen indices */
+    const pool = OBS_POOL.filter(i => !this.recentObs.includes(i));
+    const src  = pool.length ? pool : OBS_POOL; /* fallback if somehow all excluded */
+    const idx  = src[Math.floor(Math.random() * src.length)];
+
+    /* Track recent (keep last 4) */
+    this.recentObs.push(idx);
+    if (this.recentObs.length > 4) this.recentObs.shift();
+
+    const def = OBSTACLES[idx];
+    const ev  = GAME_EVENTS[this.evIdx % GAME_EVENTS.length];
     this.evIdx++;
-    this.obs.push({ x: W + 10, y: GROUND_Y - h, w, h, ev, passed: false, style: this.evIdx % 5 });
+    this.obs.push({
+      x: W + 10, y: GROUND_Y - def.h,
+      w: def.w, h: def.h,
+      imgIdx: idx, ev, passed: false,
+    });
   }
 
   _hit() {
-    const { x, y, w } = this.p;
-    const m = 7;
+    const { x, y, w, h } = this.p;
+    /* Player: trim 15% horizontal each side, 12% from bottom (transparent feet area) */
+    const pHm = Math.floor(w * 0.15);
+    const pVm = Math.floor(h * 0.12);
+
     for (const o of this.obs) {
+      /* Building: trim 8% horizontal, 5% top (content crop = no large transparent areas) */
+      const oHm = Math.floor(o.w * 0.08);
+      const oVm = Math.floor(o.h * 0.05);
       if (
-        x + w - m > o.x + m &&
-        x + m     < o.x + o.w - m &&
-        y - m     > o.y + m
+        x + w - pHm > o.x  + oHm &&
+        x + pHm     < o.x  + o.w - oHm &&
+        y - pVm     > o.y  + oVm
       ) return true;
     }
     return false;
@@ -233,12 +289,30 @@ class AWEGame {
 
   _drawPlayer() {
     const { x, y, w, h, onGround } = this.p;
-    const img = onGround ? this.imgRun : this.imgJump;
-    const bob = (this.state === 'running' && onGround)
-      ? Math.sin(this.frame * 0.35) * 2 : 0;
 
-    if (img.complete && img.naturalWidth > 0) {
-      this.ctx.drawImage(img, x, y - h + bob, w, h);
+    let img;
+    let bob = 0;
+    if (onGround) {
+      /* Walk: alternate every 8 frames */
+      img = (Math.floor(this.frame / 8) % 2 === 0) ? this.imgWalkR : this.imgWalkL;
+      bob = (this.state === 'running') ? Math.sin(this.frame * 0.35) * 2 : 0;
+    } else {
+      /* Jump: pick frame by vy — vy goes from -22 (takeoff) to +22 (landing) */
+      const vy = this.p.vy;
+      let fi;
+      if      (vy < -13) fi = 0;  // 26 — takeoff
+      else if (vy <  -5) fi = 1;  // 27 — rising
+      else if (vy <   3) fi = 2;  // 28 — peak
+      else if (vy <  11) fi = 3;  // 29 — falling
+      else               fi = 4;  // 30 — about to land
+      img = this.imgJumps[fi];
+    }
+
+    if (img && img.complete && img.naturalWidth > 0) {
+      /* Draw at natural aspect ratio; center horizontally over the hitbox */
+      const drawW = Math.round(img.naturalWidth / img.naturalHeight * h);
+      const drawX = x - Math.round((drawW - w) / 2);
+      this.ctx.drawImage(img, drawX, y - h + bob, drawW, h);
     } else {
       this.ctx.fillStyle = '#00ff00';
       this.ctx.fillRect(x, y - h, w, h);
@@ -246,55 +320,44 @@ class AWEGame {
   }
 
   _drawBuilding(o) {
-    const ctx        = this.ctx;
-    const { x, y, w, h, style } = o;
+    const ctx = this.ctx;
+    const { x, y, w, h, imgIdx } = o;
+    const img = this.obsImgs[imgIdx];
 
-    /* Body */
-    ctx.fillStyle = '#06061a';
-    ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle = '#00ff00';
-    ctx.lineWidth   = 1.5;
-    ctx.strokeRect(x, y, w, h);
-
-    /* Windows */
-    ctx.fillStyle = 'rgba(0,255,0,0.1)';
-    const cols = Math.max(1, Math.floor(w / 13));
-    const rows = Math.max(1, Math.floor(h / 18));
-    const ww = 5, wh = 4;
-    const cg = (w - cols * ww) / (cols + 1);
-    const rg = (h - rows * wh) / (rows + 1);
-    for (let r = 0; r < rows; r++)
-      for (let c = 0; c < cols; c++)
-        ctx.fillRect(x + cg + c*(ww+cg), y + rg + r*(wh+rg), ww, wh);
-
-    /* Rooftop decorations */
-    ctx.lineWidth = 1;
-    if (style === 0) {
-      /* Antenna */
-      ctx.strokeStyle = '#00ff00';
-      ctx.beginPath(); ctx.moveTo(x+w/2, y); ctx.lineTo(x+w/2, y-13); ctx.stroke();
-      ctx.fillStyle = '#00ff00';
-      ctx.beginPath(); ctx.arc(x+w/2, y-14, 2, 0, Math.PI*2); ctx.fill();
-    } else if (style === 1) {
-      /* Parapet notches */
-      ctx.strokeStyle = '#00ff00';
-      for (let i = 0; i < Math.floor(w/10); i++)
-        ctx.strokeRect(x + 3 + i*10, y - 6, 6, 6);
-    } else if (style === 2) {
-      /* Arch */
-      ctx.strokeStyle = '#f52281';
-      ctx.beginPath(); ctx.arc(x+w/2, y, w/2.5, Math.PI, 0); ctx.stroke();
-    } else if (style === 3) {
-      /* Triangle gable */
-      ctx.strokeStyle = '#0082d2';
-      ctx.beginPath(); ctx.moveTo(x-2, y); ctx.lineTo(x+w/2, y-12); ctx.lineTo(x+w+2, y); ctx.stroke();
+    if (img && img.complete && img.naturalWidth > 0) {
+      /* Crop to content bbox → natural aspect ratio, bottom aligned to GROUND_Y */
+      const def = OBSTACLES[imgIdx];
+      ctx.drawImage(img, def.sx, def.sy, def.sw, def.sh, x, y, w, h);
     } else {
-      /* Flag */
+      /* Fallback: simple outline box while image loads */
+      ctx.fillStyle   = '#06061a';
+      ctx.fillRect(x, y, w, h);
       ctx.strokeStyle = '#00ff00';
-      ctx.beginPath(); ctx.moveTo(x+w/2, y); ctx.lineTo(x+w/2, y-15); ctx.stroke();
-      ctx.fillStyle = '#f52281';
-      ctx.beginPath(); ctx.moveTo(x+w/2, y-15); ctx.lineTo(x+w/2+10, y-10); ctx.lineTo(x+w/2, y-5); ctx.fill();
+      ctx.lineWidth   = 1.5;
+      ctx.strokeRect(x, y, w, h);
     }
+  }
+
+  _drawHitboxes() {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.strokeStyle = '#00ff00';
+    ctx.lineWidth = 2;
+
+    // Player hitbox
+    const { x, y, w, h } = this.p;
+    const pHm = Math.floor(w * 0.15);
+    const pVm = Math.floor(h * 0.12);
+    ctx.strokeRect(x + pHm, y - h, w - pHm * 2, h - pVm);
+
+    // Building hitboxes
+    this.obs.forEach(o => {
+      const oHm = Math.floor(o.w * 0.08);
+      const oVm = Math.floor(o.h * 0.05);
+      ctx.strokeRect(o.x + oHm, o.y + oVm, o.w - oHm * 2, o.h - oVm);
+    });
+
+    ctx.restore();
   }
 
   _drawPopup() {
@@ -305,9 +368,9 @@ class AWEGame {
 
     const pw = 330, ph = 78, px = (W - pw) / 2, py = 14;
 
-    ctx.fillStyle = 'rgba(0,0,0,0.9)';
+    ctx.fillStyle = '#1a1a1a';
     this._rrect(px, py, pw, ph, 8); ctx.fill();
-    ctx.strokeStyle = '#00ff00'; ctx.lineWidth = 1;
+    ctx.strokeStyle = '#00ff00'; ctx.lineWidth = 2;
     this._rrect(px, py, pw, ph, 8); ctx.stroke();
 
     ctx.fillStyle   = '#00ff00';
