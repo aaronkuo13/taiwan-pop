@@ -24,7 +24,12 @@ function renderHomeArticles(articles) {
   const lang = getLang();
 
   if (!articles || articles.length === 0) {
-    grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;grid-column:1/-1">暫無最新消息</p>';
+    grid.innerHTML = `
+      <div class="news-empty-state">
+        <span class="news-empty-icon">—</span>
+        <p class="news-empty-title">${lang === 'en' ? 'No news yet' : '暫無最新消息'}</p>
+        <p class="news-empty-sub">${lang === 'en' ? 'Check back soon for updates.' : '請稍後再回來查看最新動態'}</p>
+      </div>`;
     return;
   }
 
