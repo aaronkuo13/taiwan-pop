@@ -4,7 +4,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
 /* ── Canvas dimensions ── */
-const W = 800, H = 480, GROUND_Y = 400, SPEED = 5;
+const W = 800, H = 480, GROUND_Y = 400, SPEED_INIT = 5, SPEED_MAX = 12;
 
 /* ── Obstacle definitions ── */
 /* weight: higher = appears more often (easy=3, medium=2, hard=1) */
@@ -65,7 +65,11 @@ class AWEGame {
     this.evIdx   = 0;
 
     /* Player */
-    this.p = { x: 80, y: GROUND_Y, vy: 0, w: 44, h: 64, onGround: true };
+    this.p = { x: 80, y: GROUND_Y, vy: 0, w: 86, h: 125, onGround: true };
+
+    /* Speed */
+    this.speed      = SPEED_INIT;
+    this.speedFlash = null;   // { t }
 
     /* Obstacles */
     this.obs         = [];
@@ -136,6 +140,8 @@ class AWEGame {
     this.recentObs  = [];
     this.popup      = null;
     this.gx         = 0;
+    this.speed      = SPEED_INIT;
+    this.speedFlash = null;
     Object.assign(this.p, { y: GROUND_Y, vy: 0, onGround: true });
   }
 
@@ -161,6 +167,17 @@ class AWEGame {
       }
     }
 
+    /* Speed acceleration */
+    const prevSpeedInt = Math.floor(this.speed);
+    this.speed = Math.min(SPEED_MAX, SPEED_INIT + this.score * 0.006);
+    if (Math.floor(this.speed) > prevSpeedInt) {
+      this.speedFlash = { t: 70 };
+    }
+    if (this.speedFlash) {
+      this.speedFlash.t--;
+      if (this.speedFlash.t <= 0) this.speedFlash = null;
+    }
+
     /* Player physics */
     this.p.vy += 0.68;
     this.p.y  += this.p.vy;
@@ -171,10 +188,10 @@ class AWEGame {
     }
 
     /* Ground scroll */
-    this.gx = (this.gx - SPEED + W * 2) % W;
+    this.gx = (this.gx - this.speed + W * 2) % W;
 
     /* Spawn obstacles */
-    this.distToNext -= SPEED;
+    this.distToNext -= this.speed;
     const last = this.obs[this.obs.length - 1];
     if (this.distToNext <= 0 && (!last || last.x < W - 120)) {
       this._spawn();
@@ -184,11 +201,11 @@ class AWEGame {
     /* Move obstacles */
     for (let i = this.obs.length - 1; i >= 0; i--) {
       const o = this.obs[i];
-      o.x -= SPEED;
+      o.x -= this.speed;
 
       /* Trigger popup when obstacle fully passed */
       if (!o.passed && o.x + o.w < this.p.x) {
-        o.passed  = true;
+        o.passed   = true;
         this.popup = { ev: o.ev, t: 250, opacity: 1 };
       }
 
@@ -252,11 +269,16 @@ class AWEGame {
   _draw() {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#000';
+
+    /* Warm off-white background */
+    ctx.fillStyle = '#f4f0e8';
     ctx.fillRect(0, 0, W, H);
 
+    /* Popup BEHIND obstacles and player */
+    if (this.popup) this._drawPopup();
+
     /* Ground line */
-    ctx.strokeStyle = '#00ff00';
+    ctx.strokeStyle = '#00aa00';
     ctx.lineWidth   = 2;
     ctx.beginPath();
     ctx.moveTo(0, GROUND_Y + 2);
@@ -264,7 +286,7 @@ class AWEGame {
     ctx.stroke();
 
     /* Ground dashes */
-    ctx.fillStyle = 'rgba(0,255,0,0.2)';
+    ctx.fillStyle = 'rgba(0,140,0,0.3)';
     for (let i = 0; i < 26; i++) {
       const dx = (this.gx + i * 32) % W;
       ctx.fillRect(dx, GROUND_Y + 6, 18, 2);
@@ -276,11 +298,11 @@ class AWEGame {
     /* Player */
     this._drawPlayer();
 
-    /* Popup */
-    if (this.popup) this._drawPopup();
-
     /* Score HUD */
     this._drawScore();
+
+    /* Speed-up flash */
+    if (this.speedFlash) this._drawSpeedFlash();
 
     /* State overlays */
     if (this.state === 'idle') this._drawIdle();
@@ -314,7 +336,7 @@ class AWEGame {
       const drawX = x - Math.round((drawW - w) / 2);
       this.ctx.drawImage(img, drawX, y - h + bob, drawW, h);
     } else {
-      this.ctx.fillStyle = '#00ff00';
+      this.ctx.fillStyle = '#00aa00';
       this.ctx.fillRect(x, y - h, w, h);
     }
   }
@@ -330,9 +352,9 @@ class AWEGame {
       ctx.drawImage(img, def.sx, def.sy, def.sw, def.sh, x, y, w, h);
     } else {
       /* Fallback: simple outline box while image loads */
-      ctx.fillStyle   = '#06061a';
+      ctx.fillStyle   = '#e8e8e8';
       ctx.fillRect(x, y, w, h);
-      ctx.strokeStyle = '#00ff00';
+      ctx.strokeStyle = '#00cc00';
       ctx.lineWidth   = 1.5;
       ctx.strokeRect(x, y, w, h);
     }
@@ -360,63 +382,171 @@ class AWEGame {
     ctx.restore();
   }
 
+  /* ── Marquee / Theater-style popup ── */
   _drawPopup() {
     const ctx = this.ctx;
     const { ev, opacity } = this.popup;
+
+    /* Dimensions: tall marquee spanning most of the canvas width */
+    const pw = 700, ph = 210;
+    const px = (W - pw) / 2;   // 50px side margins
+    const py = 22;
+
     ctx.save();
     ctx.globalAlpha = opacity;
 
-    const pw = 330, ph = 78, px = (W - pw) / 2, py = 14;
+    /* ── Outer dark wood frame ── */
+    ctx.fillStyle = '#2a1004';
+    this._rrect(px, py, pw, ph, 14);
+    ctx.fill();
 
-    ctx.fillStyle = '#1a1a1a';
-    this._rrect(px, py, pw, ph, 8); ctx.fill();
-    ctx.strokeStyle = '#00ff00'; ctx.lineWidth = 2;
-    this._rrect(px, py, pw, ph, 8); ctx.stroke();
+    /* ── Red-orange neon ring ── */
+    const neonInset = 20;
+    const nx = px + neonInset, ny = py + neonInset;
+    const nw = pw - neonInset * 2, nh = ph - neonInset * 2;
+    ctx.strokeStyle = '#cc2200';
+    ctx.lineWidth   = 2.5;
+    ctx.shadowColor = '#ff4400';
+    ctx.shadowBlur  = 12;
+    this._rrect(nx, ny, nw, nh, 8);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
 
-    ctx.fillStyle   = '#00ff00';
-    ctx.font        = 'bold 13px Montserrat, "Noto Sans TC", sans-serif';
-    ctx.textAlign   = 'center';
-    ctx.fillText(ev.name, px + pw/2, py + 23);
+    /* ── Warm cream content area ── */
+    const cInset = 26;
+    const bx = px + cInset, by = py + cInset;
+    const bw = pw - cInset * 2, bh = ph - cInset * 2;
+    ctx.fillStyle = '#f7ede0';
+    this._rrect(bx, by, bw, bh, 5);
+    ctx.fill();
 
-    ctx.fillStyle = 'rgba(255,255,255,0.6)';
-    ctx.font      = '11px Montserrat, sans-serif';
-    ctx.fillText(`📍 ${ev.location}`, px + pw/2, py + 43);
-    ctx.fillText(`🗓  ${ev.date}`,     px + pw/2, py + 60);
+    /* ── Lightbulbs (alternate on/off every 280ms) ── */
+    const flip   = Math.floor(Date.now() / 280) % 2;
+    const bR     = 7;
+    const bOff   = 12;   // offset from outer frame edge to bulb center
+    const bSpace = 30;
+    const topY   = py + bOff;
+    const botY   = py + ph - bOff;
+    const lefX   = px + bOff;
+    const rigX   = px + pw - bOff;
 
+    let bulbIdx = 0;
+    const drawBulb = (bx2, by2) => {
+      const on = (bulbIdx++ + flip) % 2 === 0;
+      ctx.save();
+      ctx.shadowColor = on ? '#ffcc00' : 'transparent';
+      ctx.shadowBlur  = on ? 14 : 0;
+      ctx.fillStyle   = on ? '#ffe94a' : '#5a3208';
+      ctx.beginPath();
+      ctx.arc(bx2, by2, bR, 0, Math.PI * 2);
+      ctx.fill();
+      /* Filament dot */
+      ctx.shadowBlur  = 0;
+      ctx.fillStyle   = on ? 'rgba(0,0,0,0.28)' : 'rgba(0,0,0,0.18)';
+      ctx.beginPath();
+      ctx.arc(bx2, by2, bR * 0.32, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    };
+
+    /* Top & bottom rows */
+    for (let x = lefX; x <= rigX + 1; x += bSpace) {
+      drawBulb(x, topY);
+      drawBulb(x, botY);
+    }
+    /* Left & right columns (skip corners already covered by row) */
+    for (let y = topY + bSpace; y < botY; y += bSpace) {
+      drawBulb(lefX, y);
+      drawBulb(rigX, y);
+    }
+
+    /* ── Text content ── */
+    const tcx  = px + pw / 2;
+    const midY = py + ph / 2;
+
+    ctx.textAlign    = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowBlur   = 0;
+
+    /* Event name */
+    ctx.font      = 'bold 26px Montserrat, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#1a0800';
+    ctx.fillText(ev.name, tcx, midY - 32);
+
+    /* Thin divider */
+    ctx.strokeStyle = 'rgba(120,60,20,0.25)';
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    ctx.moveTo(px + cInset + 40, midY - 8);
+    ctx.lineTo(px + pw - cInset - 40, midY - 8);
+    ctx.stroke();
+
+    /* Location & date */
+    ctx.font      = '17px Montserrat, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#5a3010';
+    ctx.fillText(`📍 ${ev.location}`, tcx, midY + 16);
+    ctx.fillText(`🗓  ${ev.date}`,     tcx, midY + 44);
+
+    ctx.restore();
+  }
+
+  /* ── Speed-up flash ── */
+  _drawSpeedFlash() {
+    const alpha = this.speedFlash.t / 70;
+    const ctx   = this.ctx;
+    ctx.save();
+    ctx.globalAlpha  = alpha;
+    ctx.shadowColor  = '#ff6600';
+    ctx.shadowBlur   = 12;
+    ctx.fillStyle    = '#ff6600';
+    ctx.font         = 'bold 18px Montserrat, sans-serif';
+    ctx.textAlign    = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('SPEED UP!', W / 2, 85);
     ctx.restore();
   }
 
   _drawScore() {
     const ctx = this.ctx;
-    ctx.textAlign = 'right';
-    ctx.font      = 'bold 14px Montserrat, monospace';
-    ctx.fillStyle = 'rgba(0,255,0,0.3)';
-    ctx.fillText(`HI ${String(this.hiScore).padStart(5,'0')}`, W - 12, 22);
-    ctx.fillStyle = '#00ff00';
-    ctx.fillText(String(this.score).padStart(5,'0'), W - 12, 42);
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign    = 'right';
+    ctx.font         = 'bold 14px Montserrat, monospace';
+    ctx.fillStyle    = 'rgba(0,160,0,0.4)';
+    ctx.fillText(`HI ${String(this.hiScore).padStart(5,'0')}`, W - 12, 24);
+    ctx.fillStyle = '#009900';
+    ctx.fillText(String(this.score).padStart(5,'0'), W - 12, 44);
+
+    /* Speed indicator */
+    const spd = this.speed.toFixed(1);
+    ctx.textAlign = 'left';
+    ctx.font      = '11px Montserrat, monospace';
+    ctx.fillStyle = 'rgba(0,140,0,0.45)';
+    ctx.fillText(`SPD ${spd}`, 12, 24);
   }
 
   _drawIdle() {
     const ctx = this.ctx;
-    ctx.fillStyle = 'rgba(0,255,0,0.92)';
-    ctx.font      = 'bold 17px Montserrat, sans-serif';
-    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle    = '#009900';
+    ctx.font         = 'bold 17px Montserrat, "Noto Sans TC", sans-serif';
+    ctx.textAlign    = 'center';
     ctx.fillText('按空白鍵 或 點擊畫面開始', W/2, H/2 - 8);
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.fillStyle = 'rgba(0,100,0,0.5)';
     ctx.font      = '11px Montserrat, sans-serif';
     ctx.fillText('PRESS SPACE / TAP TO START', W/2, H/2 + 13);
   }
 
   _drawDead() {
     const ctx = this.ctx;
-    ctx.fillStyle = 'rgba(0,0,0,0.45)';
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
     ctx.fillRect(0, 0, W, H);
-    ctx.fillStyle = '#fff';
-    ctx.font      = 'bold 26px Montserrat, sans-serif';
-    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle    = '#111';
+    ctx.font         = 'bold 26px Montserrat, sans-serif';
+    ctx.textAlign    = 'center';
     ctx.fillText('GAME OVER', W/2, H/2 - 12);
-    ctx.fillStyle = 'rgba(0,255,0,0.6)';
-    ctx.font      = '13px Montserrat, sans-serif';
+    ctx.fillStyle = '#009900';
+    ctx.font      = '13px Montserrat, "Noto Sans TC", sans-serif';
     ctx.fillText('按空白鍵 / 點擊重新開始', W/2, H/2 + 13);
   }
 
