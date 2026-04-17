@@ -5,6 +5,8 @@ import {
 
 /* ── Canvas dimensions ── */
 const W = 800, H = 480, GROUND_Y = 400, SPEED_INIT = 5, SPEED_MAX = 12;
+/* Air time ≈ 2×vy÷gravity = 2×22÷0.68 ≈ 65 frames (used for safe gap calc) */
+const JUMP_FRAMES = Math.round(2 * 22 / 0.68);
 
 /* ── Obstacle definitions ── */
 /* weight: higher = appears more often (easy=3, medium=2, hard=1) */
@@ -70,6 +72,9 @@ class AWEGame {
     /* Speed */
     this.speed      = SPEED_INIT;
     this.speedFlash = null;   // { t }
+
+    /* Film grain: 3 pre-generated frames, cycle every 100ms */
+    this.grainFrames = Array.from({ length: 3 }, () => this._makeGrain());
 
     /* Obstacles */
     this.obs         = [];
@@ -195,7 +200,10 @@ class AWEGame {
     const last = this.obs[this.obs.length - 1];
     if (this.distToNext <= 0 && (!last || last.x < W - 120)) {
       this._spawn();
-      this.distToNext = 500 + Math.random() * 400;
+      /* Min gap = jump distance + 180px (max building width ~140px + 40px buffer)
+         Ensures player always lands clear of the next obstacle at any speed */
+      const minGap = Math.max(520, JUMP_FRAMES * this.speed + 180);
+      this.distToNext = minGap + Math.random() * 350;
     }
 
     /* Move obstacles */
@@ -270,8 +278,8 @@ class AWEGame {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, W, H);
 
-    /* Warm off-white background */
-    ctx.fillStyle = '#f4f0e8';
+    /* Warm cream background */
+    ctx.fillStyle = '#ede8d5';
     ctx.fillRect(0, 0, W, H);
 
     /* Popup BEHIND obstacles and player */
@@ -303,6 +311,9 @@ class AWEGame {
 
     /* Speed-up flash */
     if (this.speedFlash) this._drawSpeedFlash();
+
+    /* Film grain overlay */
+    this._drawGrain();
 
     /* State overlays */
     if (this.state === 'idle') this._drawIdle();
@@ -504,6 +515,29 @@ class AWEGame {
     ctx.textBaseline = 'alphabetic';
     ctx.fillText('SPEED UP!', W / 2, 85);
     ctx.restore();
+  }
+
+  /* ── Pre-generate one grain canvas (random per-pixel noise) ── */
+  _makeGrain() {
+    const gc   = document.createElement('canvas');
+    gc.width   = W;
+    gc.height  = H;
+    const gctx = gc.getContext('2d');
+    const id   = gctx.createImageData(W, H);
+    const d    = id.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const v    = Math.random() * 220 | 0;
+      d[i]       = d[i + 1] = d[i + 2] = v;
+      d[i + 3]   = Math.random() * 32 | 0;   // max ~12% alpha, very subtle
+    }
+    gctx.putImageData(id, 0, 0);
+    return gc;
+  }
+
+  /* ── Draw animated grain (cycle 3 frames every 100ms) ── */
+  _drawGrain() {
+    const idx = Math.floor(Date.now() / 100) % 3;
+    this.ctx.drawImage(this.grainFrames[idx], 0, 0);
   }
 
   _drawScore() {
