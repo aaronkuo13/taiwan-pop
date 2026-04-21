@@ -8,15 +8,76 @@ const EVENTS = [
     num:'02', icon:'🎼',
     img:'images/展演活動_NSO《來自臺灣》2026室內樂美國巡演.png?v=2',
     date:'2026-05-19',
+    time:'7:30 p.m.',
     title:'NSO《來自臺灣》2026室內樂美國巡演',
     title_en:'From Formosa: Taiwan Philharmonic Chamber Ensemble 2026 US Tour',
     subtitle:'交響樂 × 排灣族古謠 · Feel the Roots.',
     subtitle_en:'Symphony Orchestra × Paiwan Ancient Ballads · Feel the Roots.',
     location:'Merkin Concert Hall, Kaufman Music Center, New York',
-    desc:'2026 年「美國臺灣傳統週」，國家交響樂團肩負文化外交使命赴美演出，由首席小提琴家鄧皓敦領銜，攜手排灣族古謠演唱團體「TBT 泰武古謠傳唱」同台，讓山上的聲音與音樂廳的弦樂交會在同一個晚上。演出涵蓋蕭泰然《原住民組曲》及陳可嘉受委託的世界首演新作。',
-    desc_en:"Celebrating Taiwanese American Heritage Week, the Taiwan Philharmonic embarks on a cultural diplomacy tour to the United States. Led by Concertmaster Hao-Tun Teng, the ensemble is joined by the Taiwu Ballads Troupe (TBT) — bringing the voices of the mountain into the same evening as the concert hall's strings. The program includes Tyzen Hsiao's Aboriginal Suite and the world premiere of a new work by Ke-Chia Chen.",
-    long_desc: '2026 年適逢「美國臺灣傳統週」，國家交響樂團肩負文化外交使命赴美演出，以「島嶼之音」為核心，呈現臺灣音樂從傳統走向國際的精湛實力。\n\n由首席小提琴家鄧皓敦領銜，攜手小提琴家陳怡茹、中提琴家陳猶白、大提琴家連亦先，以及鋼琴家嚴俊傑組成室內樂陣容，並邀請排灣族古謠演唱團體「TBT 泰武古謠傳唱」同台，讓山上的聲音與音樂廳的弦樂交會在同一個晚上。\n演出曲目涵蓋蕭泰然經典《原住民組曲》、客家新創作品，以及臺灣作曲家陳可嘉受委託的世界首演新作，從原住民古謠到當代鋼琴五重奏，向在場的紐約觀眾遞出最動人的臺灣音樂名片。\n\n展演團隊：\n國家交響樂團 (Taiwan Philharmonic)\n前身「聯合實驗管絃樂團」成立於 1986 年，2014 年改隸國家表演藝術中心，以「臺灣愛樂」立足國際。三十多年來持續耕耘，是臺灣最重要的交響樂團。\nTBT 泰武古謠傳唱\n屏東縣泰武鄉泰武國小師生組成，守護排灣族傳統複音吟唱逾二十年，2009 年登錄屏東縣定無形文化資產，多次受邀赴歐美演出。',
-    long_desc_en: "Celebrating Taiwanese American Heritage Week, the National Symphony Orchestra of Taiwan embarks on a cultural diplomacy tour to the United States. The program centers on the \"Sounds of the Island\" — a journey through Taiwan's musical landscape from indigenous tradition to contemporary composition.\n\nLed by Concertmaster Hao-Tun Teng alongside violinist Yi-Ru Chen, violist You-Bai Chen, cellist Yi-Hsien Lien, and pianist Chun-Chieh Yen, the ensemble is joined by the Taiwu Ballads Troupe (TBT) — singers from Taiwan's Paiwan indigenous community — bringing the voices of the mountain into the same evening as the concert hall's strings.\nThe program spans Tyzen Hsiao's iconic Aboriginal Suite, newly commissioned Hakka compositions, and the world premiere of a new work by Taiwanese composer Ke-Chia Chen. From the raw beauty of indigenous chant to contemporary piano quintet, this concert offers New York audiences a portrait of Taiwan's musical depth and range.\n\nPerformers:\nTaiwan Philharmonic (National Symphony Orchestra)\nFounded in 1986, the Taiwan Philharmonic has performed across Asia, Europe, and the Americas, establishing itself as Taiwan's foremost orchestra and a leading voice for Taiwanese music on the international stage.\nTaiwu Ballads Troupe (TBT)\nBased at Taiwu Elementary School in Pingtung County, TBT has preserved and performed the polyphonic chant tradition of the Paiwan people for over two decades. Designated as intangible cultural heritage in 2009, the troupe has performed extensively in Europe and the United States.",
+    location_full:'Merkin Concert Hall, Kaufman Music Center, 129 W 67th St, New York, NY',
+    desc:'2026年逢美國建國250週年與「美國臺灣傳統週」，NSO國家交響樂團肩負文化外交使命，由小提琴家鄧皓敦、陳怡茹、中提琴家陳猶白及大提琴家連亦先，攜手鋼琴家嚴俊傑與排灣古謠演唱團體「TBT 泰武古謠傳唱」赴美演出。以「島嶼之音」為核心，呈現蕭泰然經典、客家新創及陳可嘉首演新作。',
+    desc_en:"Celebrating \"America250\" and Taiwanese American Heritage Week, Taiwan Philharmonic proudly presents \"From Formosa,\" a premier cultural diplomacy tour showcasing Taiwan's rich musical tapestry. Led by Concertmaster Hao-Tun Teng and an elite chamber ensemble, the performance features acclaimed pianist Chun-Chieh Yen and the soulful voices of the Taiwu Ballads Troupe (TBT). The program bridges tradition and modernity, spanning Tyzen Hsiao's iconic Aboriginal Suite, contemporary Hakka compositions, and the world premiere of a new work by composer Ke-Chia Chen.",
+    long_desc: '2026年正值美國建國250週年，適逢五月「美國臺灣傳統週」，NSO國家交響樂團肩負文化外交使命，由小提琴家鄧皓敦、陳怡茹、中提琴家陳猶白及大提琴家連亦先，攜手鋼琴家嚴俊傑與排灣族古謠演唱團體「TBT 泰武古謠傳唱」，赴美演出。音樂會以「島嶼之音」為核心，精選蕭泰然的經典《原住民組曲》、當代客家新創作品，並於巡演首場世界首演臺灣作曲家陳可嘉新作。\n\n從純粹的古謠吟唱到當代鋼琴五重奏，展現臺灣音樂從傳統走向國際的精湛實力。在臺美交流的重要時刻，NSO 期許以最頂尖的室內樂陣容與旋律，讓臺灣的藝術人才在國際舞台閃耀，透過音符築起兩國深厚的情誼橋樑，向世界遞出最動人的臺灣文化名片。',
+    long_desc_en: "Celebrating \"America250\" and Taiwanese American Heritage Week, Taiwan Philharmonic proudly presents \"From Formosa,\" a premier cultural diplomacy tour showcasing Taiwan's rich musical tapestry. Led by Concertmaster Hao-Tun Teng and an elite chamber ensemble, the performance features acclaimed pianist Chun-Chieh Yen and the soulful voices of the Taiwu Ballads Troupe (TBT). The program bridges tradition and modernity, spanning Tyzen Hsiao's iconic Aboriginal Suite, contemporary Hakka compositions, and the highly anticipated world premiere of a new work by composer Ke-Chia Chen.\n\nFrom the raw beauty of indigenous Paiwan chants to contemporary piano quintets, this concert offers a captivating journey through Taiwan's diverse heritage. At this landmark moment in Taiwan–U.S. cultural exchange, Taiwan Philharmonic brings its finest chamber musicians to shine on the international stage, building a bridge of friendship through music — and presenting the world with the most moving portrait of Taiwanese culture.",
+    program: [
+      { zh: 'TBT 泰武古謠傳唱組曲', en: 'Taiwanese Indigenous Polyphonic Songs' },
+      { zh: '臺灣傳統原住民歌謠組曲（由陳廷銓改編給絃樂四重奏與TBT）', en: 'Taiwanese Indigenous Music for String Quartet & Chorus (arr. Ting-Chuan Chen)' },
+      { zh: '陳可嘉：新創臺灣傳統原住民樂曲，給鋼琴五重奏', en: 'Ke-Chia Chen: Commissioned Work for Piano Quintet', premiere: true },
+      { zh: '蕭泰然：《原住民組曲》，給鋼琴五重奏', en: "Tyzen Hsiao: The Highlander's Suite for Piano Quintet" },
+      { zh: '客家絃樂四重奏新創作品（以樂會客2.0計畫）', en: 'Hakka Music for String Quartets', premiere: true },
+      { zh: '柯普蘭：絃樂四重奏二首', en: 'Aaron Copland: Two Pieces for String Quartet' }
+    ],
+    ensemble: {
+      name: '國家交響樂團 Taiwan Philharmonic',
+      name_en: 'Taiwan Philharmonic (NSO)',
+      bio: '國家交響樂團（NSO）的前身「聯合實驗管絃樂團」成立於1986年，以打造頂尖交響樂團為目標；2014年4月改隸國家表演藝術中心，以「臺灣愛樂」立足國際。經過三十多年耕耘，NSO參與交響樂、室內樂、歌劇、舞蹈、跨界製作，已成為亞洲地區最具指標性的樂團。2022年起由德國指揮家準・馬寇爾擔任音樂總監，以樂團獨特的聲音擔任臺灣的文化大使。',
+      bio_en: 'Taiwan Philharmonic (NSO) was established in 1986. Over three decades, it has grown into one of Asia\'s most iconic orchestras, presenting symphonic, chamber, opera, dance, and cross-disciplinary productions. The orchestra has toured internationally, performing at David Geffen Hall (NYC), Kennedy Center (D.C.), Elbphilharmonie (Hamburg), Théâtre des Champs-Élysées (Paris), and Suntory Hall (Tokyo). In 2022, German conductor Jun Märkl became Music Director.',
+      website: 'https://npac-nso.org/en',
+      facebook: 'https://www.facebook.com/nso.taiwan/',
+      instagram: 'https://www.instagram.com/taiwanphilharmonic/'
+    },
+    performers: [
+      {
+        instrument: '小提琴', instrument_en: 'Violin',
+        name: '鄧皓敦', name_en: 'Hao-Tun Teng',
+        bio: '畢業於國立藝術學院。十七歲獲第七屆臺北市交協奏曲比賽優勝。曾任長榮交響樂團首席及助理指揮。現職為國家交響樂團副首席，自2022/23樂季起為代理樂團首席。',
+        bio_en: 'Hao-Tun Teng is the Associate Concertmaster of the National Symphony Orchestra and has served as Acting Concertmaster since the 2022/23 season.'
+      },
+      {
+        instrument: '小提琴', instrument_en: 'Violin',
+        name: '陳怡茹', name_en: 'Yi-Ju Chen',
+        bio: '國立臺灣師範大學學士，東吳音樂系演奏碩士。曾受教育部邀請於國家音樂廳擔任獨奏，並積極投入室內樂領域。現為國家交響樂團第二部小提琴首席。',
+        bio_en: 'Yi-Ju Chen is currently the Second Violin Principal of the National Symphony Orchestra. She has performed with the Lincoln Center Chamber Music Society and attended the Huang Junwen Chamber Music Festival.'
+      },
+      {
+        instrument: '中提琴', instrument_en: 'Viola',
+        name: '陳猶白', name_en: 'Jubel Chen',
+        bio: '印地安納大學及密西根大學畢業。曾加入 New World Symphony，2005年返臺成為國家交響樂團成員。',
+        bio_en: 'Jubel Chen graduated from Indiana University and the University of Michigan. He has been a member of the National Symphony Orchestra since 2005.'
+      },
+      {
+        instrument: '大提琴', instrument_en: 'Cello',
+        name: '連亦先', name_en: 'Yi-Shien Lien',
+        bio: '馬里蘭大學音樂系大提琴演奏博士。曾於林肯中心與甘迺迪中心演出，並世界首演譚盾《臥虎藏龍》協奏曲。',
+        bio_en: 'Yi-Shien Lien holds a DMA in Cello from the University of Maryland. She has performed at Lincoln Center and the Kennedy Center, and gave the world premiere of Tan Dun\'s Crouching Tiger, Hidden Dragon concerto.'
+      },
+      {
+        instrument: '鋼琴', instrument_en: 'Piano',
+        name: '嚴俊傑', name_en: 'Chun-Chieh Yen',
+        bio: '當代最具辨識度的鋼琴家之一。13歲獲第三屆國際柴可夫斯基青少年音樂大賽大獎。演出足跡遍及紐約林肯中心、聖彼得堡愛樂大廳及巴黎柯爾托廳。2008年榮獲第19屆金曲獎「最佳古典演奏獎」。現任國立臺灣師範大學教授。',
+        bio_en: 'Chun-Chieh Yen won 3rd Prize at the 3rd International Tchaikovsky Competition for Young Musicians at age 13. He has performed with the Russian National Orchestra and Taiwan Philharmonic at Lincoln Center, St. Petersburg Philharmonic Hall, and Salle Cortot, Paris. Golden Melody Award winner. Professor at National Taiwan Normal University.',
+        facebook: 'https://www.facebook.com/PianistChunChiehYEN/',
+        instagram: 'https://www.instagram.com/ycchoping/'
+      },
+      {
+        instrument: '古謠傳唱', instrument_en: 'Ballads Troupe',
+        name: 'TBT 泰武古謠傳唱', name_en: 'Taiwu Ballads Troupe (TBT)',
+        bio: '由查馬克．法拉屋樂於屏東泰武創立，致力傳承排灣族古調，整理出近百首傳統歌謠。曾登上WOMADelaide、WOMAD New Zealand等國際音樂節舞台。2026年4月推出睽違14年全新專輯《Kivaljuq－歌，正在綻放》。',
+        bio_en: 'Taiwu Ballads Troupe (TBT) was founded by Camake Valaule in Taiwu, Pingtung. Dedicated to preserving Paiwan polyphonic songs, TBT has collected nearly 100 ancient melodies and performed at WOMADelaide, WOMAD New Zealand, and on tour in the US, Europe, and Japan. In April 2026, TBT releases Kivaljuq – Songs in Full Bloom, their first album in 14 years.',
+        facebook: 'https://www.facebook.com/TaiwuAncientBalladsTroupe',
+        website: 'https://www.windmusiclabel.com/taiwuballadstroupe'
+      }
+    ],
     category:'sound', isPrimary:true, externalUrl:''
   },
   {
@@ -93,16 +154,38 @@ const EVENTS = [
     num:'01', icon:'🎭',
     img:'images/展演活動_臺美藝文大師系列講座.png',
     date:'2026-05-01',
+    time:'18:30–20:00',
     title:'臺美藝文大師系列講座',
-    title_en:'Across Borders, Across Bodies: Lin Hwai-min in Conversation',
+    title_en:'Across Borders, Across Bodies: Lin Hwai-min and Jodee Nimerichter in Conversation',
     subtitle:'林懷民 × Jodee Nimerichter · Feel the Wisdom.',
     subtitle_en:'Lin Hwai-min × Jodee Nimerichter · Feel the Wisdom.',
     location:'Asia Society, New York',
-    desc:'這場對話邀請雲門舞集創辦人林懷民，與美國舞蹈節（ADF）執行長 Jodee Nimerichter 共同出席，由亞洲協會總監 Rachel Cooper 主持，回顧臺灣與美國之間數十年的藝術交流歷程。透過個人故事與幕後視角，揭示跨國夥伴關係如何塑造了雲門從臺灣走向世界舞台的旅程。',
-    desc_en:'Cloud Gate founder Lin Hwai-min and ADF Executive Director Jodee Nimerichter join together in conversation, moderated by Asia Society\'s Rachel Cooper. Together they reflect on decades of artistic exchange between Taiwan and the United States, and how cross-border partnerships shaped Cloud Gate\'s journey from Taiwan to the world stage.',
-    long_desc: '1973 年，雲門舞集在臺灣成立，成為華語世界第一個當代舞蹈團體。此後半個世紀，雲門從一個島嶼出發，走上全世界的舞台，成為臺灣文化在國際上最被認識的名字之一。\n\n這場對話邀請雲門舞集創辦人林懷民，與美國舞蹈節（ADF）執行長 Jodee Nimerichter 共同出席，由亞洲協會全球表演藝術與文化外交總監 Rachel Cooper 主持，回顧臺灣與美國之間數十年的藝術交流歷程。美國舞蹈節是雲門成長路上重要的合作夥伴，亞洲協會則是最早將雲門介紹給美國觀眾的機構之一。透過個人故事與幕後視角，這場對話將揭示這些跨國夥伴關係如何塑造了雲門從臺灣走向世界舞台的旅程。\n本活動由駐紐約臺北文化中心、中華民國文化部共同支持呈現。\n\n主講人：\n林懷民 ─ 雲門舞集創辦人，2019 年底卸任藝術總監。曾獲美國舞蹈節終身成就獎及各國際殊榮，並獲《時代》雜誌選為「亞洲英雄」。\nJodee Nimerichter ─ 美國舞蹈節執行長，推動多項重要合作計畫。\n主持人：Rachel Cooper ─ 亞洲協會全球表演藝術與文化外交總監。',
-    long_desc_en: "In 1973, Cloud Gate Dance Theatre was founded in Taiwan — the first contemporary dance company in the Chinese-speaking world. Over the fifty years since, Cloud Gate traveled from a single island to stages across the world, becoming one of the most recognized names in Taiwanese culture internationally.\n\nThis conversation brings together Cloud Gate founder Lin Hwai-min and Jodee Nimerichter, Executive Director of the American Dance Festival (ADF), moderated by Rachel Cooper, Director of Global Performing Arts and Culture as Diplomacy at Asia Society. Together, they reflect on decades of artistic exchange between Taiwan and the United States.\n\nADF was a formative partner in Cloud Gate's growth; Asia Society was among the earliest institutions to introduce the company to U.S. audiences. Through personal stories and behind-the-scenes insight, the conversation reveals how these cross-border partnerships shaped Cloud Gate's journey from Taiwan to the world stage.\n\nSpeakers:\nLin Hwai-min: Founder of Cloud Gate Dance Theatre, whose honors include the Samuel H. Scripps / American Dance Festival Award for Lifetime Achievement.\nJodee Nimerichter: Executive Director of the American Dance Festival.\nModerator: Rachel Cooper, Director of Global Performing Arts and Culture as Diplomacy, Asia Society.",
-    category:'sound', isPrimary:true, externalUrl:''
+    location_full:'Asia Society, 725 Park Avenue, New York, NY 10021',
+    desc:'「Across Borders, Across Bodies」邀請雲門舞集創辦人林懷民與美國舞蹈節（ADF）藝術總監 Jodee Nimerichter 對談，從跨國合作、舞蹈節策展到身體美學，回顧數十年來臺灣與美國在當代表演藝術上的交流歷程。活動由 Asia Society 與駐紐約臺北文化中心共同主辦，作為「TAIWAN POP｜紐文 35」系列首場節目，開啟一整年關於臺灣文化的國際對話。',
+    desc_en:'"Across Borders, Across Bodies" brings together Lin Hwai-min, founder of Taiwan\'s Cloud Gate Dance Theatre, and Jodee Nimerichter, artistic director of the American Dance Festival (ADF), for a conversation on cross-border collaboration, festival curation, and the evolving aesthetics of the dancing body. Co-presented by Asia Society and the Taipei Cultural Center in New York, the event inaugurates the "TAIWAN POP | TCCNY 35" anniversary series, opening a year-long dialogue on Taiwanese culture on the international stage.',
+    long_desc: '「Across Borders, Across Bodies: Lin Hwai-min and Jodee Nimerichter in Conversation」由 Asia Society 與駐紐約臺北文化中心共同主辦，特別邀請雲門舞集創辦人林懷民與美國舞蹈節（American Dance Festival, ADF）藝術總監 Jodee Nimerichter 進行一場深度對談，慶祝臺美之間長達數十年的舞蹈交流。\n\n自 1970 年代雲門舞集創立以來，林懷民以獨特的身體語彙，將太極、武術、書法與東亞哲思融入當代舞蹈，作品多次受邀於美國巡演，為國際觀眾開啟認識臺灣舞蹈的重要窗口；ADF 則長年邀請雲門及多位臺灣編舞家參與駐村與演出，讓雙方建立起深厚的專業與情感連結。\n\n在本場對談中，兩人將從個人記憶與機構經驗出發，分享過往合作幕後的故事，討論如何在不同文化背景與資源條件下推動創作、策展與巡演，也將談及身為藝術家與藝術節總監，在面對全球局勢與觀眾變化時，如何重新想像舞蹈在當代所能承載的意義。\n\n作為「TAIWAN POP｜紐文 35」系列的開幕節目，本活動不僅是對歷史的回顧，更是對下一階段臺美藝文交流的提問與前瞻。',
+    long_desc_en: 'Co-presented by Asia Society and the Taipei Cultural Center in New York, "Across Borders, Across Bodies: Lin Hwai-min and Jodee Nimerichter in Conversation" celebrates decades of dance exchange between Taiwan and the United States. Lin Hwai-min, founder of Cloud Gate Dance Theatre of Taiwan, has reshaped contemporary dance by integrating tai chi, martial arts, calligraphy, and Asian philosophies into a distinctive movement language, while Cloud Gate\'s landmark tours across the U.S. have introduced international audiences to Taiwan\'s rich performing-arts landscape. Jodee Nimerichter, as artistic director of the American Dance Festival (ADF), has built enduring relationships with Cloud Gate and numerous Taiwanese choreographers through residencies, commissions, and presentations, weaving Taiwan into ADF\'s broader global network.\n\nIn this conversation, Lin and Nimerichter will revisit key moments in their collaborations, share behind-the-scenes stories from rehearsals, tours, and festival programming, and reflect on how artists and institutions navigate cultural, logistical, and political borders. They will also address the shifting role of the dancing body in contemporary society — how it can carry memory and history, embody place and identity, and create shared spaces of imagination for audiences around the world.\n\nAs the opening event of the "TAIWAN POP | TCCNY 35" anniversary series, the evening looks back at the past while charting possible futures for Taiwan–U.S. artistic exchange.',
+    speakers: [
+      {
+        name: '林懷民', name_en: 'Lin Hwai-min',
+        role: '雲門舞集創辦人', role_en: 'Founder, Cloud Gate Dance Theatre',
+        bio: '林懷民是雲門舞集創辦人與前任藝術總監，被譽為引領亞洲當代舞蹈的重要先驅之一。自 1973 年創立雲門以來，他將太極、書法、美學與東亞哲思融入肢體語彙，創作《薪傳》、《九歌》、《水月》、《行草》與《松煙》等經典作品，帶領雲門巡演超過三十餘國，成為國際認識臺灣舞蹈的代表。退休後，他持續以寫作、講座與策畫等形式參與文化現場，關注藝術與社會的長期對話。',
+        bio_en: 'Lin Hwai-min is the founder and former artistic director of Cloud Gate Dance Theatre of Taiwan and is widely regarded as a pioneering figure in contemporary dance in Asia. Since establishing Cloud Gate in 1973, he has created a distinctive movement language informed by tai chi, calligraphy, Asian aesthetics, and philosophy, in works such as "Legacy," "Nine Songs," "Moon Water," "Cursive," and "Pine Smoke," touring to more than thirty countries worldwide. After stepping down from Cloud Gate, Lin has continued to write, lecture, and engage in cultural initiatives, reflecting on the role of art in society.',
+        website: 'https://www.cloudgate.org.tw/',
+        facebook: 'https://www.facebook.com/cloudgate',
+        instagram: 'https://www.instagram.com/cloudgate_official'
+      },
+      {
+        name: 'Jodee Nimerichter', name_en: 'Jodee Nimerichter',
+        role: '美國舞蹈節藝術總監', role_en: 'Artistic Director, American Dance Festival',
+        bio: 'Jodee Nimerichter 為美國舞蹈節（American Dance Festival, ADF）藝術總監，長期致力於當代舞蹈的製作、國際合作與巡演推動。她在 ADF 主導多項新作委託與跨國交流計畫，與世界各地編舞家與舞團合作，亦多次與雲門舞集及臺灣編舞家合作演出與駐村，成為連結美國舞蹈界與亞洲的重要策展推手。',
+        bio_en: 'Jodee Nimerichter is the artistic director of the American Dance Festival (ADF), where she oversees commissioning, presenting, and touring initiatives that support contemporary dance around the world. Under her leadership, ADF has developed numerous international collaborations and residencies, working with choreographers and companies from across Asia, Europe, and the Americas, including long-standing partnerships with Cloud Gate Dance Theatre and other Taiwanese artists.',
+        website: 'https://www.americandancefestival.org',
+        facebook: 'https://www.facebook.com/AmericanDanceFestival',
+        instagram: 'https://www.instagram.com/americandancefestival'
+      }
+    ],
+    category:'sound', isPrimary:true, externalUrl:'https://asiasociety.org/new-york/events/across-borders-across-bodies-lin-hwai-min-and-jodee-nimerichter-conversation'
   },
   {
     num:'04', icon:'🎬',
@@ -150,16 +233,62 @@ const EVENTS = [
   {
     num:'03', icon:'🎨',
     img:'images/展演活動_布希維克街頭藝術節 臺灣藝術家參展.png',
-    date:'2026-05-18', endDate:'2026-05-30',
-    title:'布希維克街頭藝術節 臺灣藝術家參展',
-    title_en:'The Bushwick Collective Block Party — Taiwan',
+    date:'2026-05-28', endDate:'2026-05-30',
+    time:'主活動 10:00–18:00',
+    title:'2026 紐約布希維克街頭藝術計畫',
+    title_en:'2026 Bushwick Collective Block Party, Brooklyn, New York',
     subtitle:'五位臺灣壁畫藝術家 · Feel the Wall.',
     subtitle_en:'Five Taiwanese Mural Artists · Feel the Wall.',
     location:'Bushwick, Brooklyn, New York',
-    desc:'駐紐約臺北文化中心邀請五位臺灣壁畫藝術家（黑雞先生、Colasa、VASTAR、ALLO、Candy Kuo）參與第 15 屆布希維克街頭藝術節，各自進行一幅大型壁畫現地創作。5 月 30 日正式開幕，壓軸歌手 Bone Thugs-N-Harmony 登台，免費參加。',
-    desc_en:"The Taipei Cultural Center in New York brings five Taiwanese mural artists — Mr. Ogay, Colasa, VASTAR, ALLO, and Candy Kuo — to the 15th Bushwick Collective Block Party. Each creates one large-scale mural on-site in Bushwick. The Block Party on May 30 features ~50 new works and a headline performance by Bone Thugs-N-Harmony. Free admission.",
-    long_desc: '布希維克街頭藝術計畫（The Bushwick Collective）由 Joseph Ficalora 於 2012 年發起，過去 15 年間在布魯克林布希維克區創作逾 2,300 幅壁畫，是全球最享譽盛名的露天街頭藝術計畫之一。每年舉辦的「布希維克街頭藝術節」是紐約規模最大的街頭藝術與音樂盛典，免費參加，每年吸引數千人到場。\n\n2026 年，駐紐約臺北文化中心與布希維克街頭藝術計畫合作，邀請五位臺灣壁畫藝術家參與第 15 屆藝術節，各自在布希維克區進行一幅大型壁畫現地創作，期間並進行現場創作示範與眾互動。完成的壁畫作品將在當地展示一年，成為臺美文化交流的永久印記。\n\n藝術節期間同步舉辦相關活動，包括 5 月 27 日由 Brooklyn Street Art 共同創辦人主持的藝術家講座、5 月 28 日開幕之夜現場壁畫繪製，以及 5 月 30 日第 15 屆正式開幕。\n\n參展藝術家：\n黑雞先生 (Mr. Ogay)：以幽默手法批判時事，將「醜陋」視為語彙，探討既有美學想。\nColasa：融合東西方藝術的街頭藝術家，跨足時尚與行動藝術。\nVASTAR：以老美式漫畫風格著稱，以噴漆、廢鐵、木材等媒材與雕塑藝術融合為街頭創作。\nALLO 愛羅：前特殊教育教師，以俐落線條描繪女性肖像為標誌，強調「自由」與「連結」。\nCandy Kuo：台裔美籍壁畫藝術家，以寫實手法探討自然群性與環境間的關係。',
-    long_desc_en: "The Bushwick Collective was founded by Joseph Ficalora in 2012. Over the past fifteen years, more than 2,300 murals have been created across the Bushwick neighborhood of Brooklyn, making it one of the most celebrated open-air street art programs in the world. The annual Bushwick Collective Block Party is New York's largest street art and music festival, free to attend, drawing thousands of visitors each year.\n\nIn 2026, the Taipei Cultural Center in New York partners with the Bushwick Collective to bring five Taiwanese mural artists to the 15th edition of the festival. Each artist will create one large-scale mural on-site in Bushwick during the production period, with public demonstrations and interactions during the festival days. The completed murals will remain on view for one year, leaving a lasting mark of Taiwan-US cultural exchange on the streets of Brooklyn.\n\nArtists:\nMr. Ogay: His signature figures become vehicles for pointed social commentary delivered with humor.\nColasa: His work explores the formal possibilities of graffiti between abstraction and figuration, fusing Eastern and Western visual languages.\nVASTAR: Known for his American classic comic style, translating imagery into public murals.\nALLO: A former special education teacher whose portraits emphasize freedom and connection.\nCandy Kuo: A Taiwanese-American mural artist whose figurative work depicts local flora and fauna, exploring the relationship between nature, women, and environment.",
+    location_full:'Bushwick, Brooklyn, New York — Scott Ave & Troutman St / St. Nicholas Ave area',
+    desc:'The Bushwick Collective Block Party 是紐約布魯克林 Bushwick 區一年一度的大型街頭藝術與音樂節慶，結合即席壁畫創作、嘻哈舞台、DJ、餐車與在地市集，將整個社區變成開放式戶外美術館。',
+    desc_en:'The Bushwick Collective Block Party is an annual street art and music festival in Bushwick, Brooklyn, transforming the neighborhood into an open-air gallery with live mural painting, hip-hop performances, DJs, food trucks, and local vendors.',
+    long_desc: '「The Bushwick Collective Block Party」是紐約布魯克林 Bushwick 區每年夏天最具代表性的街頭藝術慶典之一，由街頭藝術策展計畫 The Bushwick Collective 自 2012 年起發起並持續舉辦。活動結合大規模壁畫創作、現場嘻哈音樂演出、街頭塗鴉示範、美食餐車與在地市集，已從一場社區聚會，發展成匯聚國際藝術家、在地居民與全球遊客的重要城市文化事件。\n\n每年 Block Party 會封街舉行，集中在布魯克林 Bushwick 一帶（以 Troutman Street、St. Nicholas Avenue 一帶街區為核心），由知名街頭藝術家與新秀藝術家共同即席創作，讓整個社區成為開放式的戶外畫廊。活動現場設有舞台，由重量級嘻哈音樂人及 DJ 輪番演出，例如近年曾邀請 Rakim、Ice-T、Raekwon、Busta Rhymes 等經典傳奇，在街頭藝術之間打造充滿能量的音樂現場。\n\n作為免費、向所有年齡層開放的城市節慶，Bushwick Collective Block Party 不僅展現塗鴉、街頭藝術與嘻哈文化的創造力，也透過藝術與音樂連結不同背景的社群，成為紐約夏季啟動的重要文化節點。',
+    long_desc_en: "Organized by The Bushwick Collective, the Bushwick Collective Block Party is an annual street art and music festival in Bushwick, Brooklyn that has grown from a neighborhood graffiti jam into a large-scale urban celebration bringing together international artists, hip-hop performers, and the local community. During the event, Scott Avenue and the surrounding streets are closed to traffic as more than forty artists from New York and around the world paint new murals, while a full lineup of hip-hop legends and DJs — including past appearances by Ice-T, Raekwon, Busta Rhymes, and many others — take over the main stage.\n\nFree and open to all ages, the Block Party now also features a VIP beer garden, satellite warehouse and rooftop parties, and collaborations with galleries and local businesses, turning Bushwick into an international hub for street art every early summer.",
+    ensemble: {
+      name: 'The Bushwick Collective',
+      name_en: 'The Bushwick Collective',
+      bio: 'The Bushwick Collective 是由紐約布魯克林在地策展人 Joe Ficalora 於 2012 年創立的街頭藝術計畫，基地位於 Bushwick 區 Troutman Street 與 St. Nicholas Avenue 一帶。為了以藝術回應社區歷史與自身家庭記憶，他開始與鄰里屋主協調釋出牆面，邀請來自紐約各地與世界各國的塗鴉與壁畫藝術家，共同把原本以工業倉儲為主的街區，轉化為持續更新的戶外公共藝術畫廊。\n\n十多年來，The Bushwick Collective 匯聚了 Buff Monster、Blek le Rat、Case Ma\'Claim、Pixel Pancho 等國際知名創作者，也讓 Bushwick 成為紐約最具代表性的街頭藝術地標之一。',
+      bio_en: "The Bushwick Collective is a street art initiative founded in 2012 by Bushwick native Joe Ficalora, centered around Troutman Street and St. Nicholas Avenue in Brooklyn, New York. Motivated by a desire to honor his family's history and transform the industrial streets of his neighborhood, Ficalora began working with local building owners to offer their walls to graffiti and mural artists from New York and around the world, turning the area into a constantly evolving open-air gallery.\n\nOver the past decade, The Bushwick Collective has hosted acclaimed artists such as Buff Monster, Blek le Rat, Case Ma'Claim, and Pixel Pancho, establishing Bushwick as one of New York City's most recognizable street art destinations.",
+      instagram: 'https://www.instagram.com/thebushwickcollective'
+    },
+    performers: [
+      {
+        instrument: '街頭藝術', instrument_en: 'Street Art',
+        name: '黑雞先生 Mr. OGAY', name_en: 'Mr. OGAY',
+        bio: '黑雞先生（本名周義勳）是台灣街頭藝術創作者，自詡為「充滿愛的憤怒青年」，自 2000 年接觸塗鴉至今，足跡遍及台灣各地，並曾受邀前往日本、中國與紐約等地進行創作。他的作品多以衣不蔽體的裸男形象為主角，將「醜陋」視為視覺語彙，透過誇張身體與犀利文字，對社會現況、體制與道德偽善做出直接而幽默的批判。',
+        bio_en: 'Mr. Ogay (Chou I-Hsun) is a Taiwanese street artist who describes himself as an "angry youth full of love." Since discovering graffiti in 2000, he has painted extensively across Taiwan and has been invited to create works in Japan, China, New York, and beyond. Centered on semi-nude male figures, his art embraces "ugliness" as a visual language, using exaggerated bodies and sharp, humorous text to comment on current events, social systems, and moral hypocrisy.',
+        instagram: 'https://www.instagram.com/mrogay'
+      },
+      {
+        instrument: '塗鴉藝術', instrument_en: 'Graffiti',
+        name: 'COLASA', name_en: 'COLASA',
+        bio: 'Colasa（林軒毅）自小接受正規美術訓練，發展出以塗鴉為核心、融合東西方語彙的前衛視覺風格。他擅長以非傳統、帶有反叛精神的創作手法挑戰主流藝術架構，從抽象與具象之間遊走，持續實驗各種材質與媒介。其創作橫跨街頭藝術、時尚與行為藝術領域，近年受邀參與日本、韓國、香港、英國、新加坡、加拿大等地的展覽，並與 Audi、Audemars Piguet、Levi\'s、rag & bone、XBOX、華納電影等品牌合作。',
+        bio_en: "Colasa (Lin Hsuan-Yi) is a Taiwanese artist formally trained in fine arts who has developed a distinctive, graffiti-driven visual language that fuses Eastern and Western influences. Known for his non-traditional and rebellious approach, he moves fluidly between abstraction and figuration, constantly experimenting with new materials and media. His practice spans street art, fashion, and performance, and he has been invited to exhibit and paint live in Japan, Korea, Hong Kong, China, the UK, Singapore, and Canada, while collaborating with brands such as Audi, Audemars Piguet, Levi's, rag & bone, XBOX, and Warner Bros.",
+        instagram: 'https://www.instagram.com/colasa'
+      },
+      {
+        instrument: '塗鴉 × 裝置', instrument_en: 'Graffiti & Installation',
+        name: '傅星翰 VASTAR', name_en: 'VASTAR',
+        bio: '傅星翰（VASTAR，1988 年生）是台灣塗鴉與立體裝置創作者。出身殯葬業禮儀師背景，2014 年起轉為全職創作，擅長運用噴漆罐、廢鐵、鋼筋、木材等回收媒材，結合寫實繪畫與雕塑語彙。以老美式漫畫風格著稱，曾受邀為周杰倫《功夫熊貓》MV 設計塗鴉場景、為《大嘻哈時代》打造舞台牆面，並於 2024 年成為首位獲選「TOKYO COMIC CON」官方主視覺的台灣藝術家。',
+        bio_en: 'VASTAR (Fu Hsing-Han, born 1988) is a Taiwanese graffiti and 3D installation artist known for blending realistic painting with sculptural elements, using discarded spray cans, scrap metal, rebar, and wood. Drawing on vintage American comic aesthetics, he has been commissioned for Jay Chou\'s "Kung Fu Panda" theme song MV, stage design for "The Rappers" TV show, and a mural for Warner Bros.\' "Suicide Squad." In 2024, he became the first Taiwanese artist selected as official key visual artist for TOKYO COMIC CON.',
+        instagram: 'https://www.instagram.com/vastar.art'
+      },
+      {
+        instrument: '街頭插畫', instrument_en: 'Street Illustration',
+        name: 'ALLO 愛羅', name_en: 'ALLO',
+        bio: 'ALLO 愛羅畢業於國立臺灣師範大學特殊教育學系，曾任台北市國中特教班教師，現為 SPG 共享工作室創辦人。自學繪畫出身，長期致力於結合街頭藝術與插畫創作，擅長以俐落噴漆線條描繪女性肖像，透過深邃眼神與細膩表情，呈現溫柔卻堅定的精神力量。曾獲「墨路行者國際塗鴉大賽」冠軍與最佳人氣獎。',
+        bio_en: 'ALLO is a Taiwanese street artist and illustrator with a background in special education, having taught at junior high schools in Taipei and founded SPG Shared Studio. A self-taught painter, he uses clean spray-paint lines to depict female portraits that radiate both gentleness and inner strength. He has received top honors at the "墨路行者 International Graffiti Competition" and created the main visual for "West Town Party 2nd" in collaboration with INFINITE.',
+        instagram: 'https://www.instagram.com/allostrator'
+      },
+      {
+        instrument: '壁畫藝術', instrument_en: 'Mural Art',
+        name: 'Candy Kuo 郭于嫣', name_en: 'Candy Kuo',
+        bio: 'Candy Kuo 郭于嫣出生於台北，成長於美國德州南部，現居奧斯汀，是一位台裔美籍視覺與壁畫藝術家，擅長融合東西方美學語彙。她以具象寫實手法描繪在地動植物與女性形象，關注自然、生態與女性身體之間的關係，並藉由公共藝術與社區壁畫，將城市牆面轉化為連結與認同的場域。自 2016 年起陸續在奧斯汀、邁阿密、紐約、長灘等城市創作壁畫並參與藝術節。',
+        bio_en: 'Candy Kuo was born in Taipei and raised in South Texas, now based in Austin as a Taiwanese-American visual and mural artist whose work blends Eastern and Western aesthetics. Using a figurative and realist approach, she portrays local flora and fauna alongside powerful female figures, exploring the relationships between nature, femininity, and environment. Since 2016, she has created murals in Austin, Miami, New York, and Long Beach, collaborating with local and international brands.',
+        instagram: 'https://www.instagram.com/itscandykuo'
+      }
+    ],
     category:'street', isPrimary:true, externalUrl:''
   },
   {
