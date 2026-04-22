@@ -53,7 +53,7 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <p class="footer-logo">Taiwan <span>Pop</span></p>
+            <img src="images/taiwanpop_green.png" alt="Taiwan Pop" class="footer-logo-img">
             <p class="footer-desc" data-i18n="footer-desc">Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。</p>
             <div class="social-links">
               <a href="#" aria-label="Instagram" class="social-link">
@@ -67,19 +67,7 @@
               </a>
             </div>
           </div>
-          <div class="footer-col">
-            <h4 data-i18n="footer-links-h">快速連結</h4>
-            <ul>
-              <li><a href="${href.concept}"  data-i18n="nav-concept">黑潮理念</a></li>
-              <li><a href="${href.news}"     data-i18n="footer-news">最新消息</a></li>
-              <li><a href="${href.events}"   data-i18n="footer-events">展演活動</a></li>
-              <!-- [AWE-HIDDEN] <li><a href="${href.awe}" data-i18n="nav-awe">a-we 紐約跑酷</a></li> -->
-              <li><a href="${href.quiz}"     data-i18n="footer-discover">文化探索</a></li>
-              <li><a href="${href.calendar}" data-i18n="footer-cal">行事曆</a></li>
-              <li><a href="https://tccny.moc.gov.tw/ch/Default.aspx" target="_blank" rel="noopener">紐文臺北文化中心</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
+<div class="footer-col footer-col--right">
             <h4 data-i18n="footer-contact-h">聯絡資訊</h4>
             <ul class="contact-list">
               <li>📧 info@taiwanpop.com</li>

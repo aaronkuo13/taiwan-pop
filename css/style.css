@@ -2150,7 +2150,7 @@ footer {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr auto;
   gap: 48px;
   margin-bottom: 48px;
 }
@@ -2164,6 +2164,7 @@ footer {
 }
 
 .footer-logo span { color: var(--primary); }
+.footer-logo-img { height: 32px; width: auto; margin-bottom: 16px; display: block; }
 
 .footer-desc {
   font-size: 14px;
@@ -2223,6 +2224,10 @@ footer {
   font-size: 14px;
   color: rgba(255,255,255,.6);
 }
+.footer-col--right {
+  text-align: right;
+}
+.footer-col--right .contact-list { align-items: flex-end; }
 
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.1);
@@ -2242,7 +2247,7 @@ footer {
 
 @media (max-width: 1024px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
   }
 
   .footer-brand { grid-column: span 2; }
