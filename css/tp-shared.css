@@ -1,0 +1,323 @@
+/* ============================================================
+   TAIWANPOP — Shared Design System
+   Colors: Green #00FF57 · Blue #3B7FFF · Pink #FF2D6B
+   Aesthetic: Semi-Wildstyle graffiti · offset shadows · bold blocks
+   ============================================================ */
+
+/* ── TOKENS ── */
+:root {
+  --black:  #080808;
+  --white:  #f4f2ec;
+  --green:  #00FF57;
+  --blue:   #3B7FFF;
+  --pink:   #FF2D6B;
+  --gray:   rgba(255,255,255,0.4);
+  --dim:    rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.07);
+  --border-w: rgba(0,0,0,0.1);
+
+  --font-d: 'Bebas Neue', sans-serif;
+  --font-b: 'Noto Sans TC', sans-serif;
+  --font-m: 'DM Mono', monospace;
+
+  /* graffiti offset shadow helpers */
+  --shadow-green: 3px 3px 0 rgba(0,255,87,0.25);
+  --shadow-pink:  3px 3px 0 rgba(255,45,107,0.3);
+  --shadow-blue:  3px 3px 0 rgba(59,127,255,0.3);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--black); color:var(--white);
+  font-family:var(--font-b); font-weight:300;
+  overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; }
+
+/* ── TYPOGRAPHY SCALE ── */
+.t-display {
+  font-family:var(--font-d);
+  font-size:clamp(4rem,10vw,10rem);
+  line-height:0.92; letter-spacing:0.025em;
+}
+.t-h1 {
+  font-family:var(--font-d);
+  font-size:clamp(2.8rem,6vw,6rem);
+  line-height:0.95; letter-spacing:0.03em;
+}
+.t-h2 {
+  font-family:var(--font-d);
+  font-size:clamp(2.2rem,4.5vw,4.5rem);
+  line-height:1; letter-spacing:0.04em;
+}
+.t-h3 {
+  font-family:var(--font-d);
+  font-size:clamp(1.8rem,3vw,3rem);
+  line-height:1.05; letter-spacing:0.04em;
+}
+.t-label {
+  font-family:var(--font-m);
+  font-size:0.58rem; letter-spacing:0.28em;
+  text-transform:uppercase; color:rgba(255,255,255,0.3);
+}
+.t-label-dark { color:rgba(0,0,0,0.35); }
+.t-mono {
+  font-family:var(--font-m);
+  font-size:0.68rem; letter-spacing:0.12em;
+}
+.t-body { font-size:0.9rem; line-height:1.9; color:rgba(255,255,255,0.55); }
+.t-body-dark { font-size:0.9rem; line-height:1.9; color:rgba(0,0,0,0.55); }
+
+/* Graffiti offset text effect */
+.graffiti-green { text-shadow: var(--shadow-green); }
+.graffiti-pink  { text-shadow: var(--shadow-pink); }
+.graffiti-blue  { text-shadow: var(--shadow-blue); }
+
+/* ── NAVBAR ── */
+.tp-nav {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 2.5rem;
+  transition:background 0.35s, border-color 0.35s;
+  border-bottom:1px solid transparent;
+}
+.tp-nav.scrolled {
+  background:rgba(8,8,8,0.92);
+  backdrop-filter:blur(18px);
+  border-color:var(--border);
+}
+.tp-nav-logo {
+  font-family:var(--font-d);
+  font-size:1.4rem; letter-spacing:0.08em;
+  color:var(--white); position:relative;
+}
+/* ghost offset — graffiti tag feel */
+.tp-nav-logo::before {
+  content: attr(data-text);
+  position:absolute; left:2px; top:1px;
+  color:var(--pink); opacity:0.4; z-index:-1;
+  pointer-events:none;
+}
+.tp-nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
+.tp-nav-links a {
+  font-family:var(--font-m); font-size:0.63rem;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+  transition:color 0.2s;
+}
+.tp-nav-links a:hover, .tp-nav-links a.active { color:var(--white); }
+.tp-nav-links a.active { color:var(--green); }
+.tp-nav-cta {
+  font-family:var(--font-m); font-size:0.63rem;
+  letter-spacing:0.12em; text-transform:uppercase;
+  background:var(--green); color:var(--black);
+  padding:0.55rem 1.3rem; font-weight:500;
+  box-shadow:2px 2px 0 rgba(0,255,87,0.3);
+  transition:background 0.2s;
+}
+.tp-nav-cta:hover { background:#33ff77; }
+
+/* ── BUTTONS ── */
+.btn { display:inline-block; font-family:var(--font-m); font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.82rem 1.8rem; transition:transform 0.15s, box-shadow 0.15s; }
+.btn-green  { background:var(--green); color:var(--black); font-weight:500; box-shadow:3px 3px 0 rgba(0,255,87,0.3); }
+.btn-green:hover { transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(0,255,87,0.4); }
+.btn-pink   { background:var(--pink);  color:var(--white); box-shadow:3px 3px 0 rgba(255,45,107,0.3); }
+.btn-pink:hover { transform:translate(-1px,-1px); }
+.btn-blue   { background:var(--blue);  color:var(--white); box-shadow:3px 3px 0 rgba(59,127,255,0.3); }
+.btn-blue:hover { transform:translate(-1px,-1px); }
+.btn-white  { background:var(--white); color:var(--black); box-shadow:3px 3px 0 rgba(255,255,255,0.2); }
+.btn-white:hover { transform:translate(-1px,-1px); }
+.btn-outline { background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,0.3); }
+.btn-outline:hover { border-color:var(--white); }
+.btn-outline-black { background:transparent; color:var(--black); border:1.5px solid rgba(0,0,0,0.3); }
+.btn-outline-black:hover { border-color:var(--black); }
+.btn-ghost  { background:transparent; color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.12); }
+.btn-ghost:hover { color:var(--white); border-color:rgba(255,255,255,0.3); }
+.btn-disabled { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.25); cursor:not-allowed; pointer-events:none; }
+
+/* ── SECTION HEADER ── */
+.section-header {
+  padding:0 2.5rem 2rem;
+  display:flex; align-items:flex-end; justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  margin-bottom:0;
+}
+.section-header-left {}
+.section-header .t-label { margin-bottom:0.5rem; display:block; }
+.section-more {
+  font-family:var(--font-m); font-size:0.62rem; letter-spacing:0.16em;
+  color:rgba(255,255,255,0.3); border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:0.1rem; transition:color 0.2s;
+}
+.section-more:hover { color:var(--white); }
+
+/* ── CATEGORY BADGES ── */
+.cat {
+  font-family:var(--font-m); font-size:0.55rem;
+  letter-spacing:0.22em; text-transform:uppercase;
+  padding:0.25rem 0.6rem; display:inline-block;
+}
+.cat-sound  { background:var(--pink);  color:var(--white); }
+.cat-image  { background:var(--blue);  color:var(--white); }
+.cat-street { background:var(--green); color:var(--black); }
+
+/* ── DIVIDER ── */
+hr.tp-hr { border:none; border-top:1px solid var(--border); }
+hr.tp-hr-w { border:none; border-top:1px solid var(--border-w); }
+
+/* ── WHITE SECTION ── */
+.section-white {
+  background:var(--white); color:var(--black);
+  position:relative;
+}
+.section-white::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--green), var(--blue), var(--pink));
+}
+
+/* ── SPRAY PAINT SECTION ── */
+.spray-section {
+  position:relative; overflow:hidden;
+}
+.spray-section .spray-bg {
+  position:absolute; inset:0;
+  background:url('../images/Taiwan Pop_Supporting Graphic 3_星光背景_拆圖版.webp') center/cover no-repeat;
+}
+.spray-section .spray-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom,
+    var(--black) 0%, transparent 25%,
+    transparent 75%, var(--black) 100%);
+}
+.spray-section .spray-content { position:relative; z-index:1; }
+
+/* ── ACTIVITY CARD ── */
+.event-card {
+  display:block; text-decoration:none; color:var(--white);
+  background:#0f0f0f; position:relative; overflow:hidden;
+  transition:transform 0.25s;
+}
+.event-card:hover { transform:translateY(-3px); }
+.event-card-img {
+  aspect-ratio:4/5; overflow:hidden; background:#1a1a1a;
+}
+.event-card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+.event-card:hover .event-card-img img { transform:scale(1.04); }
+.event-card-body { padding:1.2rem 1rem 1rem; }
+.event-card-cat { margin-bottom:0.5rem; }
+.event-card-title { font-family:var(--font-d); font-size:1.5rem; letter-spacing:0.03em; line-height:1.1; }
+.event-card-date { font-family:var(--font-m); font-size:0.6rem; letter-spacing:0.14em; color:rgba(255,255,255,0.35); margin-top:0.5rem; }
+/* hover border glow */
+.event-card-sound:hover  { box-shadow:0 0 0 2px var(--pink),  0 8px 30px rgba(245,34,129,0.2); }
+.event-card-image:hover  { box-shadow:0 0 0 2px var(--blue),  0 8px 30px rgba(59,127,255,0.2); }
+.event-card-street:hover { box-shadow:0 0 0 2px var(--green), 0 8px 30px rgba(0,255,87,0.15); }
+
+/* ── FEATURED BANNER ── */
+.featured-banner {
+  display:block; max-width:1280px; margin:0 auto;
+  background:#111; position:relative; overflow:hidden;
+  aspect-ratio:1280/390;
+}
+.featured-banner img { width:100%; height:100%; object-fit:cover; }
+.featured-banner-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(8,8,8,0.75) 0%, transparent 60%);
+}
+.featured-banner-content {
+  position:absolute; left:3rem; top:50%; transform:translateY(-50%);
+}
+
+/* ── NEWS CARD ── */
+.news-card {
+  display:grid; grid-template-columns:110px 1fr 28px;
+  gap:2rem; align-items:center;
+  padding:1.4rem 0;
+  border-bottom:1px solid var(--border);
+  color:var(--white);
+  transition:background 0.15s;
+}
+.news-card:first-child { border-top:1px solid var(--border); }
+.news-card-date { font-family:var(--font-m); font-size:0.63rem; color:rgba(255,255,255,0.25); letter-spacing:0.08em; }
+.news-card-headline { font-size:0.88rem; line-height:1.55; transition:color 0.2s; }
+.news-card:hover .news-card-headline { color:var(--green); }
+.news-card-arrow { font-family:var(--font-m); font-size:0.7rem; color:rgba(255,255,255,0.12); transition:color 0.2s, transform 0.2s; }
+.news-card:hover .news-card-arrow { color:var(--green); transform:translateX(3px); }
+
+/* ── FOOTER ── */
+.tp-footer {
+  background:var(--white); color:var(--black);
+  padding:4rem 2.5rem 2rem;
+  position:relative; overflow:hidden;
+}
+.tp-footer::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--green), var(--blue), var(--pink));
+}
+.tp-footer-inner {
+  display:grid; grid-template-columns:2fr 1fr 1fr;
+  gap:3rem; padding-bottom:2.5rem;
+  border-bottom:1px solid var(--border-w);
+}
+.tp-footer-logo {
+  font-family:var(--font-d); font-size:2.6rem;
+  letter-spacing:0.06em; line-height:1;
+  color:var(--black); position:relative; display:inline-block;
+}
+.tp-footer-logo::before {
+  content:'TAIWANPOP'; position:absolute; left:3px; top:2px;
+  color:var(--pink); opacity:0.2; z-index:-1;
+}
+.tp-footer-tagline { margin-top:0.7rem; font-size:0.8rem; color:rgba(0,0,0,0.4); line-height:1.7; }
+.tp-footer-col-title { font-family:var(--font-m); font-size:0.56rem; letter-spacing:0.24em; color:rgba(0,0,0,0.3); margin-bottom:1rem; }
+.tp-footer-links { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+.tp-footer-links a { font-size:0.83rem; color:rgba(0,0,0,0.5); transition:color 0.2s; }
+.tp-footer-links a:hover { color:var(--black); }
+.tp-footer-bottom { margin-top:1.8rem; display:flex; justify-content:space-between; align-items:center; }
+.tp-footer-copy { font-family:var(--font-m); font-size:0.55rem; color:rgba(0,0,0,0.25); letter-spacing:0.1em; }
+.tp-footer-dots { display:flex; gap:5px; }
+.tp-footer-dot { width:9px; height:9px; border-radius:50%; }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-delay-1 { transition-delay:0.1s; }
+.reveal-delay-2 { transition-delay:0.2s; }
+.reveal-delay-3 { transition-delay:0.3s; }
+
+/* ── STICKER ── */
+.sticker {
+  display:inline-block; padding:0.6rem 0.9rem;
+  font-family:var(--font-d); letter-spacing:0.06em; line-height:1.1;
+  box-shadow:4px 4px 0 rgba(0,0,0,0.5);
+}
+.sticker-green { background:var(--green); color:var(--black); }
+.sticker-pink  { background:var(--pink);  color:var(--white); }
+.sticker-blue  { background:var(--blue);  color:var(--white); }
+.sticker-white { background:var(--white); color:var(--black); }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  padding-top:5rem; min-height:60vh;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding-bottom:4rem; padding-left:2.5rem; padding-right:2.5rem;
+  position:relative; overflow:hidden;
+}
+.page-hero-spray {
+  position:absolute; inset:0;
+  background:url('../images/Taiwan Pop_Supporting Graphic 3_星光背景_拆圖版.webp') center/cover no-repeat;
+}
+.page-hero-spray::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.7) 70%, rgba(8,8,8,1) 100%);
+}
+.page-hero-content { position:relative; z-index:1; }
+
+/* ── KEYFRAMES ── */
+@keyframes spin  { to { transform:rotate(360deg); } }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+@keyframes scanline { 0%{left:-100%} 100%{left:100%} }

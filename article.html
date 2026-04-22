@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文章 — Taiwan Pop</title>
+  <title>文章 — Taiwan Pop 2026</title>
+  <link rel="stylesheet" href="css/tp-shared.css">
   <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
@@ -19,136 +20,162 @@
   </script>
 
   <style>
-    .article-page {
-      padding-top: var(--nav-h);
-      min-height: 80vh;
-    }
+  /* ── HERO ── */
+  .article-hero {
+    padding-top: 5rem; height: 60vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .article-hero-left {
+    padding: 3rem 3rem 3.5rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    border-right: 1px solid var(--border);
+  }
+  .article-back {
+    font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.4); margin-bottom: 3rem;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: color 0.2s; text-decoration: none;
+  }
+  .article-back:hover { color: var(--white); }
+  .article-meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .article-date { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
+  .article-title {
+    font-family: var(--font-d);
+    font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+    line-height: 0.95; letter-spacing: 0.025em;
+    text-shadow: 3px 3px 0 rgba(0,255,87,0.2);
+  }
+  .article-hero-right {
+    position: relative; overflow: hidden; background: #0e0e0e;
+  }
+  .article-hero-right img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .article-hero-placeholder {
+    width: 100%; height: 100%;
+    background: url('images/Taiwan Pop_Supporting Graphic 3_星光背景_拆圖版.webp') center/cover no-repeat;
+    opacity: 0.5;
+  }
 
-    .article-cover {
-      width: 100%;
-      max-height: 480px;
-      object-fit: cover;
-      display: block;
-    }
+  /* ── HERO CAT LABEL (plain, no background) ── */
+  .art-cat-label {
+    font-family: var(--font-m); font-size: 0.6rem;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
 
-    .article-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
+  /* ── ARTICLE WRAP ── */
+  .article-wrap {
+    display: grid; grid-template-columns: 1fr 320px;
+    gap: 5rem; max-width: 1200px; margin: 0 auto;
+    padding: 4rem 2.5rem 6rem;
+  }
+  .article-section-label {
+    font-family: var(--font-m); font-size: 0.56rem;
+    letter-spacing: 0.28em; color: rgba(255,255,255,0.25);
+    display: block; margin-bottom: 1rem;
+  }
+  .article-body {
+    font-size: 0.92rem; line-height: 2.1;
+    color: rgba(255,255,255,0.65);
+  }
+  .article-body p { margin-bottom: 1.4rem; }
+  .article-body p:empty,
+  .article-body p:has(> br:only-child) { display: none; }
+  .article-body h2 {
+    font-family: var(--font-d); font-size: 2rem; letter-spacing: 0.04em;
+    color: var(--white); margin: 2.5rem 0 1rem;
+    text-shadow: 2px 2px 0 rgba(0,255,87,0.2);
+  }
+  .article-body h3 {
+    font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 0.04em;
+    color: var(--white); margin: 2rem 0 0.8rem;
+  }
+  .article-body strong { color: var(--white); font-weight: 500; }
+  .article-body a { color: var(--green); border-bottom: 1px solid rgba(0,255,87,0.3); transition: border-color 0.2s; }
+  .article-body a:hover { border-color: var(--green); }
+  .article-body img { max-width: 100%; margin: 1.5rem 0; display: block; }
+  .article-body ul, .article-body ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+  .article-body li { margin-bottom: 0.5rem; }
+  .article-body blockquote,
+  .article-pullquote {
+    border-left: 3px solid var(--green);
+    padding: 1.2rem 1.5rem; margin: 2.5rem 0;
+    background: rgba(0,255,87,0.04);
+  }
+  .article-pullquote p,
+  .article-body blockquote p {
+    font-size: 1.05rem; line-height: 1.8;
+    color: rgba(255,255,255,0.75); font-style: italic; margin: 0;
+  }
 
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
+  /* ── SIDEBAR ── */
+  .sidebar-section {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-section:first-child { border-top: 1px solid var(--border); }
+  .sidebar-title {
+    font-family: var(--font-m); font-size: 0.58rem;
+    letter-spacing: 0.22em; color: rgba(255,255,255,0.28); margin-bottom: 0.8rem;
+  }
+  .sidebar-event {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    text-decoration: none; color: var(--white);
+    padding: 1rem; background: #0e0e0e;
+    border-left: 2px solid var(--green);
+    transition: background 0.2s; margin-top: 0.6rem;
+  }
+  .sidebar-event:hover { background: #141414; }
+  .sidebar-event-cat { margin-bottom: 0.3rem; }
+  .sidebar-event-title { font-family: var(--font-d); font-size: 1.2rem; letter-spacing: 0.03em; line-height: 1.1; }
+  .sidebar-event-date { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+  .share-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .share-btn {
+    font-family: var(--font-m); font-size: 0.58rem;
+    letter-spacing: 0.14em; padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.4); transition: all 0.2s;
+    cursor: pointer; background: transparent;
+  }
+  .share-btn:hover { border-color: var(--green); color: var(--green); }
+  .related-list { display: flex; flex-direction: column; }
+  .related-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--white);
+  }
+  .related-item:last-child { border: none; }
+  .related-date { font-family: var(--font-m); font-size: 0.55rem; color: rgba(255,255,255,0.25); margin-top: 0.15rem; flex-shrink: 0; }
+  .related-title-text { font-size: 0.8rem; line-height: 1.5; transition: color 0.2s; }
+  .related-item:hover .related-title-text { color: var(--green); }
 
-    .article-meta .article-cat {
-      position: static;
-      font-family: var(--font-sans);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: rgba(0, 130, 210, 0.2);
-      color: var(--secondary);
-    }
+  /* ── LOADING / ERROR ── */
+  .article-loading, .article-error {
+    text-align: center; padding: 80px 0;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.1em;
+  }
 
-    .article-meta .article-date {
-      font-family: var(--font-sans);
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .article-title {
-      font-family: var(--font-sans);
-      font-size: clamp(24px, 4vw, 38px);
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.3;
-      margin-bottom: 36px;
-    }
-
-    .article-content {
-      color: rgba(255,255,255,0.85);
-      font-size: 16px;
-      line-height: 1.9;
-    }
-
-    .article-content h1,
-    .article-content h2,
-    .article-content h3 {
-      font-family: var(--font-sans);
-      color: #fff;
-      margin: 32px 0 16px;
-    }
-    .article-content h2 { font-size: 22px; }
-    .article-content h3 { font-size: 18px; }
-
-    .article-content p { margin-bottom: 20px; }
-    .article-content img { max-width: 100%; border-radius: var(--radius); margin: 24px 0; }
-    .article-content a { color: var(--primary); }
-    .article-content a:hover { text-decoration: underline; }
-    .article-content blockquote {
-      border-left: 3px solid var(--primary);
-      padding-left: 20px;
-      margin: 24px 0;
-      color: var(--text-muted);
-      font-style: italic;
-    }
-    .article-content ul, .article-content ol {
-      padding-left: 24px;
-      margin-bottom: 20px;
-    }
-    .article-content li { margin-bottom: 8px; list-style: disc; }
-    .article-content ol li { list-style: decimal; }
-
-    .article-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      font-family: var(--font-sans);
-      font-size: 13px;
-      margin-bottom: 32px;
-      transition: color var(--transition);
-    }
-    .article-back:hover { color: var(--primary); }
-
-    .article-loading,
-    .article-error {
-      text-align: center;
-      padding: 80px 0;
-      color: var(--text-muted);
-    }
-    .article-loading::after {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--border);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-left: 10px;
-      vertical-align: middle;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .article-hero { grid-template-columns: 1fr; min-height: auto; }
+    .article-hero-right { display: none; }
+    .article-wrap { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  @media (max-width: 600px) {
+    .article-hero-left { padding: 3rem 1.5rem 3rem; }
+    .article-wrap { padding: 2rem 1.5rem 4rem; }
+  }
   </style>
 </head>
 <body>
 
   <nav id="navbar"></nav>
 
-  <div class="article-page">
-    <div id="article-root">
-      <div class="article-container">
-        <div class="article-loading">載入中</div>
-      </div>
-    </div>
+  <div id="article-root">
+    <div class="article-loading">載入中</div>
   </div>
 
   <footer id="contact"></footer>
@@ -162,11 +189,19 @@
 
   <script type="module">
     import { db } from './js/firebase.js';
-    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+    import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
-    const params = new URLSearchParams(window.location.search);
+    const params    = new URLSearchParams(window.location.search);
     const articleId = params.get('id');
-    let articleData = null;
+    let articleData  = null;
+    let relatedData  = [];
+
+    const CAT_CLASS = {
+      '官方公告': 'cat-announce',
+      '活動預告': 'cat-preview',
+      '專題報導': 'cat-feature',
+      '媒體報導': 'cat-media',
+    };
 
     function getLang() {
       return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
@@ -176,49 +211,141 @@
       return (str || '').replace(/-/g, '.');
     }
 
-    function render(a) {
-      const lang = getLang();
-      const title = (lang === 'en' && a.title_en) ? a.title_en : (a.title || '');
-      const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
+    function shortDate(str) {
+      return (str || '').slice(5).replace(/-/g, '.');
+    }
 
-      document.title = `${title} — Taiwan Pop`;
+    function relatedHtml(lang) {
+      if (!relatedData.length) return '';
+      return relatedData.map(a => {
+        const t = (lang === 'en' && a.title_en) ? a.title_en : (a.title || '');
+        return `<a href="article.html?id=${a.id}" class="related-item">
+          <span class="related-date">${shortDate(a.date)}</span>
+          <span class="related-title-text">${t}</span>
+        </a>`;
+      }).join('');
+    }
 
-      const root = document.getElementById('article-root');
-      root.innerHTML = `
-        ${a.coverImage ? `<img class="article-cover" src="${a.coverImage}" alt="${title}">` : ''}
-        <div class="article-container">
-          <a href="news.html" class="article-back">
-            ← 返回最新消息
+    function relatedEventHtml(a, lang) {
+      if (!a.relatedEventNum) return '';
+      const ev = (typeof EVENTS !== 'undefined') && EVENTS.find(e => e.num === a.relatedEventNum);
+      if (!ev) return '';
+      const t    = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+      const date = formatDate(ev.date);
+      const loc  = (lang === 'en' && ev.location_full) ? ev.location_full : ev.location;
+      const catId = ev.category;
+      return `
+        <div class="sidebar-section">
+          <div class="sidebar-title">RELATED EVENT · 相關活動</div>
+          <a href="event.html?num=${ev.num}" class="sidebar-event">
+            <div class="sidebar-event-cat"><span class="cat cat-${catId}">${catId.toUpperCase()}</span></div>
+            <div class="sidebar-event-title">${t}</div>
+            <div class="sidebar-event-date">${date}${loc ? ' · ' + loc : ''}</div>
           </a>
-          <div class="article-meta">
-            ${a.category ? `<span class="article-cat">${a.category}</span>` : ''}
-            <span class="article-date">${formatDate(a.date)}</span>
-          </div>
-          <h1 class="article-title">${title}</h1>
-          <div class="article-content">${content}</div>
         </div>`;
     }
 
+    function render(a) {
+      const lang    = getLang();
+      const title   = (lang === 'en' && a.title_en)   ? a.title_en   : (a.title   || '');
+      const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
+      const cat     = a.category || '';
+      const catCls  = CAT_CLASS[cat] || 'cat-media';
+      const backLabel = lang === 'en' ? 'News' : '最新消息';
+
+      document.title = `${title} — Taiwan Pop 2026`;
+
+      const coverHtml = a.coverImage
+        ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`
+        : `<div class="article-hero-placeholder"></div>`;
+
+      const shareLabel = lang === 'en' ? 'SHARE · Share' : 'SHARE · 分享';
+      const moreLabel  = lang === 'en' ? 'MORE NEWS · More' : 'MORE NEWS · 更多消息';
+      const copyLabel  = lang === 'en' ? 'Copy Link' : '複製連結';
+
+      document.getElementById('article-root').innerHTML = `
+        <div class="article-hero">
+          <div class="article-hero-left">
+            <a href="news.html" class="article-back">← ${backLabel}</a>
+            <div class="article-meta-row">
+              ${cat ? `<span class="art-cat-label">${cat}</span>` : ''}
+              <span class="article-date">${formatDate(a.date)}</span>
+            </div>
+            <h1 class="article-title">${title}</h1>
+          </div>
+          <div class="article-hero-right">${coverHtml}</div>
+        </div>
+
+        <div class="article-wrap">
+          <article class="article-content">
+            <span class="article-section-label">ARTICLE · 文章內容</span>
+            <div class="article-body">${content}</div>
+          </article>
+
+          <aside class="article-sidebar">
+            ${relatedEventHtml(a, lang)}
+            <div class="sidebar-section">
+              <div class="sidebar-title">${shareLabel}</div>
+              <div class="share-btns">
+                <button class="share-btn" id="share-fb">Facebook</button>
+                <button class="share-btn" id="share-x">Twitter / X</button>
+                <button class="share-btn" id="share-copy">${copyLabel}</button>
+              </div>
+            </div>
+            ${relatedData.length ? `
+            <div class="sidebar-section">
+              <div class="sidebar-title">${moreLabel}</div>
+              <div class="related-list">${relatedHtml(lang)}</div>
+            </div>` : ''}
+          </aside>
+        </div>`;
+
+      /* share buttons */
+      const url = encodeURIComponent(window.location.href);
+      const txt = encodeURIComponent(title);
+      document.getElementById('share-fb')?.addEventListener('click', () =>
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank'));
+      document.getElementById('share-x')?.addEventListener('click', () =>
+        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${txt}`, '_blank'));
+      document.getElementById('share-copy')?.addEventListener('click', function() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          this.textContent = lang === 'en' ? 'Copied!' : '已複製！';
+          setTimeout(() => { this.textContent = copyLabel; }, 2000);
+        });
+      });
+    }
+
+    async function loadRelated(currentId) {
+      try {
+        const q = query(collection(db, 'articles'), where('published', '==', true));
+        const snap = await getDocs(q);
+        const all = [];
+        snap.forEach(d => { if (d.id !== currentId) all.push({ id: d.id, ...d.data() }); });
+        all.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        relatedData = all.slice(0, 4);
+      } catch (_) {}
+    }
+
     async function loadArticle() {
+      const root = document.getElementById('article-root');
       if (!articleId) {
-        document.getElementById('article-root').innerHTML =
-          '<div class="article-container"><div class="article-error">找不到文章</div></div>';
+        root.innerHTML = '<div class="article-error">找不到文章</div>';
         return;
       }
-
       try {
-        const snap = await getDoc(doc(db, 'articles', articleId));
+        const [snap] = await Promise.all([
+          getDoc(doc(db, 'articles', articleId)),
+          loadRelated(articleId),
+        ]);
         if (!snap.exists() || !snap.data().published) {
-          document.getElementById('article-root').innerHTML =
-            '<div class="article-container"><div class="article-error">文章不存在或尚未發布</div></div>';
+          root.innerHTML = '<div class="article-error">文章不存在或尚未發布</div>';
           return;
         }
         articleData = snap.data();
         render(articleData);
       } catch (err) {
         console.error(err);
-        document.getElementById('article-root').innerHTML =
-          '<div class="article-container"><div class="article-error">載入失敗，請稍後再試</div></div>';
+        root.innerHTML = '<div class="article-error">載入失敗，請稍後再試</div>';
       }
     }
 
