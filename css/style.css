@@ -2068,6 +2068,56 @@ ul { list-style: none; }
   transition: color .2s, border-color .2s;
 }
 .speaker-link:hover { color: #fff; border-color: rgba(255,255,255,.4); }
+.speaker-link--icon {
+  width: 36px; height: 36px; padding: 0;
+  border-radius: 50%; justify-content: center;
+}
+.speaker-link--icon svg { flex-shrink: 0; }
+
+/* ── Video embed ── */
+.event-video { margin-top: 56px; border-top: 1px solid rgba(255,255,255,.07); padding-top: 40px; }
+.event-video.is-hidden { display: none; }
+.video-wrap {
+  position: relative; width: 100%; padding-bottom: 56.25%;
+  border-radius: 12px; overflow: hidden;
+  background: #000;
+}
+.video-wrap iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+}
+
+/* ── Ensemble with photo ── */
+.ensemble-card--with-photo {
+  display: flex; gap: 28px; align-items: flex-start; padding: 0; overflow: hidden;
+}
+.ensemble-photo {
+  width: 180px; flex-shrink: 0;
+  object-fit: cover; object-position: top center;
+  border-radius: 12px 0 0 12px;
+  align-self: stretch;
+}
+.ensemble-body { padding: 28px 32px; flex: 1; }
+.ensemble-logo {
+  height: 28px; width: auto; object-fit: contain;
+  margin-bottom: 14px; opacity: 0.85;
+  filter: brightness(0) invert(1);
+}
+
+/* ── Photo gallery ── */
+.event-gallery { margin-top: 56px; border-top: 1px solid rgba(255,255,255,.07); padding-top: 40px; }
+.event-gallery.is-hidden { display: none; }
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.photo-grid-item {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; border-radius: 8px;
+  display: block;
+  transition: transform .2s, opacity .2s;
+}
+.photo-grid-item:hover { transform: scale(1.02); opacity: .9; }
 
 @media (max-width: 768px) {
   .event-detail-hero { padding-top: calc(var(--nav-h) + 32px); }
@@ -2081,6 +2131,12 @@ ul { list-style: none; }
     width: 100%;
     justify-content: center;
   }
+
+  .ensemble-card--with-photo { flex-direction: column; gap: 0; }
+  .ensemble-photo { width: 100%; height: 220px; border-radius: 12px 12px 0 0; }
+  .ensemble-body { padding: 24px; }
+
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ============================================================
