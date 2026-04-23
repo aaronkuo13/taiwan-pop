@@ -94,7 +94,10 @@ img { display:block; max-width:100%; }
   font-size:1.4rem; letter-spacing:0.08em;
   color:var(--white); position:relative; line-height:0;
 }
-.tp-nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
+.tp-nav-links {
+  display:flex; gap:2rem; list-style:none; align-items:center;
+  position:absolute; left:50%; transform:translateX(-50%);
+}
 .tp-nav-links a {
   font-family:var(--font-m); font-size:0.63rem;
   letter-spacing:0.18em; text-transform:uppercase;
