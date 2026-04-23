@@ -94,6 +94,7 @@
     font-size: 0.9rem; line-height: 1.85;
     color: rgba(255,255,255,0.55); max-width: 380px;
   }
+  .hero-actions { display: flex; gap: 0.8rem; flex-shrink: 0; }
   .hero-scroll-ind {
     position: absolute; left: 2.5rem; bottom: 4rem; z-index: 2;
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -396,6 +397,7 @@
     .hero-sticker { top: 5.5rem; right: 1.2rem; font-size: 1.6rem; }
     .hero-title { font-size: clamp(4rem, 18vw, 7rem); }
     .hero-row { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+    .hero-actions { flex-wrap: wrap; }
     .showcase-hero { padding: 3rem 1.2rem 2.6rem; }
     .showcase-hero-label { font-size: 0.5rem; top: 1rem; left: 1.2rem; }
     .showcase-hero-label.right { right: 1.2rem; left: auto; }
@@ -437,6 +439,10 @@
       <h1 class="hero-title">TAIWAN<br><span class="c-green">POP</span></h1>
       <div class="hero-row">
         <p class="hero-sub" data-i18n-html="banner-sub">台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 夏天，紐約登場</p>
+        <div class="hero-actions">
+          <a href="events.html" class="btn btn-green" data-i18n="btn-explore">探索活動</a>
+          <a href="#articles"   class="btn btn-outline" data-i18n="btn-news">最新消息</a>
+        </div>
       </div>
     </div>
     <div class="hero-scroll-ind">
