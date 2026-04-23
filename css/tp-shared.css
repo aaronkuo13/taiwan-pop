@@ -121,9 +121,15 @@ img { display:block; max-width:100%; }
   color: var(--green) !important;
   text-shadow: 0 0 8px rgba(0,255,87,0.5) !important;
 }
-/* Override style.css .btn border-radius for navbar CTA */
+/* Override style.css .btn padding/size for navbar CTA */
 .tp-nav-cta.btn {
   border-radius: 0 !important;
+  padding: 0.55rem 1.3rem !important;
+  font-size: 0.63rem !important;
+  font-family: var(--font-m) !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1 !important;
+  gap: 0 !important;
 }
 
 .lang-toggle {
