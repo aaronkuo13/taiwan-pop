@@ -206,6 +206,25 @@
     border-color: rgba(0,0,0,0.4);
   }
   .ev-hero-left--street .btn-outline:hover { border-color: var(--black); }
+
+  /* ── RWD ── */
+  @media (max-width: 900px) {
+    .ev-hero { grid-template-columns: 1fr; height: auto; }
+    .ev-hero-right { min-height: 260px; }
+    .ev-hero-left { padding: 5rem 2rem 2.5rem; }
+    .ev-speakers-grid { grid-template-columns: 1fr; }
+    .ev-gallery { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px) {
+    .ev-hero-left { padding: 5rem 1.5rem 2rem; }
+    .ev-content { padding: 0 1.5rem 3rem; }
+    .ev-ensemble { grid-template-columns: 1fr; gap: 1.5rem; }
+    .ev-ensemble-photo { max-width: 180px; }
+    .ev-performers-grid { grid-template-columns: 1fr; }
+    .ev-gallery { grid-template-columns: 1fr; }
+    .ev-speakers-grid { grid-template-columns: 1fr; }
+    .ev-program-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
   </style>
 </head>
 <body>

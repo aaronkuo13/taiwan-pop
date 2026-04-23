@@ -1,0 +1,98 @@
+[
+  {
+    "num": "01",
+    "category": "sound",
+    "titleZh": "跨越邊界與肢體：林懷民與美國舞蹈節總監 Jodee Nimerichter 對談",
+    "titleEn": "Across Borders, Across Bodies: Lin Hwai-min and Jodee Nimerichter in Conversation",
+    "date": "2026-05-01",
+    "time": "6:30 PM",
+    "venue": "Asia Society, New York",
+    "venueEn": "Asia Society, New York",
+    "featured": false,
+    "href": "event.html?num=01"
+  },
+  {
+    "num": "02",
+    "category": "sound",
+    "titleZh": "NSO《來自臺灣》2026室內樂美國巡演",
+    "titleEn": "NSO 'From Taiwan' 2026 Chamber Music U.S. Tour",
+    "date": "2026-05-19",
+    "time": "7:30 PM",
+    "venue": "Merkin Concert Hall, Kaufman Music Center, New York",
+    "venueEn": "Merkin Concert Hall, Kaufman Music Center, New York",
+    "featured": false,
+    "href": "event.html?num=02"
+  },
+  {
+    "num": "13",
+    "category": "sound",
+    "titleZh": "從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出",
+    "titleEn": "Chun-Chieh Yen: Piano Lecture & Demonstration",
+    "date": "2026-05-20",
+    "time": "TBA",
+    "venue": "駐紐約臺北文化中心一樓文化藝廳",
+    "venueEn": "Taipei Cultural Center in New York",
+    "featured": false,
+    "href": "event.html?num=13"
+  },
+  {
+    "num": "03",
+    "category": "street",
+    "titleZh": "2026 紐約布希維克街頭藝術計畫",
+    "titleEn": "2026 NYC Bushwick Street Art Project",
+    "date": "2026-05-28",
+    "time": "TBA",
+    "venue": "Bushwick, Brooklyn, New York",
+    "venueEn": "Bushwick, Brooklyn, New York",
+    "featured": false,
+    "href": "event.html?num=03"
+  },
+  {
+    "num": "05",
+    "category": "street",
+    "titleZh": "2026 紐約同志遊行",
+    "titleEn": "2026 NYC Pride March",
+    "date": "2026-06-28",
+    "time": "TBA",
+    "venue": "Fifth Avenue, Manhattan",
+    "venueEn": "Fifth Avenue, Manhattan",
+    "featured": false,
+    "href": "event.html?num=05"
+  },
+  {
+    "num": "06",
+    "category": "sound",
+    "titleZh": "翃舞製作《羽人》",
+    "titleEn": "Legend Lin Dance Theatre — Feathered Ones",
+    "date": "2026-07-17",
+    "time": "7:30 PM",
+    "venue": "Brooklyn Academy of Music",
+    "venueEn": "Brooklyn Academy of Music",
+    "featured": false,
+    "href": "event.html?num=06"
+  },
+  {
+    "num": "07",
+    "category": "sound",
+    "titleZh": "2026 紐約夏日舞台音樂節 臺灣之夜",
+    "titleEn": "2026 New York SummerStage — Taiwan Night",
+    "date": "2026-08-16",
+    "time": "7:00 PM",
+    "venue": "Central Park SummerStage, New York",
+    "venueEn": "Central Park SummerStage, New York",
+    "featured": false,
+    "href": "event.html?num=07"
+  },
+  {
+    "num": "04",
+    "category": "image",
+    "titleZh": "世界之間：跨越疆界的臺灣電影",
+    "titleEn": "Between Worlds: Taiwanese Cinema Across Borders",
+    "date": "2026-09-01",
+    "time": "TBA",
+    "venue": "TBA",
+    "venueEn": "TBA",
+    "featured": false,
+    "href": "event.html?num=04"
+  }
+]
