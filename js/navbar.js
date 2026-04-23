@@ -3,8 +3,8 @@
 /* ---------- Navbar: transparent → solid on scroll ---------- */
 (function initNavbar() {
   const navbar    = document.getElementById('navbar');
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('navLinks');
+  const navToggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
 
   function onScroll() {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
@@ -12,18 +12,22 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-    hamburger.setAttribute('aria-label', navLinks.classList.contains('open') ? '關閉選單' : '開啟選單');
-  });
-
-  navLinks.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
+  if (navToggle && navMobile) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMobile.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+      navToggle.setAttribute('aria-label', isOpen ? '關閉選單' : '開啟選單');
     });
-  });
+
+    navMobile.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMobile.classList.remove('open');
+        navToggle.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 })();
 
 /* ---------- Active nav link on scroll ---------- */

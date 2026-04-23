@@ -80,12 +80,7 @@ function renderEvents() {
         </div>` : ''}
       </div>` : '';
 
-    /* pad primary grid to 3 cols if needed */
-    const padHtml = primary.length < 3 ? `
-      <div style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;aspect-ratio:4/5;flex-direction:column;gap:0.5rem">
-        <div style="font-family:var(--font-d);font-size:5rem;opacity:0.04">+</div>
-        <div style="font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.2em;color:rgba(255,255,255,0.12)">MORE TO COME</div>
-      </div>`.repeat(3 - primary.length) : '';
+    const padHtml = '';
 
     return `
       <section class="cat-section" id="cat-${cat.id}">

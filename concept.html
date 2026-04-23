@@ -213,6 +213,29 @@
     font-family: var(--font-d); font-size: 1.1rem; letter-spacing: 0.08em;
     color: rgba(255,255,255,0.25); text-align: center;
   }
+
+  /* ── RWD ── */
+  @media (max-width: 960px) {
+    .cp-hero { padding-left: 1.2rem; padding-right: 1.2rem; padding-bottom: 3.5rem; }
+    .manifesto { grid-template-columns: 1fr; }
+    .manifesto-left { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.2rem; }
+    .manifesto-right { padding: 3rem 1.2rem; }
+    .three-concept { padding: 3.5rem 1.2rem; }
+    .three-concept-grid { grid-template-columns: 1fr; }
+    .cp-themes { padding: 3.5rem 1.2rem; }
+    .cp-themes-grid { grid-template-columns: 1fr; gap: 1px; }
+    .nytcc { padding: 3.5rem 1.2rem; }
+    .nytcc-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .partners { padding: 3.5rem 1.2rem; }
+    .partners-grid { grid-template-columns: repeat(2,1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .cp-hero-title { font-size: clamp(3.5rem, 18vw, 7rem); }
+    .manifesto-big { font-size: clamp(1.8rem, 7vw, 3rem); }
+    .nytcc-stats { grid-template-columns: 1fr 1fr; }
+    .partners-grid { grid-template-columns: 1fr 1fr; }
+  }
   </style>
 </head>
 <body>
@@ -240,8 +263,8 @@
     <div class="manifesto-right">
       <span class="t-label" style="display:block;margin-bottom:0.8rem">ORIGIN · 計畫緣起</span>
       <h2 class="manifesto-big">台灣文化部<br>× 紐文 35</h2>
-      <p class="manifesto-body">Taiwan Pop 是台灣文化部與紐約文化局（NYC Department of Cultural Affairs）在紐約文化局成立 35 週年之際共同推動的年度文化交流計畫。</p>
-      <p class="manifesto-body">透過精心策劃的七大展演，跨越音樂、舞蹈、影像、街頭藝術等多元形式，讓台灣被世界看見，讓世界感受台灣。</p>
+      <p class="manifesto-body">Taiwan Pop 是台灣文化部與駐紐約臺北文化中心（TCCNY）共同推動的年度文化交流計畫。以 TCCNY 在紐約深耕三十五年為起點，2026 年選擇以最當代的藝文形式，重新定義台灣在這座城市的文化位置。</p>
+      <p class="manifesto-body">七大展演橫跨音樂、舞蹈、影像、街頭藝術，Taiwan Pop 不以文化觀光的視角出發，而是以創作者的姿態切入紐約的文化生態——讓台灣的聲音、故事與能量，真正成為這座城市的一部分。</p>
     </div>
   </section>
 
@@ -316,18 +339,18 @@
     <div class="nytcc-inner">
       <div>
         <span class="nytcc-label">PARTNERSHIP · 合作背景</span>
-        <h2 class="nytcc-title">紐約文化局<br>35 週年</h2>
-        <p class="nytcc-body">紐約市文化局（NYC Department of Cultural Affairs）成立於 1991 年，是全美最大的城市文化資助機構，每年支持逾 1,000 個文化組織。</p>
-        <p class="nytcc-body">在紐文 35 週年之際，Taiwan Pop 成為台紐文化合作的重要里程碑，象徵兩個城市在藝術與文化上的深厚連結。</p>
+        <h2 class="nytcc-title">Taipei Cultural Center in NY<br>35 週年</h2>
+        <p class="nytcc-body">駐紐約臺北文化中心（Taipei Cultural Center in New York，TCCNY）由中華民國文化部設立，自 1990 年起在紐約持續推動台灣文化的國際交流，至今已走過三十五年。</p>
+        <p class="nytcc-body">透過音樂會、展覽、電影、講座等多元節目形式，TCCNY 在曼哈頓核心持續發聲，讓台灣的聲音、影像與故事自然融入這座城市的文化生活。Taiwan Pop 正是在這個三十五年的基礎上，以最當代的姿態，向紐約展示台灣。</p>
       </div>
       <div class="nytcc-stats">
         <div class="nytcc-stat">
           <div class="nytcc-stat-num">35</div>
-          <div class="nytcc-stat-unit">YEARS OF NYCCA</div>
+          <div class="nytcc-stat-unit">YEARS IN NEW YORK</div>
         </div>
         <div class="nytcc-stat">
-          <div class="nytcc-stat-num">1000+</div>
-          <div class="nytcc-stat-unit">CULTURAL ORGS SUPPORTED</div>
+          <div class="nytcc-stat-num">1990</div>
+          <div class="nytcc-stat-unit">ESTABLISHED</div>
         </div>
         <div class="nytcc-stat">
           <div class="nytcc-stat-num">2026</div>
@@ -335,7 +358,7 @@
         </div>
         <div class="nytcc-stat">
           <div class="nytcc-stat-num">7+</div>
-          <div class="nytcc-stat-unit">JOINT EVENTS</div>
+          <div class="nytcc-stat-unit">EVENTS THIS YEAR</div>
         </div>
       </div>
     </div>
