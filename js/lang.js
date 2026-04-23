@@ -17,7 +17,7 @@ const LANG = {
     'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
     'btn-explore':'探索活動','btn-news':'最新消息',
     /* Articles */
-    'sec-news-title':'最新消息',
+    'sec-news-title':'掌握動態',
     'sec-news-sub':'掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話',
     'art-1-cat':'官方公告',
     'art-1-title':'Taiwan Pop 計畫正式啟動！台灣文化將在紐約發聲',
@@ -31,7 +31,7 @@ const LANG = {
     'art-4-cat':'專題報導',
     'art-4-title':'什麼是 Taiwan Pop？一個讓台灣文化被看見的計畫',
     'art-4-desc':'從當代舞蹈、原住民古謠、街頭藝術到電影影展，Taiwan Pop 不只是音樂，而是多元台灣文化的全面展演。',
-    'btn-more-news':'查看更多消息',
+    'btn-more-news':'查看全部',
     /* Concept */
     'concept-title':'臺灣<em>尚趴</em>',
     'concept-slogan':'臺灣尚趴 · 曼哈頓的臺灣日常',
@@ -197,7 +197,7 @@ const LANG = {
     'art-4-cat':'Feature',
     'art-4-title':"What Is Taiwan Pop? A Campaign to Put Taiwan's Culture on the World Stage",
     'art-4-desc':"From contemporary dance and indigenous chants to street art and film — Taiwan Pop is more than music. It's a full showcase of Taiwan's diverse cultural identity.",
-    'btn-more-news':'More News',
+    'btn-more-news':'View All',
     /* Concept */
     'concept-title':'Taiwan <em>Pops</em>',
     'concept-slogan':'Taiwan Pops · Taiwanese Daily Life in Manhattan',

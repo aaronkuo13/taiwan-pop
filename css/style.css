@@ -50,8 +50,7 @@ body {
   font-size: 16px;
   line-height: 1.7;
   color: var(--text);
-  background: var(--bg) url('../images/Taiwan Pop_Supporting Graphic 3_星光背景_拆圖版.webp') no-repeat center center fixed;
-  background-size: cover;
+  background: #080808;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }

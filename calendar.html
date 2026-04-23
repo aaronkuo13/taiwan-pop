@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Taiwan Pop — 活動行事曆，掌握 2026 年七大藝文展演日期">
-  <title>活動行事曆 — Taiwan Pop</title>
+  <title>活動行事曆 — Taiwan Pop 2026</title>
+  <link rel="stylesheet" href="css/tp-shared.css">
   <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
@@ -18,69 +19,386 @@
     gtag('js', new Date());
     gtag('config', 'G-K6V2LJ748H');
   </script>
+
+  <style>
+.cal-wrap {
+  padding-top:6rem;
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:0;
+  min-height:100svh;
+}
+
+/* LEFT: CALENDAR */
+.cal-main {
+  padding:3rem 2.5rem 5rem;
+  border-right:1px solid var(--border);
+}
+.cal-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:2.5rem;
+}
+.cal-month-nav { display:flex; align-items:center; gap:1.5rem; }
+.cal-nav-btn {
+  width:36px; height:36px;
+  border:1px solid rgba(255,255,255,0.12); background:transparent;
+  color:rgba(255,255,255,0.5); font-family:var(--font-m);
+  font-size:0.9rem; cursor:pointer; transition:all 0.2s;
+  display:flex; align-items:center; justify-content:center;
+}
+.cal-nav-btn:hover { border-color:var(--white); color:var(--white); }
+.cal-month-title {
+  font-family:var(--font-d); font-size:3rem; letter-spacing:0.04em; line-height:1;
+  text-shadow:3px 3px 0 rgba(0,255,87,0.2);
+}
+.cal-month-sub { font-family:var(--font-m); font-size:0.6rem; letter-spacing:0.18em; color:rgba(255,255,255,0.3); margin-top:0.2rem; }
+
+/* GRID */
+.cal-grid {
+  display:grid; grid-template-columns:repeat(7,1fr);
+  gap:1px; background:var(--border);
+}
+.cal-dow {
+  background:var(--black);
+  padding:0.6rem 0.5rem;
+  font-family:var(--font-m); font-size:0.55rem;
+  letter-spacing:0.18em; color:rgba(255,255,255,0.25);
+  text-align:center;
+}
+.cal-day {
+  background:#0c0c0c; padding:0.7rem 0.5rem;
+  min-height:90px;
+  cursor:default; transition:background 0.15s;
+  position:relative;
+}
+.cal-day.has-event { cursor:pointer; }
+.cal-day.has-event:hover { background:#141414; }
+.cal-day.empty { background:#080808; cursor:default; }
+.cal-day.today .cal-day-num {
+  background:var(--green); color:var(--black);
+  width:24px; height:24px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+.cal-day-num {
+  font-family:var(--font-m); font-size:0.65rem;
+  letter-spacing:0.06em; color:rgba(255,255,255,0.4);
+  display:inline-flex; align-items:center; justify-content:center;
+  width:24px; height:24px;
+}
+.cal-day-events { margin-top:0.4rem; display:flex; flex-direction:column; gap:2px; overflow:hidden; }
+.cal-ev-dot {
+  font-size:0.62rem; line-height:1.3;
+  padding:0.15rem 0.4rem;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  width:100%; box-sizing:border-box; min-width:0;
+}
+.cal-ev-sound  { background:rgba(255,45,107,0.25); color:var(--pink); }
+.cal-ev-image  { background:rgba(59,127,255,0.25);  color:var(--blue); }
+.cal-ev-street { background:rgba(0,255,87,0.18);    color:var(--green); }
+
+/* LEGEND */
+.cal-legend { display:flex; gap:1.5rem; align-items:center; }
+.legend-item { display:flex; align-items:center; gap:0.4rem; font-family:var(--font-m); font-size:0.58rem; letter-spacing:0.14em; color:rgba(255,255,255,0.35); }
+.legend-dot { width:8px; height:8px; flex-shrink:0; }
+.legend-sound  { background:var(--pink); }
+.legend-image  { background:var(--blue); }
+.legend-street { background:var(--green); }
+
+/* RIGHT: UPCOMING */
+.cal-sidebar {
+  padding:3rem 2rem 5rem;
+  background:#0a0a0a;
+}
+.cal-sidebar-title {
+  font-family:var(--font-d); font-size:2rem;
+  letter-spacing:0.04em; line-height:1;
+  text-shadow:2px 2px 0 rgba(255,45,107,0.2);
+  margin-bottom:1.5rem;
+}
+.upcoming-list { display:flex; flex-direction:column; gap:0; }
+.upcoming-item {
+  padding:1.3rem 0;
+  border-bottom:1px solid var(--border);
+  text-decoration:none; color:var(--white);
+  display:flex; flex-direction:column; gap:0.4rem;
+  transition:padding-left 0.15s;
+}
+.upcoming-item:first-child { border-top:1px solid var(--border); }
+.upcoming-item:hover { padding-left:0.5rem; }
+.upcoming-date-row { display:flex; align-items:center; gap:0.6rem; }
+.upcoming-date { font-family:var(--font-m); font-size:0.62rem; letter-spacing:0.12em; color:rgba(255,255,255,0.3); }
+.upcoming-countdown { font-family:var(--font-m); font-size:0.52rem; letter-spacing:0.14em; color:var(--green); }
+.upcoming-title { font-family:var(--font-d); font-size:1.3rem; letter-spacing:0.03em; line-height:1.1; }
+.upcoming-location { font-size:0.75rem; color:rgba(255,255,255,0.35); }
+
+/* MODAL */
+.cal-modal {
+  display:none; position:fixed; inset:0; z-index:2000;
+  background:rgba(0,0,0,0.8); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center;
+}
+.cal-modal.open { display:flex; }
+.modal-box {
+  background:#111; border:1px solid rgba(255,255,255,0.1);
+  max-width:480px; width:90%; padding:2.5rem;
+  position:relative;
+}
+.modal-close {
+  position:absolute; top:1rem; right:1rem;
+  font-family:var(--font-m); font-size:0.65rem; letter-spacing:0.12em;
+  color:rgba(255,255,255,0.35); background:transparent; border:none;
+  cursor:pointer; transition:color 0.2s;
+}
+.modal-close:hover { color:var(--white); }
+.modal-cat { margin-bottom:0.8rem; }
+.modal-title { font-family:var(--font-d); font-size:2.5rem; letter-spacing:0.03em; line-height:1.05; }
+.modal-meta { margin-top:1rem; display:flex; flex-direction:column; gap:0.4rem; }
+.modal-meta-row { font-family:var(--font-m); font-size:0.62rem; letter-spacing:0.1em; color:rgba(255,255,255,0.45); display:flex; gap:0.8rem; }
+.modal-meta-key { color:rgba(255,255,255,0.25); min-width:3rem; }
+.modal-actions { margin-top:1.5rem; display:flex; gap:0.8rem; }
+.modal-actions .btn { border-radius:0; }
+
+@media (max-width:900px) {
+  .cal-wrap { grid-template-columns:1fr; }
+  .cal-sidebar { border-top:1px solid var(--border); }
+}
+
+/* ── Override style.css calendar conflicts ── */
+.cal-day { aspect-ratio:unset !important; align-items:stretch !important; justify-content:flex-start !important; border-radius:0 !important; font-size:inherit !important; overflow:hidden !important; }
+.cal-day.has-event { background:#0c0c0c !important; }
+.cal-day.has-event:hover { background:#141414 !important; }
+.cal-day.today { background:#0c0c0c !important; color:inherit !important; font-weight:inherit !important; }
+.upcoming-list { display:flex !important; flex-direction:column !important; grid-template-columns:unset !important; gap:0 !important; }
+.upcoming-item { background:transparent !important; border:none !important; border-radius:0 !important; border-bottom:1px solid var(--border) !important; transform:none !important; }
+.upcoming-item:first-child { border-top:1px solid var(--border) !important; }
+  </style>
 </head>
 <body>
 
-  <!-- ======= NAVIGATION (injected by components.js) ======= -->
   <nav id="navbar"></nav>
 
-  <!-- ======= CALENDAR ======= -->
-  <section id="calendar" class="section" style="padding-top: 120px;">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">SCHEDULE</span>
-        <h2 class="section-title" data-i18n="sec-cal-title">活動行事曆</h2>
-        <p class="section-sub" data-i18n="sec-cal-sub">掌握所有活動日期，提前規劃您的參與計畫</p>
-      </div>
-      <div class="calendar-layout">
-        <!-- 近期活動（上方） -->
-        <div class="upcoming-box">
-          <div class="upcoming-box-header">
-            <h3 data-i18n="cal-upcoming-h">近期活動</h3>
-            <div class="upcoming-box-divider"></div>
-            <span class="section-tag" style="margin:0">UPCOMING</span>
-          </div>
-          <ul class="upcoming-list" id="upcomingList"></ul>
-        </div>
-
-        <!-- 行事曆（下方） -->
-        <div class="calendar-box">
-          <div class="cal-nav">
-            <button id="prevMonth" aria-label="上個月">&#8249;</button>
-            <h3 id="calTitle"></h3>
-            <button id="nextMonth" aria-label="下個月">&#8250;</button>
-          </div>
-          <div class="cal-weekdays">
-            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
-          </div>
-          <div class="cal-grid" id="calGrid"></div>
-          <div class="cal-legend">
-            <span class="cal-dot"></span><span data-i18n="cal-legend">活動日期</span>
+  <div class="cal-wrap">
+    <div class="cal-main">
+      <div class="cal-header">
+        <div>
+          <span class="t-label" style="display:block;margin-bottom:0.4rem">CALENDAR · 行事曆</span>
+          <div class="cal-month-nav">
+            <button class="cal-nav-btn" onclick="prevMonth()">←</button>
+            <div>
+              <div class="cal-month-title" id="monthTitle"></div>
+              <div class="cal-month-sub" id="monthSub"></div>
+            </div>
+            <button class="cal-nav-btn" onclick="nextMonth()">→</button>
           </div>
         </div>
+        <div class="cal-legend">
+          <div class="legend-item"><div class="legend-dot legend-sound"></div>SOUND</div>
+          <div class="legend-item"><div class="legend-dot legend-image"></div>IMAGE</div>
+          <div class="legend-item"><div class="legend-dot legend-street"></div>STREET</div>
+        </div>
+      </div>
+
+      <div class="cal-grid" id="calGrid">
+        <div class="cal-dow">SUN</div>
+        <div class="cal-dow">MON</div>
+        <div class="cal-dow">TUE</div>
+        <div class="cal-dow">WED</div>
+        <div class="cal-dow">THU</div>
+        <div class="cal-dow">FRI</div>
+        <div class="cal-dow">SAT</div>
       </div>
     </div>
-  </section>
 
-  <!-- ======= FOOTER (injected by components.js) ======= -->
-  <footer id="contact"></footer>
-
-  <!-- ======= CALENDAR DAY POPUP ======= -->
-  <div class="cal-day-popup" id="calDayPopup">
-    <div class="cal-day-popup-header">
-      <span class="cal-day-popup-date" id="calDayPopupDate"></span>
-      <button class="cal-day-popup-close" id="calDayPopupClose" aria-label="關閉">&#x2715;</button>
+    <div class="cal-sidebar">
+      <span class="t-label" style="display:block;margin-bottom:0.5rem">UPCOMING · 即將登場</span>
+      <div class="cal-sidebar-title">近期活動</div>
+      <div class="upcoming-list" id="upcomingList"></div>
     </div>
-    <ul class="cal-day-popup-list" id="calDayPopupList"></ul>
   </div>
+
+  <div class="cal-modal" id="calModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕ 關閉</button>
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <footer id="contact"></footer>
 
   <script src="js/lang.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
   <script src="js/navbar.js"></script>
-  <script src="js/events.js"></script>
   <script src="js/reveal.js"></script>
-  <script src="js/calendar.js"></script>
   <script src="js/lang-init.js"></script>
+
+  <script>
+const MONTHS_EN = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+const MONTHS_ZH = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+let curYear = 2026, curMonth = 4; // May 2026 (0-indexed)
+
+function buildDayMap() {
+  const map = {};
+  EVENTS.forEach(ev => {
+    if (!ev.date || ev.date === 'TBA') return;
+    const end = ev.endDate || ev.date;
+    let d = new Date(ev.date + 'T00:00:00');
+    const last = new Date(end + 'T00:00:00');
+    while (d <= last) {
+      const key = d.toISOString().slice(0, 10);
+      if (!map[key]) map[key] = [];
+      map[key].push(ev);
+      d.setDate(d.getDate() + 1);
+    }
+  });
+  return map;
+}
+
+function getLang() {
+  return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
+}
+
+function evTitle(ev) {
+  const lang = getLang();
+  return (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+}
+
+function evLocation(ev) {
+  const lang = getLang();
+  return (lang === 'en' && ev.location_full) ? ev.location_full : ev.location;
+}
+
+function renderCalendar() {
+  document.getElementById('monthTitle').textContent = MONTHS_EN[curMonth] + ' ' + curYear;
+  document.getElementById('monthSub').textContent   = curYear + '年' + MONTHS_ZH[curMonth];
+
+  const grid = document.getElementById('calGrid');
+  grid.querySelectorAll('.cal-day').forEach(el => el.remove());
+
+  const dayMap      = buildDayMap();
+  const firstDay    = new Date(curYear, curMonth, 1).getDay();
+  const daysInMonth = new Date(curYear, curMonth + 1, 0).getDate();
+  const today       = new Date();
+
+  for (let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${curYear}-${String(curMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const cell = document.createElement('div');
+    cell.className = 'cal-day';
+
+    if (today.getFullYear()===curYear && today.getMonth()===curMonth && today.getDate()===d)
+      cell.classList.add('today');
+
+    const num = document.createElement('div');
+    num.className = 'cal-day-num';
+    num.textContent = d;
+    cell.appendChild(num);
+
+    const dayEvs = dayMap[dateStr];
+    if (dayEvs && dayEvs.length) {
+      cell.classList.add('has-event');
+      const wrap = document.createElement('div');
+      wrap.className = 'cal-day-events';
+      const MAX = 2;
+      dayEvs.slice(0, MAX).forEach(ev => {
+        const chip = document.createElement('div');
+        chip.className = `cal-ev-dot cal-ev-${ev.category}`;
+        chip.textContent = evTitle(ev);
+        wrap.appendChild(chip);
+      });
+      if (dayEvs.length > MAX) {
+        const more = document.createElement('div');
+        more.className = 'cal-ev-dot';
+        more.style.cssText = 'color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06)';
+        more.textContent = `+${dayEvs.length - MAX}`;
+        wrap.appendChild(more);
+      }
+      cell.appendChild(wrap);
+      cell.addEventListener('click', () => openModal(dayEvs, dateStr));
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+function openModal(evList, dateStr) {
+  const lang = getLang();
+  const ev   = evList[0];
+  document.getElementById('modalCat').innerHTML =
+    `<span class="cat cat-${ev.category}">${ev.category.toUpperCase()}</span>`;
+  document.getElementById('modalTitle').textContent = evTitle(ev);
+  document.getElementById('modalMeta').innerHTML = `
+    <div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'DATE':'日期'}</span>${dateStr.replace(/-/g,'.')}</div>
+    <div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'VENUE':'場地'}</span>${evLocation(ev)}</div>
+    ${ev.time ? `<div class="modal-meta-row"><span class="modal-meta-key">TIME</span>${ev.time}</div>` : ''}
+  `;
+  document.getElementById('modalActions').innerHTML = `
+    <a href="event.html?num=${ev.num}" class="btn btn-green" style="font-size:0.65rem;padding:0.7rem 1.4rem">${lang==='en'?'View Details':'查看詳情'}</a>
+    <button class="btn btn-ghost" onclick="closeModal()" style="font-size:0.65rem;padding:0.7rem 1.4rem">${lang==='en'?'Close':'關閉'}</button>
+  `;
+  document.getElementById('calModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('calModal').classList.remove('open');
+}
+
+function prevMonth() {
+  curMonth--; if (curMonth < 0) { curMonth = 11; curYear--; }
+  renderCalendar();
+}
+
+function nextMonth() {
+  curMonth++; if (curMonth > 11) { curMonth = 0; curYear++; }
+  renderCalendar();
+}
+
+function renderUpcoming() {
+  const lang = getLang();
+  const now  = new Date(); now.setHours(0,0,0,0);
+  const future = EVENTS
+    .filter(ev => ev.date && ev.date !== 'TBA' && new Date(ev.date+'T00:00:00') >= now)
+    .sort((a,b) => a.date.localeCompare(b.date));
+
+  const list = document.getElementById('upcomingList');
+  if (!future.length) {
+    list.innerHTML = `<div style="font-family:var(--font-m);font-size:0.6rem;letter-spacing:0.16em;color:rgba(255,255,255,0.2);padding:2rem 0">暫無即將舉行的活動</div>`;
+    return;
+  }
+  list.innerHTML = future.map(ev => {
+    const d    = new Date(ev.date+'T00:00:00');
+    const diff = Math.ceil((d - now) / (1000*60*60*24));
+    const ds   = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+    const countdown = diff === 0 ? 'TODAY' : diff + ' DAYS';
+    return `<a href="event.html?num=${ev.num}" class="upcoming-item">
+      <div class="upcoming-date-row">
+        <span class="upcoming-date">${ds}</span>
+        <span class="upcoming-countdown">${countdown}</span>
+      </div>
+      <div class="upcoming-title">${evTitle(ev)}</div>
+      <div class="upcoming-location">${evLocation(ev)}</div>
+    </a>`;
+  }).join('');
+}
+
+document.getElementById('calModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+window.reRenderCalendar = function() { renderCalendar(); renderUpcoming(); };
+
+renderCalendar();
+renderUpcoming();
+  </script>
+
 </body>
 </html>

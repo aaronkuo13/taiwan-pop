@@ -132,12 +132,12 @@ const EVENTS = [
     num:'07', icon:'🎵',
     img:'images/展演活動_taiwanese wave.png',
     date:'2026-08-16',
-    time:'17:00 – 21:30',
-    title:'Taiwanese Waves 2026 紐約中央公園夏日音樂祭',
+    time:'5:00 p.m. - 9:30 p.m. (EST)',
+    title:'2026 紐約夏日舞台音樂節 臺灣之夜',
     title_en:'Taiwanese Waves 2026 @ SummerStage',
     subtitle:'9m88 · YELLOW · ØZI · Chance Emerson · Mong Tong',
     subtitle_en:'9m88 · YELLOW · ØZI · Chance Emerson · Mong Tong',
-    location:'紐約中央公園 Rumsey Playfield',
+    location:'Rumsey Playfield, Central Park',
     location_full:'Rumsey Playfield, Central Park, New York City (SummerStage)',
     desc:'自 2016 年起舉辦的 Taiwanese Waves，是亞洲首個獲官方邀請登上紐約 Central Park SummerStage 的音樂計畫，也是每年夏天紐約客必訪的戶外演唱會之一。以三至四組風格與語言各異的音樂人同台演出為核心，持續把橫跨台語、原住民族語、華語等多元聲音帶上國際舞台，至今場場滿座，吸引來自紐約與外州的樂迷共襄盛舉。',
     desc_en:'Launched in 2016, Taiwanese Waves is the first music program from Asia to receive an official invitation to perform at New York\'s Central Park SummerStage, and has since become one of the city\'s must‑see free outdoor concerts each summer. Curated around three to four artists or groups each year, the program showcases Taiwan\'s rich musical diversity across languages and genres, drawing packed audiences from New York and beyond.',
@@ -250,8 +250,8 @@ const EVENTS = [
     num:'01', icon:'🎭',
     img:'images/展演活動_臺美藝文大師系列講座.png',
     date:'2026-05-01',
-    time:'18:30–20:00',
-    title:'臺美藝文大師系列講座',
+    time:'6:30 p.m.–8:00 p.m. (EST)',
+    title:'跨越邊界與肢體：林懷民與美國舞蹈節總監 Jodee Nimerichter 對談',
     title_en:'Across Borders, Across Bodies: Lin Hwai-min and Jodee Nimerichter in Conversation',
     subtitle:'林懷民 × Jodee Nimerichter · Feel the Wisdom.',
     subtitle_en:'Lin Hwai-min × Jodee Nimerichter · Feel the Wisdom.',
@@ -310,7 +310,7 @@ const EVENTS = [
     location:'林肯電影中心, New York, NY',
     desc:'第 25 屆紐約亞洲影展共有 4 部臺灣電影入選，於林肯電影中心與紐約觀眾相遇，展現臺灣電影的多元視野與創作能量。',
     desc_en:'The 25th New York Asian Film Festival features 4 selected Taiwanese films screening at Lincoln Center, showcasing the diversity and creative energy of contemporary Taiwanese cinema.',
-    category:'image', isPrimary:false, externalUrl:''
+    category:'image', isPrimary:true, externalUrl:''
   },
   {
     num:'12', icon:'🖥️',
@@ -322,7 +322,7 @@ const EVENTS = [
     location:'Leslie-Lohman Museum, New York, NY',
     desc:'台灣錄像藝術先驅鄭淑麗在 Leslie-Lohman 美術館展出互動電影裝置新作，以其標誌性的身體政治與性別議題，挑戰觀者的感官認知邊界。',
     desc_en:'Taiwanese video art pioneer Shu Lea Cheang presents a new interactive film installation at Leslie-Lohman Museum, challenging perceptions through her signature exploration of body politics and gender.',
-    category:'image', isPrimary:false, externalUrl:''
+    category:'image', isPrimary:true, externalUrl:''
   },
 
   /* ── 街頭與生活 · 主要活動 ── */
@@ -332,7 +332,7 @@ const EVENTS = [
     date:'2026-05-28', endDate:'2026-05-30',
     time:'主活動 10:00–18:00',
     title:'2026 紐約布希維克街頭藝術計畫',
-    title_en:'2026 Bushwick Collective Block Party, Brooklyn, New York',
+    title_en:'Taiwanese Artists @ 2026 Bushwick Collective Block Party',
     subtitle:'五位臺灣壁畫藝術家 · Feel the Wall.',
     subtitle_en:'Five Taiwanese Mural Artists · Feel the Wall.',
     location:'Bushwick, Brooklyn, New York',

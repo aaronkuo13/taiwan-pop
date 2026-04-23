@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Taiwan Pop 最新消息 — 掌握 Taiwan Pop 計畫最新動態">
-  <title>最新消息 — Taiwan Pop</title>
+  <title>最新消息 — Taiwan Pop 2026</title>
+  <link rel="stylesheet" href="css/tp-shared.css">
   <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
@@ -20,123 +21,132 @@
   </script>
 
   <style>
-    .news-hero {
-      padding: calc(var(--nav-h) + 60px) 0 48px;
-      text-align: center;
-    }
-    .news-hero .section-tag { margin-bottom: 16px; }
-    .news-hero h1 {
-      font-family: var(--font-sans);
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-    .news-hero p {
-      color: var(--text-muted);
-      font-size: 16px;
-    }
+  /* ── HERO ── */
+  .page-hero-news {
+    padding-top: 8rem; padding-bottom: 3rem;
+    padding-left: 2.5rem; padding-right: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .news-page-title {
+    font-family: var(--font-d);
+    font-size: clamp(4rem, 10vw, 10rem);
+    line-height: 0.9; letter-spacing: 0.025em;
+    text-shadow: 4px 4px 0 rgba(255,45,107,0.25);
+  }
+  .news-page-sub {
+    font-size: 0.9rem; color: rgba(255,255,255,0.4); margin-top: 0.8rem;
+  }
 
-    .news-filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-    .filter-btn {
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 7px 18px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .filter-btn:hover,
-    .filter-btn.active {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: rgba(0, 255, 0, 0.08);
-    }
+  /* ── FILTER ── */
+  .news-filter {
+    padding: 1.5rem 2.5rem;
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .filter-btn {
+    font-family: var(--font-m); font-size: 0.6rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.45rem 1rem; border-radius: 0;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent; color: rgba(255,255,255,0.4);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+  .filter-btn.active { background: var(--white); color: var(--black); border-color: var(--white); }
 
-    #news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 28px;
-      margin-bottom: 48px;
-    }
+  /* ── NEWS GRID ── */
+  .news-main { padding: 3rem 2.5rem 5rem; }
+  .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+  .news-grid-card {
+    background: #0c0c0c; padding: 2rem;
+    display: flex; flex-direction: column;
+    text-decoration: none; color: var(--white);
+    transition: background 0.2s;
+  }
+  .news-grid-card:hover { background: #141414; }
+  .news-grid-cover {
+    aspect-ratio: 16/9; background: #1a1a1a;
+    margin: -2rem -2rem 1.5rem;
+    overflow: hidden; position: relative;
+  }
+  .news-grid-cover img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .news-grid-cover-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .news-grid-cover-placeholder span {
+    font-family: var(--font-d); font-size: 5rem; opacity: 0.06;
+  }
+  .news-grid-meta { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+  .news-grid-cat {
+    font-family: var(--font-m); font-size: 0.52rem;
+    letter-spacing: 0.18em; padding: 0.2rem 0.5rem;
+  }
+  .cat-announce { background: var(--green); color: var(--black); }
+  .cat-preview   { background: var(--pink);  color: var(--white); }
+  .cat-feature   { background: var(--blue);  color: var(--white); }
+  .cat-media     { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+  .news-grid-date { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
+  .news-grid-title { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.03em; line-height: 1.1; }
+  .news-grid-excerpt { font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.4); margin-top: 0.6rem; flex: 1; }
+  .news-grid-link {
+    font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.3); margin-top: 1.2rem;
+    transition: color 0.2s;
+  }
+  .news-grid-card:hover .news-grid-link { color: var(--green); }
 
-    .news-loading,
-    .news-empty {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 60px 0;
-      color: var(--text-muted);
-      font-size: 15px;
-    }
-    .news-loading::after {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--border);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-left: 10px;
-      vertical-align: middle;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+  /* ── STATES ── */
+  .news-loading, .news-empty {
+    grid-column: 1 / -1; text-align: center;
+    padding: 60px 0; color: rgba(255,255,255,0.3);
+    font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.1em;
+    background: #0c0c0c;
+  }
 
-    .load-more-wrap {
-      text-align: center;
-      margin-top: 8px;
-    }
+  /* ── LOAD MORE ── */
+  .load-more-wrap { text-align: center; margin-top: 3rem; }
+  .load-more-wrap .btn { border-radius: 0; }
 
-    @media (max-width: 600px) {
-      #news-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+  @media (max-width: 900px) {
+    .news-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px) {
+    .news-grid { grid-template-columns: 1fr; }
+    .news-main { padding: 2rem 1.5rem 4rem; }
+    .page-hero-news { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .news-filter { padding: 1rem 1.5rem; }
+  }
   </style>
 </head>
 <body>
 
   <nav id="navbar"></nav>
 
-  <div class="news-hero">
-    <div class="container">
-      <span class="section-tag">NEWS</span>
-      <h1 data-i18n="sec-news-title">最新消息</h1>
-      <p data-i18n="sec-news-sub">掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
-    </div>
+  <div class="page-hero-news">
+    <span class="t-label" style="display:block;margin-bottom:0.6rem">NEWS · 最新消息</span>
+    <h1 class="news-page-title">掌握<br>動態</h1>
+    <p class="news-page-sub">Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
   </div>
 
-  <section class="section" style="padding-top:0">
-    <div class="container">
+  <div class="news-filter">
+    <button class="filter-btn active" data-cat="">全部</button>
+    <button class="filter-btn" data-cat="官方公告">官方公告</button>
+    <button class="filter-btn" data-cat="活動預告">活動預告</button>
+    <button class="filter-btn" data-cat="專題報導">專題報導</button>
+    <button class="filter-btn" data-cat="媒體報導">媒體報導</button>
+  </div>
 
-      <div class="news-filters">
-        <button class="filter-btn active" data-cat="">全部</button>
-        <button class="filter-btn" data-cat="官方公告">官方公告</button>
-        <button class="filter-btn" data-cat="活動預告">活動預告</button>
-        <button class="filter-btn" data-cat="專題報導">專題報導</button>
-        <button class="filter-btn" data-cat="媒體報導">媒體報導</button>
-      </div>
-
-      <div id="news-grid">
-        <div class="news-loading">載入中</div>
-      </div>
-
-      <div class="load-more-wrap" id="load-more-wrap" style="display:none">
-        <button class="btn btn-outline" id="load-more-btn">載入更多</button>
-      </div>
-
+  <div class="news-main">
+    <div id="news-grid" class="news-grid">
+      <div class="news-loading">載入中</div>
     </div>
-  </section>
+    <div class="load-more-wrap" id="load-more-wrap" style="display:none">
+      <button class="btn btn-outline" id="load-more-btn">載入更多</button>
+    </div>
+  </div>
 
   <footer id="contact"></footer>
 
@@ -157,11 +167,18 @@
     let shown = 0;
     let currentCat = '';
 
+    const CAT_CLASS = {
+      '官方公告': 'cat-announce',
+      '活動預告': 'cat-preview',
+      '專題報導': 'cat-feature',
+      '媒體報導': 'cat-media',
+    };
+
     function getLang() {
       return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
     }
 
-    function excerpt(html, maxLen = 90) {
+    function excerpt(html, maxLen = 80) {
       const tmp = document.createElement('div');
       tmp.innerHTML = html || '';
       const text = (tmp.textContent || tmp.innerText || '').trim();
@@ -184,22 +201,25 @@
       }
 
       grid.innerHTML = batch.map(a => {
-        const title = (lang === 'en' && a.title_en) ? a.title_en : (a.title || '');
+        const title   = (lang === 'en' && a.title_en)   ? a.title_en   : (a.title || '');
         const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
-        const desc = excerpt(content);
-        const img = a.coverImage || `https://picsum.photos/600/400?random=${a.id.slice(0, 6)}`;
+        const desc    = excerpt(content);
+        const cat     = a.category || '';
+        const catCls  = CAT_CLASS[cat] || 'cat-media';
+        const coverHtml = a.coverImage
+          ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`
+          : `<div class="news-grid-cover-placeholder"><span>${(title || '文')[0]}</span></div>`;
         return `
-          <article class="article-card">
-            <a href="article.html?id=${a.id}" class="article-img-wrap">
-              <img src="${img}" alt="${title}" loading="lazy">
-              <span class="article-cat">${a.category || ''}</span>
-            </a>
-            <div class="article-body">
-              <span class="article-date">${formatDate(a.date)}</span>
-              <h3><a href="article.html?id=${a.id}">${title}</a></h3>
-              <p>${desc}</p>
+          <a href="article.html?id=${a.id}" class="news-grid-card">
+            <div class="news-grid-cover">${coverHtml}</div>
+            <div class="news-grid-meta">
+              <span class="news-grid-cat ${catCls}">${cat}</span>
+              <span class="news-grid-date">${formatDate(a.date)}</span>
             </div>
-          </article>`;
+            <div class="news-grid-title">${title}</div>
+            <p class="news-grid-excerpt">${desc}</p>
+            <span class="news-grid-link">${lang === 'en' ? 'Read More →' : '閱讀全文 →'}</span>
+          </a>`;
       }).join('');
 
       const wrap = document.getElementById('load-more-wrap');
@@ -228,7 +248,6 @@
       }
     }
 
-    // Filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -237,13 +256,11 @@
       });
     });
 
-    // Load more
     document.getElementById('load-more-btn').addEventListener('click', () => {
       shown += PAGE_SIZE;
       renderCards();
     });
 
-    // Re-render on lang change
     window.reRenderNews = renderCards;
 
     loadArticles();
