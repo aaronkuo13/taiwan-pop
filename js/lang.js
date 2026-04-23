@@ -176,6 +176,20 @@ const LANG = {
     'cp-theme-image-desc':'臺灣故事在銀幕上說。透過電影、視覺藝術與文學，傳遞台灣的當代視角。',
     'cp-theme-street-desc':'臺灣氣味融入曼哈頓。從街頭藝術到同志大遊行，台灣的活力在城市中發聲。',
     'cp-35-title':'Taipei Cultural Center in NY<br>35 週年',
+    /* Concept — strategy card titles */
+    'cp-strat-1-title':'融入生活日常',
+    'cp-strat-2-title':'當代與傳統對話',
+    'cp-strat-3-title':'平等的文化交流',
+    /* Concept — theme event list items */
+    'cp-ev-sound-1':'林懷民 × 美國舞蹈節 對談',
+    'cp-ev-sound-2':'NSO《來自臺灣》',
+    'cp-ev-sound-3':'翃舞製作《羽人》',
+    'cp-ev-sound-4':'臺灣之夜 @ SummerStage',
+    'cp-ev-sound-5':'嚴俊傑鋼琴講座・砲臺舞蹈節・偶戲藝穗節',
+    'cp-ev-image-1':'世界之間：臺灣電影',
+    'cp-ev-image-2':'紐約亞洲影展・鄭淑麗個展',
+    'cp-ev-street-1':'布希維克街頭藝術計畫',
+    'cp-ev-street-2':'紐約同志大遊行',
     /* Index showcase stats */
     'stat-1-desc':'橫跨聲音、影像、街頭三大主題，七個精彩展演在紐約登場',
     'stat-2-desc':'身體與聲音・影像與敘事・街頭與生活',
@@ -361,6 +375,20 @@ const LANG = {
     'cp-theme-image-desc':'Taiwanese stories told on screen. Through film, visual art, and literature, conveying Taiwan\'s contemporary perspective.',
     'cp-theme-street-desc':'Taiwanese spirit woven into Manhattan. From street art to the Pride March, Taiwan\'s vitality speaks in the city.',
     'cp-35-title':'Taipei Cultural Center in NY<br>35th Anniversary',
+    /* Concept — strategy card titles */
+    'cp-strat-1-title':'Embedded in Daily Life',
+    'cp-strat-2-title':'Contemporary Meets Traditional',
+    'cp-strat-3-title':'Equal Cultural Exchange',
+    /* Concept — theme event list items */
+    'cp-ev-sound-1':'Lin Hwai-min × ADF in Conversation',
+    'cp-ev-sound-2':'From Formosa: NSO US Tour',
+    'cp-ev-sound-3':'HUNG DANCE — BIRDY',
+    'cp-ev-sound-4':'Taiwanese Waves @ SummerStage',
+    'cp-ev-sound-5':'Chun-Chieh Yen Piano Talk · Fortress Dance · Puppet Fringe',
+    'cp-ev-image-1':'Between Worlds: Taiwanese Cinema',
+    'cp-ev-image-2':'NYAFF · Shu Lea Cheang Exhibition',
+    'cp-ev-street-1':'Bushwick Collective Block Party',
+    'cp-ev-street-2':'NYC Pride March',
     /* Index showcase stats */
     'stat-1-desc':'Seven flagship events across sound, image, and street — bringing Taiwan to New York',
     'stat-2-desc':'Body & Sound · Image & Narrative · Street & Life',
