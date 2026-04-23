@@ -105,11 +105,12 @@ img { display:block; max-width:100%; }
 .tp-nav-links a.active { color:var(--green); }
 
 /* ── LANG TOGGLE ── */
-/* Override style.css legacy pill styles */
+/* Override style.css legacy pill styles; push to far right */
 .tp-nav .lang-toggle {
   background: transparent !important;
   border-radius: 0 !important;
   padding: 0 !important;
+  margin-left: auto;
 }
 .tp-nav .lang-btn {
   border-radius: 0 !important;
@@ -121,16 +122,8 @@ img { display:block; max-width:100%; }
   color: var(--green) !important;
   text-shadow: 0 0 8px rgba(0,255,87,0.5) !important;
 }
-/* Override style.css .btn padding/size for navbar CTA */
-.tp-nav-cta.btn {
-  border-radius: 0 !important;
-  padding: 0.55rem 1.3rem !important;
-  font-size: 0.63rem !important;
-  font-family: var(--font-m) !important;
-  letter-spacing: 0.12em !important;
-  line-height: 1 !important;
-  gap: 0 !important;
-}
+/* Global: all buttons are square — override style.css border-radius:50px */
+.btn { border-radius: 0 !important; }
 
 .lang-toggle {
   display: flex; align-items: center; gap: 0.4rem;

@@ -40,15 +40,14 @@
         <li><a href="${href.events}"   class="${'nav-link' + activeClass('events')}"   data-i18n="nav-events">展演活動</a></li>
         <li><a href="${href.calendar}" class="${'nav-link' + activeClass('calendar')}" data-i18n="nav-calendar">行事曆</a></li>
       </ul>
+      <button class="tp-nav-toggle" id="navToggle" aria-label="開啟選單">
+        <span></span><span></span><span></span>
+      </button>
       <div class="lang-toggle">
         <button class="lang-btn" data-lang="zh">中</button>
         <span class="lang-sep">|</span>
         <button class="lang-btn" data-lang="en">EN</button>
-      </div>
-      <a href="${href.events}" class="tp-nav-cta btn" data-i18n="btn-explore">探索活動</a>
-      <button class="tp-nav-toggle" id="navToggle" aria-label="開啟選單">
-        <span></span><span></span><span></span>
-      </button>`;
+      </div>`;
 
     /* Mobile overlay — injected after <nav>, before first child of body */
     const mobile = document.createElement('div');
