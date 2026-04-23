@@ -127,24 +127,24 @@
 
   <div class="page-hero-news">
     <span class="t-label" style="display:block;margin-bottom:0.6rem">NEWS · 最新消息</span>
-    <h1 class="news-page-title">掌握<br>動態</h1>
-    <p class="news-page-sub">Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
+    <h1 class="news-page-title" data-i18n-html="news-page-title">掌握<br>動態</h1>
+    <p class="news-page-sub" data-i18n="news-page-sub">Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話</p>
   </div>
 
   <div class="news-filter">
-    <button class="filter-btn active" data-cat="">全部</button>
-    <button class="filter-btn" data-cat="官方公告">官方公告</button>
-    <button class="filter-btn" data-cat="活動預告">活動預告</button>
-    <button class="filter-btn" data-cat="專題報導">專題報導</button>
-    <button class="filter-btn" data-cat="媒體報導">媒體報導</button>
+    <button class="filter-btn active" data-cat="" data-i18n="news-cat-all">全部</button>
+    <button class="filter-btn" data-cat="官方公告" data-i18n="news-cat-announce">官方公告</button>
+    <button class="filter-btn" data-cat="活動預告" data-i18n="news-cat-preview">活動預告</button>
+    <button class="filter-btn" data-cat="專題報導" data-i18n="news-cat-feature">專題報導</button>
+    <button class="filter-btn" data-cat="媒體報導" data-i18n="news-cat-media">媒體報導</button>
   </div>
 
   <div class="news-main">
     <div id="news-grid" class="news-grid">
-      <div class="news-loading">載入中</div>
+      <div class="news-loading" data-i18n="news-loading">載入中</div>
     </div>
     <div class="load-more-wrap" id="load-more-wrap" style="display:none">
-      <button class="btn btn-outline" id="load-more-btn">載入更多</button>
+      <button class="btn btn-outline" id="load-more-btn" data-i18n="news-load-more">載入更多</button>
     </div>
   </div>
 
@@ -173,6 +173,12 @@
       '專題報導': 'cat-feature',
       '媒體報導': 'cat-media',
     };
+    const CAT_LABEL_EN = {
+      '官方公告': 'Announcement',
+      '活動預告': 'Preview',
+      '專題報導': 'Feature',
+      '媒體報導': 'Media',
+    };
 
     function getLang() {
       return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
@@ -195,7 +201,8 @@
       const batch = filtered.slice(0, shown);
 
       if (batch.length === 0) {
-        grid.innerHTML = '<div class="news-empty">暫無文章</div>';
+        const emptyTxt = lang === 'en' ? 'No articles found' : '暫無文章';
+        grid.innerHTML = `<div class="news-empty">${emptyTxt}</div>`;
         document.getElementById('load-more-wrap').style.display = 'none';
         return;
       }
@@ -206,6 +213,7 @@
         const desc    = excerpt(content);
         const cat     = a.category || '';
         const catCls  = CAT_CLASS[cat] || 'cat-media';
+        const catLabel = lang === 'en' ? (CAT_LABEL_EN[cat] || cat) : cat;
         const coverHtml = a.coverImage
           ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`
           : `<div class="news-grid-cover-placeholder"><span>${(title || '文')[0]}</span></div>`;
@@ -213,7 +221,7 @@
           <a href="article.html?id=${a.id}" class="news-grid-card">
             <div class="news-grid-cover">${coverHtml}</div>
             <div class="news-grid-meta">
-              <span class="news-grid-cat ${catCls}">${cat}</span>
+              <span class="news-grid-cat ${catCls}">${catLabel}</span>
               <span class="news-grid-date">${formatDate(a.date)}</span>
             </div>
             <div class="news-grid-title">${title}</div>
