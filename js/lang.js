@@ -195,6 +195,7 @@ const LANG = {
     'stat-2-desc':'身體與聲音・影像與敘事・街頭與生活',
     'stat-3-desc':'Feel the Pop · 臺灣尚趴 — 2026 夏天，曼哈頓感受台灣創造力',
     'tc-link':'看活動 <span class="arr">→</span>',
+    'bc-ev-org':'台灣文化部 × Taipei Cultural Center in NY',
     'bc-ev-city':'2026 夏天・曼哈頓',
     /* News page */
     'news-page-title':'掌握<br>動態',
@@ -406,6 +407,7 @@ const LANG = {
     'stat-2-desc':'Body & Sound · Image & Narrative · Street & Life',
     'stat-3-desc':'Feel the Pop — Summer 2026, Manhattan feels Taiwan\'s creative energy',
     'tc-link':'View Events <span class="arr">→</span>',
+    'bc-ev-org':'Taiwan Ministry of Culture × Taipei Cultural Center in NY',
     'bc-ev-city':'Summer 2026 · Manhattan',
     /* News page */
     'news-page-title':'Latest<br>News',
