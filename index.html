@@ -136,6 +136,14 @@
     letter-spacing: 0.22em; color: rgba(255,255,255,0.4); z-index: 2;
   }
   .showcase-hero-label.right { left: auto; right: 2rem; }
+  .showcase-star-bg {
+    position: absolute;
+    inset: 1.2rem;
+    background: url('images/Taiwan%20Pop_Supporting%20Graphic%203_%E6%98%9F%E5%85%89%E8%83%8C%E6%99%AF_%E6%8B%86%E5%9C%96%E7%89%88.webp') center/cover no-repeat;
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+  }
   .showcase-hero-corner {
     position: absolute; width: 14px; height: 14px;
     border: 1px solid var(--green);
@@ -454,6 +462,7 @@
   <!-- SHOWCASE: Logo Panel + Stats + Caption -->
   <div class="showcase reveal" id="showcase">
     <div class="showcase-hero">
+      <div class="showcase-star-bg"></div>
       <span class="showcase-hero-label">◆ TAIWAN POP · 2026</span>
       <span class="showcase-hero-label right">FEEL THE POP ✦</span>
       <div class="showcase-hero-corner sc-c1"></div>
