@@ -78,7 +78,7 @@ const EVENTS = [
         website: 'https://www.windmusiclabel.com/taiwuballadstroupe'
       }
     ],
-    category:'sound', isPrimary:true, externalUrl:''
+    category:'sound', isPrimary:true, externalUrl:'https://reurl.cc/aX50G4'
   },
   {
     num:'06', icon:'💃',
@@ -126,7 +126,7 @@ const EVENTS = [
       'images/hung dance/127_Hung Dance_羽人BIRDY_credit 劉人豪LIU,Ren-haur.JPEG',
       'images/hung dance/羽人BIRDY_credit 劉人豪LIU,Ren-haur.JPEG'
     ],
-    category:'sound', isPrimary:true, externalUrl:''
+    category:'sound', isPrimary:true, externalUrl:'https://tickets.nyu.edu/overview/huangdancebirdy'
   },
   {
     num:'07', icon:'🎵',
