@@ -78,7 +78,7 @@ const EVENTS = [
         website: 'https://www.windmusiclabel.com/taiwuballadstroupe'
       }
     ],
-    category:'sound', isPrimary:true, externalUrl:'https://reurl.cc/aX50G4'
+    category:'sound', isPrimary:true, externalUrl:'https://tickets.kaufmanmusiccenter.org/6340/6341'
   },
   {
     num:'06', icon:'💃',
