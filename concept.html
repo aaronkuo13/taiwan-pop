@@ -213,6 +213,29 @@
     font-family: var(--font-d); font-size: 1.1rem; letter-spacing: 0.08em;
     color: rgba(255,255,255,0.25); text-align: center;
   }
+
+  /* ── RWD ── */
+  @media (max-width: 960px) {
+    .cp-hero { padding-left: 1.2rem; padding-right: 1.2rem; padding-bottom: 3.5rem; }
+    .manifesto { grid-template-columns: 1fr; }
+    .manifesto-left { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.2rem; }
+    .manifesto-right { padding: 3rem 1.2rem; }
+    .three-concept { padding: 3.5rem 1.2rem; }
+    .three-concept-grid { grid-template-columns: 1fr; }
+    .cp-themes { padding: 3.5rem 1.2rem; }
+    .cp-themes-grid { grid-template-columns: 1fr; gap: 1px; }
+    .nytcc { padding: 3.5rem 1.2rem; }
+    .nytcc-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .partners { padding: 3.5rem 1.2rem; }
+    .partners-grid { grid-template-columns: repeat(2,1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .cp-hero-title { font-size: clamp(3.5rem, 18vw, 7rem); }
+    .manifesto-big { font-size: clamp(1.8rem, 7vw, 3rem); }
+    .nytcc-stats { grid-template-columns: 1fr 1fr; }
+    .partners-grid { grid-template-columns: 1fr 1fr; }
+  }
   </style>
 </head>
 <body>
