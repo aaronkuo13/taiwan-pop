@@ -45,6 +45,7 @@
         <span class="lang-sep">|</span>
         <button class="lang-btn" data-lang="en">EN</button>
       </div>
+      <a href="${href.events}" class="tp-nav-cta btn" data-i18n="btn-explore">探索活動</a>
       <button class="tp-nav-toggle" id="navToggle" aria-label="開啟選單">
         <span></span><span></span><span></span>
       </button>`;
