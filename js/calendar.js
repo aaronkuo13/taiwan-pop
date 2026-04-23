@@ -35,7 +35,7 @@
   const today = new Date();
   let current = new Date(today.getFullYear(), today.getMonth(), 1);
 
-  const firstEvent = EVENTS.map(e => new Date(e.date)).sort((a, b) => a - b)[0];
+  const firstEvent = EVENTS.map(e => new Date(e.date + 'T12:00:00')).sort((a, b) => a - b)[0];
   if (firstEvent && firstEvent > today) {
     current = new Date(firstEvent.getFullYear(), firstEvent.getMonth(), 1);
   }
@@ -173,7 +173,7 @@
     upcoming.innerHTML = '';
 
     const upcomingEvents = EVENTS
-      .map(e => ({ ...e, dateObj: new Date(e.date) }))
+      .map(e => ({ ...e, dateObj: new Date(e.date + 'T12:00:00') }))
       .filter(e => e.dateObj >= today)
       .sort((a, b) => a.dateObj - b.dateObj)
       .slice(0, 6);
