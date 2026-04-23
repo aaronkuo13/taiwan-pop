@@ -251,17 +251,24 @@
 const MONTHS_EN = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
 const MONTHS_ZH = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
 
-let curYear = 2026, curMonth = 4; // May 2026 (0-indexed)
+const _now = new Date();
+let curYear = _now.getFullYear(), curMonth = _now.getMonth();
+
+function localDateKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
 function buildDayMap() {
   const map = {};
   EVENTS.forEach(ev => {
     if (!ev.date || ev.date === 'TBA') return;
     const end = ev.endDate || ev.date;
-    let d = new Date(ev.date + 'T00:00:00');
-    const last = new Date(end + 'T00:00:00');
+    const [sy, sm, sd] = ev.date.split('-').map(Number);
+    const [ey, em, ed] = end.split('-').map(Number);
+    let d = new Date(sy, sm - 1, sd);
+    const last = new Date(ey, em - 1, ed);
     while (d <= last) {
-      const key = d.toISOString().slice(0, 10);
+      const key = localDateKey(d);
       if (!map[key]) map[key] = [];
       map[key].push(ev);
       d.setDate(d.getDate() + 1);
