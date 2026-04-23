@@ -31,7 +31,7 @@
   if (nav) {
     nav.className = 'tp-nav';
     nav.innerHTML = `
-      <a href="${href.logo}" class="tp-nav-logo" data-text="TAIWANPOP">
+      <a href="${href.logo}" class="tp-nav-logo">
         <img src="images/taiwanpop_green.png" alt="Taiwan Pop" style="height:32px;width:auto;">
       </a>
       <button class="hamburger" id="hamburger" aria-label="開啟選單">
