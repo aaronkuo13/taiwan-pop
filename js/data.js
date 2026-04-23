@@ -209,43 +209,33 @@ const EVENTS = [
 
   /* ── 身體與聲音 · 其他活動 ── */
   {
-    num:'08', icon:'🥁',
-    date:'2026-08-12', endDate:'2026-08-14',
-    title:'(待更新) 砲臺舞蹈節',
-    title_en:'(TBD) Fort Dance Festival',
-    subtitle:'麥藍堤亞舞團',
-    subtitle_en:'Malandain Ballet Biarritz',
-    location:'哈德遜河岸公園, New York, NY',
-    desc:'麥藍堤亞舞團帶來融合台灣原住民族身體記憶與當代舞蹈語彙的精彩演出，在哈德遜河岸公園戶外場地呈現台灣當代舞蹈的力與美。',
-    desc_en:'A spectacular outdoor performance blending Taiwanese indigenous body memory with contemporary dance vocabulary, presented at the Hudson River Park waterfront stage.',
-    category:'sound', isPrimary:false, externalUrl:''
-  },
-  {
-    num:'09', icon:'🎸',
-    date:'2026-08-01', endDate:'2026-09-30',
-    title:'(待更新) 徐崇育爵士樂團',
-    title_en:'(TBD) Hsu Chung-yu Jazz Ensemble',
-    subtitle:'Clave de Taiwan 美國巡演',
-    subtitle_en:'Clave de Taiwan US Tour',
-    location:'紐約 × 邁阿密',
-    desc:'台灣爵士吉他手徐崇育率領 Clave de Taiwan 樂團，以融合台灣民謠與拉丁爵士的獨特音樂語言，展開紐約至邁阿密的美國巡迴演出。',
-    desc_en:'Taiwanese jazz guitarist Hsu Chung-yu leads Clave de Taiwan on a US tour from New York to Miami, blending Taiwanese folk melodies with Latin jazz in a unique musical voice.',
-    category:'sound', isPrimary:false, externalUrl:''
-  },
-  {
-    num:'10', icon:'🎪',
-    date:'2026-08-12', endDate:'2026-08-16',
-    title:'(待更新) 國際偶戲藝穗節',
-    title_en:'(TBD) International Puppet Arts Fringe Festival',
-    subtitle:'飛人集社《初生》',
-    subtitle_en:'Fei-Performers《Birth》',
-    location:'克萊門特中心, New York, NY',
-    desc:'飛人集社以《初生》登上紐約國際偶戲藝穗節，以精緻偶戲技藝呈現台灣當代表演藝術，探索生命誕生與消逝的詩意敘事。',
-    desc_en:'Fei-Performers brings 《Birth》to the New York International Puppet Arts Fringe, presenting a poetic narrative of life and loss through exquisite Taiwanese puppetry and contemporary performance.',
-    category:'sound', isPrimary:false, externalUrl:''
+    num:'13', icon:'🎹',
+    img:'images/展演活動_從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出.png',
+    date:'2026-05-20',
+    title:'從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出',
+    title_en:'From Inner Hearing to Sound: Listening to Taiwan — An Artist Talk with Pianist Chun‑Chieh Yen',
+    subtitle:'嚴俊傑 × 駐紐約臺北文化中心 · Feel the Keys.',
+    subtitle_en:'Chun‑Chieh Yen × Taipei Cultural Center in New York · Feel the Keys.',
+    location:'駐紐約臺北經濟文化辦事處一樓文化藝廊',
+    location_full:'1 E 42nd Street, New York, NY 10017, USA',
+    desc:'From Inner Hearing to Sound 邀請鋼琴家嚴俊傑，在紐約駐處文化藝廊分享他對「台灣聲音」的思考，並以現場鋼琴示範，帶領觀眾從內在聆聽到實際發聲，感受作品背後的情感與想像。活動由駐紐約臺北經濟文化辦事處、駐紐約臺北文化中心與 New Asia CMS 合作推出，為 NSO 國家交響樂團室內樂美國巡演在紐約的重要延伸節目之一。',
+    desc_en:'"From Inner Hearing to Sound: Listening to Taiwan" features pianist Chun‑Chieh Yen in an intimate artist talk and mini‑recital at TECO‑NY\'s cultural gallery. Through conversation and live performance, Yen invites audiences to explore what "the sound of Taiwan" can mean today, as part of a special program co‑presented with the Taipei Economic and Cultural Office in New York, the Taipei Cultural Center, and New Asia CMS alongside the NSO chamber tour.',
+    long_desc: 'From Inner Hearing to Sound 由新亞洲室內樂協會（New Asia CMS）與駐紐約臺北經濟文化辦事處、駐紐約臺北文化中心共同合作舉辦，邀請活躍於國際舞台的鋼琴家嚴俊傑，於紐約分享他對音樂詮釋與「台灣聲音」的觀察。\n\n嚴俊傑將從自身學習與演出經驗談起，回到樂譜與身體之間的關係，討論「內在聆聽」如何轉化為指尖落鍵的瞬間，並現場演奏多段鋼琴作品，讓觀眾在近距離的互動中，感受音樂在不同文化語境裡所承載的記憶與情感。\n\n本活動亦是 NSO 國家交響樂團室內樂「美洲巡演」在紐約的重要延伸節目之一，透過講座與示範演出，補充正式音樂會之外的思考脈絡，從個人創作與教育實踐出發，回應「台灣的聲音是什麼樣子？」這個提問。現場並安排 Q&A 與茶點時間，提供紐約在地聽眾與藝術家近距離交流的機會。',
+    long_desc_en: '"From Inner Hearing to Sound: Listening to Taiwan — An Artist Talk with Pianist Chun‑Chieh Yen" is a special event co‑presented by New Asia CMS, the Taipei Economic and Cultural Office in New York (TECO‑NY), and the Taipei Cultural Center, held at TECO‑NY\'s cultural gallery. In this program, internationally active pianist Chun‑Chieh Yen reflects on his artistic journey and on what it means to speak of a distinct "sound of Taiwan," moving from score to body and from imagination to sound.\n\nCombining conversation with live performance, Yen will demonstrate how inner listening shapes his approach to touch, phrasing, and color at the keyboard, inviting audiences to experience how music can carry memory, identity, and cultural resonance. Presented in conjunction with the National Symphony Orchestra (NSO) of Taiwan\'s chamber tour in the United States, the event offers New York audiences a more intimate context for engaging with Taiwanese music and musicians, with time for Q&A and informal interaction over light refreshments.',
+    performers: [
+      {
+        instrument: '鋼琴', instrument_en: 'Piano',
+        name: '嚴俊傑', name_en: 'Chun‑Chieh Yen',
+        bio: '嚴俊傑是活躍於國際舞台的台灣鋼琴家與教育者，曾師事柴可夫斯基大賽金牌得主 Vladimir Krainev，長年於歐洲深造與演出，現任國立臺灣師範大學音樂系專任教授。他以細膩的音色與深具故事感的詮釋著稱，演出足跡遍及歐洲、北美與亞洲多國，同時積極開設大師班與講座，關注如何透過教學與舞台實踐為年輕音樂家打造與世界接軌的平台。\n\n嚴俊傑創辦並擔任「國際大師鋼琴藝術節」藝術總監，匯聚海內外名師與樂壇新秀，透過密集大師課與音樂會，建構屬於亞洲的鋼琴教育與交流節點。近年亦多次與 NSO 國家交響樂團合作巡演，並在各類節目、Podcast 與媒體專訪中分享他對音樂、教育與跨文化交流的思考。',
+        bio_en: 'Chun‑Chieh Yen is a Taiwanese pianist and educator whose career spans Europe, North America, and Asia. A former student of Vladimir Krainev, gold medalist of the International Tchaikovsky Competition, Yen is known for his refined sound, narrative approach to interpretation, and commitment to fostering the next generation of musicians. He currently serves as a professor at National Taiwan Normal University and frequently appears in concerts, masterclasses, and lecture‑recitals worldwide.\n\nYen is the founder and artistic director of the International Master Piano Festival, which brings together renowned artists and young talents for intensive masterclasses and performances, creating a key platform for piano education and exchange in Asia. In recent years, he has collaborated extensively with Taiwan\'s National Symphony Orchestra (NSO) on international tours and has shared his insights on music, teaching, and cross‑cultural dialogue through media interviews, podcasts, and public talks.',
+        facebook: 'https://www.facebook.com/PianistChunChiehYEN/',
+        instagram: 'https://www.instagram.com/ycchoping/'
+      }
+    ],
+    category:'sound', isPrimary:true, externalUrl:''
   },
 
-  /* ── 影像與敘事 · 主要活動 ── */
+  /* ── 身體與聲音 · 主要活動（續） ── */
   {
     num:'01', icon:'🎭',
     img:'images/展演活動_臺美藝文大師系列講座.png',
@@ -300,30 +290,6 @@ const EVENTS = [
   },
 
   /* ── 影像與敘事 · 其他活動 ── */
-  {
-    num:'11', icon:'🎞️',
-    date:'2026-06-01', endDate:'2026-07-31',
-    title:'(待更新) 紐約亞洲影展',
-    title_en:'(TBD) New York Asian Film Festival',
-    subtitle:'第25屆・4部臺灣片入選',
-    subtitle_en:'25th Edition · 4 Taiwanese Films Selected',
-    location:'林肯電影中心, New York, NY',
-    desc:'第 25 屆紐約亞洲影展共有 4 部臺灣電影入選，於林肯電影中心與紐約觀眾相遇，展現臺灣電影的多元視野與創作能量。',
-    desc_en:'The 25th New York Asian Film Festival features 4 selected Taiwanese films screening at Lincoln Center, showcasing the diversity and creative energy of contemporary Taiwanese cinema.',
-    category:'image', isPrimary:true, externalUrl:''
-  },
-  {
-    num:'12', icon:'🖥️',
-    date:'2026-04-03', endDate:'2027-04-03',
-    title:'(待更新) 鄭淑麗個展',
-    title_en:'(TBD) Shu Lea Cheang Solo Exhibition',
-    subtitle:'互動電影裝置',
-    subtitle_en:'Interactive Film Installation',
-    location:'Leslie-Lohman Museum, New York, NY',
-    desc:'台灣錄像藝術先驅鄭淑麗在 Leslie-Lohman 美術館展出互動電影裝置新作，以其標誌性的身體政治與性別議題，挑戰觀者的感官認知邊界。',
-    desc_en:'Taiwanese video art pioneer Shu Lea Cheang presents a new interactive film installation at Leslie-Lohman Museum, challenging perceptions through her signature exploration of body politics and gender.',
-    category:'image', isPrimary:true, externalUrl:''
-  },
 
   /* ── 街頭與生活 · 主要活動 ── */
   {

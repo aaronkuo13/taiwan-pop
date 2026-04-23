@@ -150,6 +150,35 @@
     letter-spacing: 0.12em; color: rgba(255,255,255,0.25); margin-top: 0.5rem;
   }
 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .featured-wrap { padding: 1.5rem 1.2rem 0; }
+    .featured-banner-content { left: 1.5rem; right: 1.5rem; }
+    .featured-banner-title { font-size: clamp(1.6rem, 5vw, 2.8rem); }
+    .cat-section-header { padding: 0 1.2rem 1.5rem; }
+    .primary-grid { grid-template-columns: repeat(2, 1fr); }
+    .secondary-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .featured-wrap { padding: 1rem 0 0; }
+    .featured-banner { aspect-ratio: auto; min-height: 260px; }
+    .featured-banner-overlay {
+      background: linear-gradient(180deg, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.9) 100%);
+    }
+    .featured-banner-content {
+      left: 1rem; right: 1rem;
+      top: auto; bottom: 1.5rem;
+      transform: none;
+    }
+    .cat-section { padding: 2.5rem 0; }
+    .cat-section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0 1rem 1.2rem; }
+    .primary-grid { grid-template-columns: 1fr; }
+    .secondary-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .secondary-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── COMING SOON OVERLAY ── */
   .card-coming {
     position: absolute; inset: 0;

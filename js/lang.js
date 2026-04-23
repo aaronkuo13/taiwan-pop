@@ -14,14 +14,14 @@ const LANG = {
     'sec-awe-sub':'跟著 a-We 跑過紐約，跳越展演場館，解鎖台灣文化活動資訊，登上排行榜！',
     'home-awe-cta':'來去跑酷！',
     /* Banner */
-    'banner-sub':'台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 紐約登場',
+    'banner-sub':'台灣文化部 × Taipei Cultural Center in NY合作計畫<br>七大藝文展演，2026 紐約登場',
     'btn-explore':'探索活動','btn-news':'最新消息',
     /* Articles */
     'sec-news-title':'掌握動態',
     'sec-news-sub':'掌握 Taiwan Pop 計畫最新動態，了解台灣與紐約的文化對話',
     'art-1-cat':'官方公告',
     'art-1-title':'Taiwan Pop 計畫正式啟動！台灣文化將在紐約發聲',
-    'art-1-desc':'台灣文化部攜手紐約文化局，共同推出 Taiwan Pop 文化交流計畫，七大藝文展演於 2026 年在紐約各地精彩登場。',
+    'art-1-desc':'台灣文化部攜手Taipei Cultural Center in NY，共同推出 Taiwan Pop 文化交流計畫，七大藝文展演於 2026 年在紐約各地精彩登場。',
     'art-2-cat':'活動預告',
     'art-2-title':'雲門舞集創辦人林懷民將赴紐約展開大師講座',
     'art-2-desc':'臺美藝文大師系列講座首場邀請林懷民現身紐約，暢談台灣當代藝術創作、身體美學與跨文化對話。',
@@ -78,7 +78,7 @@ const LANG = {
     'sec-cal-sub':'掌握所有活動日期，提前規劃您的參與計畫',
     'cal-upcoming-h':'近期活動','cal-legend':'活動日期（點擊查看詳情）','cal-no-events':'暫無近期活動','cal-view-detail':'查看詳情 →',
     /* Footer */
-    'footer-desc':'Taiwan Pop 是台灣文化部與紐約文化局合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
+    'footer-desc':'Taiwan Pop 是台灣文化部與Taipei Cultural Center in NY合作的年度文化交流計畫，透過七大藝文展演讓台灣被世界看見。',
     'footer-links-h':'快速連結','footer-contact-h':'聯絡資訊',
     'footer-news':'最新消息','footer-events':'展演活動','footer-discover':'文化探索',
     'footer-cal':'行事曆','footer-hours':'週一至週五 09:00–18:00 (TST)',
