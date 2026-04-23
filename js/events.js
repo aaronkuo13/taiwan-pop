@@ -130,7 +130,7 @@ function renderFeaturedBanner() {
   el.innerHTML = `
     <div class="featured-wrap">
       <a href="event.html?num=${ev.num}" class="featured-banner">
-        <div class="featured-banner-placeholder" style="background-image:url('images/展演banner/林懷民.png')"></div>
+        <div class="featured-banner-placeholder" style="background-image:url('images/%E5%B1%95%E6%BC%94banner/%E6%9E%97%E6%87%B7%E6%B0%91.png')"></div>
         <div class="featured-banner-overlay"></div>
         <div class="featured-banner-content">
           <div class="featured-banner-cat"><span class="cat cat-${catId}">${catId.toUpperCase()}</span></div>
