@@ -103,39 +103,102 @@ function renderEvents() {
   }).join('');
 }
 
-/* ---------- Featured Banner (upcoming event) ---------- */
-function renderFeaturedBanner() {
+/* ---------- Featured Banner · Ticket Stub ---------- */
+let _eventsJsonCache = null;
+
+async function renderFeaturedBanner() {
   const el = document.getElementById('featured-event');
   if (!el) return;
 
-  const lang  = window.currentLang || 'zh';
-  const today = new Date().toISOString().slice(0, 10);
+  // Load events.json (cached after first fetch)
+  if (!_eventsJsonCache) {
+    try {
+      const res = await fetch('data/events.json');
+      _eventsJsonCache = await res.json();
+    } catch (e) {
+      console.error('Failed to load data/events.json', e);
+      return;
+    }
+  }
 
-  const sorted = EVENTS
-    .filter(e => e.img && (e.endDate || e.date) >= today)
-    .sort((a, b) => a.date.localeCompare(b.date));
+  const lang   = window.currentLang || 'zh';
+  const today  = (function() {
+    const n = new Date(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  })();
+  const events = _eventsJsonCache;
 
-  const ev    = sorted[0] || EVENTS.filter(e => e.img).slice().sort((a,b) => b.date.localeCompare(a.date))[0];
+  // §2 selection logic
+  let ev = events.find(e => e.featured);
+  if (!ev) {
+    const upcoming = events.filter(e => e.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+    ev = upcoming[0] || events.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  }
   if (!ev) return;
 
-  const t    = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
-  const sub  = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
-  const catId = ev.category;
+  // §3 date formatting (local time, no UTC offset issue)
+  const [dy, dm, dd] = ev.date.split('-').map(Number);
+  const d       = new Date(dy, dm - 1, dd);
+  const month   = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const day     = String(d.getDate()).padStart(2, '0');
+  const weekday = d.toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+  const timeStr = ev.time && ev.time !== 'TBA' ? `${weekday} · ${ev.time}` : weekday;
+
+  // §4 i18n
+  const title    = lang === 'en' ? ev.titleEn : ev.titleZh;
+  const subtitle = lang === 'en' ? '' : ev.titleEn;
+  const venue    = lang === 'en' ? ev.venueEn : ev.venue;
+  const nextUp   = lang === 'en' ? 'NEXT UP'        : '即將登場';
+  const featured = lang === 'en' ? 'FEATURED EVENT' : '精選活動';
+  const upcoming = lang === 'en' ? 'UPCOMING'       : '最近登場';
+  const cta      = lang === 'en' ? 'ADMIT ONE · LEARN MORE' : 'ADMIT ONE · 了解詳情';
+  const noStr    = String(ev.num).padStart(3, '0');
+  const catCode  = ev.category.toUpperCase();
+
+  // Category colour scheme
+  const CAT_COLORS = {
+    sound:  { bg: 'var(--pink)',  text: '#fff', tagText: 'var(--pink)',  shadow: 'rgba(255,45,107,0.28)' },
+    image:  { bg: 'var(--blue)',  text: '#fff', tagText: 'var(--blue)',  shadow: 'rgba(59,127,255,0.28)' },
+    street: { bg: 'var(--green)', text: '#000', tagText: 'var(--green)', shadow: 'rgba(0,255,87,0.22)'   },
+  };
+  const cc = CAT_COLORS[ev.category] || CAT_COLORS.street;
 
   el.innerHTML = `
-    <div class="featured-wrap">
-      <a href="event.html?num=${ev.num}" class="featured-banner">
-        <div class="featured-banner-placeholder" style="background-image:url('images/%E5%B1%95%E6%BC%94banner/%E6%9E%97%E6%87%B7%E6%B0%91.png')"></div>
-        <div class="featured-banner-overlay"></div>
-        <div class="featured-banner-content">
-          <div class="featured-banner-cat"><span class="cat cat-${catId}">${catId.toUpperCase()}</span></div>
-          <div class="featured-banner-title">${t}</div>
-          <div class="featured-banner-date">${sub}</div>
-          <div class="featured-banner-cta">
-            <span class="btn btn-pink" style="font-size:0.62rem;padding:0.6rem 1.4rem">${lang === 'en' ? 'Learn More →' : '了解詳情 →'}</span>
+    <div class="featured-wrap reveal">
+      <a href="${ev.href}" class="featured-ticket" style="--ticket-color:${cc.bg};--ticket-shadow:${cc.shadow}">
+        <div class="ticket-stub" style="background:${cc.bg};color:${cc.text}">
+          <div class="stub-no">NO. ${noStr} · ${nextUp}</div>
+          <div class="stub-date">
+            <div class="stub-month">${month}</div>
+            <div class="stub-day">${day}</div>
+            <div class="stub-weekday">${timeStr}</div>
+          </div>
+          <div class="stub-tag" style="color:${cc.tagText}">${catCode}</div>
+        </div>
+        <div class="ticket-info">
+          <div class="ticket-barcode">
+            <i style="height:22px"></i><i style="height:14px"></i><i style="height:26px"></i>
+            <i style="height:10px"></i><i style="height:22px"></i><i style="height:18px"></i>
+            <i style="height:26px"></i><i style="height:14px"></i>
+          </div>
+          <div class="ticket-meta">
+            <span>${featured}</span><span class="dot">●</span><span>${upcoming}</span>
+          </div>
+          <h2 class="ticket-title">${title}</h2>
+          ${subtitle ? `<div class="ticket-subtitle">${subtitle}</div>` : ''}
+          <div class="ticket-venue">${venue}</div>
+          <div class="ticket-cta">
+            <div class="ticket-cta-label">${cta}</div>
+            <div class="ticket-cta-arrow">→</div>
           </div>
         </div>
-        <div class="featured-label">FEATURED EVENT</div>
       </a>
     </div>`;
+
+  // Re-observe reveal for dynamically injected element
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    el.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+  }
 }
