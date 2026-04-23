@@ -94,7 +94,10 @@
     font-size: 0.9rem; line-height: 1.85;
     color: rgba(255,255,255,0.55); max-width: 380px;
   }
-  .hero-actions { display: flex; gap: 0.8rem; flex-shrink: 0; }
+  .hero-kv {
+    position: absolute; bottom: 3rem; right: 2.5rem; z-index: 2;
+    height: 280px; width: auto; object-fit: contain; pointer-events: none;
+  }
   .hero-scroll-ind {
     position: absolute; left: 2.5rem; bottom: 4rem; z-index: 2;
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -287,12 +290,31 @@
     text-shadow: var(--shadow-pink);
   }
 
+  /* ── NEWS LIST ── */
+  .articles-grid {
+    display: block !important;
+  }
+  .news-list-item {
+    display: grid; grid-template-columns: 90px 1fr 28px;
+    gap: 1.5rem; align-items: center;
+    padding: 1.3rem 0; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--white);
+    transition: color 0.2s;
+  }
+  .news-list-item:first-child { border-top: 1px solid var(--border); }
+  .news-list-date { font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+  .news-list-headline { font-size: 0.92rem; line-height: 1.5; }
+  .news-list-item:hover .news-list-headline { color: var(--green); }
+  .news-list-arrow { font-family: var(--font-m); font-size: 0.7rem; color: rgba(255,255,255,0.2); text-align: right; transition: color 0.2s, transform 0.2s; }
+  .news-list-item:hover .news-list-arrow { color: var(--green); transform: translateX(3px); }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .hero { padding: 0 1.2rem 3rem; }
     .hero-sticker { top: 5.5rem; right: 1.2rem; font-size: 1.6rem; }
     .hero-title { font-size: clamp(4rem, 18vw, 7rem); }
     .hero-row { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+    .hero-kv { height: 160px; right: 1.2rem; bottom: 2rem; }
     .stats-strip { grid-template-columns: 1fr; }
     .stat-cell { border-right: none; border-bottom: 1px solid var(--border); }
     .themes-grid { grid-template-columns: 1fr; }
@@ -328,12 +350,9 @@
       <h1 class="hero-title">TAIWAN<br><span class="c-green">POP</span></h1>
       <div class="hero-row">
         <p class="hero-sub" data-i18n-html="banner-sub">台灣文化部 × 紐約文化局合作計畫<br>七大藝文展演，2026 夏天，紐約登場</p>
-        <div class="hero-actions">
-          <a href="events.html" class="btn btn-green" data-i18n="btn-explore">探索活動</a>
-          <a href="#articles"   class="btn btn-outline" data-i18n="btn-news">最新消息</a>
-        </div>
       </div>
     </div>
+    <img src="images/logo.png" alt="Taiwan Pop" class="hero-kv">
     <div class="hero-scroll-ind">
       <div class="hero-scroll-dot"></div>
       <div class="hero-scroll-line"></div>
@@ -457,7 +476,7 @@
         <span class="t-label" style="display:block;margin-bottom:0.5rem">NEWS · 最新消息</span>
         <h2 class="news-title" data-i18n="sec-news-title">掌握動態</h2>
       </div>
-      <a href="news.html" class="section-more" data-i18n="btn-more-news">查看全部 →</a>
+      <a href="news.html" class="section-more" data-i18n="btn-more-news">查看全部</a>
     </div>
     <!-- Firebase articles rendered by news-home.js into .articles-grid -->
     <div class="articles-grid"></div>

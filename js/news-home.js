@@ -33,24 +33,14 @@ function renderHomeArticles(articles) {
     return;
   }
 
-  grid.innerHTML = articles.slice(0, 3).map(a => {
+  grid.innerHTML = articles.slice(0, 5).map(a => {
     const title = (lang === 'en' && a.title_en) ? a.title_en : (a.title || '');
-    const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
-    const desc = excerpt(content);
-    const cat = a.category || '';
-    const img = a.coverImage || `https://picsum.photos/600/400?random=${a.id.slice(0, 6)}`;
     return `
-      <article class="article-card">
-        <a href="article.html?id=${a.id}" class="article-img-wrap">
-          <img src="${img}" alt="${title}" loading="lazy">
-          <span class="article-cat">${cat}</span>
-        </a>
-        <div class="article-body">
-          <span class="article-date">${formatDate(a.date)}</span>
-          <h3><a href="article.html?id=${a.id}">${title}</a></h3>
-          <p>${desc}</p>
-        </div>
-      </article>`;
+      <a href="article.html?id=${a.id}" class="news-list-item">
+        <span class="news-list-date">${formatDate(a.date)}</span>
+        <span class="news-list-headline">${title}</span>
+        <span class="news-list-arrow">→</span>
+      </a>`;
   }).join('');
 }
 
