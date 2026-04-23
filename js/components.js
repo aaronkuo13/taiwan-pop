@@ -34,17 +34,37 @@
       <a href="${href.logo}" class="tp-nav-logo">
         <img src="images/taiwanpop_green.png" alt="Taiwan Pop" style="height:32px;width:auto;">
       </a>
-      <button class="hamburger" id="hamburger" aria-label="開啟選單">
-        <span></span><span></span><span></span>
-      </button>
       <ul class="tp-nav-links" id="navLinks">
         <li><a href="${href.concept}"  class="${'nav-link' + activeClass('concept')}"  data-i18n="nav-concept">黑潮理念</a></li>
         <li><a href="${href.news}"     class="${'nav-link' + activeClass('news')}"     data-i18n="nav-news">最新消息</a></li>
         <li><a href="${href.events}"   class="${'nav-link' + activeClass('events')}"   data-i18n="nav-events">展演活動</a></li>
-        <!-- [AWE-HIDDEN] <li><a href="${href.awe}" class="nav-link${activeClass('awe')}" data-i18n="nav-awe">a-we 紐約跑酷</a></li> -->
         <li><a href="${href.calendar}" class="${'nav-link' + activeClass('calendar')}" data-i18n="nav-calendar">行事曆</a></li>
       </ul>
-      <!-- lang toggle injected by lang-init.js -->`;
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="zh">中</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <button class="tp-nav-toggle" id="navToggle" aria-label="開啟選單">
+        <span></span><span></span><span></span>
+      </button>`;
+
+    /* Mobile overlay — injected after <nav>, before first child of body */
+    const mobile = document.createElement('div');
+    mobile.className = 'tp-nav-mobile';
+    mobile.id = 'navMobile';
+    mobile.innerHTML = `
+      <div class="lang-toggle-mobile">
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en">ENGLISH</button>
+      </div>
+      <a href="${href.concept}"><span data-i18n="nav-concept">黑潮理念</span><span class="zh">CONCEPT</span></a>
+      <a href="${href.news}"><span data-i18n="nav-news">最新消息</span><span class="zh">NEWS</span></a>
+      <a href="${href.events}"><span data-i18n="nav-events">展演活動</span><span class="zh">EVENTS</span></a>
+      <a href="${href.calendar}"><span data-i18n="nav-calendar">行事曆</span><span class="zh">CALENDAR</span></a>
+      <a href="${href.events}" class="tp-nav-mobile-cta" data-i18n="btn-explore">探索活動 ↗</a>`;
+    nav.insertAdjacentElement('afterend', mobile);
   }
 
   /* ── Footer ── */
