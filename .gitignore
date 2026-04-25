@@ -5,3 +5,6 @@
 MEMORY.md
 CLAUDE.md
 temp_file/
+.venv_pdf/
+copy-review.md
+design_handoff_homepage_showcase/
