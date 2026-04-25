@@ -292,14 +292,19 @@
     padding: 2.2rem 2.5rem;
     background: var(--white); color: var(--black);
     border-top: 2px solid var(--black);
-    transition: background 0.2s; position: relative; overflow: hidden;
+    box-shadow: inset 4px 0 0 var(--green);
+    position: relative; overflow: hidden;
     text-decoration: none;
   }
   .bc-row::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px; background: var(--green);
+    content: ''; position: absolute; inset: 0;
+    background: var(--green);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
   }
-  .bc-row:hover { background: #edeae0; }
+  .bc-row:hover::before { transform: scaleX(1); }
+  .bc-row > * { position: relative; z-index: 1; }
   .bc-tag { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.22em; opacity: 0.4; }
   .bc-title {
     font-family: var(--font-d);
@@ -310,9 +315,9 @@
   .bc-ev { font-size: 0.82rem; opacity: 0.65; }
   .bc-arrow {
     font-family: var(--font-d); font-size: 4rem; opacity: 0.12;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.3s, transform 0.3s;
   }
-  .bc-row:hover .bc-arrow { opacity: 0.4; transform: translateX(6px); }
+  .bc-row:hover .bc-arrow { opacity: 0.6; transform: translateX(8px); }
 
   /* ── SPRAY BAND ── */
   .spray-band { position: relative; height: 180px; overflow: hidden; }
@@ -332,9 +337,17 @@
   .sbw {
     font-family: var(--font-d); font-size: clamp(1.4rem, 3vw, 3rem);
     letter-spacing: 0.18em; color: rgba(255,255,255,0.15);
+    cursor: default;
+    transition: color 0.4s ease, opacity 0.4s ease, transform 0.4s ease, text-shadow 0.4s ease;
   }
-  .sbw-active { color: var(--green); }
-  .sbw-sep { font-family: var(--font-m); font-size: 0.6rem; color: rgba(255,255,255,0.1); }
+  .sbw-active {
+    color: var(--green);
+    text-shadow: 0 0 28px rgba(0,255,87,0.7), 0 0 60px rgba(0,255,87,0.3);
+    transform: scale(1.08);
+  }
+  .spray-band-words:hover .sbw:not(.sbw-active) { color: rgba(255,255,255,0.06); }
+  .sbw-sep { font-family: var(--font-m); font-size: 0.6rem; color: rgba(255,255,255,0.1); transition: opacity 0.4s ease; }
+  .spray-band-words:hover .sbw-sep { opacity: 0.4; }
 
   /* ── GAME SECTION ── */
   .game-sec {
@@ -461,7 +474,7 @@
   <section class="hero">
     <div class="hero-video-bg">
       <iframe
-        src="https://www.youtube.com/embed/kYnsfLi-U8s?autoplay=1&mute=1&loop=1&playlist=kYnsfLi-U8s&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&origin=https://taiwanpop.tw"
+        src="https://www.youtube.com/embed/ft2O5R9Y2LA?autoplay=1&mute=1&loop=1&playlist=ft2O5R9Y2LA&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&origin=https://taiwanpop.tw"
         frameborder="0"
         allow="autoplay; encrypted-media; picture-in-picture"
         title="Taiwan Pop Banner Video">
@@ -650,6 +663,32 @@
   <!-- [AWE-HIDDEN] <script src="js/home-awe-stage.js"></script> -->
   <script type="module" src="js/news-home.js"></script>
   <script>
+    // Spray band word cycle
+    (function() {
+      const words = document.querySelectorAll('.spray-band-words .sbw');
+      const band  = document.querySelector('.spray-band-words');
+      if (!words.length || !band) return;
+      let current = Array.from(words).findIndex(w => w.classList.contains('sbw-active'));
+      if (current < 0) current = 0;
+      let timer;
+
+      function setActive(idx) {
+        words.forEach((w, i) => w.classList.toggle('sbw-active', i === idx));
+        current = idx;
+      }
+
+      function startCycle() {
+        clearInterval(timer);
+        timer = setInterval(() => setActive((current + 1) % words.length), 2000);
+      }
+
+      band.addEventListener('mouseenter', () => clearInterval(timer));
+      band.addEventListener('mouseleave', startCycle);
+      words.forEach((w, i) => w.addEventListener('mouseenter', () => setActive(i)));
+
+      startCycle();
+    })();
+
     const showcase = document.getElementById('showcase');
     if (showcase) {
       showcase.querySelectorAll('.stat-cell').forEach(cell => {

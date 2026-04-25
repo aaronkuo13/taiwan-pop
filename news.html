@@ -89,7 +89,7 @@
   .cat-feature   { background: var(--blue);  color: var(--white); }
   .cat-media     { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
   .news-grid-date { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
-  .news-grid-title { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.03em; line-height: 1.1; min-height: 1.65rem; max-height: 4.95rem; overflow: hidden; }
+  .news-grid-title { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.03em; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .news-grid-excerpt { font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.4); margin-top: 0.6rem; flex: 1; }
   .news-grid-link {
     font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.12em;
@@ -217,8 +217,6 @@
         const coverHtml = a.coverImage
           ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`
           : `<div class="news-grid-cover-placeholder"><span>${(title || '文')[0]}</span></div>`;
-        const tLen = title.length;
-        const titleSize = tLen > 35 ? '1.05rem' : tLen > 20 ? '1.25rem' : '1.5rem';
         return `
           <a href="article.html?id=${a.id}" class="news-grid-card">
             <div class="news-grid-cover">${coverHtml}</div>
@@ -226,7 +224,7 @@
               <span class="news-grid-cat ${catCls}">${catLabel}</span>
               <span class="news-grid-date">${formatDate(a.date)}</span>
             </div>
-            <div class="news-grid-title" style="font-size:${titleSize}">${title}</div>
+            <div class="news-grid-title">${title}</div>
             <p class="news-grid-excerpt">${desc}</p>
             <span class="news-grid-link">${lang === 'en' ? 'Read More →' : '閱讀全文 →'}</span>
           </a>`;
