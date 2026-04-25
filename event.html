@@ -22,14 +22,14 @@
   <style>
   /* ── EVENT HERO ── */
   .ev-hero {
-    padding-top: 5rem; height: 80vh;
+    padding-top: 5rem;
     display: grid; grid-template-columns: 1fr 1fr;
     position: relative; overflow: hidden;
   }
   .ev-hero-left {
     color: var(--white);
     padding: 4rem 3rem;
-    display: flex; flex-direction: column; justify-content: flex-end;
+    display: flex; flex-direction: column; justify-content: flex-start;
     position: relative; overflow: hidden;
   }
   .ev-hero-left--sound  { background: var(--pink); }
@@ -66,14 +66,14 @@
   }
   .ev-meta-key { opacity: 0.5; min-width: 3.5rem; }
   .ev-meta-val { opacity: 0.9; }
-  .ev-actions { margin-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .ev-actions { margin-top: auto; padding-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; }
 
   .ev-hero-right {
     background: #0f0f0f;
-    display: flex; align-items: center; justify-content: center;
     overflow: hidden; position: relative;
+    align-self: stretch;
   }
-  .ev-hero-right img { width: 100%; height: 100%; object-fit: cover; }
+  .ev-hero-right img { width: 100%; height: auto; display: block; }
   .ev-hero-img-placeholder {
     width: 100%; height: 100%;
     background: linear-gradient(135deg, #141414 0%, #0a0a0a 100%);
@@ -210,7 +210,7 @@
   /* ── RWD ── */
   @media (max-width: 900px) {
     .ev-hero { grid-template-columns: 1fr; height: auto; }
-    .ev-hero-right { min-height: 260px; }
+    .ev-hero-right { height: auto; min-height: unset; }
     .ev-hero-left { padding: 5rem 2rem 2.5rem; }
     .ev-speakers-grid { grid-template-columns: 1fr; }
     .ev-gallery { grid-template-columns: repeat(2,1fr); }

@@ -36,8 +36,9 @@
       ? `<a href="${ev.externalUrl}" target="_blank" rel="noopener" class="btn btn-white">${lang === 'en' ? 'Get Tickets' : '立即購票'}</a>`
       : `<a href="#" class="btn btn-white" style="opacity:0.45;pointer-events:none">${lang === 'en' ? 'Coming Soon' : '即將公布'}</a>`;
 
-    const imgHtml = ev.img
-      ? `<img src="${ev.img}" alt="${title}">`
+    const imgSrc = ev.imgInner || ev.img;
+    const imgHtml = imgSrc
+      ? `<img src="${imgSrc}" alt="${title}">`
       : `<div class="ev-hero-img-placeholder"><span>${ev.icon || ''}</span></div>`;
 
     document.getElementById('ev-hero').innerHTML = `

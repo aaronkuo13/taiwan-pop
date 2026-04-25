@@ -35,7 +35,7 @@
         <img src="images/taiwanpop_green.png" alt="Taiwan Pop" style="height:32px;width:auto;">
       </a>
       <ul class="tp-nav-links" id="navLinks">
-        <li><a href="${href.concept}"  class="${'nav-link' + activeClass('concept')}"  data-i18n="nav-concept">黑潮理念</a></li>
+        <li><a href="${href.concept}"  class="${'nav-link' + activeClass('concept')}"  data-i18n="nav-concept">策展理念</a></li>
         <li><a href="${href.news}"     class="${'nav-link' + activeClass('news')}"     data-i18n="nav-news">最新消息</a></li>
         <li><a href="${href.events}"   class="${'nav-link' + activeClass('events')}"   data-i18n="nav-events">展演活動</a></li>
         <li><a href="${href.calendar}" class="${'nav-link' + activeClass('calendar')}" data-i18n="nav-calendar">行事曆</a></li>
@@ -59,7 +59,7 @@
         <span class="lang-sep">|</span>
         <button class="lang-btn" data-lang="en">ENGLISH</button>
       </div>
-      <a href="${href.concept}"><span data-i18n="nav-concept">黑潮理念</span><span class="zh">CONCEPT</span></a>
+      <a href="${href.concept}"><span data-i18n="nav-concept">策展理念</span><span class="zh">CONCEPT</span></a>
       <a href="${href.news}"><span data-i18n="nav-news">最新消息</span><span class="zh">NEWS</span></a>
       <a href="${href.events}"><span data-i18n="nav-events">展演活動</span><span class="zh">EVENTS</span></a>
       <a href="${href.calendar}"><span data-i18n="nav-calendar">行事曆</span><span class="zh">CALENDAR</span></a>
@@ -91,7 +91,7 @@
         <div>
           <p class="tp-footer-col-title">導覽</p>
           <ul class="tp-footer-links">
-            <li><a href="${href.concept}" data-i18n="nav-concept">黑潮理念</a></li>
+            <li><a href="${href.concept}" data-i18n="nav-concept">策展理念</a></li>
             <li><a href="${href.news}"    data-i18n="footer-news">最新消息</a></li>
             <li><a href="${href.events}"  data-i18n="footer-events">展演活動</a></li>
             <li><a href="${href.calendar}" data-i18n="footer-cal">行事曆</a></li>
