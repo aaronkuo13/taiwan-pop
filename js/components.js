@@ -100,7 +100,6 @@
         <div>
           <p class="tp-footer-col-title" data-i18n="footer-contact-h">聯絡資訊</p>
           <ul class="tp-footer-links">
-            <li>info@taiwanpop.com</li>
             <li>New York, NY / 台灣 台北市</li>
             <li data-i18n="footer-hours">週一至週五 09:00–18:00 (TST)</li>
             <li style="margin-top:.8rem;"><a href="https://tccny.moc.gov.tw/ch/Default.aspx" target="_blank" rel="noopener">紐文臺北文化中心</a></li>
