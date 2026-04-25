@@ -31,75 +31,76 @@
   .cat-image-title  { text-shadow: 4px 4px 0 rgba(59,127,255,0.45), -2px -2px 0 rgba(255,45,107,0.08); }
   .cat-street-title { text-shadow: 4px 4px 0 rgba(0,255,87,0.35),   -2px -2px 0 rgba(59,127,255,0.08); }
 
-  /* ── FEATURED BANNER · Ticket Stub ── */
-  .featured-wrap { padding: 2rem 2.5rem 0; }
-  .featured-ticket {
-    position: relative; display: grid; grid-template-columns: 240px 1fr;
-    background: #0d0d0d; border: 1px solid var(--border);
-    overflow: hidden; text-decoration: none; color: inherit;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* ── FEATURED BANNER · Image + Status Bar + Sticker ── */
+  .featured-wrap { padding: 3.5rem 2.5rem 0; overflow: visible; }
+  .featured-banner {
+    position: relative; display: block;
+    text-decoration: none; color: inherit;
+    overflow: visible;
+    transition: transform 0.3s ease;
   }
-  .featured-ticket:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 var(--ticket-color, var(--green)); }
-  .ticket-stub {
-    position: relative; background: var(--green); color: var(--black);
-    padding: 2.4rem 1.6rem;
-    display: flex; flex-direction: column; justify-content: space-between;
-    min-height: 320px;
-  }
-  .ticket-stub::after {
-    content: ''; position: absolute; top: 0; bottom: 0; right: -1px; width: 2px;
-    background-image: radial-gradient(circle, var(--black) 1.5px, transparent 2px);
-    background-size: 2px 10px; background-repeat: repeat-y;
-  }
-  .ticket-stub::before {
-    content: ''; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
-    width: 28px; height: 28px; border-radius: 50%; background: var(--black); z-index: 1;
-  }
-  .stub-no { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.25em; opacity: 0.8; }
-  .stub-date { display: flex; flex-direction: column; align-items: flex-start; line-height: 0.85; margin-top: auto; }
-  .stub-month { font-family: var(--font-d); font-weight: 900; font-size: 2.6rem; letter-spacing: 0.02em; }
-  .stub-day { font-family: var(--font-d); font-weight: 900; font-size: 6.5rem; letter-spacing: -0.04em; margin-top: -0.3rem; }
-  .stub-weekday {
-    font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.3em;
-    padding-top: 0.6rem; margin-top: 0.6rem;
-    border-top: 1.5px solid var(--black); align-self: stretch;
-  }
-  .stub-tag {
-    position: absolute; top: 1.2rem; right: 1.4rem;
-    font-family: var(--font-m); font-size: 0.55rem; letter-spacing: 0.22em;
-    background: var(--black); color: var(--green); padding: 0.3rem 0.55rem; z-index: 2;
-  }
-  .ticket-info {
-    padding: 2.4rem 2.6rem; display: flex; flex-direction: column; gap: 1rem;
+  .featured-banner:hover { transform: translateY(-2px); }
+
+  .fb-image-wrap {
     position: relative;
-    background: radial-gradient(circle at 90% 15%, rgba(0,255,87,0.06) 0%, transparent 45%), #0d0d0d;
+    border: 1px solid var(--border);
+    background: #fff200;
+    overflow: visible;
+    line-height: 0;
   }
-  .ticket-meta {
-    display: flex; align-items: center; gap: 0.8rem;
-    font-family: var(--font-m); font-size: 0.6rem;
-    letter-spacing: 0.22em; color: rgba(255,255,255,0.55);
+  .fb-image-wrap img { display: block; width: 100%; height: auto; object-fit: contain; }
+
+  .fb-sticker {
+    position: absolute;
+    top: -1.6rem; left: 2.5rem;
+    transform: rotate(-6deg);
+    background: var(--pink); color: var(--white);
+    font-family: var(--font-d);
+    font-size: 1.3rem; letter-spacing: 0.06em;
+    padding: 0.6rem 1.1rem 0.55rem;
+    box-shadow: 3px 3px 0 var(--black);
+    z-index: 5; white-space: nowrap;
+    display: flex; align-items: center; gap: 0.55rem;
   }
-  .ticket-meta .dot { color: var(--green); }
-  .ticket-title {
-    font-family: var(--font-d); font-weight: 900;
-    font-size: clamp(2rem, 3.4vw, 3.2rem); line-height: 1.02; letter-spacing: 0.02em;
-    color: var(--white); margin: 0.2rem 0 0.3rem;
-    text-shadow: 3px 3px 0 var(--ticket-shadow, rgba(0,255,87,0.22));
+  .fb-sticker::before { content: '★'; font-size: 0.9rem; }
+  .fb-sticker-en {
+    font-family: var(--font-m);
+    font-size: 0.55rem; letter-spacing: 0.22em; opacity: 0.9;
+    border-left: 1px solid rgba(255,255,255,0.4);
+    padding-left: 0.55rem;
   }
-  .ticket-subtitle { font-size: 0.9rem; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; }
-  .ticket-venue {
-    display: flex; align-items: center; gap: 0.6rem;
-    font-family: var(--font-m); font-size: 0.72rem;
-    letter-spacing: 0.12em; color: rgba(255,255,255,0.7);
-    padding-top: 0.8rem; border-top: 1px dashed rgba(255,255,255,0.12);
+
+  .fb-status {
+    display: flex; align-items: center; gap: 1.2rem;
+    background: #0a0a0a;
+    border: 1px solid var(--border); border-top: none;
+    padding: 0.95rem 1.4rem;
+    font-family: var(--font-m);
+    font-size: 0.62rem; letter-spacing: 0.28em;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
   }
-  .ticket-venue::before { content: '◉'; color: var(--pink); font-size: 0.7rem; }
-  .ticket-cta { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; }
-  .ticket-cta-label { font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.22em; color: rgba(255,255,255,0.4); }
-  .ticket-cta-arrow { font-family: var(--font-d); font-weight: 900; font-size: 1.3rem; color: var(--ticket-color, var(--green)); transition: transform 0.3s ease; }
-  .featured-ticket:hover .ticket-cta-arrow { transform: translateX(8px); }
-  .ticket-barcode { position: absolute; right: 2.6rem; top: 2.4rem; display: flex; gap: 2px; align-items: flex-start; opacity: 0.5; }
-  .ticket-barcode i { display: block; width: 2px; background: rgba(255,255,255,0.4); }
+  .fb-status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(0,255,87,0.6);
+    animation: fb-pulse 1.6s ease-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes fb-pulse {
+    0%   { box-shadow: 0 0 0 0   rgba(0,255,87,0.55); }
+    70%  { box-shadow: 0 0 0 10px rgba(0,255,87,0); }
+    100% { box-shadow: 0 0 0 0   rgba(0,255,87,0); }
+  }
+  .fb-status-zh  { color: var(--green); letter-spacing: 0.32em; }
+  .fb-status-sep { opacity: 0.3; }
+  .fb-status-cta {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 0.5rem;
+    color: var(--green);
+    transition: gap 0.25s ease;
+  }
+  .featured-banner:hover .fb-status-cta { gap: 0.85rem; }
 
   /* ── CATEGORY SECTION ── */
   .cat-section { padding: 4rem 0; border-top: 1px solid var(--border); }
@@ -183,49 +184,36 @@
 
   /* ── RESPONSIVE ── */
 
-  /* 960px — tablet: 左欄縮窄、日期縮小、標題縮一階 */
+  /* Tablet ≤960px */
   @media (max-width: 960px) {
-    .featured-ticket { grid-template-columns: 200px 1fr; }
-    .stub-day { font-size: 5.2rem; }
-    .ticket-title { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+    .featured-wrap { padding: 3rem 1.6rem 0; }
+    .fb-status { padding: 0.7rem 1rem; font-size: 0.56rem; letter-spacing: 0.2em; }
+    .fb-sticker { font-size: 1.1rem; padding: 0.5rem 0.9rem; left: 1.5rem; top: -1.4rem; }
     .cat-section-header { padding: 0 1.2rem 1.5rem; }
     .primary-grid { grid-template-columns: repeat(2, 1fr); }
     .secondary-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  /* 720px — mobile: 單欄、票根橫版、撕線水平、圓洞移底部 */
+  /* Mobile ≤720px */
   @media (max-width: 720px) {
-    .featured-wrap { padding: 1.4rem 1.2rem 0; }
-    .featured-ticket { grid-template-columns: 1fr; }
-    .ticket-stub {
-      min-height: 0; padding: 1.4rem 1.6rem;
-      flex-direction: row; align-items: center; justify-content: space-between;
+    .featured-wrap { padding: 2.6rem 1rem 0; }
+    .fb-status {
+      flex-wrap: wrap; gap: 0.7rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.54rem; letter-spacing: 0.18em;
     }
-    .ticket-stub::after {
-      top: auto; bottom: -1px; left: 0; right: 0;
-      width: 100%; height: 2px;
-      background-image: radial-gradient(circle, var(--black) 1.5px, transparent 2px);
-      background-size: 10px 2px; background-repeat: repeat-x;
-    }
-    .ticket-stub::before { right: 50%; top: auto; bottom: -14px; transform: translateX(50%); }
-    .stub-no { writing-mode: vertical-rl; letter-spacing: 0.15em; font-size: 0.55rem; }
-    .stub-date { flex-direction: row; align-items: baseline; gap: 0.5rem; margin-top: 0; }
-    .stub-day { font-size: 3.8rem; margin-top: 0; }
-    .stub-month { font-size: 1.8rem; }
-    .stub-weekday { border: none; padding: 0; margin: 0; font-size: 0.6rem; }
-    .ticket-info { padding: 1.6rem 1.6rem 1.8rem; }
-    .ticket-title { font-size: 1.8rem; }
-    .ticket-barcode { display: none; }
-    .featured-ticket:hover { transform: none; box-shadow: none; }
-    .featured-ticket:active { transform: translateY(-2px); box-shadow: 4px 4px 0 var(--ticket-color, var(--green)); }
+    .fb-status-cta { margin-left: 0; width: 100%; justify-content: flex-end; padding-top: 0.3rem; border-top: 1px dashed rgba(255,255,255,0.1); }
+    .fb-sticker { font-size: 0.95rem; padding: 0.45rem 0.8rem 0.4rem; left: 1.2rem; top: -1.2rem; box-shadow: 2px 2px 0 var(--black); }
+    .fb-sticker-en { display: none; }
+    .featured-banner:hover { transform: none; }
+    .featured-banner:active { transform: translateY(-1px); }
   }
 
-  /* 420px — xs: 再縮字級、移除 meta dot、venue 換行、shadow 變弱 */
+  /* XS ≤420px */
   @media (max-width: 420px) {
-    .stub-day { font-size: 3rem; }
-    .ticket-title { font-size: 1.5rem; text-shadow: 1px 1px 0 var(--ticket-shadow, rgba(0,255,87,0.1)); }
-    .ticket-meta .dot { display: none; }
-    .ticket-venue { word-break: break-word; font-size: 0.65rem; }
+    .featured-wrap { padding: 2.3rem 0.7rem 0; }
+    .fb-status { padding: 0.65rem 0.8rem; font-size: 0.5rem; letter-spacing: 0.15em; gap: 0.5rem; }
+    .fb-sticker { font-size: 0.82rem; padding: 0.38rem 0.7rem 0.33rem; left: 0.9rem; top: -1rem; }
     .secondary-grid { grid-template-columns: 1fr; }
   }
 

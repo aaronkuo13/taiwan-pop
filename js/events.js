@@ -103,93 +103,71 @@ function renderEvents() {
   }).join('');
 }
 
-/* ---------- Featured Banner · Ticket Stub ---------- */
-let _eventsJsonCache = null;
-
-async function renderFeaturedBanner() {
+/* ---------- Featured Banner · Image + Status Bar + Sticker ---------- */
+function renderFeaturedBanner() {
   const el = document.getElementById('featured-event');
-  if (!el) return;
+  if (!el || typeof EVENTS === 'undefined') return;
 
-  // Load events.json (cached after first fetch)
-  if (!_eventsJsonCache) {
-    try {
-      const res = await fetch('data/events.json');
-      _eventsJsonCache = await res.json();
-    } catch (e) {
-      console.error('Failed to load data/events.json', e);
-      return;
-    }
-  }
-
-  const lang   = window.currentLang || 'zh';
-  const today  = (function() {
-    const n = new Date(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  const lang = window.currentLang || 'zh';
+  const todayStr = (function() {
+    const n = new Date();
+    return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
   })();
-  const events = _eventsJsonCache;
 
-  // §2 selection logic
-  let ev = events.find(e => e.featured);
+  // Select featured event: explicit flag → next upcoming → most recent past
+  let ev = EVENTS.find(e => e.featured);
   if (!ev) {
-    const upcoming = events.filter(e => e.date >= today).sort((a, b) => a.date.localeCompare(b.date));
-    ev = upcoming[0] || events.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+    const upcoming = EVENTS.filter(e => e.date && e.date !== 'TBA' && e.date >= todayStr)
+                           .sort((a, b) => a.date.localeCompare(b.date));
+    ev = upcoming[0] || EVENTS.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
   }
   if (!ev) return;
 
-  // §3 date formatting (local time, no UTC offset issue)
+  // Countdown days
   const [dy, dm, dd] = ev.date.split('-').map(Number);
-  const d       = new Date(dy, dm - 1, dd);
-  const month   = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-  const day     = String(d.getDate()).padStart(2, '0');
-  const weekday = d.toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
-  const timeStr = ev.time && ev.time !== 'TBA' ? `${weekday} · ${ev.time}` : weekday;
+  const eventDate = new Date(dy, dm - 1, dd);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diffDays = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
 
-  // §4 i18n
-  const title    = lang === 'en' ? ev.titleEn : ev.titleZh;
-  const subtitle = lang === 'en' ? '' : ev.titleEn;
-  const venue    = lang === 'en' ? ev.venueEn : ev.venue;
-  const nextUp   = lang === 'en' ? 'NEXT UP'        : '即將登場';
-  const featured = lang === 'en' ? 'FEATURED EVENT' : '精選活動';
-  const upcoming = lang === 'en' ? 'UPCOMING'       : '最近登場';
-  const cta      = lang === 'en' ? 'ADMIT ONE · LEARN MORE' : 'ADMIT ONE · 了解詳情';
-  const noStr    = String(ev.num).padStart(3, '0');
-  const catCode  = ev.category.toUpperCase();
+  // Status bar date string
+  const WDAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const mm  = String(dm).padStart(2,'0');
+  const day = String(dd).padStart(2,'0');
+  const wk  = WDAYS[new Date(dy, dm - 1, dd).getDay()];
+  const timeStr = ev.time && ev.time !== 'TBA'
+    ? ` · ${ev.time.replace('p.m.','PM').replace('a.m.','AM')}`
+    : '';
+  const dateDisplay = `${mm}.${day} ${wk}${timeStr}`;
 
-  // Category colour scheme
-  const CAT_COLORS = {
-    sound:  { bg: 'var(--pink)',  text: '#fff', tagText: 'var(--pink)',  shadow: 'rgba(255,45,107,0.28)' },
-    image:  { bg: 'var(--blue)',  text: '#fff', tagText: 'var(--blue)',  shadow: 'rgba(59,127,255,0.28)' },
-    street: { bg: 'var(--green)', text: '#000', tagText: 'var(--green)', shadow: 'rgba(0,255,87,0.22)'   },
-  };
-  const cc = CAT_COLORS[ev.category] || CAT_COLORS.street;
+  // i18n labels
+  const title      = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+  const ctaLabel   = lang === 'en' ? 'LEARN MORE →' : '了解詳情 →';
+  const statusZh   = '即將登場';
+  const countdownStr = diffDays > 0  ? `倒數 ${diffDays} 天`
+                     : diffDays === 0 ? '今天登場'
+                     : '';
+
+  const imgSrc = ev.bannerImg || ev.imgInner || ev.img || '';
+  const href   = `event.html?num=${ev.num}`;
 
   el.innerHTML = `
     <div class="featured-wrap reveal">
-      <a href="${ev.href}" class="featured-ticket" style="--ticket-color:${cc.bg};--ticket-shadow:${cc.shadow}">
-        <div class="ticket-stub" style="background:${cc.bg};color:${cc.text}">
-          <div class="stub-no">NO. ${noStr} · ${nextUp}</div>
-          <div class="stub-date">
-            <div class="stub-month">${month}</div>
-            <div class="stub-day">${day}</div>
-            <div class="stub-weekday">${timeStr}</div>
-          </div>
-          <div class="stub-tag" style="color:${cc.tagText}">${catCode}</div>
+      <a href="${href}" class="featured-banner">
+        <div class="fb-sticker">即將登場<span class="fb-sticker-en">NEXT UP</span></div>
+        <div class="fb-image-wrap">
+          ${imgSrc
+            ? `<img src="${imgSrc}" alt="${title}">`
+            : `<div style="width:100%;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:8rem;opacity:0.08">${ev.icon || ''}</div>`
+          }
         </div>
-        <div class="ticket-info">
-          <div class="ticket-barcode">
-            <i style="height:22px"></i><i style="height:14px"></i><i style="height:26px"></i>
-            <i style="height:10px"></i><i style="height:22px"></i><i style="height:18px"></i>
-            <i style="height:26px"></i><i style="height:14px"></i>
-          </div>
-          <div class="ticket-meta">
-            <span>${featured}</span><span class="dot">●</span><span>${upcoming}</span>
-          </div>
-          <h2 class="ticket-title">${title}</h2>
-          ${subtitle ? `<div class="ticket-subtitle">${subtitle}</div>` : ''}
-          <div class="ticket-venue">${venue}</div>
-          <div class="ticket-cta">
-            <div class="ticket-cta-label">${cta}</div>
-            <div class="ticket-cta-arrow">→</div>
-          </div>
+        <div class="fb-status">
+          <span class="fb-status-dot"></span>
+          <span>UPCOMING</span>
+          <span class="fb-status-zh">${statusZh}</span>
+          <span class="fb-status-sep">/</span>
+          <span>${dateDisplay}</span>
+          ${countdownStr ? `<span class="fb-status-sep">/</span><span>${countdownStr}</span>` : ''}
+          <span class="fb-status-cta">${ctaLabel}</span>
         </div>
       </a>
     </div>`;

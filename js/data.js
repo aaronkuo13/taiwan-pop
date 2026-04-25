@@ -7,6 +7,8 @@ const EVENTS = [
   {
     num:'02', icon:'🎼',
     img:'images/展演活動_NSO《來自臺灣》2026室內樂美國巡演.png?v=2',
+    imgInner:'images/展演活動內頁_NSO《來自臺灣》2026室內樂美國巡演.jpg',
+    bannerImg:'images/展演活動Banner_NSO《來自臺灣》2026室內樂美國巡演.webp',
     date:'2026-05-19',
     time:'7:30 p.m.',
     title:'NSO《來自臺灣》2026室內樂美國巡演',
@@ -83,6 +85,8 @@ const EVENTS = [
   {
     num:'06', icon:'💃',
     img:'images/展演活動_翃舞.png',
+    imgInner:'images/展演活動內頁_翃舞.jpg',
+    bannerImg:'images/展演活動Banner_翃舞.webp',
     date:'2026-07-17', endDate:'2026-07-18',
     time:'7:30 p.m. (EST)',
     title:'翃舞製作《羽人》',
@@ -131,6 +135,8 @@ const EVENTS = [
   {
     num:'07', icon:'🎵',
     img:'images/展演活動_taiwanese wave.png',
+    imgInner:'images/展演活動內頁_taiwanese wave.jpg',
+    bannerImg:'images/展演活動Banner_taiwanese wave.webp',
     date:'2026-08-16',
     time:'5:00 p.m. - 9:30 p.m. (EST)',
     title:'2026 紐約夏日舞台音樂節 臺灣之夜',
@@ -211,6 +217,8 @@ const EVENTS = [
   {
     num:'13', icon:'🎹',
     img:'images/展演活動_從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出.png',
+    imgInner:'images/展演活動內頁_從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出.jpg',
+    bannerImg:'images/展演活動Banner_從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出.webp',
     date:'2026-05-20',
     title:'從內在聆聽到聲音：聽見台灣——嚴俊傑鋼琴講座暨示範演出',
     title_en:'From Inner Hearing to Sound: Listening to Taiwan — An Artist Talk with Pianist Chun‑Chieh Yen',
@@ -239,6 +247,8 @@ const EVENTS = [
   {
     num:'01', icon:'🎭',
     img:'images/展演活動_臺美藝文大師系列講座.png',
+    imgInner:'images/展演活動內頁_臺美藝文大師系列講座.jpg',
+    bannerImg:'images/展演活動Banner_臺美藝文大師系列講座.webp',
     date:'2026-05-01',
     time:'6:30 p.m.–8:00 p.m. (EST)',
     title:'跨越邊界與肢體：林懷民與美國舞蹈節總監 Jodee Nimerichter 對談',
@@ -276,6 +286,8 @@ const EVENTS = [
   {
     num:'04', icon:'🎬',
     img:'images/展演活動_世界之間：跨越疆界的臺灣電影.png',
+    imgInner:'images/展演活動內頁_世界之間：跨越疆界的臺灣電影.jpg',
+    bannerImg:'images/展演活動Banner_世界之間：跨越疆界的臺灣電影.webp',
     date:'2026-09-01', endDate:'2026-09-30',
     title:'世界之間：跨越疆界的臺灣電影',
     title_en:'Between Worlds: Taiwanese Cinema Across Borders',
@@ -295,6 +307,8 @@ const EVENTS = [
   {
     num:'03', icon:'🎨',
     img:'images/展演活動_布希維克街頭藝術節 臺灣藝術家參展.png',
+    imgInner:'images/展演活動內頁_布希維克街頭藝術節 臺灣藝術家參展.jpg',
+    bannerImg:'images/展演活動Banner_布希維克街頭藝術節 臺灣藝術家參展.webp',
     date:'2026-05-28', endDate:'2026-05-30',
     time:'主活動 10:00–18:00',
     title:'2026 紐約布希維克街頭藝術計畫',
@@ -356,6 +370,8 @@ const EVENTS = [
   {
     num:'05', icon:'🌈',
     img:'images/展演活動_2026紐約同志遊行.png',
+    imgInner:'images/展演活動內頁_2026紐約同志遊行.jpg',
+    bannerImg:'images/展演活動Banner_2026紐約同志遊行.webp',
     date:'2026-06-28',
     time:'中午過後，持續約 4–6 小時',
     title:'2026 紐約同志遊行',
