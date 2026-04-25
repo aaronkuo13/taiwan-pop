@@ -28,15 +28,16 @@
   }
   .article-hero-left {
     padding: 3rem 3rem 3.5rem 2.5rem;
-    display: flex; flex-direction: column; justify-content: flex-end;
+    display: flex; flex-direction: column; justify-content: flex-start;
     border-right: 1px solid var(--border);
   }
   .article-back {
     font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.18em;
-    color: rgba(255,255,255,0.4); margin-bottom: 3rem;
+    color: rgba(255,255,255,0.4);
     display: inline-flex; align-items: center; gap: 0.4rem;
     transition: color 0.2s; text-decoration: none;
   }
+  .article-hero-content { margin: auto 0; }
   .article-back:hover { color: var(--white); }
   .article-meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
   .article-date { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
@@ -270,11 +271,13 @@
         <div class="article-hero">
           <div class="article-hero-left">
             <a href="news.html" class="article-back">← ${backLabel}</a>
-            <div class="article-meta-row">
-              ${cat ? `<span class="art-cat-label">${cat}</span>` : ''}
-              <span class="article-date">${formatDate(a.date)}</span>
+            <div class="article-hero-content">
+              <div class="article-meta-row">
+                ${cat ? `<span class="art-cat-label">${cat}</span>` : ''}
+                <span class="article-date">${formatDate(a.date)}</span>
+              </div>
+              <h1 class="article-title">${title}</h1>
             </div>
-            <h1 class="article-title">${title}</h1>
           </div>
           <div class="article-hero-right">${coverHtml}</div>
         </div>
