@@ -71,7 +71,7 @@ const LANG = {
   },
   en: {
     /* Navbar */
-    'nav-concept':'Curatorial Vision',
+    'nav-concept':'TAIWAN POP',
     'nav-news':'News','nav-events':'Events',
     'nav-calendar':'Calendar',
     /* a-we NYC Run */
@@ -108,7 +108,7 @@ const LANG = {
     'stat-2-desc':'Body & Sound · Image & Narrative · Street & Life',
     'stat-3-desc':'Feel the Pop — Summer 2026, Manhattan feels Taiwan\'s creative energy',
     'tc-link':'View Events <span class="arr">→</span>',
-    'bc-tag':'CONCEPT · CURATORIAL VISION',
+    'bc-tag':'CONCEPT · TAIWAN POP',
     'bc-title':'SIŌNG PHĀNN',
     'bc-sub':'Taiwan\'s Daily Life in Manhattan · Feel the POP',
     'bc-ev-org':'Taiwan Ministry of Culture × Taipei Cultural Center in NY',
