@@ -204,9 +204,9 @@
           </div>
         </div>
         <div class="cal-legend">
-          <div class="legend-item"><div class="legend-dot legend-sound"></div>SOUND</div>
-          <div class="legend-item"><div class="legend-dot legend-image"></div>IMAGE</div>
-          <div class="legend-item"><div class="legend-dot legend-street"></div>STREET</div>
+          <div class="legend-item"><div class="legend-dot legend-sound"></div><span data-i18n="cat-sound-label">身體與聲音</span></div>
+          <div class="legend-item"><div class="legend-dot legend-image"></div><span data-i18n="cat-image-label">影像與敘事</span></div>
+          <div class="legend-item"><div class="legend-dot legend-street"></div><span data-i18n="cat-street-label">街頭與生活</span></div>
         </div>
       </div>
 
@@ -353,7 +353,7 @@ function openModal(evList, dateStr) {
   const lang = getLang();
   const ev   = evList[0];
   document.getElementById('modalCat').innerHTML =
-    `<span class="cat cat-${ev.category}">${ev.category.toUpperCase()}</span>`;
+    `<span class="cat cat-${ev.category}">${(LANG[getLang()]||LANG.zh)['cat-'+ev.category+'-label']||ev.category.toUpperCase()}</span>`;
   document.getElementById('modalTitle').textContent = evTitle(ev);
   document.getElementById('modalMeta').innerHTML = `
     <div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'DATE':'日期'}</span>${dateStr.replace(/-/g,'.')}</div>

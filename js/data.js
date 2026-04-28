@@ -240,7 +240,7 @@ const EVENTS = [
         instagram: 'https://www.instagram.com/ycchoping/'
       }
     ],
-    category:'sound', isPrimary:true, externalUrl:''
+    category:'image', isPrimary:true, externalUrl:''
   },
 
   /* ── 身體與聲音 · 主要活動（續） ── */
@@ -281,7 +281,7 @@ const EVENTS = [
         instagram: 'https://www.instagram.com/americandancefestival'
       }
     ],
-    category:'sound', isPrimary:true, externalUrl:'https://asiasociety.org/new-york/events/across-borders-across-bodies-lin-hwai-min-and-jodee-nimerichter-conversation'
+    category:'image', isPrimary:true, externalUrl:'https://asiasociety.org/new-york/events/across-borders-across-bodies-lin-hwai-min-and-jodee-nimerichter-conversation'
   },
   {
     num:'04', icon:'🎬',
