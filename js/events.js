@@ -68,7 +68,7 @@ function renderEvents() {
     const secondary = EVENTS.filter(e => e.category === cat.id && !e.isPrimary);
     const total     = primary.length + secondary.length;
 
-    const catNumLabel = `0${idx + 1} · ${cat.code} · ${L[cat.labelKey] || ''}`;
+    const catNumLabel = `0${idx + 1} · ${L[cat.labelKey] || ''}`;
 
     const secondaryHtml = secondary.length ? `
       <div class="secondary-grid">
