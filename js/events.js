@@ -6,7 +6,15 @@ function renderEvents() {
   const grid = document.querySelector('.events-grid');
   if (!grid) return;
 
+  // Wait for visibility config from Firestore (null = still loading)
+  if (window.eventsVisibility === null) {
+    grid.innerHTML = '<div style="padding:5rem 2.5rem;font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-align:center">LOADING · 載入中</div>';
+    return;
+  }
+
   const L = LANG[lang];
+  const vis = window.eventsVisibility || {};
+  const visibleEvents = EVENTS.filter(e => vis[e.num] !== false);
 
   const CATEGORIES = [
     { id:'sound',  code:'SOUND',  labelKey:'cat-sound-label',  subKey:'cat-sound-sub',  num:'01' },
@@ -23,6 +31,22 @@ function renderEvents() {
 
   function comingOverlay() {
     return `<div class="card-coming"><span>COMING SOON</span></div>`;
+  }
+
+  function comingSoonCard(catId) {
+    const sub = lang === 'en' ? 'Stay tuned for updates.' : '活動資訊即將公布';
+    return `
+      <div class="primary-card primary-card-${catId}" style="cursor:default;opacity:0.55;">
+        <div class="primary-card-img">
+          <div class="primary-card-img-placeholder" style="font-size:6rem;">✦</div>
+        </div>
+        <div class="primary-card-body">
+          <div class="primary-card-cat"><span class="cat cat-${catId}">${catId.toUpperCase()}</span></div>
+          <div class="primary-card-title">COMING SOON</div>
+          <div class="primary-card-subtitle">${sub}</div>
+          <div class="primary-card-date">2026</div>
+        </div>
+      </div>`;
   }
 
   function primaryCard(ev, catId) {
@@ -64,8 +88,8 @@ function renderEvents() {
   }
 
   grid.innerHTML = CATEGORIES.map((cat, idx) => {
-    const primary   = EVENTS.filter(e => e.category === cat.id &&  e.isPrimary);
-    const secondary = EVENTS.filter(e => e.category === cat.id && !e.isPrimary);
+    const primary   = visibleEvents.filter(e => e.category === cat.id &&  e.isPrimary);
+    const secondary = visibleEvents.filter(e => e.category === cat.id && !e.isPrimary);
     const total     = primary.length + secondary.length;
 
     const catNumLabel = `0${idx + 1} · ${L[cat.labelKey] || ''}`;
@@ -80,7 +104,9 @@ function renderEvents() {
         </div>` : ''}
       </div>` : '';
 
-    const padHtml = '';
+    const primaryHtml = primary.length > 0
+      ? primary.map(ev => primaryCard(ev, cat.id)).join('')
+      : comingSoonCard(cat.id);
 
     return `
       <section class="cat-section" id="cat-${cat.id}">
@@ -96,7 +122,7 @@ function renderEvents() {
           <span class="cat cat-${cat.id}">${cat.code}</span>
         </div>
         <div class="primary-grid">
-          ${primary.map(ev => primaryCard(ev, cat.id)).join('')}${padHtml}
+          ${primaryHtml}
         </div>
         ${secondaryHtml}
       </section>`;
@@ -114,12 +140,19 @@ function renderFeaturedBanner() {
     return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
   })();
 
+  // Filter by visibility (while loading, show all to avoid blank banner)
+  const vis = window.eventsVisibility || {};
+  const pool = window.eventsVisibility === null
+    ? EVENTS
+    : EVENTS.filter(e => vis[e.num] !== false);
+  if (!pool.length) return;
+
   // Select featured event: explicit flag → next upcoming → most recent past
-  let ev = EVENTS.find(e => e.featured);
+  let ev = pool.find(e => e.featured);
   if (!ev) {
-    const upcoming = EVENTS.filter(e => e.date && e.date !== 'TBA' && e.date >= todayStr)
-                           .sort((a, b) => a.date.localeCompare(b.date));
-    ev = upcoming[0] || EVENTS.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+    const upcoming = pool.filter(e => e.date && e.date !== 'TBA' && e.date >= todayStr)
+                         .sort((a, b) => a.date.localeCompare(b.date));
+    ev = upcoming[0] || pool.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
   }
   if (!ev) return;
 

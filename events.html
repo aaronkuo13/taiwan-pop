@@ -258,6 +258,7 @@
 
   <footer id="contact"></footer>
 
+  <script>window.eventsVisibility = null;</script>
   <script src="js/lang.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
@@ -265,5 +266,20 @@
   <script src="js/events.js"></script>
   <script src="js/reveal.js"></script>
   <script src="js/lang-init.js"></script>
+  <script type="module">
+    import { db } from './js/firebase.js';
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+    (async () => {
+      try {
+        const snap = await getDoc(doc(db, 'config', 'events_visibility'));
+        window.eventsVisibility = snap.exists() ? snap.data() : {};
+      } catch (e) {
+        window.eventsVisibility = {};
+      }
+      renderEvents();
+      renderFeaturedBanner();
+    })();
+  </script>
 </body>
 </html>
