@@ -390,6 +390,75 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { border-color: var(--primary); color: var(--primary); }
     .toast.error { border-color: var(--danger); color: var(--danger); }
+
+    /* ── Section tabs ── */
+    .section-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0;
+    }
+    .section-tab {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: .2s;
+    }
+    .section-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .section-tab:hover:not(.active) { color: var(--text); }
+
+    /* ── Events visibility panel ── */
+    .section-desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .ev-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .ev-row {
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      transition: background .15s;
+    }
+    .ev-row:hover { background: var(--bg3); }
+    .ev-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      font-family: monospace;
+      min-width: 28px;
+    }
+    .ev-cat {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .ev-cat-sound  { background: rgba(255,45,107,.15);  color: #ff8aae; }
+    .ev-cat-image  { background: rgba(59,127,255,.15);  color: #7aa8ff; }
+    .ev-cat-street { background: rgba(0,255,87,.12);    color: #00d45a; }
+    .ev-date  { font-size: 12px; color: var(--muted); font-family: monospace; white-space: nowrap; flex-shrink: 0; min-width: 110px; }
+    .ev-title { flex: 1; font-size: 14px; line-height: 1.4; }
+    .ev-status {
+      font-size: 12px;
+      min-width: 52px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .ev-status.on  { color: var(--primary); }
+    .ev-status.off { color: var(--muted); }
   </style>
 </head>
 <body>
@@ -416,26 +485,48 @@
     </header>
 
     <div class="admin-body">
-      <div class="toolbar">
-        <h2>文章管理</h2>
-        <button class="btn-primary" id="new-article-btn">+ 新增文章</button>
+
+      <!-- Section tabs -->
+      <div class="section-tabs">
+        <button class="section-tab active" data-section="articles">文章管理</button>
+        <button class="section-tab" data-section="events">展演活動</button>
       </div>
-      <div id="articles-list">
-        <table class="articles-table">
-          <thead>
-            <tr>
-              <th>標題</th>
-              <th>分類</th>
-              <th>日期</th>
-              <th>狀態</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody id="articles-tbody">
-            <tr><td colspan="5" class="table-empty">載入中...</td></tr>
-          </tbody>
-        </table>
+
+      <!-- Articles section -->
+      <div id="section-articles">
+        <div class="toolbar">
+          <h2>文章管理</h2>
+          <button class="btn-primary" id="new-article-btn">+ 新增文章</button>
+        </div>
+        <div id="articles-list">
+          <table class="articles-table">
+            <thead>
+              <tr>
+                <th>標題</th>
+                <th>分類</th>
+                <th>日期</th>
+                <th>狀態</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="articles-tbody">
+              <tr><td colspan="5" class="table-empty">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <!-- Events visibility section -->
+      <div id="section-events" style="display:none">
+        <div class="toolbar">
+          <h2>展演活動</h2>
+        </div>
+        <p class="section-desc">控制各活動是否顯示於展演活動頁面。切換後即時儲存，無需重新發布。</p>
+        <div id="events-vis-list" class="ev-list">
+          <div style="padding:48px;text-align:center;color:var(--muted)">載入中...</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -791,6 +882,78 @@
       } catch (err) {
         showToast('刪除失敗', 'error');
       }
+    }
+
+    // ── Section tabs ──
+    document.querySelectorAll('.section-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.section-tab').forEach(t => t.classList.toggle('active', t === tab));
+        const sec = tab.dataset.section;
+        document.getElementById('section-articles').style.display = sec === 'articles' ? '' : 'none';
+        document.getElementById('section-events').style.display   = sec === 'events'   ? '' : 'none';
+        if (sec === 'events') loadVisibility();
+      });
+    });
+
+    // ── Events visibility ──
+    const EVENTS_META = [
+      { num: '01', title: '跨越邊界與肢體：林懷民與美國舞蹈節總監 Jodee Nimerichter 對談', cat: 'image',  date: '2026-05-01' },
+      { num: '02', title: 'NSO《來自臺灣》2026室內樂美國巡演',                               cat: 'sound',  date: '2026-05-19' },
+      { num: '13', title: '從內在聆聽到聲音：嚴俊傑鋼琴講座暨示範演出',                     cat: 'image',  date: '2026-05-20' },
+      { num: '03', title: '2026 紐約布希維克街頭藝術計畫',                                   cat: 'street', date: '2026-05-28', endDate: '2026-05-30' },
+      { num: '05', title: '2026 紐約同志遊行',                                               cat: 'street', date: '2026-06-28' },
+      { num: '06', title: '翃舞製作《羽人》',                                                cat: 'sound',  date: '2026-07-17', endDate: '2026-07-18' },
+      { num: '07', title: '2026 紐約夏日舞台音樂節 臺灣之夜',                                cat: 'sound',  date: '2026-08-16' },
+      { num: '04', title: '世界之間：跨越疆界的臺灣電影',                                    cat: 'image',  date: '2026-09-01', endDate: '2026-09-30' },
+    ];
+    const VIS_DEFAULTS = { '01': true, '02': true, '03': true, '13': true };
+    let visState = null;
+
+    async function loadVisibility() {
+      const container = document.getElementById('events-vis-list');
+      try {
+        const snap = await getDoc(doc(db, 'config', 'events_visibility'));
+        visState = snap.exists() ? { ...VIS_DEFAULTS, ...snap.data() } : { ...VIS_DEFAULTS };
+      } catch (e) {
+        visState = { ...VIS_DEFAULTS };
+      }
+      renderVisibility(container);
+    }
+
+    function renderVisibility(container) {
+      container.innerHTML = EVENTS_META.map(ev => {
+        const on = visState[ev.num] !== false;
+        const fmt = d => d.slice(5).replace('-', '.');
+        const dateStr = ev.endDate ? `${fmt(ev.date)} – ${fmt(ev.endDate)}` : fmt(ev.date);
+        return `
+          <div class="ev-row">
+            <span class="ev-num">#${ev.num}</span>
+            <span class="ev-cat ev-cat-${ev.cat}">${ev.cat.toUpperCase()}</span>
+            <span class="ev-date">${dateStr}</span>
+            <span class="ev-title">${ev.title}</span>
+            <span class="ev-status ${on ? 'on' : 'off'}" id="vis-status-${ev.num}">${on ? '顯示中' : '已隱藏'}</span>
+            <label class="toggle-switch">
+              <input type="checkbox" class="vis-toggle" data-num="${ev.num}" ${on ? 'checked' : ''}>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>`;
+      }).join('');
+
+      container.querySelectorAll('.vis-toggle').forEach(chk => {
+        chk.addEventListener('change', async () => {
+          const num = chk.dataset.num;
+          visState[num] = chk.checked;
+          const statusEl = document.getElementById(`vis-status-${num}`);
+          statusEl.textContent = chk.checked ? '顯示中' : '已隱藏';
+          statusEl.className = `ev-status ${chk.checked ? 'on' : 'off'}`;
+          try {
+            await setDoc(doc(db, 'config', 'events_visibility'), visState);
+            showToast(chk.checked ? `活動 ${num} 已顯示` : `活動 ${num} 已隱藏`);
+          } catch (e) {
+            showToast('儲存失敗：' + e.message, 'error');
+          }
+        });
+      });
     }
 
     // ── Image upload ──
