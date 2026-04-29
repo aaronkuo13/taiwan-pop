@@ -108,7 +108,7 @@
         <div style="text-align:right;">
           <p style="font-family:var(--font-m);font-size:0.6rem;letter-spacing:0.18em;color:rgba(0,0,0,0.4);margin-bottom:0.8rem;">主辦單位</p>
           <a href="https://tccny.moc.gov.tw/ch/Default.aspx" target="_blank" rel="noopener">
-            <img src="images/紐文logo.png" alt="Taipei Cultural Center in NY" style="height:56px;width:auto;opacity:0.75;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">
+            <img src="images/TCC LOGO(png).png" alt="Taipei Cultural Center in NY" style="height:56px;width:auto;opacity:0.75;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">
           </a>
         </div>
       </div>
