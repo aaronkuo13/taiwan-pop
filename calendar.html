@@ -240,6 +240,7 @@
 
   <footer id="contact"></footer>
 
+  <script>window.eventsVisibility = null;</script>
   <script src="js/lang.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
@@ -258,9 +259,14 @@ function localDateKey(d) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
+function visibleEvents() {
+  const vis = window.eventsVisibility || {};
+  return EVENTS.filter(e => vis[e.num] !== false);
+}
+
 function buildDayMap() {
   const map = {};
-  EVENTS.forEach(ev => {
+  visibleEvents().forEach(ev => {
     if (!ev.date || ev.date === 'TBA') return;
     const end = ev.endDate || ev.date;
     const [sy, sm, sd] = ev.date.split('-').map(Number);
@@ -384,7 +390,7 @@ function nextMonth() {
 function renderUpcoming() {
   const lang = getLang();
   const now  = new Date(); now.setHours(0,0,0,0);
-  const future = EVENTS
+  const future = visibleEvents()
     .filter(ev => ev.date && ev.date !== 'TBA' && new Date(ev.date+'T00:00:00') >= now)
     .sort((a,b) => a.date.localeCompare(b.date));
 
@@ -417,6 +423,22 @@ window.reRenderCalendar = function() { renderCalendar(); renderUpcoming(); };
 
 renderCalendar();
 renderUpcoming();
+  </script>
+
+  <script type="module">
+    import { db } from './js/firebase.js';
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+    (async () => {
+      try {
+        const snap = await getDoc(doc(db, 'config', 'events_visibility'));
+        window.eventsVisibility = snap.exists() ? snap.data() : {};
+      } catch (e) {
+        window.eventsVisibility = {};
+      }
+      renderCalendar();
+      renderUpcoming();
+    })();
   </script>
 
 </body>
