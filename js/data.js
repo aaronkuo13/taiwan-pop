@@ -268,17 +268,14 @@ const EVENTS = [
         bio: '林懷民是雲門舞集創辦人與前任藝術總監，被譽為引領亞洲當代舞蹈的重要先驅之一。自 1973 年創立雲門以來，他將太極、書法、美學與東亞哲思融入肢體語彙，創作《薪傳》、《九歌》、《水月》、《行草》與《松煙》等經典作品，帶領雲門巡演超過三十餘國，成為國際認識臺灣舞蹈的代表。退休後，他持續以寫作、講座與策畫等形式參與文化現場，關注藝術與社會的長期對話。',
         bio_en: 'Lin Hwai-min is the founder and former artistic director of Cloud Gate Dance Theatre of Taiwan and is widely regarded as a pioneering figure in contemporary dance in Asia. Since establishing Cloud Gate in 1973, he has created a distinctive movement language informed by tai chi, calligraphy, Asian aesthetics, and philosophy, in works such as "Legacy," "Nine Songs," "Moon Water," "Cursive," and "Pine Smoke," touring to more than thirty countries worldwide. After stepping down from Cloud Gate, Lin has continued to write, lecture, and engage in cultural initiatives, reflecting on the role of art in society.',
         website: 'https://www.cloudgate.org.tw/',
-        facebook: 'https://www.facebook.com/cloudgate',
-        instagram: 'https://www.instagram.com/cloudgate_official'
+        facebook: 'https://www.facebook.com/cloudgate'
       },
       {
         name: 'Jodee Nimerichter', name_en: 'Jodee Nimerichter',
         role: '美國舞蹈節總監', role_en: 'Executive Director, American Dance Festival',
         bio: 'Jodee Nimerichter 為美國舞蹈節（American Dance Festival, ADF）總監，長期致力於當代舞蹈的製作、國際合作與巡演推動。她在 ADF 主導多項新作委託與跨國交流計畫，與世界各地編舞家與舞團合作，亦多次與雲門舞集及臺灣編舞家合作演出與駐村，成為連結美國舞蹈界與亞洲的重要策展推手。',
         bio_en: 'Jodee Nimerichter is the executive director of the American Dance Festival (ADF), where she oversees commissioning, presenting, and touring initiatives that support contemporary dance around the world. Under her leadership, ADF has developed numerous international collaborations and residencies, working with choreographers and companies from across Asia, Europe, and the Americas, including long-standing partnerships with Cloud Gate Dance Theatre and other Taiwanese artists.',
-        website: 'https://www.americandancefestival.org',
-        facebook: 'https://www.facebook.com/AmericanDanceFestival',
-        instagram: 'https://www.instagram.com/americandancefestival'
+        facebook: 'https://www.facebook.com/AmericanDanceFestival'
       }
     ],
     category:'image', isPrimary:true, externalUrl:'https://asiasociety.org/new-york/events/across-borders-across-bodies-lin-hwai-min-and-jodee-nimerichter-conversation'
