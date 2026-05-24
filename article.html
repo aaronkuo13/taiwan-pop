@@ -4,6 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>文章 — Taiwan Pop 2026</title>
+
+  <!-- Canonical & hreflang（JS 會動態更新 canonical） -->
+  <link rel="canonical" href="https://taiwanpop.tw/article.html" id="meta-canonical">
+  <link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/news.html">
+  <link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/news.html?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://taiwanpop.tw/news.html">
+
+  <!-- Open Graph（JS 會動態更新內容） -->
+  <meta property="og:type"        content="article">
+  <meta property="og:locale"      content="zh_TW">
+  <meta property="og:site_name"   content="Taiwan Pop">
+  <meta property="og:url"         content="https://taiwanpop.tw/article.html" id="meta-og-url">
+  <meta property="og:title"       content="最新消息 — Taiwan Pop 2026" id="meta-og-title">
+  <meta property="og:description" content="Taiwan Pop 2026 最新消息" id="meta-og-desc">
+  <meta property="og:image"       content="https://taiwanpop.tw/images/logo-main.png" id="meta-og-image">
+  <meta property="og:image:alt"   content="Taiwan Pop" id="meta-og-image-alt">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="最新消息 — Taiwan Pop 2026" id="meta-tw-title">
+  <meta name="twitter:description" content="Taiwan Pop 2026 最新消息" id="meta-tw-desc">
+  <meta name="twitter:image"       content="https://taiwanpop.tw/images/logo-main.png" id="meta-tw-image">
+
   <link rel="stylesheet" href="css/tp-shared.css">
   <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -258,6 +281,23 @@
       const backLabel = lang === 'en' ? 'News' : '最新消息';
 
       document.title = `${title} — Taiwan Pop 2026`;
+
+      // ── 動態更新 SEO meta ──
+      const rawDesc = a.content ? a.content.replace(/<[^>]*>/g, '').trim() : title;
+      const descShort = rawDesc.length > 160 ? rawDesc.slice(0, 157) + '...' : rawDesc;
+      const imgUrl = a.coverImage || 'https://taiwanpop.tw/images/logo-main.png';
+      const pageUrl = `https://taiwanpop.tw/article.html?id=${new URLSearchParams(location.search).get('id')}`;
+      const setMeta = (id, val) => { const el = document.getElementById(id); if (el) el.setAttribute(el.hasAttribute('content') ? 'content' : 'href', val); };
+      setMeta('meta-canonical',    pageUrl);
+      setMeta('meta-og-url',       pageUrl);
+      setMeta('meta-og-title',     `${title} — Taiwan Pop 2026`);
+      setMeta('meta-og-desc',      descShort);
+      setMeta('meta-og-image',     imgUrl);
+      setMeta('meta-og-image-alt', title);
+      setMeta('meta-tw-title',     `${title} — Taiwan Pop 2026`);
+      setMeta('meta-tw-desc',      descShort);
+      setMeta('meta-tw-image',     imgUrl);
+      document.querySelector('meta[name="description"]')?.setAttribute('content', descShort);
 
       const coverHtml = a.coverImage
         ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`

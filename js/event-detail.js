@@ -80,6 +80,25 @@
     const title = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
     document.title = `${title} — Taiwan Pop 2026`;
 
+    // ── 動態更新 SEO meta ──
+    const desc = (lang === 'en' && ev.desc_en) ? ev.desc_en : (ev.desc || title);
+    const descShort = desc.length > 160 ? desc.slice(0, 157) + '...' : desc;
+    const imgUrl = ev.bannerImg
+      ? `https://taiwanpop.tw/${ev.bannerImg}`
+      : (ev.img ? `https://taiwanpop.tw/${ev.img}` : 'https://taiwanpop.tw/images/logo-main.png');
+    const pageUrl = `https://taiwanpop.tw/event.html?num=${ev.num}`;
+    const setMeta = (id, val) => { const el = document.getElementById(id); if (el) el.setAttribute(el.hasAttribute('content') ? 'content' : 'href', val); };
+    setMeta('meta-canonical',    pageUrl);
+    setMeta('meta-og-url',       pageUrl);
+    setMeta('meta-og-title',     `${title} — Taiwan Pop 2026`);
+    setMeta('meta-og-desc',      descShort);
+    setMeta('meta-og-image',     imgUrl);
+    setMeta('meta-og-image-alt', title);
+    setMeta('meta-tw-title',     `${title} — Taiwan Pop 2026`);
+    setMeta('meta-tw-desc',      descShort);
+    setMeta('meta-tw-image',     imgUrl);
+    document.querySelector('meta[name="description"]')?.setAttribute('content', descShort);
+
     renderHero(ev, lang);
 
     let desc = (lang === 'en' && ev.long_desc_en) ? ev.long_desc_en : ev.long_desc;
