@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://taiwanpop.tw/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/?lang=en"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://taiwanpop.tw/events.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/events.html"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/events.html?lang=en"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://taiwanpop.tw/concept.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/concept.html"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/concept.html?lang=en"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://taiwanpop.tw/calendar.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/calendar.html"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/calendar.html?lang=en"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://taiwanpop.tw/news.html</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/news.html"/>
+    <xhtml:link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/news.html?lang=en"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=01</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=02</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=03</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=04</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=05</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=06</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=07</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://taiwanpop.tw/event.html?num=13</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

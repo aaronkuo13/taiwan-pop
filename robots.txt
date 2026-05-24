@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /twpop-manage/
+
+Sitemap: https://taiwanpop.tw/sitemap.xml
