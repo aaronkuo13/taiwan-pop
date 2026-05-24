@@ -643,28 +643,66 @@
       ref, uploadBytesResumable, getDownloadURL
     } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-storage.js";
 
+    // ── Quill image handler：上傳到 Firebase Storage，存 URL 而非 base64 ──
+    function makeImageHandler(quillInstance) {
+      return function() {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+        input.onchange = async () => {
+          const file = input.files[0];
+          if (!file) return;
+          showToast('圖片上傳中...', 'success');
+          try {
+            const storageRef = ref(storage, `articles/content/${Date.now()}_${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+            uploadTask.on('state_changed', null,
+              err => { console.error(err); showToast('圖片上傳失敗', 'error'); },
+              async () => {
+                const url = await getDownloadURL(uploadTask.snapshot.ref);
+                const range = quillInstance.getSelection(true);
+                quillInstance.insertEmbed(range.index, 'image', url);
+                quillInstance.setSelection(range.index + 1);
+                showToast('圖片已插入', 'success');
+              }
+            );
+          } catch (err) {
+            console.error(err);
+            showToast('圖片上傳失敗', 'error');
+          }
+        };
+      };
+    }
+
     // ── Quill init ──
     const quillZh = new Quill('#quill-zh', {
       theme: 'snow',
       placeholder: '輸入文章內容（中文）...',
-      modules: { toolbar: [
-        [{ header: [2, 3, false] }],
-        ['bold', 'italic', 'underline'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['link', 'image', 'blockquote'],
-        ['clean']
-      ]}
+      modules: { toolbar: {
+        container: [
+          [{ header: [2, 3, false] }],
+          ['bold', 'italic', 'underline'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image', 'blockquote'],
+          ['clean']
+        ],
+        handlers: { image: () => makeImageHandler(quillZh)() }
+      }}
     });
     const quillEn = new Quill('#quill-en', {
       theme: 'snow',
       placeholder: 'Enter article content (English)...',
-      modules: { toolbar: [
-        [{ header: [2, 3, false] }],
-        ['bold', 'italic', 'underline'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['link', 'image', 'blockquote'],
-        ['clean']
-      ]}
+      modules: { toolbar: {
+        container: [
+          [{ header: [2, 3, false] }],
+          ['bold', 'italic', 'underline'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image', 'blockquote'],
+          ['clean']
+        ],
+        handlers: { image: () => makeImageHandler(quillEn)() }
+      }}
     });
 
     // ── Toast ──
