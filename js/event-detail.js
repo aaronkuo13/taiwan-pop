@@ -81,8 +81,8 @@
     document.title = `${title} — Taiwan Pop 2026`;
 
     // ── 動態更新 SEO meta ──
-    const desc = (lang === 'en' && ev.desc_en) ? ev.desc_en : (ev.desc || title);
-    const descShort = desc.length > 160 ? desc.slice(0, 157) + '...' : desc;
+    const metaDesc = (lang === 'en' && ev.desc_en) ? ev.desc_en : (ev.desc || title);
+    const descShort = metaDesc.length > 160 ? metaDesc.slice(0, 157) + '...' : metaDesc;
     const imgUrl = ev.bannerImg
       ? `https://taiwanpop.tw/${ev.bannerImg}`
       : (ev.img ? `https://taiwanpop.tw/${ev.img}` : 'https://taiwanpop.tw/images/logo-main.png');
