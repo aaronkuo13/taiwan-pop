@@ -90,16 +90,15 @@ img { display:block; max-width:100%; }
 
 /* ── NAVBAR ── */
 .tp-nav {
-  position:fixed; top:0; left:0; right:0; z-index:900;
+  position:fixed; top:0; left:0; right:0; z-index:1000;
   display:flex; align-items:center; justify-content:space-between;
   padding:1.1rem 2.5rem;
-  transition:background 0.35s, border-color 0.35s;
-  border-bottom:1px solid transparent;
+  transition:background 0.35s, box-shadow 0.35s;
 }
 .tp-nav.scrolled {
   background:rgba(8,8,8,0.92);
-  backdrop-filter:blur(18px);
-  border-color:var(--border);
+  backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 rgba(255,255,255,0.08);
 }
 .tp-nav-logo {
   font-family:var(--font-d);
