@@ -469,21 +469,25 @@
   }
 
   /* ── NEWS LIST ── */
+  /* 強制覆蓋 style.css 在手機 @media 裡把 .articles-grid 改成橫向 flex 的規則（那是 article.html 的樣式） */
   .articles-grid {
     display: block !important;
+    flex-wrap: unset !important;
+    overflow-x: unset !important;
+    scroll-snap-type: unset !important;
   }
   .news-list-item {
-    display: grid; grid-template-columns: 90px 1fr 28px;
+    display: grid; grid-template-columns: auto 1fr auto;
     gap: 1.5rem; align-items: center;
     padding: 1.3rem 0; border-bottom: 1px solid var(--border);
     text-decoration: none; color: var(--white);
     transition: color 0.2s;
   }
   .news-list-item:first-child { border-top: 1px solid var(--border); }
-  .news-list-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+  .news-list-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.3); white-space: nowrap; }
   .news-list-headline { font-size: var(--fs-base); line-height: 1.5; }
   .news-list-item:hover .news-list-headline { color: var(--green); }
-  .news-list-arrow { font-family: var(--font-m); font-size: var(--fs-base); color: rgba(255,255,255,0.2); text-align: right; transition: color 0.2s, transform 0.2s; }
+  .news-list-arrow { font-family: var(--font-m); font-size: var(--fs-base); color: rgba(255,255,255,0.2); text-align: right; flex-shrink: 0; transition: color 0.2s, transform 0.2s; }
   .news-list-item:hover .news-list-arrow { color: var(--green); transform: translateX(3px); }
 
   /* ── RESPONSIVE ── */
@@ -521,6 +525,20 @@
     .game-sec { grid-template-columns: 1fr; padding: 3rem 1.2rem; }
     .game-visual { display: none; }
     .news-sec { padding: 3rem 1.2rem; }
+  }
+  @media (max-width: 640px) {
+    /* 手機版新聞列表：日期獨佔一行，標題 + 箭頭在下一行 */
+    .news-list-item {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 0.3rem 1rem;
+      padding: 1.2rem 0;
+    }
+    .news-list-date {
+      grid-column: 1 / -1;
+      margin-bottom: 0.1rem;
+    }
+    .news-list-headline { line-height: 1.4; }
   }
   </style>
 </head>
