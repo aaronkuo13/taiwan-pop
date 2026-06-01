@@ -50,8 +50,9 @@ function renderEvents() {
   }
 
   function primaryCard(ev, catId) {
-    const t      = (lang === 'en' && ev.title_en)   ? ev.title_en   : ev.title;
-    const sub    = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const t        = (lang === 'en' && ev.title_en)   ? ev.title_en   : ev.title;
+    const subFull  = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const sub      = subFull.includes(' · ') ? subFull.split(' · ').slice(1).join(' · ') : subFull;
     const coming = !ev.img;
     const imgHtml = ev.img
       ? `<img src="${ev.img}" alt="${t}" loading="lazy">`
@@ -109,10 +110,9 @@ function renderEvents() {
       <section class="cat-section" id="cat-${cat.id}">
         <div class="cat-section-header">
           <div>
-            <h2 class="cat-section-title cat-${cat.id}-title">${cat.num} ${L[cat.labelKey] || ''}</h2>
+            <h2 class="cat-section-title cat-${cat.id}-title">${cat.num}・${L[cat.labelKey] || ''}</h2>
             <p class="cat-desc">${L[cat.subKey] || ''}</p>
           </div>
-          <span class="cat cat-${cat.id}">${cat.code}</span>
         </div>
         <div class="primary-grid">
           ${primaryHtml}
