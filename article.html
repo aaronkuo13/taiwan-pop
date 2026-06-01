@@ -57,14 +57,7 @@
     display: flex; flex-direction: column; justify-content: flex-start;
     border-right: 1px solid var(--border);
   }
-  .article-back {
-    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.18em;
-    color: rgba(255,255,255,0.4);
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    transition: color 0.2s; text-decoration: none;
-  }
   .article-hero-content { margin: auto 0; }
-  .article-back:hover { color: var(--white); }
   .article-meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
   .article-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
   .article-title {
@@ -281,8 +274,6 @@
       const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
       const cat     = a.category || '';
       const catCls  = CAT_CLASS[cat] || 'cat-media';
-      const backLabel = lang === 'en' ? 'News' : '最新消息';
-
       document.title = `${title} — Taiwan Pop 2026`;
 
       // ── 動態更新 SEO meta ──
@@ -313,7 +304,6 @@
       document.getElementById('article-root').innerHTML = `
         <div class="article-hero">
           <div class="article-hero-left">
-            <a href="news.html" class="article-back">← ${backLabel}</a>
             <div class="article-hero-content">
               <div class="article-meta-row">
                 ${cat ? `<span class="art-cat-label">${cat}</span>` : ''}
