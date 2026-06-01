@@ -58,7 +58,7 @@
     border-right: 1px solid var(--border);
   }
   .article-back {
-    font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.18em;
+    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.18em;
     color: rgba(255,255,255,0.4);
     display: inline-flex; align-items: center; gap: 0.4rem;
     transition: color 0.2s; text-decoration: none;
@@ -66,7 +66,7 @@
   .article-hero-content { margin: auto 0; }
   .article-back:hover { color: var(--white); }
   .article-meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-  .article-date { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
+  .article-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
   .article-title {
     font-family: var(--font-d);
     font-size: clamp(2.5rem, 5.5vw, 5.5rem);
@@ -88,7 +88,7 @@
 
   /* ── HERO CAT LABEL (plain, no background) ── */
   .art-cat-label {
-    font-family: var(--font-m); font-size: 0.6rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.22em; text-transform: uppercase;
     color: rgba(255,255,255,0.5);
   }
@@ -100,12 +100,12 @@
     padding: 4rem 2.5rem 6rem;
   }
   .article-section-label {
-    font-family: var(--font-m); font-size: 0.56rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.28em; color: rgba(255,255,255,0.25);
     display: block; margin-bottom: 1rem;
   }
   .article-body {
-    font-size: 0.92rem; line-height: 2.1;
+    font-size: var(--fs-base); line-height: 2.1;
     color: rgba(255,255,255,0.65);
   }
   .article-body p { margin-bottom: 1.4rem; }
@@ -134,7 +134,7 @@
   }
   .article-pullquote p,
   .article-body blockquote p {
-    font-size: 1.05rem; line-height: 1.8;
+    font-size: var(--fs-base); line-height: 1.8;
     color: rgba(255,255,255,0.75); font-style: italic; margin: 0;
   }
 
@@ -145,7 +145,7 @@
   }
   .sidebar-section:first-child { border-top: 1px solid var(--border); }
   .sidebar-title {
-    font-family: var(--font-m); font-size: 0.58rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.22em; color: rgba(255,255,255,0.28); margin-bottom: 0.8rem;
   }
   .sidebar-event {
@@ -158,10 +158,10 @@
   .sidebar-event:hover { background: #141414; }
   .sidebar-event-cat { margin-bottom: 0.3rem; }
   .sidebar-event-title { font-family: var(--font-d); font-size: 1.2rem; letter-spacing: 0.03em; line-height: 1.1; }
-  .sidebar-event-date { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+  .sidebar-event-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
   .share-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
   .share-btn {
-    font-family: var(--font-m); font-size: 0.58rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.14em; padding: 0.4rem 0.8rem;
     border: 1px solid rgba(255,255,255,0.12);
     color: rgba(255,255,255,0.4); transition: all 0.2s;
@@ -175,15 +175,15 @@
     text-decoration: none; color: var(--white);
   }
   .related-item:last-child { border: none; }
-  .related-date { font-family: var(--font-m); font-size: 0.55rem; color: rgba(255,255,255,0.25); margin-top: 0.15rem; flex-shrink: 0; }
-  .related-title-text { font-size: 0.8rem; line-height: 1.5; transition: color 0.2s; }
+  .related-date { font-family: var(--font-m); font-size: var(--fs-base); color: rgba(255,255,255,0.25); margin-top: 0.15rem; flex-shrink: 0; }
+  .related-title-text { font-size: var(--fs-base); line-height: 1.5; transition: color 0.2s; }
   .related-item:hover .related-title-text { color: var(--green); }
 
   /* ── LOADING / ERROR ── */
   .article-loading, .article-error {
     text-align: center; padding: 80px 0;
     color: rgba(255,255,255,0.3);
-    font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.1em;
+    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em;
   }
 
   /* ── RESPONSIVE ── */
