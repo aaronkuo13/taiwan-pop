@@ -91,7 +91,7 @@
   .fb-sticker::before { content: '★'; font-size: 0.9rem; }
   .fb-sticker-en {
     font-family: var(--font-m);
-    font-size: 0.55rem; letter-spacing: 0.22em; opacity: 0.9;
+    font-size: var(--fs-base); letter-spacing: 0.22em; opacity: 0.9;
     border-left: 1px solid rgba(255,255,255,0.4);
     padding-left: 0.55rem;
   }
@@ -102,7 +102,7 @@
     border: 1px solid var(--border); border-top: none;
     padding: 0.95rem 1.4rem;
     font-family: var(--font-m);
-    font-size: 0.62rem; letter-spacing: 0.28em;
+    font-size: var(--fs-base); letter-spacing: 0.28em;
     color: rgba(255,255,255,0.85);
     text-transform: uppercase;
   }
@@ -134,7 +134,6 @@
     padding: 0 2.5rem 2rem;
     display: flex; align-items: flex-end; justify-content: space-between;
   }
-  .cat-section-title-wrap { display: flex; align-items: center; gap: 1rem; }
   .cat-section-title {
     font-family: var(--font-d); font-size: clamp(2.5rem,5vw,5rem);
     letter-spacing: 0.04em; line-height: 1; color: var(--white);
@@ -142,11 +141,7 @@
   .cat-sound-title  { text-shadow: 3px 3px 0 rgba(255,45,107,0.35); }
   .cat-image-title  { text-shadow: 3px 3px 0 rgba(59,127,255,0.35); }
   .cat-street-title { text-shadow: 3px 3px 0 rgba(0,255,87,0.25); }
-  .cat-count {
-    font-family: var(--font-d); font-size: 3rem; line-height: 1;
-    opacity: 0.15; letter-spacing: -0.02em; color: var(--white);
-  }
-  .cat-desc { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-top: 0.4rem; }
+  .cat-desc { font-size: var(--fs-base); color: rgba(255,255,255,0.4); margin-top: 0.4rem; }
 
   /* ── PRIMARY CARDS (3-col) ── */
   .primary-grid {
@@ -171,9 +166,9 @@
   .primary-card-body { padding: 1.4rem 1.2rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
   .primary-card-cat  { margin-bottom: 0.6rem; }
   .primary-card-title { font-family: var(--font-d); font-size: 1.8rem; letter-spacing: 0.03em; line-height: 1.05; }
-  .primary-card-subtitle { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 0.3rem; }
+  .primary-card-subtitle { font-size: var(--fs-base); color: rgba(255,255,255,0.45); margin-top: 0.3rem; }
   .primary-card-date {
-    font-family: var(--font-m); font-size: 0.6rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.14em; color: rgba(255,255,255,0.28);
     margin-top: auto; padding-top: 0.8rem;
   }
@@ -204,7 +199,7 @@
   .secondary-card-cat   { margin-bottom: 0.5rem; }
   .secondary-card-title { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 0.03em; line-height: 1.1; }
   .secondary-card-date  {
-    font-family: var(--font-m); font-size: 0.58rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.12em; color: rgba(255,255,255,0.25); margin-top: 0.5rem;
   }
 
@@ -213,7 +208,7 @@
   /* Tablet ≤960px */
   @media (max-width: 960px) {
     .featured-wrap { padding: 3rem 1.6rem 0; }
-    .fb-status { padding: 0.7rem 1rem; font-size: 0.56rem; letter-spacing: 0.2em; }
+    .fb-status { padding: 0.7rem 1rem; letter-spacing: 0.2em; }
     .fb-sticker { font-size: 1.1rem; padding: 0.5rem 0.9rem; left: 1.5rem; top: -1.4rem; }
     .cat-section-header { padding: 0 1.2rem 1.5rem; }
     .primary-grid { grid-template-columns: repeat(2, 1fr); }
@@ -226,7 +221,7 @@
     .fb-status {
       flex-wrap: wrap; gap: 0.7rem;
       padding: 0.75rem 1rem;
-      font-size: 0.54rem; letter-spacing: 0.18em;
+      letter-spacing: 0.18em;
     }
     .fb-status-cta { margin-left: 0; width: 100%; justify-content: flex-end; padding-top: 0.3rem; border-top: 1px dashed rgba(255,255,255,0.1); }
     .fb-sticker { font-size: 0.95rem; padding: 0.45rem 0.8rem 0.4rem; left: 1.2rem; top: -1.2rem; box-shadow: 2px 2px 0 var(--black); }
@@ -238,7 +233,7 @@
   /* XS ≤420px */
   @media (max-width: 420px) {
     .featured-wrap { padding: 2.3rem 0.7rem 0; }
-    .fb-status { padding: 0.65rem 0.8rem; font-size: 0.5rem; letter-spacing: 0.15em; gap: 0.5rem; }
+    .fb-status { padding: 0.65rem 0.8rem; letter-spacing: 0.15em; gap: 0.5rem; }
     .fb-sticker { font-size: 0.82rem; padding: 0.38rem 0.7rem 0.33rem; left: 0.9rem; top: -1rem; }
     .secondary-grid { grid-template-columns: 1fr; }
   }
@@ -258,7 +253,7 @@
     pointer-events: none;
   }
   .card-coming span {
-    font-family: var(--font-m); font-size: 0.6rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.22em; color: rgba(255,255,255,0.4);
     border: 1px solid rgba(255,255,255,0.12);
     padding: 0.4rem 0.9rem;

@@ -26,15 +26,15 @@
   function renderHero(ev, lang) {
     const catId    = ev.category;
     const title    = (lang === 'en' && ev.title_en)    ? ev.title_en    : ev.title;
-    const subtitle = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const subtitleFull = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const subtitle = subtitleFull.includes(' · ') ? subtitleFull.split(' · ').slice(1).join(' · ') : subtitleFull;
     const location = (lang === 'en' && ev.location_full) ? ev.location_full : ev.location;
-    const backLabel = lang === 'en' ? 'Events' : '展演活動';
     const dateLabel = lang === 'en' ? 'DATE'   : '日期';
     const venueLabel = lang === 'en' ? 'VENUE'  : '場地';
 
     const ctaHtml = ev.externalUrl
       ? `<a href="${ev.externalUrl}" target="_blank" rel="noopener" class="btn btn-white">${lang === 'en' ? 'Get Tickets' : '立即購票'}</a>`
-      : `<a href="#" class="btn btn-white" style="opacity:0.45;pointer-events:none">${lang === 'en' ? 'Coming Soon' : '即將公布'}</a>`;
+      : '';
 
     const imgSrc = ev.imgInner || ev.img;
     const imgHtml = imgSrc
@@ -44,7 +44,6 @@
     document.getElementById('ev-hero').innerHTML = `
       <div class="ev-hero">
         <div class="ev-hero-left ev-hero-left--${catId}">
-          <a href="events.html" class="ev-back">← ${backLabel}</a>
           <div class="ev-cat-row">
             <span class="cat cat-${catId}">${catId.toUpperCase()}</span>
           </div>
@@ -53,17 +52,14 @@
           <div class="ev-meta">
             <div class="ev-meta-row">
               <span class="ev-meta-key">${dateLabel}</span>
-              <span class="ev-meta-val">${dateStr(ev)}${ev.time ? ' · ' + ev.time : ''}</span>
+              <span class="ev-meta-val">${dateStr(ev)}</span>
             </div>
             <div class="ev-meta-row">
               <span class="ev-meta-key">${venueLabel}</span>
               <span class="ev-meta-val">${location}</span>
             </div>
           </div>
-          <div class="ev-actions">
-            ${ctaHtml}
-            <a href="calendar.html" class="btn btn-outline">${lang === 'en' ? 'View Calendar' : '前往行事曆'}</a>
-          </div>
+          ${ctaHtml ? `<div class="ev-actions">${ctaHtml}</div>` : ''}
         </div>
         <div class="ev-hero-right">
           ${imgHtml}
@@ -105,7 +101,7 @@
 
     /* Description */
     const descEl = document.getElementById('detailDesc');
-    const labelAbout = lang === 'en' ? 'ABOUT · Event Introduction' : 'ABOUT · 活動介紹';
+    const labelAbout = lang === 'en' ? 'ABOUT' : '活動介紹';
     let descHtml = `<span class="ev-section-label">${labelAbout}</span>`;
     if (desc) {
       descHtml += desc
@@ -121,7 +117,7 @@
     /* Sub Events */
     const subEventsEl = document.getElementById('detailSubEvents');
     if (ev.subEvents && ev.subEvents.length) {
-      const labelSched = lang === 'en' ? 'SCHEDULE · Event Sessions' : 'SCHEDULE · 活動時程';
+      const labelSched = lang === 'en' ? 'SCHEDULE' : '活動時程';
       const infoLabel  = lang === 'en' ? 'Info →' : '活動資訊 →';
       subEventsEl.innerHTML = `
         <span class="ev-section-label">${labelSched}</span>
@@ -150,7 +146,7 @@
     /* Video */
     const videoEl = document.getElementById('detailVideo');
     if (ev.youtubeId) {
-      const labelVideo = lang === 'en' ? 'VIDEO · Trailer' : 'VIDEO · 預告影片';
+      const labelVideo = lang === 'en' ? 'VIDEO' : '預告影片';
       videoEl.innerHTML = `
         <span class="ev-section-label">${labelVideo}</span>
         <div class="ev-video-wrap">
@@ -167,7 +163,7 @@
     /* Program */
     const programEl = document.getElementById('detailProgram');
     if (ev.program && ev.program.length) {
-      const labelProg = lang === 'en' ? 'PROGRAM · Repertoire' : 'PROGRAM · 演出曲目';
+      const labelProg = lang === 'en' ? 'PROGRAM' : '演出曲目';
       const premiereLabel = lang === 'en' ? 'WORLD PREMIERE' : '世界首演';
       programEl.innerHTML = `
         <span class="ev-section-label">${labelProg}</span>
@@ -190,7 +186,7 @@
     const ensembleEl = document.getElementById('detailEnsemble');
     if (ev.ensemble) {
       const s = ev.ensemble;
-      const labelEns = lang === 'en' ? 'ENSEMBLE · Performing Organization' : 'ENSEMBLE · 演出單位';
+      const labelEns = lang === 'en' ? 'ENSEMBLE' : '演出單位';
       const name  = (lang === 'en' && s.name_en) ? s.name_en : s.name;
       const bio   = (lang === 'en' && s.bio_en)  ? s.bio_en  : s.bio;
       const links = socialBtns(s);
@@ -224,7 +220,7 @@
                   : ev.speakersLabel ? ev.speakersLabel
                   : (lang === 'en' ? 'Speakers' : '主講人');
       speakersEl.innerHTML = `
-        <span class="ev-section-label">${label.toUpperCase()} · ${label}</span>
+        <span class="ev-section-label">${label}</span>
         <div class="ev-speakers-grid">
           ${ev.speakers.map(s => {
             const name  = (lang === 'en' && s.name_en) ? s.name_en : s.name;
@@ -251,7 +247,7 @@
                   : ev.performersLabel ? ev.performersLabel
                   : (lang === 'en' ? 'Performers' : '演出者');
       performersEl.innerHTML = `
-        <span class="ev-section-label">${label.toUpperCase()} · ${label}</span>
+        <span class="ev-section-label">${label}</span>
         <div class="ev-performers-grid">
           ${ev.performers.map(p => {
             const instrument = (lang === 'en' && p.instrument_en) ? p.instrument_en : (p.instrument || '');
@@ -259,7 +255,6 @@
             const bio   = (lang === 'en' && p.bio_en)  ? p.bio_en  : p.bio;
             const links = socialBtns(p);
             return `<div class="ev-performer">
-              ${instrument ? `<div class="ev-performer-instr">${instrument}</div>` : ''}
               <div class="ev-performer-name">${name}</div>
               ${bio   ? `<p class="ev-performer-bio">${bio}</p>`         : ''}
               ${links ? `<div class="ev-performer-links">${links}</div>` : ''}
@@ -274,7 +269,7 @@
     /* Gallery */
     const galleryEl = document.getElementById('detailGallery');
     if (ev.gallery && ev.gallery.length) {
-      const labelGal = lang === 'en' ? 'GALLERY · Production Photos' : 'GALLERY · 劇照';
+      const labelGal = lang === 'en' ? 'GALLERY' : '劇照';
       galleryEl.innerHTML = `
         <span class="ev-section-label">${labelGal}</span>
         <div class="ev-gallery">

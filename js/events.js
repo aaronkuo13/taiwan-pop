@@ -8,7 +8,7 @@ function renderEvents() {
 
   // Wait for visibility config from Firestore (null = still loading)
   if (window.eventsVisibility === null) {
-    grid.innerHTML = '<div style="padding:5rem 2.5rem;font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-align:center">LOADING · 載入中</div>';
+    grid.innerHTML = '<div style="padding:5rem 2.5rem;font-family:var(--font-m);font-size:var(--fs-base);letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-align:center">LOADING · 載入中</div>';
     return;
   }
 
@@ -50,8 +50,9 @@ function renderEvents() {
   }
 
   function primaryCard(ev, catId) {
-    const t      = (lang === 'en' && ev.title_en)   ? ev.title_en   : ev.title;
-    const sub    = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const t        = (lang === 'en' && ev.title_en)   ? ev.title_en   : ev.title;
+    const subFull  = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const sub      = subFull.includes(' · ') ? subFull.split(' · ').slice(1).join(' · ') : subFull;
     const coming = !ev.img;
     const imgHtml = ev.img
       ? `<img src="${ev.img}" alt="${t}" loading="lazy">`
@@ -87,12 +88,9 @@ function renderEvents() {
       </a>`;
   }
 
-  grid.innerHTML = CATEGORIES.map((cat, idx) => {
+  grid.innerHTML = CATEGORIES.map((cat) => {
     const primary   = visibleEvents.filter(e => e.category === cat.id &&  e.isPrimary);
     const secondary = visibleEvents.filter(e => e.category === cat.id && !e.isPrimary);
-    const total     = primary.length + secondary.length;
-
-    const catNumLabel = `0${idx + 1} · ${L[cat.labelKey] || ''}`;
 
     const secondaryHtml = secondary.length ? `
       <div class="secondary-grid">
@@ -100,7 +98,7 @@ function renderEvents() {
         ${secondary.length < 4 && cat.id === 'street' ? `
         <div style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem">
           <div style="font-family:var(--font-d);font-size:5rem;opacity:0.04">+</div>
-          <div style="font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.2em;color:rgba(255,255,255,0.12)">MORE TO COME</div>
+          <div style="font-family:var(--font-m);font-size:var(--fs-base);letter-spacing:0.2em;color:rgba(255,255,255,0.12)">MORE TO COME</div>
         </div>` : ''}
       </div>` : '';
 
@@ -112,14 +110,9 @@ function renderEvents() {
       <section class="cat-section" id="cat-${cat.id}">
         <div class="cat-section-header">
           <div>
-            <span class="t-label" style="display:block;margin-bottom:0.5rem">${catNumLabel}</span>
-            <div class="cat-section-title-wrap">
-              <h2 class="cat-section-title cat-${cat.id}-title">${L[cat.labelKey] || ''}</h2>
-              <span class="cat-count">${total}</span>
-            </div>
+            <h2 class="cat-section-title cat-${cat.id}-title">${cat.num}・${L[cat.labelKey] || ''}</h2>
             <p class="cat-desc">${L[cat.subKey] || ''}</p>
           </div>
-          <span class="cat cat-${cat.id}">${cat.code}</span>
         </div>
         <div class="primary-grid">
           ${primaryHtml}
@@ -167,17 +160,14 @@ function renderFeaturedBanner() {
   const mm  = String(dm).padStart(2,'0');
   const day = String(dd).padStart(2,'0');
   const wk  = WDAYS[new Date(dy, dm - 1, dd).getDay()];
-  const timeStr = ev.time && ev.time !== 'TBA'
-    ? ` · ${ev.time.replace('p.m.','PM').replace('a.m.','AM')}`
-    : '';
-  const dateDisplay = `${mm}.${day} ${wk}${timeStr}`;
+  const dateDisplay = `${mm}.${day} ${wk}`;
 
   // i18n labels
-  const title      = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
-  const ctaLabel   = lang === 'en' ? 'LEARN MORE →' : '了解詳情 →';
-  const statusZh   = '即將登場';
-  const countdownStr = diffDays > 0  ? `倒數 ${diffDays} 天`
-                     : diffDays === 0 ? '今天登場'
+  const title    = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+  const ctaLabel = '→';
+  const statusZh   = lang === 'en' ? 'Next Up' : '即將登場';
+  const countdownStr = diffDays > 0  ? (lang === 'en' ? `${diffDays} days to go` : `倒數 ${diffDays} 天`)
+                     : diffDays === 0 ? (lang === 'en' ? 'Today!'                 : '今天登場')
                      : '';
 
   const imgSrc = ev.bannerImg || ev.imgInner || ev.img || '';
@@ -186,7 +176,7 @@ function renderFeaturedBanner() {
   el.innerHTML = `
     <div class="featured-wrap reveal">
       <a href="${href}" class="featured-banner">
-        <div class="fb-sticker">即將登場<span class="fb-sticker-en">NEXT UP</span></div>
+        <div class="fb-sticker">${lang === 'en' ? 'NEXT UP' : '即將登場'}<span class="fb-sticker-en">${lang === 'en' ? '' : 'NEXT UP'}</span></div>
         <div class="fb-image-wrap">
           ${imgSrc
             ? `<img src="${imgSrc}" alt="${title}">`
