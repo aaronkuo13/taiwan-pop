@@ -109,10 +109,7 @@ function renderEvents() {
       <section class="cat-section" id="cat-${cat.id}">
         <div class="cat-section-header">
           <div>
-            <div class="cat-section-title-wrap">
-              <h2 class="cat-section-title cat-${cat.id}-title">${L[cat.labelKey] || ''}</h2>
-              <span class="cat-count">${cat.num}</span>
-            </div>
+            <h2 class="cat-section-title cat-${cat.id}-title">${cat.num} ${L[cat.labelKey] || ''}</h2>
             <p class="cat-desc">${L[cat.subKey] || ''}</p>
           </div>
           <span class="cat cat-${cat.id}">${cat.code}</span>
