@@ -26,7 +26,8 @@
   function renderHero(ev, lang) {
     const catId    = ev.category;
     const title    = (lang === 'en' && ev.title_en)    ? ev.title_en    : ev.title;
-    const subtitle = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const subtitleFull = (lang === 'en' && ev.subtitle_en) ? ev.subtitle_en : (ev.subtitle || '');
+    const subtitle = subtitleFull.includes(' · ') ? subtitleFull.split(' · ').slice(1).join(' · ') : subtitleFull;
     const location = (lang === 'en' && ev.location_full) ? ev.location_full : ev.location;
     const dateLabel = lang === 'en' ? 'DATE'   : '日期';
     const venueLabel = lang === 'en' ? 'VENUE'  : '場地';
