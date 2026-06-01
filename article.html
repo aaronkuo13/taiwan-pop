@@ -225,6 +225,12 @@
       '專題報導': 'cat-feature',
       '媒體報導': 'cat-media',
     };
+    const CAT_LABEL_EN = {
+      '官方公告': 'Announcement',
+      '活動預告': 'Preview',
+      '專題報導': 'Feature',
+      '媒體報導': 'Media',
+    };
 
     function getLang() {
       return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
@@ -272,8 +278,9 @@
       const lang    = getLang();
       const title   = (lang === 'en' && a.title_en)   ? a.title_en   : (a.title   || '');
       const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
-      const cat     = a.category || '';
-      const catCls  = CAT_CLASS[cat] || 'cat-media';
+      const cat      = a.category || '';
+      const catCls   = CAT_CLASS[cat] || 'cat-media';
+      const catLabel = lang === 'en' ? (CAT_LABEL_EN[cat] || cat) : cat;
       document.title = `${title} — Taiwan Pop 2026`;
 
       // ── 動態更新 SEO meta ──
@@ -306,7 +313,7 @@
           <div class="article-hero-left">
             <div class="article-hero-content">
               <div class="article-meta-row">
-                ${cat ? `<span class="art-cat-label">${cat}</span>` : ''}
+                ${cat ? `<span class="art-cat-label">${catLabel}</span>` : ''}
                 <span class="article-date">${formatDate(a.date)}</span>
               </div>
               <h1 class="article-title">${title}</h1>
@@ -317,7 +324,7 @@
 
         <div class="article-wrap">
           <article class="article-content">
-            <span class="article-section-label">ARTICLE · 文章內容</span>
+            <span class="article-section-label">${lang === 'en' ? 'ARTICLE · Content' : 'ARTICLE · 文章內容'}</span>
             <div class="article-body">${content}</div>
           </article>
 
