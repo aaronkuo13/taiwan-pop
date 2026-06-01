@@ -87,12 +87,9 @@ function renderEvents() {
       </a>`;
   }
 
-  grid.innerHTML = CATEGORIES.map((cat, idx) => {
+  grid.innerHTML = CATEGORIES.map((cat) => {
     const primary   = visibleEvents.filter(e => e.category === cat.id &&  e.isPrimary);
     const secondary = visibleEvents.filter(e => e.category === cat.id && !e.isPrimary);
-    const total     = primary.length + secondary.length;
-
-    const catNumLabel = `0${idx + 1} · ${L[cat.labelKey] || ''}`;
 
     const secondaryHtml = secondary.length ? `
       <div class="secondary-grid">
@@ -112,10 +109,9 @@ function renderEvents() {
       <section class="cat-section" id="cat-${cat.id}">
         <div class="cat-section-header">
           <div>
-            <span class="t-label" style="display:block;margin-bottom:0.5rem">${catNumLabel}</span>
             <div class="cat-section-title-wrap">
               <h2 class="cat-section-title cat-${cat.id}-title">${L[cat.labelKey] || ''}</h2>
-              <span class="cat-count">${total}</span>
+              <span class="cat-count">${cat.num}</span>
             </div>
             <p class="cat-desc">${L[cat.subKey] || ''}</p>
           </div>
