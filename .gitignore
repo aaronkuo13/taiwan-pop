@@ -1,11 +1,11 @@
 .DS_Store
-.claude/
+
+# Claude Code — 個人設定不推（含本機路徑與權限）
+.claude/settings.local.json
 
 # AI Memory & Internal Workflow Docs (Do not push to GitHub)
 MEMORY.md
-CLAUDE.md
 temp_file/
 .venv_pdf/
 copy-review.md
 design_handoff_homepage_showcase/
-PROJECT_SPEC.md
