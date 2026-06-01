@@ -104,7 +104,7 @@
 
     /* Description */
     const descEl = document.getElementById('detailDesc');
-    const labelAbout = lang === 'en' ? 'ABOUT · Event Introduction' : 'ABOUT · 活動介紹';
+    const labelAbout = lang === 'en' ? 'ABOUT' : '活動介紹';
     let descHtml = `<span class="ev-section-label">${labelAbout}</span>`;
     if (desc) {
       descHtml += desc
@@ -120,7 +120,7 @@
     /* Sub Events */
     const subEventsEl = document.getElementById('detailSubEvents');
     if (ev.subEvents && ev.subEvents.length) {
-      const labelSched = lang === 'en' ? 'SCHEDULE · Event Sessions' : 'SCHEDULE · 活動時程';
+      const labelSched = lang === 'en' ? 'SCHEDULE' : '活動時程';
       const infoLabel  = lang === 'en' ? 'Info →' : '活動資訊 →';
       subEventsEl.innerHTML = `
         <span class="ev-section-label">${labelSched}</span>
@@ -149,7 +149,7 @@
     /* Video */
     const videoEl = document.getElementById('detailVideo');
     if (ev.youtubeId) {
-      const labelVideo = lang === 'en' ? 'VIDEO · Trailer' : 'VIDEO · 預告影片';
+      const labelVideo = lang === 'en' ? 'VIDEO' : '預告影片';
       videoEl.innerHTML = `
         <span class="ev-section-label">${labelVideo}</span>
         <div class="ev-video-wrap">
@@ -166,7 +166,7 @@
     /* Program */
     const programEl = document.getElementById('detailProgram');
     if (ev.program && ev.program.length) {
-      const labelProg = lang === 'en' ? 'PROGRAM · Repertoire' : 'PROGRAM · 演出曲目';
+      const labelProg = lang === 'en' ? 'PROGRAM' : '演出曲目';
       const premiereLabel = lang === 'en' ? 'WORLD PREMIERE' : '世界首演';
       programEl.innerHTML = `
         <span class="ev-section-label">${labelProg}</span>
@@ -189,7 +189,7 @@
     const ensembleEl = document.getElementById('detailEnsemble');
     if (ev.ensemble) {
       const s = ev.ensemble;
-      const labelEns = lang === 'en' ? 'ENSEMBLE · Performing Organization' : 'ENSEMBLE · 演出單位';
+      const labelEns = lang === 'en' ? 'ENSEMBLE' : '演出單位';
       const name  = (lang === 'en' && s.name_en) ? s.name_en : s.name;
       const bio   = (lang === 'en' && s.bio_en)  ? s.bio_en  : s.bio;
       const links = socialBtns(s);
@@ -223,7 +223,7 @@
                   : ev.speakersLabel ? ev.speakersLabel
                   : (lang === 'en' ? 'Speakers' : '主講人');
       speakersEl.innerHTML = `
-        <span class="ev-section-label">${label.toUpperCase()} · ${label}</span>
+        <span class="ev-section-label">${label}</span>
         <div class="ev-speakers-grid">
           ${ev.speakers.map(s => {
             const name  = (lang === 'en' && s.name_en) ? s.name_en : s.name;
@@ -250,7 +250,7 @@
                   : ev.performersLabel ? ev.performersLabel
                   : (lang === 'en' ? 'Performers' : '演出者');
       performersEl.innerHTML = `
-        <span class="ev-section-label">${label.toUpperCase()} · ${label}</span>
+        <span class="ev-section-label">${label}</span>
         <div class="ev-performers-grid">
           ${ev.performers.map(p => {
             const instrument = (lang === 'en' && p.instrument_en) ? p.instrument_en : (p.instrument || '');
@@ -258,7 +258,6 @@
             const bio   = (lang === 'en' && p.bio_en)  ? p.bio_en  : p.bio;
             const links = socialBtns(p);
             return `<div class="ev-performer">
-              ${instrument ? `<div class="ev-performer-instr">${instrument}</div>` : ''}
               <div class="ev-performer-name">${name}</div>
               ${bio   ? `<p class="ev-performer-bio">${bio}</p>`         : ''}
               ${links ? `<div class="ev-performer-links">${links}</div>` : ''}
@@ -273,7 +272,7 @@
     /* Gallery */
     const galleryEl = document.getElementById('detailGallery');
     if (ev.gallery && ev.gallery.length) {
-      const labelGal = lang === 'en' ? 'GALLERY · Production Photos' : 'GALLERY · 劇照';
+      const labelGal = lang === 'en' ? 'GALLERY' : '劇照';
       galleryEl.innerHTML = `
         <span class="ev-section-label">${labelGal}</span>
         <div class="ev-gallery">
