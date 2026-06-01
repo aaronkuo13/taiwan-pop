@@ -70,7 +70,7 @@
     border-bottom: 1px solid var(--border);
   }
   .filter-btn {
-    font-family: var(--font-m); font-size: 0.6rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.16em; text-transform: uppercase;
     padding: 0.45rem 1rem; border-radius: 0;
     border: 1px solid rgba(255,255,255,0.12);
@@ -107,18 +107,15 @@
   }
   .news-grid-meta { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
   .news-grid-cat {
-    font-family: var(--font-m); font-size: 0.52rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.18em; padding: 0.2rem 0.5rem;
   }
   .cat-announce { background: var(--green); color: var(--black); }
   .cat-preview   { background: var(--pink);  color: var(--white); }
-  .cat-feature   { background: var(--blue);  color: var(--white); }
-  .cat-media     { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
-  .news-grid-date { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
+  .news-grid-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
   .news-grid-title { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.03em; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .news-grid-excerpt { font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.4); margin-top: 0.6rem; flex: 1; }
   .news-grid-link {
-    font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.12em;
+    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.12em;
     color: rgba(255,255,255,0.3); margin-top: 1.2rem;
     transition: color 0.2s;
   }
@@ -128,7 +125,7 @@
   .news-loading, .news-empty {
     grid-column: 1 / -1; text-align: center;
     padding: 60px 0; color: rgba(255,255,255,0.3);
-    font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.1em;
+    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em;
     background: #0c0c0c;
   }
 
@@ -152,7 +149,6 @@
   <nav id="navbar"></nav>
 
   <div class="page-hero-news">
-    <span class="t-label" style="display:block;margin-bottom:0.6rem">NEWS · 最新消息</span>
     <h1 class="news-page-title" data-i18n-html="news-page-title">掌握<br>動態</h1>
   </div>
 
@@ -160,8 +156,6 @@
     <button class="filter-btn active" data-cat="" data-i18n="news-cat-all">全部</button>
     <button class="filter-btn" data-cat="官方公告" data-i18n="news-cat-announce">官方公告</button>
     <button class="filter-btn" data-cat="活動預告" data-i18n="news-cat-preview">活動預告</button>
-    <button class="filter-btn" data-cat="專題報導" data-i18n="news-cat-feature">專題報導</button>
-    <button class="filter-btn" data-cat="媒體報導" data-i18n="news-cat-media">媒體報導</button>
   </div>
 
   <div class="news-main">
@@ -195,25 +189,14 @@
     const CAT_CLASS = {
       '官方公告': 'cat-announce',
       '活動預告': 'cat-preview',
-      '專題報導': 'cat-feature',
-      '媒體報導': 'cat-media',
     };
     const CAT_LABEL_EN = {
       '官方公告': 'Announcement',
       '活動預告': 'Preview',
-      '專題報導': 'Feature',
-      '媒體報導': 'Media',
     };
 
     function getLang() {
       return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
-    }
-
-    function excerpt(html, maxLen = 80) {
-      const tmp = document.createElement('div');
-      tmp.innerHTML = html || '';
-      const text = (tmp.textContent || tmp.innerText || '').trim();
-      return text.length > maxLen ? text.slice(0, maxLen) + '...' : text;
     }
 
     function formatDate(str) {
@@ -233,24 +216,22 @@
       }
 
       grid.innerHTML = batch.map(a => {
-        const title   = (lang === 'en' && a.title_en)   ? a.title_en   : (a.title || '');
-        const content = (lang === 'en' && a.content_en) ? a.content_en : (a.content || '');
-        const desc    = excerpt(content);
-        const cat     = a.category || '';
-        const catCls  = CAT_CLASS[cat] || 'cat-media';
+        const title    = (lang === 'en' && a.title_en) ? a.title_en : (a.title || '');
+        const cat      = a.category || '';
+        const catCls   = CAT_CLASS[cat] || '';
         const catLabel = lang === 'en' ? (CAT_LABEL_EN[cat] || cat) : cat;
+        const placeholder = `<div class="news-grid-cover-placeholder"><span>${(title || '文')[0]}</span></div>`;
         const coverHtml = a.coverImage
-          ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`
-          : `<div class="news-grid-cover-placeholder"><span>${(title || '文')[0]}</span></div>`;
+          ? `<img src="${a.coverImage}" alt="${title}" loading="lazy" onerror="this.closest('.news-grid-cover').innerHTML='${placeholder.replace(/'/g, "&#39;")}'>">`
+          : placeholder;
         return `
           <a href="article.html?id=${a.id}" class="news-grid-card">
             <div class="news-grid-cover">${coverHtml}</div>
             <div class="news-grid-meta">
-              <span class="news-grid-cat ${catCls}">${catLabel}</span>
+              ${catCls ? `<span class="news-grid-cat ${catCls}">${catLabel}</span>` : ''}
               <span class="news-grid-date">${formatDate(a.date)}</span>
             </div>
             <div class="news-grid-title">${title}</div>
-            <p class="news-grid-excerpt">${desc}</p>
             <span class="news-grid-link">${lang === 'en' ? 'Read More →' : '閱讀全文 →'}</span>
           </a>`;
       }).join('');
