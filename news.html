@@ -114,12 +114,16 @@
   .cat-preview   { background: var(--pink);  color: var(--white); }
   .news-grid-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
   .news-grid-title { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.03em; line-height: 1.1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .news-grid-link {
-    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.3); margin-top: 1.2rem;
-    transition: color 0.2s;
+  .news-grid-arrow {
+    margin-top: auto; padding-top: 1.4rem;
+    text-align: right; font-size: 1.8rem; line-height: 1;
+    color: rgba(255,255,255,0.18);
+    transition: color 0.2s, transform 0.2s;
   }
-  .news-grid-card:hover .news-grid-link { color: var(--green); }
+  .news-grid-card:hover .news-grid-arrow {
+    color: var(--green);
+    transform: translateX(4px);
+  }
 
   /* ── STATES ── */
   .news-loading, .news-empty {
@@ -203,6 +207,12 @@
       return (str || '').replace(/-/g, '.');
     }
 
+    window.__imgErr = function(img) {
+      const first = (img.alt || '文')[0];
+      img.closest('.news-grid-cover').innerHTML =
+        '<div class="news-grid-cover-placeholder"><span>' + first + '</span></div>';
+    };
+
     function renderCards() {
       const grid = document.getElementById('news-grid');
       const lang = getLang();
@@ -222,7 +232,7 @@
         const catLabel = lang === 'en' ? (CAT_LABEL_EN[cat] || cat) : cat;
         const placeholder = `<div class="news-grid-cover-placeholder"><span>${(title || '文')[0]}</span></div>`;
         const coverHtml = a.coverImage
-          ? `<img src="${a.coverImage}" alt="${title}" loading="lazy" onerror="this.closest('.news-grid-cover').innerHTML='${placeholder.replace(/'/g, "&#39;")}'>">`
+          ? `<img src="${a.coverImage}" alt="${title}" loading="lazy" onerror="window.__imgErr(this)">`
           : placeholder;
         return `
           <a href="article.html?id=${a.id}" class="news-grid-card">
@@ -232,7 +242,7 @@
               <span class="news-grid-date">${formatDate(a.date)}</span>
             </div>
             <div class="news-grid-title">${title}</div>
-            <span class="news-grid-link">${lang === 'en' ? 'Read More →' : '閱讀全文 →'}</span>
+            <span class="news-grid-arrow">→</span>
           </a>`;
       }).join('');
 
