@@ -183,6 +183,11 @@
     border-right: 1px solid var(--border);
     background: radial-gradient(ellipse at 50% 50%, rgba(0,255,87,0.06) 0%, transparent 60%), rgba(8,8,8,0.5);
     overflow: hidden;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.3s;
+  }
+  .showcase-hero:hover {
+    background: radial-gradient(ellipse at 50% 50%, rgba(0,255,87,0.12) 0%, transparent 60%), rgba(12,12,12,0.6);
   }
   .showcase-hero::before, .showcase-hero::after {
     content: ''; position: absolute; pointer-events: none;
@@ -192,7 +197,7 @@
   .showcase-hero::after  { inset: 1.8rem; border-color: rgba(0,255,87,0.08); }
   .showcase-hero-label {
     position: absolute; top: 1.5rem; left: 2rem;
-    font-family: var(--font-m); font-size: 0.6rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.22em; color: rgba(255,255,255,0.4); z-index: 2;
   }
   .showcase-hero-label.right { left: auto; right: 2rem; }
@@ -267,7 +272,7 @@
     font-family: var(--font-m); font-size: 0.55rem;
     letter-spacing: 0.2em; color: rgba(255,255,255,0.3); margin-top: 0.3rem;
   }
-  .stat-desc { margin-top: 0.4rem; font-size: 0.78rem; line-height: 1.55; color: rgba(255,255,255,0.4); }
+  .stat-desc { margin-top: 0.4rem; font-size: var(--fs-base); line-height: 1.6; color: rgba(255,255,255,0.5); }
   .showcase-caption {
     position: relative; z-index: 1;
     padding: 1.3rem 2.5rem;
@@ -276,7 +281,7 @@
     background: rgba(8,8,8,0.6);
   }
   .showcase-caption-text {
-    font-family: var(--font-m); font-size: 0.6rem;
+    font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.22em; color: rgba(255,255,255,0.4);
   }
   .showcase-caption-dots { display: flex; gap: 6px; }
@@ -318,7 +323,7 @@
   .tc-tag { font-family: var(--font-m); font-size: 0.58rem; letter-spacing: 0.24em; opacity: 0.55; }
   .tc-idx {
     font-family: var(--font-d); font-size: 10rem; line-height: 1;
-    position: absolute; top: -0.5rem; right: 1rem; opacity: 0.08;
+    position: absolute; top: -0.5rem; right: 1rem; opacity: 0.18;
     letter-spacing: -0.03em; pointer-events: none;
   }
   .tc-title {
@@ -326,14 +331,14 @@
     font-size: clamp(2.5rem, 3.8vw, 3.8rem); line-height: 1; letter-spacing: 0.03em;
     margin-top: 2.5rem;
   }
-  .tc-sub { font-size: 0.8rem; opacity: 0.6; margin-top: 0.4rem; }
+  .tc-sub { font-size: var(--fs-base); opacity: 0.6; margin-top: 0.4rem; }
   .tc-evs { margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.45rem; }
   .tc-ev {
-    font-size: 0.78rem; opacity: 0.78;
+    font-size: var(--fs-base); opacity: 0.78;
     padding-left: 0.9rem; border-left: 2px solid currentColor; line-height: 1.45;
   }
   .tc-link {
-    font-family: var(--font-m); font-size: 0.68rem; letter-spacing: 0.12em;
+    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.12em;
     margin-top: 2rem; display: flex; align-items: center; gap: 0.4rem;
   }
   .tc-link .arr { display: inline-block; transition: transform 0.2s; }
@@ -464,21 +469,25 @@
   }
 
   /* ── NEWS LIST ── */
+  /* 強制覆蓋 style.css 在手機 @media 裡把 .articles-grid 改成橫向 flex 的規則（那是 article.html 的樣式） */
   .articles-grid {
     display: block !important;
+    flex-wrap: unset !important;
+    overflow-x: unset !important;
+    scroll-snap-type: unset !important;
   }
   .news-list-item {
-    display: grid; grid-template-columns: 90px 1fr 28px;
+    display: grid; grid-template-columns: auto 1fr auto;
     gap: 1.5rem; align-items: center;
     padding: 1.3rem 0; border-bottom: 1px solid var(--border);
     text-decoration: none; color: var(--white);
     transition: color 0.2s;
   }
   .news-list-item:first-child { border-top: 1px solid var(--border); }
-  .news-list-date { font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
-  .news-list-headline { font-size: 0.92rem; line-height: 1.5; }
+  .news-list-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.3); white-space: nowrap; }
+  .news-list-headline { font-size: var(--fs-base); line-height: 1.5; }
   .news-list-item:hover .news-list-headline { color: var(--green); }
-  .news-list-arrow { font-family: var(--font-m); font-size: 0.7rem; color: rgba(255,255,255,0.2); text-align: right; transition: color 0.2s, transform 0.2s; }
+  .news-list-arrow { font-family: var(--font-m); font-size: var(--fs-base); color: rgba(255,255,255,0.2); text-align: right; flex-shrink: 0; transition: color 0.2s, transform 0.2s; }
   .news-list-item:hover .news-list-arrow { color: var(--green); transform: translateX(3px); }
 
   /* ── RESPONSIVE ── */
@@ -494,7 +503,7 @@
       width: min(280px, 70%);
       filter: drop-shadow(0 0 18px rgba(0,255,87,0.55)) drop-shadow(0 0 40px rgba(255,45,107,0.25));
     }
-    .showcase-hero-label { font-size: 0.5rem; top: 1rem; left: 1.2rem; letter-spacing: 0.18em; }
+    .showcase-hero-label { font-size: var(--fs-base); top: 1rem; left: 1.2rem; letter-spacing: 0.18em; }
     .showcase-hero-label.right { right: 1.2rem; left: auto; }
     .stat-num { font-size: 2.6rem; min-width: 3.4rem; }
     .stat-cell::before { width: 100%; height: 3px; left: 0; top: 0; transform: scaleX(0); transform-origin: left; }
@@ -516,6 +525,20 @@
     .game-sec { grid-template-columns: 1fr; padding: 3rem 1.2rem; }
     .game-visual { display: none; }
     .news-sec { padding: 3rem 1.2rem; }
+  }
+  @media (max-width: 640px) {
+    /* 手機版新聞列表：日期獨佔一行，標題 + 箭頭在下一行 */
+    .news-list-item {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 0.3rem 1rem;
+      padding: 1.2rem 0;
+    }
+    .news-list-date {
+      grid-column: 1 / -1;
+      margin-bottom: 0.1rem;
+    }
+    .news-list-headline { line-height: 1.4; }
   }
   </style>
 </head>
@@ -553,10 +576,24 @@
     </div>
   </section>
 
+  <!-- NEWS -->
+  <section class="news-sec reveal" id="articles">
+    <div class="news-head">
+      <div>
+        <h2 class="news-title" data-i18n="sec-news-title">掌握動態</h2>
+      </div>
+    </div>
+    <!-- Firebase articles rendered by news-home.js into .articles-grid -->
+    <div class="articles-grid"></div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="news.html" class="btn btn-outline" data-i18n="btn-more-news">查看全部 →</a>
+    </div>
+  </section>
+
   <!-- SHOWCASE: Logo Panel + Stats + Caption -->
   <div class="showcase reveal" id="showcase">
     <div class="showcase-split">
-      <div class="showcase-hero">
+      <a href="concept.html" class="showcase-hero">
         <div class="showcase-star-bg"></div>
         <span class="showcase-hero-label">◆ TAIWAN POP · 2026</span>
         <span class="showcase-hero-label right">FEEL THE POP ✦</span>
@@ -565,26 +602,23 @@
         <div class="showcase-hero-corner sc-c3"></div>
         <div class="showcase-hero-corner sc-c4"></div>
         <img class="showcase-logo-main" src="images/logo.png" alt="Taiwan Pop" draggable="false">
-      </div>
+      </a>
       <div class="stats-strip">
         <div class="stat-cell" data-accent="green">
           <div class="stat-num">7<sup>+</sup></div>
           <div class="stat-body">
-            <div class="stat-unit">MAJOR EVENTS · 計畫規模</div>
             <p class="stat-desc" data-i18n="stat-1-desc">橫跨聲音、影像、街頭三大主題，七個精彩展演在紐約登場</p>
           </div>
         </div>
         <div class="stat-cell" data-accent="blue">
           <div class="stat-num">3</div>
           <div class="stat-body">
-            <div class="stat-unit">THEMES · 策展主軸</div>
             <p class="stat-desc" data-i18n="stat-2-desc">身體與聲音・影像與敘事・街頭與生活</p>
           </div>
         </div>
         <div class="stat-cell" data-accent="pink">
           <div class="stat-num">1</div>
           <div class="stat-body">
-            <div class="stat-unit">CITY — NEW YORK · 展演城市</div>
             <p class="stat-desc" data-i18n="stat-3-desc">Feel the Pop · 臺灣上奅 — 2026 夏天，曼哈頓感受台灣創造力</p>
           </div>
         </div>
@@ -604,12 +638,10 @@
   <!-- THEMES -->
   <section class="themes reveal" id="themes">
     <div class="themes-head">
-      <span class="t-label" style="display:block;margin-bottom:0.5rem">THEMES · 展演主題</span>
       <h2 class="themes-title" data-i18n="sec-themes-title">展演主題</h2>
     </div>
     <div class="themes-grid">
       <a href="events.html#cat-sound" class="tc tc-pink">
-        <div><div class="tc-tag">01 · SOUND</div></div>
         <div class="tc-idx">01</div>
         <div>
           <div class="tc-title" data-i18n="cat-sound-label">身體<br>與聲音</div>
@@ -623,7 +655,6 @@
         <div class="tc-link" data-i18n-html="tc-link">看活動 <span class="arr">→</span></div>
       </a>
       <a href="events.html#cat-image" class="tc tc-blue">
-        <div><div class="tc-tag">02 · IMAGE</div></div>
         <div class="tc-idx">02</div>
         <div>
           <div class="tc-title" data-i18n="cat-image-label">影像<br>與敘事</div>
@@ -637,7 +668,6 @@
         <div class="tc-link" data-i18n-html="tc-link">看活動 <span class="arr">→</span></div>
       </a>
       <a href="events.html#cat-street" class="tc tc-green">
-        <div><div class="tc-tag">03 · STREET</div></div>
         <div class="tc-idx">03</div>
         <div>
           <div class="tc-title" data-i18n="cat-street-label">街頭<br>與生活</div>
@@ -650,18 +680,6 @@
         <div class="tc-link" data-i18n-html="tc-link">看活動 <span class="arr">→</span></div>
       </a>
     </div>
-    <a href="concept.html" class="bc-row reveal">
-      <div>
-        <div class="bc-tag" data-i18n="bc-tag">CONCEPT · 策劃理念</div>
-        <div class="bc-title" data-i18n="bc-title">臺灣上奅</div>
-        <div class="bc-sub" data-i18n="bc-sub">曼哈頓的台灣日常 · Feel the POP</div>
-      </div>
-      <div class="bc-evs">
-        <div class="bc-ev" data-i18n="bc-ev-org">台灣文化部 × Taipei Cultural Center in NY</div>
-        <div class="bc-ev" data-i18n="bc-ev-city">MAY — SEP 2026 · 曼哈頓</div>
-      </div>
-      <div class="bc-arrow">→</div>
-    </a>
   </section>
 
   <!-- SPRAY BAND -->
@@ -689,21 +707,6 @@
       <div class="game-frame">
         <div class="game-char">跑</div>
       </div>
-    </div>
-  </section>
-
-  <!-- NEWS -->
-  <section class="news-sec reveal" id="articles">
-    <div class="news-head">
-      <div>
-        <span class="t-label" style="display:block;margin-bottom:0.5rem">NEWS · 最新消息</span>
-        <h2 class="news-title" data-i18n="sec-news-title">掌握動態</h2>
-      </div>
-    </div>
-    <!-- Firebase articles rendered by news-home.js into .articles-grid -->
-    <div class="articles-grid"></div>
-    <div style="text-align:center;margin-top:2.5rem;">
-      <a href="news.html" class="btn btn-outline" data-i18n="btn-more-news">查看全部</a>
     </div>
   </section>
 

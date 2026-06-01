@@ -106,7 +106,7 @@
           </div>
         </div>
         <div style="text-align:right;">
-          <p style="font-family:var(--font-m);font-size:0.6rem;letter-spacing:0.18em;color:rgba(0,0,0,0.4);margin-bottom:0.8rem;">主辦單位</p>
+          <p style="font-family:var(--font-m);font-size:var(--fs-base);letter-spacing:0.18em;color:rgba(0,0,0,0.4);margin-bottom:0.8rem;"><span class="lang-zh">主辦單位</span><span class="lang-en">Organizer</span></p>
           <a href="https://tccny.moc.gov.tw/ch/Default.aspx" target="_blank" rel="noopener">
             <img src="images/TCC LOGO(png).png" alt="Taipei Cultural Center in NY" style="height:56px;width:auto;opacity:0.75;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'">
           </a>
@@ -119,7 +119,7 @@
           <div class="tp-footer-dot" style="background:var(--blue)"></div>
           <div class="tp-footer-dot" style="background:var(--pink)"></div>
         </div>
-        <span class="tp-footer-copy">文化部 × Taipei Cultural Center in NY</span>
+        <span class="tp-footer-copy lang-zh">文化部 × 駐紐約臺北文化中心</span><span class="tp-footer-copy lang-en">Ministry of Culture × Taipei Cultural Center in NY</span>
       </div>`;
   }
 })();

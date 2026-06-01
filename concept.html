@@ -68,7 +68,7 @@ html[lang="en"] .lang-en { display: revert; }
 }
 .cp-hero-content { position: relative; z-index: 1; max-width: 1400px; }
 .cp-hero-eyebrow {
-  font-family: var(--font-m); font-size: 0.7rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.28em; color: var(--green);
   display: inline-flex; align-items: center; gap: 0.7rem;
   margin-bottom: 1.5rem;
@@ -91,14 +91,14 @@ html[lang="en"] .lang-en { display: revert; }
 .cp-hero-romanji .c-p { color: var(--pink); }
 .cp-hero-meta {
   margin-top: 2.5rem;
-  display: grid; grid-template-columns: auto 1fr auto;
+  display: grid; grid-template-columns: 1fr auto;
   gap: 2rem; align-items: center;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255,255,255,0.15);
   max-width: 900px;
 }
 .cp-hero-meta-label {
-  font-family: var(--font-m); font-size: 0.6rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.25em; color: rgba(255,255,255,0.4);
 }
 .cp-hero-meta-main {
@@ -119,7 +119,7 @@ html[lang="en"] .lang-en { display: revert; }
 }
 .cp-def-inner { max-width: 1200px; margin: 0 auto; }
 .cp-def-label {
-  font-family: var(--font-m); font-size: 0.65rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.3em; color: var(--green); margin-bottom: 1.5rem;
 }
 .cp-def-quote {
@@ -133,7 +133,7 @@ html[lang="en"] .lang-en { display: revert; }
 .cp-def-body {
   margin-top: 2.5rem;
   display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
-  font-size: 0.95rem; line-height: 2; color: rgba(255,255,255,0.6);
+  font-size: var(--fs-base); line-height: 2; color: rgba(255,255,255,0.6);
   max-width: 900px;
 }
 
@@ -151,7 +151,7 @@ html[lang="en"] .lang-en { display: revert; }
   color: var(--green); text-shadow: 6px 6px 0 rgba(255,45,107,0.25);
 }
 .cp-35-unit {
-  font-family: var(--font-m); font-size: 0.7rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.25em; color: rgba(255,255,255,0.5); margin-top: 0.8rem;
 }
 .cp-35-title {
@@ -160,7 +160,7 @@ html[lang="en"] .lang-en { display: revert; }
   text-shadow: 3px 3px 0 rgba(0,255,87,0.2);
 }
 .cp-35-body {
-  font-size: 0.95rem; line-height: 2; color: rgba(255,255,255,0.62);
+  font-size: var(--fs-base); line-height: 2; color: rgba(255,255,255,0.62);
   margin-bottom: 1.2rem; max-width: 720px;
 }
 .cp-35-body strong { color: var(--white); font-weight: 500; }
@@ -169,27 +169,27 @@ html[lang="en"] .lang-en { display: revert; }
   background: rgba(0,255,87,0.05); border-left: 3px solid var(--green);
 }
 .cp-35-callout-label {
-  font-family: var(--font-m); font-size: 0.6rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.25em; color: var(--green); margin-bottom: 0.8rem;
 }
 .cp-35-callout-title {
   font-family: var(--font-d); font-size: 1.8rem;
   letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.6rem;
 }
-.cp-35-callout-desc { font-size: 0.88rem; line-height: 1.85; color: rgba(255,255,255,0.55); }
+.cp-35-callout-desc { font-size: var(--fs-base); line-height: 1.85; color: rgba(255,255,255,0.55); }
 
 /* ── THEMES ── */
 .cp-feel { padding: 6rem 2.5rem; border-bottom: 1px solid var(--border); }
 .cp-feel-head { text-align: center; max-width: 800px; margin: 0 auto 5rem; }
 .cp-feel-label {
-  font-family: var(--font-m); font-size: 0.65rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.3em; color: var(--pink); margin-bottom: 1rem;
 }
 .cp-feel-title {
   font-family: var(--font-d); font-size: clamp(2.5rem, 5vw, 5rem);
   line-height: 1; letter-spacing: 0.04em; text-shadow: 4px 4px 0 rgba(255,45,107,0.22);
 }
-.cp-feel-sub { margin-top: 1.2rem; font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.8; }
+.cp-feel-sub { margin-top: 1.2rem; font-size: var(--fs-base); color: rgba(255,255,255,0.55); line-height: 1.8; }
 .cp-feel-stack { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
 .cp-theme {
   background: var(--black); padding: 4rem 2.5rem;
@@ -211,7 +211,7 @@ html[lang="en"] .lang-en { display: revert; }
 .cp-theme-story .cp-theme-num { color: var(--blue); }
 .cp-theme-vibe .cp-theme-num { color: var(--green); }
 .cp-theme-en {
-  font-family: var(--font-d); font-size: 1rem;
+  font-family: var(--font-d); font-size: var(--fs-base);
   letter-spacing: 0.2em; color: rgba(255,255,255,0.4); margin-top: 0.3rem;
 }
 .cp-theme-zh {
@@ -223,12 +223,12 @@ html[lang="en"] .lang-en { display: revert; }
 .cp-theme-story .cp-theme-zh { text-shadow: 3px 3px 0 rgba(77,176,245,0.25); }
 .cp-theme-vibe .cp-theme-zh { text-shadow: 3px 3px 0 rgba(0,255,87,0.25); }
 .cp-theme-tagline {
-  margin-top: 1.5rem; font-size: 1.05rem; line-height: 1.8;
+  margin-top: 1.5rem; font-size: var(--fs-base); line-height: 1.8;
   color: rgba(255,255,255,0.75); font-weight: 300;
 }
-.cp-theme-body { margin-top: 1.2rem; font-size: 0.9rem; line-height: 1.95; color: rgba(255,255,255,0.5); }
+.cp-theme-body { margin-top: 1.2rem; font-size: var(--fs-base); line-height: 1.95; color: rgba(255,255,255,0.5); }
 .cp-theme-events-label {
-  font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.25em;
+  font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.25em;
   margin-bottom: 1.5rem; padding-bottom: 0.8rem;
   border-bottom: 1px solid rgba(255,255,255,0.15);
 }
@@ -237,33 +237,23 @@ html[lang="en"] .lang-en { display: revert; }
 .cp-theme-vibe .cp-theme-events-label { color: var(--green); }
 .cp-theme-ev {
   padding: 1.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: grid; grid-template-columns: 40px 1fr auto; gap: 1rem; align-items: baseline;
-}
-.cp-theme-ev-num {
-  font-family: var(--font-m); font-size: 0.7rem;
-  letter-spacing: 0.15em; color: rgba(255,255,255,0.3);
 }
 .cp-theme-ev-title {
   font-family: var(--font-d); font-size: 1.25rem;
   letter-spacing: 0.03em; line-height: 1.2; color: var(--white); margin-bottom: 0.35rem;
 }
-.cp-theme-ev-desc { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
-.cp-theme-ev-venue {
-  font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.18em;
-  white-space: nowrap; padding: 0.35rem 0.7rem;
-  border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);
-}
+.cp-theme-ev-desc { font-size: var(--fs-base); line-height: 1.7; color: rgba(255,255,255,0.5); }
 .cp-theme-quote {
   margin-top: 2rem; padding-top: 1.5rem;
   border-top: 1px dashed rgba(255,255,255,0.15);
-  font-style: italic; font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.65);
+  font-style: italic; font-size: var(--fs-base); line-height: 1.7; color: rgba(255,255,255,0.65);
 }
 
 /* ── DNA ── */
 .cp-dna { padding: 6rem 2.5rem; border-bottom: 1px solid var(--border); background: #0a0a0a; }
 .cp-dna-head { margin-bottom: 3.5rem; max-width: 900px; }
 .cp-dna-label {
-  font-family: var(--font-m); font-size: 0.65rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.3em; color: var(--blue); margin-bottom: 1rem;
 }
 .cp-dna-title {
@@ -278,15 +268,11 @@ html[lang="en"] .lang-en { display: revert; }
 .cp-dna-card:nth-child(1) { border-top-color: var(--pink); }
 .cp-dna-card:nth-child(2) { border-top-color: var(--green); }
 .cp-dna-card:nth-child(3) { border-top-color: var(--blue); }
-.cp-dna-num {
-  font-family: var(--font-m); font-size: 0.6rem;
-  letter-spacing: 0.25em; color: rgba(255,255,255,0.4); margin-bottom: 1rem;
-}
 .cp-dna-card-title {
   font-family: var(--font-d); font-size: 2rem;
   line-height: 1.05; letter-spacing: 0.04em; color: var(--white); margin-bottom: 1rem;
 }
-.cp-dna-card-body { font-size: 0.88rem; line-height: 1.9; color: rgba(255,255,255,0.55); }
+.cp-dna-card-body { font-size: var(--fs-base); line-height: 1.9; color: rgba(255,255,255,0.55); }
 
 /* ── CLOSING ── */
 .cp-close {
@@ -324,14 +310,14 @@ html[lang="en"] .lang-en { display: revert; }
 }
 .cp-partner-cell:hover { background: #141414; }
 .cp-partner-cat {
-  font-family: var(--font-m); font-size: 0.55rem;
+  font-family: var(--font-m); font-size: var(--fs-base);
   letter-spacing: 0.25em; color: rgba(255,255,255,0.4); margin-bottom: 0.6rem;
 }
 .cp-partner-cat.c-pk { color: var(--pink); }
 .cp-partner-cat.c-bl { color: var(--blue); }
 .cp-partner-cat.c-gr { color: var(--green); }
 .cp-partner-name {
-  font-family: var(--font-d); font-size: 1rem;
+  font-family: var(--font-d); font-size: var(--fs-base);
   letter-spacing: 0.05em; line-height: 1.2; color: rgba(255,255,255,0.85);
 }
 
@@ -363,57 +349,52 @@ html[lang="en"] .lang-en { display: revert; }
 }
 @media (max-width: 720px) {
   .cp-hero { padding: 6.5rem 1.25rem 3rem; min-height: 78vh; }
-  .cp-hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.22em; margin-bottom: 1rem; }
+  .cp-hero-eyebrow { font-size: var(--fs-base); letter-spacing: 0.22em; margin-bottom: 1rem; }
   .cp-hero-eyebrow::before { width: 24px; }
   .cp-hero-title-zh { font-size: clamp(4rem, 18vw, 7rem); text-shadow: 3px 3px 0 rgba(0,255,87,0.22), -2px -2px 0 rgba(255,45,107,0.16); }
   .cp-hero-romanji { font-size: clamp(1rem, 4vw, 1.4rem); margin-top: 0.8rem; }
   .cp-hero-meta { grid-template-columns: 1fr; gap: 0.8rem; margin-top: 2rem; padding-top: 1.2rem; }
-  .cp-hero-meta-main { font-size: 1rem; line-height: 1.5; }
+  .cp-hero-meta-main { font-size: var(--fs-base); line-height: 1.5; }
   .cp-def { padding: 3.5rem 1.25rem; }
   .cp-def::before { width: 3px; }
-  .cp-def-label { font-size: 0.58rem; letter-spacing: 0.22em; margin-bottom: 1rem; }
+  .cp-def-label { font-size: var(--fs-base); letter-spacing: 0.22em; margin-bottom: 1rem; }
   .cp-def-quote { font-size: clamp(1.2rem, 5vw, 1.6rem); line-height: 1.5; }
-  .cp-def-body { margin-top: 2rem; font-size: 0.88rem; line-height: 1.85; }
+  .cp-def-body { margin-top: 2rem; font-size: var(--fs-base); line-height: 1.85; }
   .cp-35 { padding: 3.5rem 1.25rem; }
   .cp-35-left { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
   .cp-35-num { font-size: 5.5rem; text-shadow: 4px 4px 0 rgba(255,45,107,0.25); }
   .cp-35-title { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 1.4rem; text-shadow: 2px 2px 0 rgba(0,255,87,0.2); }
-  .cp-35-body { font-size: 0.88rem; line-height: 1.85; margin-bottom: 1rem; }
+  .cp-35-body { font-size: var(--fs-base); line-height: 1.85; margin-bottom: 1rem; }
   .cp-35-callout { padding: 1.4rem 1.3rem; margin-top: 2rem; }
   .cp-35-callout-title { font-size: 1.4rem; }
-  .cp-35-callout-desc { font-size: 0.82rem; line-height: 1.75; }
+  .cp-35-callout-desc { font-size: var(--fs-base); line-height: 1.75; }
   .cp-feel { padding: 3.5rem 1.25rem; }
   .cp-feel-head { margin-bottom: 2.5rem; }
-  .cp-feel-label { font-size: 0.58rem; letter-spacing: 0.22em; }
+  .cp-feel-label { font-size: var(--fs-base); letter-spacing: 0.22em; }
   .cp-feel-title { font-size: clamp(2rem, 8vw, 3rem); text-shadow: 3px 3px 0 rgba(255,45,107,0.22); }
-  .cp-feel-sub { font-size: 0.85rem; line-height: 1.75; margin-top: 1rem; }
+  .cp-feel-sub { font-size: var(--fs-base); line-height: 1.75; margin-top: 1rem; }
   .cp-theme { padding: 2.5rem 1.25rem; gap: 2rem; }
   .cp-theme::before { width: 3px; }
   .cp-theme-num { font-size: 3.5rem; }
-  .cp-theme-en { font-size: 0.8rem; letter-spacing: 0.18em; }
+  .cp-theme-en { font-size: var(--fs-base); letter-spacing: 0.18em; }
   .cp-theme-zh { font-size: clamp(1.7rem, 7vw, 2.3rem); margin-top: 0.8rem; }
   .cp-theme-beat .cp-theme-zh { text-shadow: 2px 2px 0 rgba(255,45,107,0.25); }
   .cp-theme-story .cp-theme-zh { text-shadow: 2px 2px 0 rgba(77,176,245,0.25); }
   .cp-theme-vibe .cp-theme-zh { text-shadow: 2px 2px 0 rgba(0,255,87,0.25); }
-  .cp-theme-tagline { font-size: 0.95rem; margin-top: 1.2rem; }
-  .cp-theme-body { font-size: 0.85rem; line-height: 1.85; }
-  .cp-theme-quote { font-size: 0.88rem; line-height: 1.65; margin-top: 1.5rem; }
-  .cp-theme-events-label { font-size: 0.55rem; letter-spacing: 0.22em; margin-bottom: 1rem; }
+  .cp-theme-tagline { font-size: var(--fs-base); margin-top: 1.2rem; }
+  .cp-theme-body { font-size: var(--fs-base); line-height: 1.85; }
+  .cp-theme-quote { font-size: var(--fs-base); line-height: 1.65; margin-top: 1.5rem; }
+  .cp-theme-events-label { font-size: var(--fs-base); letter-spacing: 0.22em; margin-bottom: 1rem; }
   .cp-theme-ev { grid-template-columns: 1fr; gap: 0.6rem; padding: 1rem 0; }
-  .cp-theme-ev-num { font-size: 0.62rem; color: rgba(255,255,255,0.45); }
-  .cp-theme-beat .cp-theme-ev-num { color: var(--pink); opacity: 0.8; }
-  .cp-theme-story .cp-theme-ev-num { color: var(--blue); opacity: 0.8; }
-  .cp-theme-vibe .cp-theme-ev-num { color: var(--green); opacity: 0.8; }
   .cp-theme-ev-title { font-size: 1.08rem; line-height: 1.3; }
-  .cp-theme-ev-desc { font-size: 0.78rem; line-height: 1.65; }
-  .cp-theme-ev-venue { justify-self: start; font-size: 0.55rem; letter-spacing: 0.15em; padding: 0.3rem 0.55rem; margin-top: 0.2rem; }
+  .cp-theme-ev-desc { font-size: var(--fs-base); line-height: 1.65; }
   .cp-dna { padding: 3.5rem 1.25rem; }
   .cp-dna-head { margin-bottom: 2.2rem; }
-  .cp-dna-label { font-size: 0.58rem; letter-spacing: 0.22em; }
+  .cp-dna-label { font-size: var(--fs-base); letter-spacing: 0.22em; }
   .cp-dna-title { font-size: clamp(1.6rem, 6vw, 2.2rem); text-shadow: 2px 2px 0 rgba(77,176,245,0.22); }
   .cp-dna-card { padding: 1.6rem 1.4rem; }
   .cp-dna-card-title { font-size: 1.5rem; margin-bottom: 0.8rem; }
-  .cp-dna-card-body { font-size: 0.83rem; line-height: 1.8; }
+  .cp-dna-card-body { font-size: var(--fs-base); line-height: 1.8; }
   .cp-close { padding: 4.5rem 1.25rem; }
   .cp-close::before { height: 3px; }
   .cp-close-big { font-size: clamp(3rem, 14vw, 5rem); text-shadow: 3px 3px 0 rgba(0,255,87,0.3); }
@@ -424,8 +405,8 @@ html[lang="en"] .lang-en { display: revert; }
   .cp-partners { padding: 3rem 1.25rem; }
   .cp-partners-head { margin-bottom: 2rem; }
   .cp-partner-cell { min-height: 90px; padding: 1.4rem 1.2rem; }
-  .cp-partner-cat { font-size: 0.5rem; letter-spacing: 0.22em; }
-  .cp-partner-name { font-size: 0.92rem; }
+  .cp-partner-cat { font-size: var(--fs-base); letter-spacing: 0.22em; }
+  .cp-partner-name { font-size: var(--fs-base); }
   .cp-theme:hover { background: var(--black); }
   .cp-theme:active { background: #0c0c0c; }
   .cp-partner-cell:hover { background: #0c0c0c; }
@@ -434,8 +415,8 @@ html[lang="en"] .lang-en { display: revert; }
 @media (max-width: 420px) {
   .cp-hero { padding: 6rem 1rem 2.5rem; min-height: 72vh; }
   .cp-hero-title-zh { font-size: clamp(3.2rem, 20vw, 5rem); letter-spacing: 0.01em; text-shadow: 2px 2px 0 rgba(0,255,87,0.22); }
-  .cp-hero-romanji { font-size: 0.95rem; }
-  .cp-hero-meta-main { font-size: 0.9rem; }
+  .cp-hero-romanji { font-size: var(--fs-base); }
+  .cp-hero-meta-main { font-size: var(--fs-base); }
   .cp-def { padding: 3rem 1rem; }
   .cp-35 { padding: 3rem 1rem; }
   .cp-feel { padding: 3rem 1rem; }
@@ -462,7 +443,6 @@ html[lang="en"] .lang-en { display: revert; }
       <h1 class="cp-hero-title-zh">臺灣<span class="c-g">上奅</span></h1>
       <div class="cp-hero-romanji">Tâi-uân <span class="c-p">siōng phānn</span></div>
       <div class="cp-hero-meta">
-        <span class="cp-hero-meta-label">TAGLINE</span>
         <span class="cp-hero-meta-main lang-zh">曼哈頓的臺灣日常 · <span class="c-pink">Feel the POP</span></span>
         <span class="cp-hero-meta-main lang-en">Taiwan's Daily Life in Manhattan · <span class="c-pink">Feel the POP</span></span>
         <span class="cp-hero-meta-label">MAY — SEP 2026</span>
@@ -536,7 +516,7 @@ html[lang="en"] .lang-en { display: revert; }
       <div class="cp-theme cp-theme-beat">
         <div class="cp-theme-left">
           <div class="cp-theme-num">01</div>
-          <div class="cp-theme-en">FEEL THE BEAT</div>
+          <div class="cp-theme-en">SOUND</div>
           <h3 class="cp-theme-zh lang-zh">身體與聲音</h3>
           <h3 class="cp-theme-zh lang-en">Body & Sound</h3>
           <p class="cp-theme-tagline lang-zh">臺灣的音樂與舞蹈，從來不只有一種樣貌。</p>
@@ -545,36 +525,30 @@ html[lang="en"] .lang-en { display: revert; }
           <p class="cp-theme-body lang-en">There's the Paiwan chant passed down from Tawu Mountain for a thousand years. There's the pianist who spent a career working out how to play a phrase on the world's biggest stages. There's the contemporary dancer using their body to ask what a traditional symbol means right now. There's pop music opening up across Central Park on a summer afternoon, reaching the whole city at once. Each is complete on its own. They all grew in the same cultural soil.</p>
         </div>
         <div class="cp-theme-right">
-          <div class="cp-theme-events-label">■ KEY PROGRAMS</div>
+          <div class="cp-theme-events-label"><span class="lang-zh">■ 精選節目</span><span class="lang-en">■ KEY PROGRAMS</span></div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">01</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">《來自臺灣》NSO × 泰武古謠</div>
               <div class="cp-theme-ev-title lang-en">From Formosa: NSO × Taiwu Ballads Troupe</div>
               <div class="cp-theme-ev-desc lang-zh">從千年古謠到當代樂曲，一夜間展開臺灣音樂的歷史縱深。</div>
               <div class="cp-theme-ev-desc lang-en">From ancient chant to contemporary works, this program traces the depth of Taiwan's musical heritage in a single evening.</div>
             </div>
-            <div class="cp-theme-ev-venue">Merkin Hall, Kaufman Music Center</div>
           </div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">02</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">翃舞製作《羽人》</div>
               <div class="cp-theme-ev-title lang-en">HUNG DANCE — BIRDY</div>
               <div class="cp-theme-ev-desc lang-zh">以當代舞蹈轉譯傳統元素，在肢體流動間探問自由的邊界。</div>
               <div class="cp-theme-ev-desc lang-en">Reinterpreting traditional elements through contemporary dance, the work explores the boundaries of freedom through movement.</div>
             </div>
-            <div class="cp-theme-ev-venue">NYU Skirball</div>
           </div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">03</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">2026中央公園夏日音樂節 Taiwanese Waves</div>
               <div class="cp-theme-ev-title lang-en">Taiwanese Waves 2026</div>
               <div class="cp-theme-ev-desc lang-zh">在紐約中央公園的夏夜草坪，感受臺灣流行音樂能量。</div>
               <div class="cp-theme-ev-desc lang-en">On a summer evening in Central Park, Taiwan's pop music takes over the lawn.</div>
             </div>
-            <div class="cp-theme-ev-venue">SummerStage, Central Park</div>
           </div>
         </div>
       </div>
@@ -583,7 +557,7 @@ html[lang="en"] .lang-en { display: revert; }
       <div class="cp-theme cp-theme-story">
         <div class="cp-theme-left">
           <div class="cp-theme-num">02</div>
-          <div class="cp-theme-en">FEEL THE STORY</div>
+          <div class="cp-theme-en">STORY</div>
           <h3 class="cp-theme-zh lang-zh">影像與敘事</h3>
           <h3 class="cp-theme-zh lang-en">Image & Narrative</h3>
           <p class="cp-theme-tagline lang-zh">臺灣，是一個持續生成故事的地方。</p>
@@ -592,36 +566,30 @@ html[lang="en"] .lang-en { display: revert; }
           <p class="cp-theme-body lang-en">Multiple peoples coexisting, histories running parallel — all of that built a particular way of seeing. From the edge, from the gaps, translating personal experience into something that travels. Taiwan's filmmakers, writers, and artists have been doing this on the international stage for a long time. The marks are still there.</p>
         </div>
         <div class="cp-theme-right">
-          <div class="cp-theme-events-label">■ KEY PROGRAMS</div>
+          <div class="cp-theme-events-label"><span class="lang-zh">■ 精選節目</span><span class="lang-en">■ KEY PROGRAMS</span></div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">01</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">林懷民 × Jodee Nimerichter 對談</div>
               <div class="cp-theme-ev-title lang-en">Lin Hwai-min × Jodee Nimerichter in Conversation</div>
               <div class="cp-theme-ev-desc lang-zh">回望臺美舞蹈交流數十年的軌跡，從 1979 年雲門赴美巡演的起點重新出發。</div>
               <div class="cp-theme-ev-desc lang-en">Tracing decades of Taiwan-US dance exchange — going back to Cloud Gate's first US tour in 1979. Eight weeks, 41 performances, 40 cities. The conversation starts there.</div>
             </div>
-            <div class="cp-theme-ev-venue">ASIA SOCIETY</div>
           </div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">02</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">世界之間：跨越疆界的臺灣電影</div>
               <div class="cp-theme-ev-title lang-en">Between Worlds: Taiwanese Cinema Across Borders</div>
               <div class="cp-theme-ev-desc lang-zh">展映十部長片，從侯孝賢、楊德昌、蔡明亮到當代創作者，展開半世紀的敘事縱深。</div>
               <div class="cp-theme-ev-desc lang-en">Ten features — Hou Hsiao-hsien, Edward Yang, Tsai Ming-liang alongside the new generation. Half a century of Taiwanese cinema at the city's most serious film venue.</div>
             </div>
-            <div class="cp-theme-ev-venue">Metrograph</div>
           </div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">03</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">臺美藝文系列對談</div>
               <div class="cp-theme-ev-title lang-en">Taiwan–U.S. Cultural Exchange Talk Series</div>
               <div class="cp-theme-ev-desc lang-zh">跨越各時空及場域，串聯臺、美各領域藝術工作者的交流對話。</div>
               <div class="cp-theme-ev-desc lang-en">A series of conversations across multiple venues, connecting artists from Taiwan and the U.S. across different disciplines.</div>
             </div>
-            <div class="cp-theme-ev-venue">Multi-venue</div>
           </div>
         </div>
       </div>
@@ -630,7 +598,7 @@ html[lang="en"] .lang-en { display: revert; }
       <div class="cp-theme cp-theme-vibe">
         <div class="cp-theme-left">
           <div class="cp-theme-num">03</div>
-          <div class="cp-theme-en">FEEL THE VIBE</div>
+          <div class="cp-theme-en">STREET</div>
           <h3 class="cp-theme-zh lang-zh">街頭與生活</h3>
           <h3 class="cp-theme-zh lang-en">Street & Life</h3>
           <p class="cp-theme-tagline lang-zh">臺灣文化的活力，不只存在於舞台之上。</p>
@@ -639,26 +607,22 @@ html[lang="en"] .lang-en { display: revert; }
           <p class="cp-theme-body lang-en">It's on the wall of a building, in the middle of a parade, in the city's rhythm and everyday details. Taiwan's culture knows how to land in different contexts, hold a conversation with wherever it is, and still stay itself.</p>
         </div>
         <div class="cp-theme-right">
-          <div class="cp-theme-events-label">■ KEY PROGRAMS</div>
+          <div class="cp-theme-events-label"><span class="lang-zh">■ 精選節目</span><span class="lang-en">■ KEY PROGRAMS</span></div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">01</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">布希維克街頭藝術計畫</div>
               <div class="cp-theme-ev-title lang-en">Taiwanese Artists @ 2026 Bushwick Collective Block Party</div>
               <div class="cp-theme-ev-desc lang-zh">5位臺灣壁畫藝術家前進紐約，以現地創作進駐城市現場，並與全球創作者對話。</div>
               <div class="cp-theme-ev-desc lang-en">Five Taiwanese mural artists create site-specific works in New York, engaging in dialogue with artists from around the world.</div>
             </div>
-            <div class="cp-theme-ev-venue">Bushwick</div>
           </div>
           <div class="cp-theme-ev">
-            <div class="cp-theme-ev-num">02</div>
             <div class="cp-theme-ev-main">
               <div class="cp-theme-ev-title lang-zh">2026紐約同志遊行</div>
               <div class="cp-theme-ev-title lang-en">2026 NYC Pride March</div>
               <div class="cp-theme-ev-desc lang-zh">臺灣變裝皇后冠軍以「臺味華麗」現身紐約同志遊行，將臺灣街頭文化轉譯為國際文化語言。</div>
               <div class="cp-theme-ev-desc lang-en">Taiwanese drag queens, led by Nymphia Wind, bring a bold Taiwanese style to the NYC Pride March.</div>
             </div>
-            <div class="cp-theme-ev-venue">Manhattan</div>
           </div>
         </div>
       </div>
@@ -675,21 +639,18 @@ html[lang="en"] .lang-en { display: revert; }
     </div>
     <div class="cp-dna-grid">
       <div class="cp-dna-card">
-        <div class="cp-dna-num">01 / MULTI-ETHNIC</div>
         <div class="cp-dna-card-title lang-zh">多元族群</div>
         <div class="cp-dna-card-title lang-en">Multi-Ethnic</div>
         <p class="cp-dna-card-body lang-zh">原住民、閩南、客家、新移民——多族群共存的島嶼經驗，形塑出豐富的創作視角與敘事角度。</p>
         <p class="cp-dna-card-body lang-en">Indigenous peoples, Hoklo, Hakka, new immigrants — the experience of multiple groups coexisting shaped rich creative perspectives and ways of telling stories.</p>
       </div>
       <div class="cp-dna-card">
-        <div class="cp-dna-num">02 / LAYERED HISTORY</div>
         <div class="cp-dna-card-title lang-zh">複軌歷史</div>
         <div class="cp-dna-card-title lang-en">Layered History</div>
         <p class="cp-dna-card-body lang-zh">多重歷史交錯，讓臺灣創作者從邊界出發，從縫隙切入，將個體經驗轉譯為跨越距離的敘事。</p>
         <p class="cp-dna-card-body lang-en">Overlapping histories let Taiwan's artists start from the edge, work from the gaps, and translate personal experience into narratives that cross distances.</p>
       </div>
       <div class="cp-dna-card">
-        <div class="cp-dna-num">03 / EAST MEETS WEST</div>
         <div class="cp-dna-card-title lang-zh">東西交會</div>
         <div class="cp-dna-card-title lang-en">East Meets West</div>
         <p class="cp-dna-card-body lang-zh">立足島嶼亦向世界延伸——珍惜傳統的同時不斷創新，這份雙重視野是臺灣文化在國際舞台上的獨特座標。</p>
