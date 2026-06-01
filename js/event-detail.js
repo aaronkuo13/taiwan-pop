@@ -51,7 +51,7 @@
           <div class="ev-meta">
             <div class="ev-meta-row">
               <span class="ev-meta-key">${dateLabel}</span>
-              <span class="ev-meta-val">${dateStr(ev)}${ev.time ? ' · ' + ev.time : ''}</span>
+              <span class="ev-meta-val">${dateStr(ev)}</span>
             </div>
             <div class="ev-meta-row">
               <span class="ev-meta-key">${venueLabel}</span>

@@ -167,14 +167,11 @@ function renderFeaturedBanner() {
   const mm  = String(dm).padStart(2,'0');
   const day = String(dd).padStart(2,'0');
   const wk  = WDAYS[new Date(dy, dm - 1, dd).getDay()];
-  const timeStr = ev.time && ev.time !== 'TBA'
-    ? ` · ${ev.time.replace('p.m.','PM').replace('a.m.','AM')}`
-    : '';
-  const dateDisplay = `${mm}.${day} ${wk}${timeStr}`;
+  const dateDisplay = `${mm}.${day} ${wk}`;
 
   // i18n labels
-  const title      = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
-  const ctaLabel   = lang === 'en' ? 'LEARN MORE →' : '了解詳情 →';
+  const title    = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
+  const ctaLabel = '→';
   const statusZh   = lang === 'en' ? 'Next Up' : '即將登場';
   const countdownStr = diffDays > 0  ? (lang === 'en' ? `${diffDays} days to go` : `倒數 ${diffDays} 天`)
                      : diffDays === 0 ? (lang === 'en' ? 'Today!'                 : '今天登場')
