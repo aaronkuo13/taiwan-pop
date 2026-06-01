@@ -8,7 +8,7 @@ function renderEvents() {
 
   // Wait for visibility config from Firestore (null = still loading)
   if (window.eventsVisibility === null) {
-    grid.innerHTML = '<div style="padding:5rem 2.5rem;font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-align:center">LOADING · 載入中</div>';
+    grid.innerHTML = '<div style="padding:5rem 2.5rem;font-family:var(--font-m);font-size:var(--fs-base);letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-align:center">LOADING · 載入中</div>';
     return;
   }
 
@@ -100,7 +100,7 @@ function renderEvents() {
         ${secondary.length < 4 && cat.id === 'street' ? `
         <div style="background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem">
           <div style="font-family:var(--font-d);font-size:5rem;opacity:0.04">+</div>
-          <div style="font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.2em;color:rgba(255,255,255,0.12)">MORE TO COME</div>
+          <div style="font-family:var(--font-m);font-size:var(--fs-base);letter-spacing:0.2em;color:rgba(255,255,255,0.12)">MORE TO COME</div>
         </div>` : ''}
       </div>` : '';
 
@@ -175,9 +175,9 @@ function renderFeaturedBanner() {
   // i18n labels
   const title      = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
   const ctaLabel   = lang === 'en' ? 'LEARN MORE →' : '了解詳情 →';
-  const statusZh   = '即將登場';
-  const countdownStr = diffDays > 0  ? `倒數 ${diffDays} 天`
-                     : diffDays === 0 ? '今天登場'
+  const statusZh   = lang === 'en' ? 'Next Up' : '即將登場';
+  const countdownStr = diffDays > 0  ? (lang === 'en' ? `${diffDays} days to go` : `倒數 ${diffDays} 天`)
+                     : diffDays === 0 ? (lang === 'en' ? 'Today!'                 : '今天登場')
                      : '';
 
   const imgSrc = ev.bannerImg || ev.imgInner || ev.img || '';
@@ -186,7 +186,7 @@ function renderFeaturedBanner() {
   el.innerHTML = `
     <div class="featured-wrap reveal">
       <a href="${href}" class="featured-banner">
-        <div class="fb-sticker">即將登場<span class="fb-sticker-en">NEXT UP</span></div>
+        <div class="fb-sticker">${lang === 'en' ? 'NEXT UP' : '即將登場'}<span class="fb-sticker-en">${lang === 'en' ? '' : 'NEXT UP'}</span></div>
         <div class="fb-image-wrap">
           ${imgSrc
             ? `<img src="${imgSrc}" alt="${title}">`
