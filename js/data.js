@@ -362,7 +362,35 @@ const EVENTS = [
         instagram: 'https://www.instagram.com/itscandykuo'
       }
     ],
-    category:'street', isPrimary:true, externalUrl:''
+    category:'street', isPrimary:true,
+    externalUrl:'https://www.eventbrite.com/e/conversations-with-the-collective-tickets-1990160132530',
+    subEvents: [
+      {
+        title: '藝術家講座',
+        title_en: 'Artist Lecture',
+        date: '5月28日', date_en: 'May 28',
+        time: '17:00–19:00',
+        location: 'Lot 45（411 Troutman Street, Brooklyn NY 11237）',
+        url: 'https://www.eventbrite.com/e/conversations-with-the-collective-tickets-1990160132530'
+      },
+      {
+        title: '開幕之夜',
+        title_en: 'Opening Night',
+        date: '5月28日', date_en: 'May 28',
+        time: '19:00–23:00',
+        location: 'Vacations BK Rooftop（48 Cypress Avenue, Brooklyn NY 11237）',
+        url: 'https://www.eventbrite.com/e/15th-annual-bushwick-collective-rooftop-launch-party-tickets-1990158368253'
+      },
+      {
+        title: '街區派對',
+        title_en: 'Block Party',
+        date: '5月30日', date_en: 'May 30',
+        time: '10:00–18:00',
+        location: 'St. Nicholas Ave, Troutman St 及 Scott Ave 三街區交界（Brooklyn NY 11237）',
+        location_en: 'Intersection of St. Nicholas Ave, Troutman St & Scott Ave (Brooklyn NY 11237)',
+        url: 'https://www.eventbrite.com/e/15th-annual-bushwick-collective-block-party-tickets-1988055115367'
+      }
+    ]
   },
   {
     num:'05', icon:'🌈',

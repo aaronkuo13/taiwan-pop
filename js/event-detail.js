@@ -119,6 +119,35 @@
     }
     descEl.innerHTML = descHtml;
 
+    /* Sub Events */
+    const subEventsEl = document.getElementById('detailSubEvents');
+    if (ev.subEvents && ev.subEvents.length) {
+      const labelSched = lang === 'en' ? 'SCHEDULE · Event Sessions' : 'SCHEDULE · 活動時程';
+      const infoLabel  = lang === 'en' ? 'Info →' : '活動資訊 →';
+      subEventsEl.innerHTML = `
+        <span class="ev-section-label">${labelSched}</span>
+        <div class="ev-subevent-list">
+          ${ev.subEvents.map(s => {
+            const t    = (lang === 'en' && s.title_en)    ? s.title_en    : s.title;
+            const d    = (lang === 'en' && s.date_en)     ? s.date_en     : s.date;
+            const loc  = (lang === 'en' && s.location_en) ? s.location_en : s.location;
+            return `<div class="ev-subevent-item">
+              <div>
+                <div class="ev-subevent-title">${t}</div>
+                <div class="ev-subevent-meta">
+                  <span class="ev-subevent-time">${d} · ${s.time}</span>
+                  <span>${loc}</span>
+                </div>
+              </div>
+              <a href="${s.url}" target="_blank" rel="noopener" class="ev-subevent-link">${infoLabel}</a>
+            </div>`;
+          }).join('')}
+        </div>`;
+      subEventsEl.classList.remove('is-hidden');
+    } else {
+      subEventsEl.classList.add('is-hidden');
+    }
+
     /* Video */
     const videoEl = document.getElementById('detailVideo');
     if (ev.youtubeId) {
