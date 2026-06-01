@@ -183,6 +183,11 @@
     border-right: 1px solid var(--border);
     background: radial-gradient(ellipse at 50% 50%, rgba(0,255,87,0.06) 0%, transparent 60%), rgba(8,8,8,0.5);
     overflow: hidden;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.3s;
+  }
+  .showcase-hero:hover {
+    background: radial-gradient(ellipse at 50% 50%, rgba(0,255,87,0.12) 0%, transparent 60%), rgba(12,12,12,0.6);
   }
   .showcase-hero::before, .showcase-hero::after {
     content: ''; position: absolute; pointer-events: none;
@@ -267,7 +272,7 @@
     font-family: var(--font-m); font-size: 0.55rem;
     letter-spacing: 0.2em; color: rgba(255,255,255,0.3); margin-top: 0.3rem;
   }
-  .stat-desc { margin-top: 0.4rem; font-size: 0.78rem; line-height: 1.55; color: rgba(255,255,255,0.4); }
+  .stat-desc { margin-top: 0.4rem; font-size: 0.92rem; line-height: 1.6; color: rgba(255,255,255,0.5); }
   .showcase-caption {
     position: relative; z-index: 1;
     padding: 1.3rem 2.5rem;
@@ -556,7 +561,7 @@
   <!-- SHOWCASE: Logo Panel + Stats + Caption -->
   <div class="showcase reveal" id="showcase">
     <div class="showcase-split">
-      <div class="showcase-hero">
+      <a href="concept.html" class="showcase-hero">
         <div class="showcase-star-bg"></div>
         <span class="showcase-hero-label">◆ TAIWAN POP · 2026</span>
         <span class="showcase-hero-label right">FEEL THE POP ✦</span>
@@ -565,26 +570,23 @@
         <div class="showcase-hero-corner sc-c3"></div>
         <div class="showcase-hero-corner sc-c4"></div>
         <img class="showcase-logo-main" src="images/logo.png" alt="Taiwan Pop" draggable="false">
-      </div>
+      </a>
       <div class="stats-strip">
         <div class="stat-cell" data-accent="green">
           <div class="stat-num">7<sup>+</sup></div>
           <div class="stat-body">
-            <div class="stat-unit">MAJOR EVENTS · 計畫規模</div>
             <p class="stat-desc" data-i18n="stat-1-desc">橫跨聲音、影像、街頭三大主題，七個精彩展演在紐約登場</p>
           </div>
         </div>
         <div class="stat-cell" data-accent="blue">
           <div class="stat-num">3</div>
           <div class="stat-body">
-            <div class="stat-unit">THEMES · 策展主軸</div>
             <p class="stat-desc" data-i18n="stat-2-desc">身體與聲音・影像與敘事・街頭與生活</p>
           </div>
         </div>
         <div class="stat-cell" data-accent="pink">
           <div class="stat-num">1</div>
           <div class="stat-body">
-            <div class="stat-unit">CITY — NEW YORK · 展演城市</div>
             <p class="stat-desc" data-i18n="stat-3-desc">Feel the Pop · 臺灣上奅 — 2026 夏天，曼哈頓感受台灣創造力</p>
           </div>
         </div>
@@ -609,7 +611,6 @@
     </div>
     <div class="themes-grid">
       <a href="events.html#cat-sound" class="tc tc-pink">
-        <div><div class="tc-tag">01 · SOUND</div></div>
         <div class="tc-idx">01</div>
         <div>
           <div class="tc-title" data-i18n="cat-sound-label">身體<br>與聲音</div>
@@ -623,7 +624,6 @@
         <div class="tc-link" data-i18n-html="tc-link">看活動 <span class="arr">→</span></div>
       </a>
       <a href="events.html#cat-image" class="tc tc-blue">
-        <div><div class="tc-tag">02 · IMAGE</div></div>
         <div class="tc-idx">02</div>
         <div>
           <div class="tc-title" data-i18n="cat-image-label">影像<br>與敘事</div>
@@ -637,7 +637,6 @@
         <div class="tc-link" data-i18n-html="tc-link">看活動 <span class="arr">→</span></div>
       </a>
       <a href="events.html#cat-street" class="tc tc-green">
-        <div><div class="tc-tag">03 · STREET</div></div>
         <div class="tc-idx">03</div>
         <div>
           <div class="tc-title" data-i18n="cat-street-label">街頭<br>與生活</div>
@@ -650,18 +649,6 @@
         <div class="tc-link" data-i18n-html="tc-link">看活動 <span class="arr">→</span></div>
       </a>
     </div>
-    <a href="concept.html" class="bc-row reveal">
-      <div>
-        <div class="bc-tag" data-i18n="bc-tag">CONCEPT · 策劃理念</div>
-        <div class="bc-title" data-i18n="bc-title">臺灣上奅</div>
-        <div class="bc-sub" data-i18n="bc-sub">曼哈頓的台灣日常 · Feel the POP</div>
-      </div>
-      <div class="bc-evs">
-        <div class="bc-ev" data-i18n="bc-ev-org">台灣文化部 × Taipei Cultural Center in NY</div>
-        <div class="bc-ev" data-i18n="bc-ev-city">MAY — SEP 2026 · 曼哈頓</div>
-      </div>
-      <div class="bc-arrow">→</div>
-    </a>
   </section>
 
   <!-- SPRAY BAND -->

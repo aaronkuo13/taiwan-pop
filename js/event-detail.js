@@ -47,7 +47,6 @@
           <a href="events.html" class="ev-back">← ${backLabel}</a>
           <div class="ev-cat-row">
             <span class="cat cat-${catId}">${catId.toUpperCase()}</span>
-            <span class="ev-num">EVENT ${ev.num}</span>
           </div>
           <h1 class="ev-title">${title}</h1>
           ${subtitle ? `<div class="ev-subtitle">${subtitle}</div>` : ''}

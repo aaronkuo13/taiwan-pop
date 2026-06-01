@@ -18,7 +18,7 @@ const LANG = {
     /* News */
     'sec-themes-title':'展演主題',
     'sec-news-title':'掌握動態',
-    'btn-more-news':'查看全部',
+    'btn-more-news':'查看全部 →',
     /* Event categories */
     'cat-sound-label':'身體與聲音',
     'cat-sound-sub':'現場表演・音樂・舞蹈',
@@ -82,7 +82,7 @@ const LANG = {
     /* News */
     'sec-themes-title':'Event Themes',
     'sec-news-title':'Latest News',
-    'btn-more-news':'View All',
+    'btn-more-news':'View All →',
     /* Event categories */
     'cat-sound-label':'Body & Sound',
     'cat-sound-sub':'Live Performance · Music · Dance',
