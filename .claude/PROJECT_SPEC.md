@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-01（PR #59 events cleanup；PR #60 concept/calendar/index polish）
+> 最後更新：2026-06-08（PR #61 event subtitles；PR #62 single performer grid fix；CLAUDE.md + hooks 建立）
 
 ---
 
@@ -417,6 +417,9 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] event.html 單一演出者 grid 修正（PR #62）：`.ev-performers-grid:has(:only-child)` → 1 欄全寬，修正空白灰塊問題
+- [x] #06/#07 活動副標題更新（PR #61）：subtitle/subtitle_en 改為 `Feel the Flight.` / `Feel the Wave.`
+- [x] CLAUDE.md + Claude hooks 建立（直推 main）：工作規範、Component Map、merge 後 PRD 提醒 hook
 - [x] concept/calendar/index UI polish（PR #60）：concept 移除日期標籤/修正機構名稱/移除 DNA 小標/手機字體；calendar 全幅導覽列 + 雙語 + modal 修正；index 箭頭放大
 - [x] 全站 `.lang-zh` / `.lang-en` 雙語 CSS 移至 tp-shared.css 全局（PR #60）
 - [x] P10–P13 events cleanup + calendar 大改版 + 手機版 nav（PR #59）：events 分類標題/副標題/i18n；event-detail 精簡 hero/labels/按鈕；calendar PREV/NEXT 導覽列、字體調大、modal 優化；手機版 nav icon-only
