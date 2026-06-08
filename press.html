@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Taiwan Pop 相關報導 — 媒體報導與新聞精選">
+  <title>相關報導 — Taiwan Pop 2026</title>
+  <link rel="icon" type="image/png" href="images/logo-main_48x48.png">
+  <link rel="apple-touch-icon" href="images/logo-main_48x48.png">
+
+  <!-- Canonical & hreflang -->
+  <link rel="canonical" href="https://taiwanpop.tw/press.html">
+  <link rel="alternate" hreflang="zh-TW" href="https://taiwanpop.tw/press.html">
+  <link rel="alternate" hreflang="en"    href="https://taiwanpop.tw/press.html?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://taiwanpop.tw/press.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:locale"      content="zh_TW">
+  <meta property="og:site_name"   content="Taiwan Pop">
+  <meta property="og:url"         content="https://taiwanpop.tw/press.html">
+  <meta property="og:title"       content="相關報導 — Taiwan Pop 2026">
+  <meta property="og:description" content="Taiwan Pop 媒體報導與新聞精選">
+  <meta property="og:image"       content="https://taiwanpop.tw/images/logo-main.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="相關報導 — Taiwan Pop 2026">
+  <meta name="twitter:description" content="Taiwan Pop 媒體報導與新聞精選">
+  <meta name="twitter:image"       content="https://taiwanpop.tw/images/logo-main.png">
+
+  <link rel="stylesheet" href="css/tp-shared.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap"></noscript>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6V2LJ748H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K6V2LJ748H');
+  </script>
+
+  <style>
+  /* ── HERO ── */
+  .page-hero-press {
+    padding-top: 8rem; padding-bottom: 3rem;
+    padding-left: 2.5rem; padding-right: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .press-page-title {
+    font-family: var(--font-d);
+    font-size: clamp(4rem, 10vw, 10rem);
+    line-height: 0.9; letter-spacing: 0.025em;
+    text-shadow: 4px 4px 0 rgba(0,194,255,0.2);
+  }
+
+  /* ── LIST ── */
+  .press-main { padding: 0 0 5rem; }
+
+  .press-item {
+    display: block;
+    padding: 1.8rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--white);
+    transition: background 0.18s;
+  }
+  .press-item:hover { background: rgba(255,255,255,0.03); }
+  .press-item:hover .press-arrow { color: var(--green); transform: translateX(5px); }
+
+  .press-item-meta {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.55rem;
+  }
+  .press-media-tag {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.12em;
+    padding: 0.12rem 0.55rem;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+  }
+  .press-date {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.1em; color: rgba(255,255,255,0.28);
+  }
+  .press-title-row {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 1.5rem;
+  }
+  .press-title {
+    font-family: var(--font-m); font-size: var(--fs-md);
+    line-height: 1.55; color: rgba(255,255,255,0.88);
+    flex: 1;
+  }
+  .press-arrow {
+    font-size: 1.5rem; line-height: 1;
+    color: rgba(255,255,255,0.18);
+    transition: color 0.18s, transform 0.18s;
+    flex-shrink: 0; margin-top: 0.15rem;
+  }
+
+  /* ── STATES ── */
+  .press-state {
+    padding: 60px 2.5rem; text-align: center;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em;
+  }
+
+  /* ── LOAD MORE ── */
+  .load-more-wrap { text-align: center; padding: 3rem 0; }
+  .load-more-wrap .btn { border-radius: 0; }
+
+  @media (max-width: 600px) {
+    .page-hero-press { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .press-item { padding: 1.4rem 1.5rem; }
+    .press-title { font-size: var(--fs-base); }
+  }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar"></nav>
+
+  <div class="page-hero-press">
+    <h1 class="press-page-title" data-i18n-html="press-page-title">相關<br>報導</h1>
+  </div>
+
+  <div class="press-main">
+    <div id="press-list">
+      <div class="press-state" data-i18n="press-loading">載入中</div>
+    </div>
+    <div class="load-more-wrap" id="press-load-more-wrap" style="display:none">
+      <button class="btn btn-outline" id="press-load-more-btn">載入更多</button>
+    </div>
+  </div>
+
+  <footer id="contact"></footer>
+
+  <script src="js/lang.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/lang-init.js"></script>
+
+  <script type="module">
+    import { db } from './js/firebase.js';
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+    const PAGE_SIZE = 10;
+    let allItems = [];
+    let shown = 0;
+
+    function getLang() {
+      return window.currentLang || localStorage.getItem('twpop_lang') || 'zh';
+    }
+
+    function formatDate(str) {
+      return (str || '').replace(/-/g, '.');
+    }
+
+    function renderBatch() {
+      const container = document.getElementById('press-list');
+      const wrap = document.getElementById('press-load-more-wrap');
+      const lang = getLang();
+      const batch = allItems.slice(0, shown);
+
+      if (!allItems.length) {
+        const emptyTxt = lang === 'en' ? 'No coverage found' : '暫無報導';
+        container.innerHTML = `<div class="press-state">${emptyTxt}</div>`;
+        wrap.style.display = 'none';
+        return;
+      }
+
+      container.innerHTML = batch.map(item => {
+        const title = (lang === 'en' && item.title_en) ? item.title_en : (item.title || '');
+        const media = (lang === 'en' && item.media_en) ? item.media_en : (item.media || '');
+        return `
+          <a href="${item.url || '#'}" target="_blank" rel="noopener" class="press-item">
+            <div class="press-item-meta">
+              ${media ? `<span class="press-media-tag">${media}</span>` : ''}
+              <span class="press-date">${formatDate(item.date)}</span>
+            </div>
+            <div class="press-title-row">
+              <span class="press-title">${title}</span>
+              <span class="press-arrow">→</span>
+            </div>
+          </a>`;
+      }).join('');
+
+      wrap.style.display = shown < allItems.length ? 'block' : 'none';
+    }
+
+    async function loadPress() {
+      const container = document.getElementById('press-list');
+      try {
+        const snap = await getDocs(collection(db, 'press_coverage'));
+        allItems = [];
+        snap.forEach(d => {
+          const data = d.data();
+          if (data.visible !== false) allItems.push({ id: d.id, ...data });
+        });
+        allItems.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        shown = PAGE_SIZE;
+        renderBatch();
+      } catch (err) {
+        console.error('[press] load error:', err);
+        const lang = getLang();
+        container.innerHTML = `<div class="press-state">${lang === 'en' ? 'No coverage found' : '暫無報導'}</div>`;
+      }
+    }
+
+    document.getElementById('press-load-more-btn').addEventListener('click', () => {
+      shown += PAGE_SIZE;
+      renderBatch();
+    });
+
+    window.reRenderPress = () => {
+      shown = PAGE_SIZE;
+      renderBatch();
+    };
+
+    loadPress();
+  </script>
+
+</body>
+</html>
