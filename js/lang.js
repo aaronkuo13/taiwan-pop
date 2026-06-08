@@ -5,7 +5,7 @@ const LANG = {
   zh: {
     /* Navbar */
     'nav-concept':'策劃理念',
-    'nav-news':'最新消息','nav-events':'展演活動',
+    'nav-news':'最新消息','nav-press':'相關報導','nav-events':'展演活動',
     'nav-calendar':'行事曆',
     /* a-we NYC Run */
     'game-awe-title':'a-we <span>紐約</span>跑酷',
@@ -45,6 +45,10 @@ const LANG = {
     'bc-sub':'曼哈頓的台灣日常 · Feel the POP',
     'bc-ev-org':'台灣文化部 × Taipei Cultural Center in NY',
     'bc-ev-city':'MAY — SEP 2026 · 曼哈頓',
+    /* Press page */
+    'press-page-title':'相關<br>報導',
+    'press-loading':'載入中',
+    'press-empty':'暫無報導',
     /* News page */
     'news-page-title':'掌握<br>動態',
     'news-cat-all':'全部',
@@ -69,7 +73,7 @@ const LANG = {
   en: {
     /* Navbar */
     'nav-concept':'TAIWAN POP',
-    'nav-news':'News','nav-events':'Events',
+    'nav-news':'News','nav-press':'Press','nav-events':'Events',
     'nav-calendar':'Schedule',
     /* a-we NYC Run */
     'game-awe-title':'a-we <span>NYC</span> Run',
@@ -109,6 +113,10 @@ const LANG = {
     'bc-sub':'Taiwan\'s Daily Life in Manhattan · Feel the POP',
     'bc-ev-org':'Taiwan Ministry of Culture × Taipei Cultural Center in NY',
     'bc-ev-city':'MAY — SEP 2026 · Manhattan',
+    /* Press page */
+    'press-page-title':'Press<br>Coverage',
+    'press-loading':'Loading',
+    'press-empty':'No coverage found',
     /* News page */
     'news-page-title':'Latest<br>News',
     'news-cat-all':'All',

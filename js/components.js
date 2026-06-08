@@ -9,6 +9,7 @@
              : path.includes('concept')  ? 'concept'
              : path.includes('awe')      ? 'awe'
              : path.includes('article')  ? 'article'
+             : path.includes('press')    ? 'press'
              : path.includes('news')     ? 'news'
              : 'home';
 
@@ -17,6 +18,7 @@
     logo:     page === 'home'     ? '#'              : 'index.html',
     concept:  page === 'concept'  ? '#'              : 'concept.html',
     news:     page === 'news'     ? '#'              : 'news.html',
+    press:    page === 'press'    ? '#'              : 'press.html',
     events:   page === 'events'   ? '#events'        : 'events.html',
     awe:      page === 'awe'      ? '#'              : 'awe.html',
     calendar: page === 'calendar' ? '#'              : 'calendar.html',
@@ -37,6 +39,7 @@
       <ul class="tp-nav-links" id="navLinks">
         <li><a href="${href.concept}"  class="${'nav-link' + activeClass('concept')}"  data-i18n="nav-concept">策劃理念</a></li>
         <li><a href="${href.news}"     class="${'nav-link' + activeClass('news')}"     data-i18n="nav-news">最新消息</a></li>
+        <li><a href="${href.press}"    class="${'nav-link' + activeClass('press')}"    data-i18n="nav-press">相關報導</a></li>
         <li><a href="${href.events}"   class="${'nav-link' + activeClass('events')}"   data-i18n="nav-events">展演活動</a></li>
         <li><a href="${href.calendar}" class="${'nav-link' + activeClass('calendar')}" data-i18n="nav-calendar">行事曆</a></li>
       </ul>
@@ -69,6 +72,7 @@
       </div>
       <a href="${href.concept}"><span data-i18n="nav-concept">策劃理念</span></a>
       <a href="${href.news}"><span data-i18n="nav-news">最新消息</span></a>
+      <a href="${href.press}"><span data-i18n="nav-press">相關報導</span></a>
       <a href="${href.events}"><span data-i18n="nav-events">展演活動</span></a>
       <a href="${href.calendar}"><span data-i18n="nav-calendar">行事曆</span></a>
       <div class="tp-nav-mobile-social">

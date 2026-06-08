@@ -489,6 +489,7 @@
       <!-- Section tabs -->
       <div class="section-tabs">
         <button class="section-tab active" data-section="articles">文章管理</button>
+        <button class="section-tab" data-section="press">相關報導</button>
         <button class="section-tab" data-section="events">展演活動</button>
       </div>
 
@@ -510,6 +511,30 @@
               </tr>
             </thead>
             <tbody id="articles-tbody">
+              <tr><td colspan="5" class="table-empty">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Press Coverage section -->
+      <div id="section-press" style="display:none">
+        <div class="toolbar">
+          <h2>相關報導</h2>
+          <button class="btn-primary" id="new-press-btn">+ 新增報導</button>
+        </div>
+        <div id="press-list-admin">
+          <table class="articles-table">
+            <thead>
+              <tr>
+                <th>標題</th>
+                <th>媒體</th>
+                <th>日期</th>
+                <th>狀態</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="press-tbody">
               <tr><td colspan="5" class="table-empty">載入中...</td></tr>
             </tbody>
           </table>
@@ -620,6 +645,68 @@
         <div class="modal-footer">
           <button type="button" class="btn-cancel" id="cancel-btn">取消</button>
           <button type="submit" class="btn-save" id="save-btn">儲存文章</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Press Editor Modal -->
+  <div class="modal-overlay" id="press-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="press-modal-title">新增報導</h3>
+        <button class="btn-close" id="press-modal-close">×</button>
+      </div>
+      <form id="press-form">
+        <input type="hidden" id="press-id">
+
+        <div class="form-row">
+          <label>標題（中文）</label>
+          <input type="text" id="press-title-zh" placeholder="報導標題" required>
+        </div>
+        <div class="form-row">
+          <label>Title（English）<span style="color:var(--muted);font-weight:400"> — 選填</span></label>
+          <input type="text" id="press-title-en" placeholder="Article title (optional)">
+        </div>
+
+        <div class="form-row form-row-cols">
+          <div>
+            <label>媒體標籤</label>
+            <select id="press-media-select">
+              <option value="">選擇媒體</option>
+              <option value="__new__">＋ 新增媒體...</option>
+            </select>
+            <input type="text" id="press-media-new" placeholder="輸入媒體名稱" style="display:none;margin-top:6px">
+          </div>
+          <div>
+            <label>Media（English）<span style="color:var(--muted);font-weight:400"> — 選填</span></label>
+            <input type="text" id="press-media-en" placeholder="e.g. Ministry of Culture">
+          </div>
+        </div>
+
+        <div class="form-row form-row-cols">
+          <div>
+            <label>日期</label>
+            <input type="date" id="press-date" required>
+          </div>
+          <div>
+            <label>報導連結</label>
+            <input type="url" id="press-url" placeholder="https://" required>
+          </div>
+        </div>
+
+        <div class="publish-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="press-visible" checked>
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="publish-label">公開顯示</span>
+          <span class="publish-status" id="press-visible-status">顯示中</span>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="press-cancel-btn">取消</button>
+          <button type="submit" class="btn-save" id="press-save-btn">儲存報導</button>
         </div>
       </form>
     </div>
@@ -926,10 +1013,193 @@
         document.querySelectorAll('.section-tab').forEach(t => t.classList.toggle('active', t === tab));
         const sec = tab.dataset.section;
         document.getElementById('section-articles').style.display = sec === 'articles' ? '' : 'none';
+        document.getElementById('section-press').style.display    = sec === 'press'    ? '' : 'none';
         document.getElementById('section-events').style.display   = sec === 'events'   ? '' : 'none';
         if (sec === 'events') loadVisibility();
+        if (sec === 'press')  loadPress();
       });
     });
+
+    // ── Press Coverage ──
+
+    async function getMediaOptions() {
+      const snap = await getDocs(collection(db, 'press_coverage'));
+      const set = new Set();
+      snap.forEach(d => { if (d.data().media) set.add(d.data().media); });
+      return Array.from(set).sort();
+    }
+
+    async function populateMediaSelect(currentVal) {
+      const sel = document.getElementById('press-media-select');
+      const options = await getMediaOptions();
+      // rebuild options
+      sel.innerHTML = '<option value="">選擇媒體</option>';
+      options.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m; opt.textContent = m;
+        sel.appendChild(opt);
+      });
+      const newOpt = document.createElement('option');
+      newOpt.value = '__new__'; newOpt.textContent = '＋ 新增媒體...';
+      sel.appendChild(newOpt);
+      if (currentVal && options.includes(currentVal)) sel.value = currentVal;
+    }
+
+    document.getElementById('press-media-select').addEventListener('change', function() {
+      const newInput = document.getElementById('press-media-new');
+      if (this.value === '__new__') {
+        newInput.style.display = 'block';
+        newInput.focus();
+      } else {
+        newInput.style.display = 'none';
+        newInput.value = '';
+      }
+    });
+
+    document.getElementById('press-visible').addEventListener('change', function() {
+      document.getElementById('press-visible-status').textContent = this.checked ? '顯示中' : '已隱藏';
+    });
+
+    async function loadPress() {
+      const tbody = document.getElementById('press-tbody');
+      tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入中...</td></tr>';
+      try {
+        const snap = await getDocs(collection(db, 'press_coverage'));
+        const items = [];
+        snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+        items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+        if (!items.length) {
+          tbody.innerHTML = '<tr><td colspan="5" class="table-empty">尚無報導，點擊右上角「新增報導」開始</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = items.map(a => `
+          <tr>
+            <td class="table-title">${a.title || '（無標題）'}</td>
+            <td><small>${a.media || ''}</small></td>
+            <td class="table-date">${(a.date || '').replace(/-/g, '.')}</td>
+            <td>
+              <span class="badge ${a.visible ? 'badge-published' : 'badge-draft'}">
+                ${a.visible ? '顯示中' : '已隱藏'}
+              </span>
+            </td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-edit" data-id="${a.id}">編輯</button>
+                <button class="btn-delete" data-id="${a.id}">刪除</button>
+              </div>
+            </td>
+          </tr>`).join('');
+
+        tbody.querySelectorAll('.btn-edit').forEach(btn =>
+          btn.addEventListener('click', () => openPressEditor(btn.dataset.id)));
+        tbody.querySelectorAll('.btn-delete').forEach(btn =>
+          btn.addEventListener('click', () => confirmPressDelete(btn.dataset.id)));
+      } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入失敗</td></tr>';
+      }
+    }
+
+    function openPressModal() {
+      document.getElementById('press-modal').classList.add('open');
+    }
+    function closePressModal() {
+      document.getElementById('press-modal').classList.remove('open');
+    }
+    document.getElementById('press-modal-close').addEventListener('click', closePressModal);
+    document.getElementById('press-cancel-btn').addEventListener('click', closePressModal);
+
+    document.getElementById('new-press-btn').addEventListener('click', async () => {
+      document.getElementById('press-id').value = '';
+      document.getElementById('press-modal-title').textContent = '新增報導';
+      document.getElementById('press-title-zh').value = '';
+      document.getElementById('press-title-en').value = '';
+      document.getElementById('press-media-en').value = '';
+      document.getElementById('press-media-new').style.display = 'none';
+      document.getElementById('press-media-new').value = '';
+      document.getElementById('press-date').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('press-url').value = '';
+      document.getElementById('press-visible').checked = true;
+      document.getElementById('press-visible-status').textContent = '顯示中';
+      try { await populateMediaSelect(''); } catch(e) { /* 尚無媒體記錄，略過 */ }
+      openPressModal();
+    });
+
+    async function openPressEditor(id) {
+      try {
+        const snap = await getDoc(doc(db, 'press_coverage', id));
+        if (!snap.exists()) return;
+        const a = snap.data();
+        document.getElementById('press-id').value = id;
+        document.getElementById('press-modal-title').textContent = '編輯報導';
+        document.getElementById('press-title-zh').value = a.title || '';
+        document.getElementById('press-title-en').value = a.title_en || '';
+        document.getElementById('press-media-en').value = a.media_en || '';
+        document.getElementById('press-date').value = a.date || '';
+        document.getElementById('press-url').value = a.url || '';
+        document.getElementById('press-visible').checked = a.visible !== false;
+        document.getElementById('press-visible-status').textContent = a.visible !== false ? '顯示中' : '已隱藏';
+        document.getElementById('press-media-new').style.display = 'none';
+        document.getElementById('press-media-new').value = '';
+        await populateMediaSelect(a.media || '');
+        openPressModal();
+      } catch (err) {
+        showToast('載入報導失敗', 'error');
+      }
+    }
+
+    document.getElementById('press-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const saveBtn = document.getElementById('press-save-btn');
+      saveBtn.disabled = true; saveBtn.textContent = '儲存中...';
+
+      const selVal = document.getElementById('press-media-select').value;
+      const media = selVal === '__new__'
+        ? document.getElementById('press-media-new').value.trim()
+        : selVal;
+
+      const id = document.getElementById('press-id').value;
+      const data = {
+        title:     document.getElementById('press-title-zh').value.trim(),
+        title_en:  document.getElementById('press-title-en').value.trim(),
+        media:     media,
+        media_en:  document.getElementById('press-media-en').value.trim(),
+        date:      document.getElementById('press-date').value,
+        url:       document.getElementById('press-url').value.trim(),
+        visible:   document.getElementById('press-visible').checked,
+        updatedAt: serverTimestamp(),
+      };
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, 'press_coverage', id), data);
+          showToast('報導已更新');
+        } else {
+          data.createdAt = serverTimestamp();
+          await addDoc(collection(db, 'press_coverage'), data);
+          showToast('報導已新增');
+        }
+        closePressModal();
+        loadPress();
+      } catch (err) {
+        showToast('儲存失敗：' + err.message, 'error');
+      } finally {
+        saveBtn.disabled = false; saveBtn.textContent = '儲存報導';
+      }
+    });
+
+    async function confirmPressDelete(id) {
+      if (!confirm('確定要刪除這則報導？此操作無法復原。')) return;
+      try {
+        await deleteDoc(doc(db, 'press_coverage', id));
+        showToast('報導已刪除');
+        loadPress();
+      } catch (err) {
+        showToast('刪除失敗', 'error');
+      }
+    }
 
     // ── Events visibility ──
     const EVENTS_META = [
