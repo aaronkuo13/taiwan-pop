@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-08（PR #63 hero video update + 完整影片 button）
+> 最後更新：2026-06-08（PR #64 相關報導功能上線）
 
 ---
 
@@ -42,6 +42,7 @@ Taiwan Pop 是台灣文化部與 Taipei Cultural Center in NY（TCCNY）合作�
 ├── concept.html        # 策展理念頁：臺灣上奅主視覺 + 三大策略
 ├── awe.html            # a-we 紐約跑酷：Canvas 跑酷遊戲 + Top 10 排行榜
 ├── news.html           # 最新消息文章列表（分類篩選 + 分頁）
+├── press.html          # 相關報導列表（Firestore press_coverage，10 筆分頁）
 ├── article.html        # 文章詳情頁（URL param: ?id=xxx）
 ├── twpop-manage/
 │   └── index.html      # CMS 後台（Firebase Auth 保護，不公開）
@@ -417,6 +418,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] 相關報導獨立頁面上線（PR #64）：press.html 新建、導覽列新增連結、後台管理 CRUD、媒體標籤動態下拉、10 筆分頁載入
 - [x] 首頁 hero 影片換新 + 完整影片按鈕（PR #63）：背景影片換成 zuWSPUjiRDU；「最新消息」→「完整影片 / WATCH FILM」，點擊開新分頁至 YouTube
 - [x] event.html 單一演出者 grid 修正（PR #62）：`.ev-performers-grid:has(:only-child)` → 1 欄全寬，修正空白灰塊問題
 - [x] #06/#07 活動副標題更新（PR #61）：subtitle/subtitle_en 改為 `Feel the Flight.` / `Feel the Wave.`
