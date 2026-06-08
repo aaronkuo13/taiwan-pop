@@ -229,6 +229,7 @@
 
   /* performers */
   .ev-performers-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0; background: var(--border); }
+  .ev-performers-grid:has(.ev-performer:only-child) { grid-template-columns: 1fr; }
   .ev-performer { background: #0e0e0e; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.2rem; }
   .ev-performer-instr { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.2em; color: rgba(255,255,255,0.3); }
   .ev-performer-name { font-family: var(--font-d); font-size: 1.5rem; letter-spacing: 0.04em; line-height: 1.1; }
