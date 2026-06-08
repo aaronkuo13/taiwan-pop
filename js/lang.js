@@ -14,7 +14,7 @@ const LANG = {
     'home-awe-cta':'來去跑酷！',
     /* Banner */
     'banner-sub':'文化部 × 駐紐約臺北文化中心<br>七大藝文展演，2026 紐約登場',
-    'btn-explore':'探索活動','btn-news':'最新消息',
+    'btn-explore':'探索活動','btn-news':'最新消息','btn-video':'完整影片',
     /* News */
     'sec-themes-title':'展演主題',
     'sec-news-title':'掌握動態',
@@ -78,7 +78,7 @@ const LANG = {
     'home-awe-cta':'Let\'s Run!',
     /* Banner */
     'banner-sub':'Taiwan Ministry of Culture × Taipei Cultural Center in NY<br>Seven Cultural Events, New York 2026',
-    'btn-explore':'Explore Events','btn-news':'Latest News',
+    'btn-explore':'Explore Events','btn-news':'Latest News','btn-video':'WATCH FILM',
     /* News */
     'sec-themes-title':'Event Themes',
     'sec-news-title':'Latest News',
