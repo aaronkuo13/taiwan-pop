@@ -152,15 +152,26 @@
   .sidebar-event-cat { margin-bottom: 0.3rem; }
   .sidebar-event-title { font-family: var(--font-d); font-size: 1.2rem; letter-spacing: 0.03em; line-height: 1.1; }
   .sidebar-event-date { font-family: var(--font-m); font-size: var(--fs-base); letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
-  .share-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .share-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
   .share-btn {
-    font-family: var(--font-m); font-size: var(--fs-base);
-    letter-spacing: 0.14em; padding: 0.4rem 0.8rem;
+    width: 2.6rem; height: 2.6rem;
+    display: flex; align-items: center; justify-content: center;
     border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.4); transition: all 0.2s;
+    color: rgba(255,255,255,0.45); transition: all 0.2s;
     cursor: pointer; background: transparent;
+    position: relative;
   }
+  .share-btn svg { display: block; }
   .share-btn:hover { border-color: var(--green); color: var(--green); }
+  .share-btn[title]:hover::after {
+    content: attr(title);
+    position: absolute; bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85); color: var(--white);
+    font-family: var(--font-m); font-size: 0.75rem;
+    letter-spacing: 0.08em; white-space: nowrap;
+    padding: 0.25rem 0.5rem; pointer-events: none;
+  }
   .related-list { display: flex; flex-direction: column; }
   .related-item {
     display: flex; gap: 1rem; align-items: flex-start;
@@ -304,9 +315,8 @@
         ? `<img src="${a.coverImage}" alt="${title}" loading="lazy">`
         : `<div class="article-hero-placeholder"></div>`;
 
-      const shareLabel = lang === 'en' ? 'SHARE · Share' : 'SHARE · 分享';
-      const moreLabel  = lang === 'en' ? 'MORE NEWS · More' : 'MORE NEWS · 更多消息';
-      const copyLabel  = lang === 'en' ? 'Copy Link' : '複製連結';
+      const shareLabel = lang === 'en' ? 'SHARE' : '分享';
+      const moreLabel  = lang === 'en' ? 'MORE NEWS' : '更多消息';
 
       document.getElementById('article-root').innerHTML = `
         <div class="article-hero">
@@ -324,7 +334,6 @@
 
         <div class="article-wrap">
           <article class="article-content">
-            <span class="article-section-label">${lang === 'en' ? 'ARTICLE · Content' : 'ARTICLE · 文章內容'}</span>
             <div class="article-body">${content}</div>
           </article>
 
@@ -333,9 +342,18 @@
             <div class="sidebar-section">
               <div class="sidebar-title">${shareLabel}</div>
               <div class="share-btns">
-                <button class="share-btn" id="share-fb">Facebook</button>
-                <button class="share-btn" id="share-x">Twitter / X</button>
-                <button class="share-btn" id="share-copy">${copyLabel}</button>
+                <button class="share-btn" id="share-fb" title="Facebook" aria-label="Share on Facebook">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </button>
+                <button class="share-btn" id="share-x" title="X (Twitter)" aria-label="Share on X">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </button>
+                <button class="share-btn" id="share-threads" title="Threads" aria-label="Share on Threads">
+                  <svg viewBox="0 0 192 192" width="17" height="17" fill="currentColor"><path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.232c8.246.052 14.47 2.452 18.502 7.13 2.932 3.405 4.893 8.11 5.864 14.05-7.314-1.243-15.224-1.626-23.68-1.14-23.82 1.371-39.134 15.264-38.105 34.568.522 9.792 5.4 18.216 13.735 23.719 7.047 4.652 16.124 6.927 25.557 6.412 12.458-.683 22.231-5.436 29.049-14.127 5.178-6.6 8.453-15.153 9.899-25.93 5.937 3.583 10.337 8.298 12.767 13.966 4.132 9.635 4.373 25.468-8.546 38.376-11.319 11.308-24.925 16.2-45.488 16.351-22.809-.169-40.06-7.484-51.275-21.742C35.236 139.966 29.808 120.682 29.605 96c.203-24.682 5.63-43.966 16.133-57.317C56.954 24.425 74.206 17.11 97.015 16.94c22.975.17 40.526 7.52 52.171 21.847 5.71 7.026 10.015 15.86 12.853 26.162l16.147-4.308c-3.44-12.68-8.853-23.606-16.219-32.668C147.036 10.606 125.202.195 97.28 0h-.36C69.108.195 47.528 10.63 32.898 28.008 19.797 43.54 13.038 65.37 12.802 95.933l-.003.067.003.067c.236 30.563 7 52.394 20.095 67.925 14.63 17.378 36.21 26.813 62.302 27.008h.36c23.8-.172 43.048-7.234 57.026-20.988 19.012-18.979 18.402-42.714 12.168-57.223-4.48-10.456-13.033-18.944-24.219-24.801z"/></svg>
+                </button>
+                <button class="share-btn" id="share-copy" title="${lang === 'en' ? 'Copy Link' : '複製連結'}" aria-label="${lang === 'en' ? 'Copy Link' : '複製連結'}">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
               </div>
             </div>
             ${relatedData.length ? `
@@ -353,10 +371,19 @@
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank'));
       document.getElementById('share-x')?.addEventListener('click', () =>
         window.open(`https://twitter.com/intent/tweet?url=${url}&text=${txt}`, '_blank'));
+      document.getElementById('share-threads')?.addEventListener('click', () =>
+        window.open(`https://www.threads.net/intent/post?text=${txt}%20${url}`, '_blank'));
       document.getElementById('share-copy')?.addEventListener('click', function() {
         navigator.clipboard.writeText(window.location.href).then(() => {
-          this.textContent = lang === 'en' ? 'Copied!' : '已複製！';
-          setTimeout(() => { this.textContent = copyLabel; }, 2000);
+          const copyTip = lang === 'en' ? 'Copied!' : '已複製！';
+          this.setAttribute('title', copyTip);
+          this.style.borderColor = 'var(--green)';
+          this.style.color = 'var(--green)';
+          setTimeout(() => {
+            this.setAttribute('title', lang === 'en' ? 'Copy Link' : '複製連結');
+            this.style.borderColor = '';
+            this.style.color = '';
+          }, 2000);
         });
       });
     }
