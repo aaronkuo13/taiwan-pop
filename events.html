@@ -123,10 +123,13 @@
   .fb-status-cta {
     margin-left: auto;
     display: flex; align-items: center; gap: 0.5rem;
-    color: var(--green);
+    color: var(--green); font-size: 1.1rem;
+    letter-spacing: 0.14em;
     transition: gap 0.25s ease;
   }
+  .fb-status-cta .fb-cta-arrow { font-size: 1.4rem; line-height: 1; transition: transform 0.25s ease; }
   .featured-banner:hover .fb-status-cta { gap: 0.85rem; }
+  .featured-banner:hover .fb-cta-arrow { transform: translateX(4px); }
 
   /* ── CATEGORY SECTION ── */
   .cat-section { padding: 4rem 0; border-top: 1px solid var(--border); }

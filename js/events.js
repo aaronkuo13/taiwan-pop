@@ -164,7 +164,7 @@ function renderFeaturedBanner() {
 
   // i18n labels
   const title    = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
-  const ctaLabel = '→';
+  const ctaLabel = lang === 'en' ? 'LEARN MORE' : 'LEARN MORE';
   const statusZh   = lang === 'en' ? 'Next Up' : '即將登場';
   const countdownStr = diffDays > 0  ? (lang === 'en' ? `${diffDays} days to go` : `倒數 ${diffDays} 天`)
                      : diffDays === 0 ? (lang === 'en' ? 'Today!'                 : '今天登場')
@@ -190,7 +190,7 @@ function renderFeaturedBanner() {
           <span class="fb-status-sep">/</span>
           <span>${dateDisplay}</span>
           ${countdownStr ? `<span class="fb-status-sep">/</span><span>${countdownStr}</span>` : ''}
-          <span class="fb-status-cta">${ctaLabel}</span>
+          <span class="fb-status-cta">${ctaLabel}<span class="fb-cta-arrow">→</span></span>
         </div>
       </a>
     </div>`;
