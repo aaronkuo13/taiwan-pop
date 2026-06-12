@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-08（PR #64 相關報導功能上線）
+> 最後更新：2026-06-09（PR #65 UI polish — stat、banner、article share）
 
 ---
 
@@ -418,6 +418,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] UI polish（PR #65）：首頁 stat 數字重疊修正、Featured Banner LEARN MORE 放大、article 移除 ARTICLE 小標 + 側邊欄單語言標籤 + 分享按鈕換 SVG 圖示（FB/X/Threads/Copy）
 - [x] 相關報導獨立頁面上線（PR #64）：press.html 新建、導覽列新增連結、後台管理 CRUD、媒體標籤動態下拉、10 筆分頁載入
 - [x] 首頁 hero 影片換新 + 完整影片按鈕（PR #63）：背景影片換成 zuWSPUjiRDU；「最新消息」→「完整影片 / WATCH FILM」，點擊開新分頁至 YouTube
 - [x] event.html 單一演出者 grid 修正（PR #62）：`.ev-performers-grid:has(:only-child)` → 1 欄全寬，修正空白灰塊問題
