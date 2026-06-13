@@ -490,6 +490,7 @@
       <div class="section-tabs">
         <button class="section-tab active" data-section="articles">文章管理</button>
         <button class="section-tab" data-section="press">相關報導</button>
+        <button class="section-tab" data-section="film">底片機計畫</button>
         <button class="section-tab" data-section="events">展演活動</button>
       </div>
 
@@ -535,6 +536,45 @@
               </tr>
             </thead>
             <tbody id="press-tbody">
+              <tr><td colspan="5" class="table-empty">載入中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Film Project section -->
+      <div id="section-film" style="display:none">
+        <!-- Feature toggle -->
+        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:4px;">底片機計畫 — 功能開關</div>
+            <div style="font-size:13px;color:var(--muted);">關閉時，前台導覽列不顯示此連結，直接訪問頁面會跳回首頁</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span id="film-vis-status" style="font-size:13px;color:var(--muted)">載入中...</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="film-vis-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <h2>底片機計畫 — 作者管理</h2>
+          <button class="btn-primary" id="new-film-btn">+ 新增作者</button>
+        </div>
+        <div id="film-list-admin">
+          <table class="articles-table">
+            <thead>
+              <tr>
+                <th>作者</th>
+                <th>照片數</th>
+                <th>影片</th>
+                <th>狀態</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="film-tbody">
               <tr><td colspan="5" class="table-empty">載入中...</td></tr>
             </tbody>
           </table>
@@ -645,6 +685,97 @@
         <div class="modal-footer">
           <button type="button" class="btn-cancel" id="cancel-btn">取消</button>
           <button type="submit" class="btn-save" id="save-btn">儲存文章</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Film Artist Editor Modal -->
+  <div class="modal-overlay" id="film-modal">
+    <div class="modal-card" style="max-width:680px">
+      <div class="modal-header">
+        <h3 id="film-modal-title">新增作者</h3>
+        <button class="btn-close" id="film-modal-close">×</button>
+      </div>
+      <form id="film-form">
+        <input type="hidden" id="film-id">
+        <div class="lang-tabs">
+          <button type="button" class="lang-tab active" data-ftab="basic">基本資料</button>
+          <button type="button" class="lang-tab" data-ftab="en">English</button>
+          <button type="button" class="lang-tab" data-ftab="photos">照片管理</button>
+        </div>
+
+        <!-- Basic Panel -->
+        <div class="lang-panel active" id="fpanel-basic">
+          <div class="form-row form-row-cols">
+            <div>
+              <label>作者名稱（中文）</label>
+              <input type="text" id="film-name" placeholder="姓名" required>
+            </div>
+            <div>
+              <label>IG / 社群帳號</label>
+              <input type="text" id="film-handle" placeholder="@handle">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>介紹文字（中文）</label>
+            <textarea id="film-bio" rows="5" placeholder="介紹文字（支援換行）" style="width:100%;resize:vertical;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px;font-size:13px;font-family:inherit;"></textarea>
+          </div>
+          <div class="form-row">
+            <label>介紹影片（YouTube URL，選填）</label>
+            <input type="url" id="film-video" placeholder="https://youtu.be/...">
+          </div>
+          <div class="form-row">
+            <label>頭像上傳</label>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div id="film-avatar-preview" style="width:56px;height:56px;border-radius:50%;background:#333;overflow:hidden;flex-shrink:0;"></div>
+              <div>
+                <input type="file" id="film-avatar-file" accept="image/*">
+                <div style="font-size:12px;color:var(--muted);margin-top:4px">建議正方形圖片</div>
+              </div>
+            </div>
+          </div>
+          <div class="publish-row">
+            <label class="toggle-switch">
+              <input type="checkbox" id="film-visible" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="publish-label">公開顯示</span>
+            <span class="publish-status" id="film-visible-status">顯示中</span>
+          </div>
+        </div>
+
+        <!-- EN Panel -->
+        <div class="lang-panel" id="fpanel-en">
+          <div class="form-row">
+            <label>Name (English) <span style="color:var(--muted);font-weight:400">— 選填</span></label>
+            <input type="text" id="film-name-en" placeholder="English name">
+          </div>
+          <div class="form-row">
+            <label>Bio (English) <span style="color:var(--muted);font-weight:400">— 選填</span></label>
+            <textarea id="film-bio-en" rows="5" placeholder="Bio in English..." style="width:100%;resize:vertical;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px;font-size:13px;font-family:inherit;"></textarea>
+          </div>
+        </div>
+
+        <!-- Photos Panel -->
+        <div class="lang-panel" id="fpanel-photos">
+          <div class="form-row">
+            <label>新增照片</label>
+            <input type="file" id="film-photos-input" multiple accept="image/*">
+            <div style="font-size:12px;color:var(--muted);margin-top:4px">可一次選多張・點擊照片可標記為 Hero（全寬大圖）</div>
+          </div>
+          <div id="film-upload-progress" style="display:none;margin:8px 0;">
+            <div style="font-size:13px;color:var(--muted)" id="film-upload-text">上傳中...</div>
+            <div style="height:4px;background:var(--border);border-radius:2px;margin-top:6px;">
+              <div id="film-upload-bar" style="height:100%;background:var(--green);border-radius:2px;width:0%;transition:width 0.3s;"></div>
+            </div>
+          </div>
+          <div id="film-photos-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" id="film-cancel-btn">取消</button>
+          <button type="submit" class="btn-save" id="film-save-btn">儲存</button>
         </div>
       </form>
     </div>
@@ -1014,9 +1145,11 @@
         const sec = tab.dataset.section;
         document.getElementById('section-articles').style.display = sec === 'articles' ? '' : 'none';
         document.getElementById('section-press').style.display    = sec === 'press'    ? '' : 'none';
+        document.getElementById('section-film').style.display     = sec === 'film'     ? '' : 'none';
         document.getElementById('section-events').style.display   = sec === 'events'   ? '' : 'none';
         if (sec === 'events') loadVisibility();
         if (sec === 'press')  loadPress();
+        if (sec === 'film')   { loadFilmVisibility(); loadFilm(); }
       });
     });
 
@@ -1296,6 +1429,354 @@
         }
       );
     });
+
+    // ══════════════════════════════════════════
+    // ── FILM PROJECT ──
+    // ══════════════════════════════════════════
+
+    // Film Visibility Toggle
+    async function loadFilmVisibility() {
+      try {
+        const snap = await getDoc(doc(db, 'config', 'film_project_visibility'));
+        const isOn = snap.exists() ? snap.data().visible !== false : false;
+        document.getElementById('film-vis-toggle').checked = isOn;
+        document.getElementById('film-vis-status').textContent = isOn ? '已開啟' : '已關閉';
+        document.getElementById('film-vis-status').style.color = isOn ? 'var(--green)' : 'var(--muted)';
+      } catch(e) {
+        document.getElementById('film-vis-status').textContent = '載入失敗';
+      }
+    }
+
+    document.getElementById('film-vis-toggle').addEventListener('change', async function() {
+      const isOn = this.checked;
+      try {
+        await setDoc(doc(db, 'config', 'film_project_visibility'), { visible: isOn });
+        document.getElementById('film-vis-status').textContent = isOn ? '已開啟' : '已關閉';
+        document.getElementById('film-vis-status').style.color = isOn ? 'var(--green)' : 'var(--muted)';
+        showToast(isOn ? '底片機計畫已開啟' : '底片機計畫已關閉');
+      } catch(e) {
+        showToast('儲存失敗：' + e.message, 'error');
+        this.checked = !isOn;
+      }
+    });
+
+    // Film CRUD
+    let filmPhotosState = []; // { url, aspectRatio, isHero, file|null }
+    let filmAvatarFile = null;
+
+    async function loadFilm() {
+      const tbody = document.getElementById('film-tbody');
+      tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入中...</td></tr>';
+      try {
+        const snap = await getDocs(collection(db, 'film_project'));
+        const items = [];
+        snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+        items.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        if (!items.length) {
+          tbody.innerHTML = '<tr><td colspan="5" class="table-empty">尚無作者，點擊「新增作者」開始</td></tr>';
+          return;
+        }
+        tbody.innerHTML = items.map(a => `
+          <tr>
+            <td class="table-title">${a.name || ''}${a.name_en ? ' / '+a.name_en : ''}</td>
+            <td><small>${(a.photos||[]).length} 張</small></td>
+            <td><small>${a.videoUrl ? '✓' : '—'}</small></td>
+            <td>
+              <span class="badge ${a.visible !== false ? 'badge-published' : 'badge-draft'}">
+                ${a.visible !== false ? '顯示中' : '已隱藏'}
+              </span>
+            </td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-edit" data-id="${a.id}">編輯</button>
+                <button class="btn-delete" data-id="${a.id}">刪除</button>
+              </div>
+            </td>
+          </tr>`).join('');
+        tbody.querySelectorAll('.btn-edit').forEach(btn =>
+          btn.addEventListener('click', () => openFilmEditor(btn.dataset.id)));
+        tbody.querySelectorAll('.btn-delete').forEach(btn =>
+          btn.addEventListener('click', () => confirmFilmDelete(btn.dataset.id)));
+      } catch(e) {
+        tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入失敗</td></tr>';
+      }
+    }
+
+    // Film modal tabs
+    document.querySelectorAll('[data-ftab]').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('[data-ftab]').forEach(t => t.classList.toggle('active', t === tab));
+        document.querySelectorAll('[id^="fpanel-"]').forEach(p => p.classList.toggle('active', p.id === `fpanel-${tab.dataset.ftab}`));
+      });
+    });
+
+    function openFilmModal() { document.getElementById('film-modal').classList.add('open'); }
+    function closeFilmModal() { document.getElementById('film-modal').classList.remove('open'); filmAvatarFile = null; }
+    document.getElementById('film-modal-close').addEventListener('click', closeFilmModal);
+    document.getElementById('film-cancel-btn').addEventListener('click', closeFilmModal);
+
+    document.getElementById('film-visible').addEventListener('change', function() {
+      document.getElementById('film-visible-status').textContent = this.checked ? '顯示中' : '已隱藏';
+    });
+
+    // Avatar preview
+    document.getElementById('film-avatar-file').addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+      filmAvatarFile = file;
+      const prev = document.getElementById('film-avatar-preview');
+      const url = URL.createObjectURL(file);
+      prev.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+    });
+
+    // ── Stable Roll Hash (same as film.html, for consistent shape assignment) ──
+    function stableRoll(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) {
+        h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+      }
+      return (Math.abs(h) >>> 0) / 4294967296;
+    }
+
+    // ── Image Compression Utility ──
+    function compressImage(file, { maxLongEdge = 1600, quality = 0.85 } = {}) {
+      return new Promise(resolve => {
+        const img = new Image();
+        const blobUrl = URL.createObjectURL(file);
+        img.onload = () => {
+          let w = img.naturalWidth, h = img.naturalHeight;
+          if (Math.max(w, h) > maxLongEdge) {
+            if (w >= h) { w = maxLongEdge; h = Math.round(maxLongEdge * img.naturalHeight / img.naturalWidth); }
+            else         { h = maxLongEdge; w = Math.round(maxLongEdge * img.naturalWidth  / img.naturalHeight); }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          URL.revokeObjectURL(blobUrl);
+          canvas.toBlob(blob => {
+            const outFile = new File([blob], file.name.replace(/\.[^.]+$/, '.webp'), { type: 'image/webp' });
+            resolve({ file: outFile, aspectRatio: w / h, originalSize: file.size, compressedSize: blob.size, previewUrl: URL.createObjectURL(blob) });
+          }, 'image/webp', quality);
+        };
+        img.onerror = () => { URL.revokeObjectURL(blobUrl); resolve({ file, aspectRatio: 1.33, originalSize: file.size, compressedSize: file.size, previewUrl: blobUrl }); };
+        img.src = blobUrl;
+      });
+    }
+
+    function fmtSize(bytes) {
+      return bytes < 1024 * 1024 ? (bytes / 1024).toFixed(0) + ' KB' : (bytes / 1024 / 1024).toFixed(1) + ' MB';
+    }
+
+    // Photos staging — auto compress on select
+    document.getElementById('film-photos-input').addEventListener('change', async function() {
+      const files = Array.from(this.files);
+      this.value = '';
+      if (!files.length) return;
+
+      const progressWrap = document.getElementById('film-upload-progress');
+      const progressBar  = document.getElementById('film-upload-bar');
+      const progressText = document.getElementById('film-upload-text');
+      progressWrap.style.display = 'block';
+      progressText.textContent = `壓縮中 0/${files.length}...`;
+      progressBar.style.width = '0%';
+
+      for (let i = 0; i < files.length; i++) {
+        const result = await compressImage(files[i]);
+        filmPhotosState.push({ url: null, previewUrl: result.previewUrl, aspectRatio: result.aspectRatio, isHero: false, file: result.file, originalSize: result.originalSize, compressedSize: result.compressedSize });
+        renderPhotosGrid();
+        const pct = Math.round((i + 1) / files.length * 100);
+        progressBar.style.width = pct + '%';
+        progressText.textContent = `壓縮中 ${i + 1}/${files.length}... (${fmtSize(result.originalSize)} → ${fmtSize(result.compressedSize)})`;
+      }
+
+      progressText.textContent = `✓ 壓縮完成，共 ${files.length} 張`;
+      setTimeout(() => { progressWrap.style.display = 'none'; }, 2500);
+    });
+
+    function renderPhotosGrid() {
+      const grid = document.getElementById('film-photos-grid');
+      grid.innerHTML = filmPhotosState.map((p, i) => `
+        <div style="position:relative;cursor:pointer;border-radius:8px;overflow:hidden;
+          border:2px solid ${p.isHero ? 'var(--green)' : 'transparent'};
+          aspect-ratio:4/3;background:#1a1a1a;" data-photoidx="${i}">
+          <img src="${p.previewUrl || p.url}" style="width:100%;height:100%;object-fit:cover;" alt="">
+          <!-- Hero checkmark -->
+          <div style="position:absolute;top:6px;right:6px;
+            width:22px;height:22px;border-radius:50%;
+            border:2px solid ${p.isHero ? 'var(--green)' : 'rgba(255,255,255,0.5)'};
+            background:${p.isHero ? 'var(--green)' : 'rgba(0,0,0,0.4)'};
+            display:flex;align-items:center;justify-content:center;
+            font-size:12px;font-weight:700;
+            color:${p.isHero ? '#000' : 'transparent'};
+            transition:all 0.15s;">✓</div>
+          ${p.isHero ? '<div style="position:absolute;bottom:4px;right:6px;background:rgba(0,0,0,0.6);color:var(--green);font-size:9px;letter-spacing:0.1em;padding:2px 5px;border-radius:3px;">HERO</div>' : ''}
+          <button data-rmidx="${i}" style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);border:none;color:white;width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:11px;">×</button>
+          ${p.compressedSize ? `<div style="position:absolute;bottom:4px;left:${p.isHero ? '6' : '0'}px;${p.isHero ? '' : 'right:0;text-align:center;'}font-size:9px;color:rgba(255,255,255,0.65);text-shadow:0 1px 2px rgba(0,0,0,0.9);">${fmtSize(p.compressedSize)}</div>` : ''}
+        </div>`).join('');
+      grid.querySelectorAll('[data-photoidx]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          if (e.target.dataset.rmidx !== undefined) return;
+          const idx = Number(el.dataset.photoidx);
+          filmPhotosState[idx].isHero = !filmPhotosState[idx].isHero;
+          renderPhotosGrid();
+        });
+      });
+      grid.querySelectorAll('[data-rmidx]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          filmPhotosState.splice(Number(btn.dataset.rmidx), 1);
+          renderPhotosGrid();
+        });
+      });
+    }
+
+    document.getElementById('new-film-btn').addEventListener('click', () => {
+      document.getElementById('film-id').value = '';
+      document.getElementById('film-modal-title').textContent = '新增作者';
+      document.getElementById('film-name').value = '';
+      document.getElementById('film-name-en').value = '';
+      document.getElementById('film-handle').value = '';
+      document.getElementById('film-bio').value = '';
+      document.getElementById('film-bio-en').value = '';
+      document.getElementById('film-video').value = '';
+      document.getElementById('film-avatar-preview').innerHTML = '';
+      document.getElementById('film-visible').checked = true;
+      document.getElementById('film-visible-status').textContent = '顯示中';
+      filmPhotosState = [];
+      renderPhotosGrid();
+      // Reset to basic tab
+      document.querySelectorAll('[data-ftab]').forEach(t => t.classList.toggle('active', t.dataset.ftab === 'basic'));
+      document.querySelectorAll('[id^="fpanel-"]').forEach(p => p.classList.toggle('active', p.id === 'fpanel-basic'));
+      openFilmModal();
+    });
+
+    async function openFilmEditor(id) {
+      try {
+        const snap = await getDoc(doc(db, 'film_project', id));
+        if (!snap.exists()) return;
+        const a = snap.data();
+        document.getElementById('film-id').value = id;
+        document.getElementById('film-modal-title').textContent = '編輯作者';
+        document.getElementById('film-name').value = a.name || '';
+        document.getElementById('film-name-en').value = a.name_en || '';
+        document.getElementById('film-handle').value = a.handle || '';
+        document.getElementById('film-bio').value = a.bio || '';
+        document.getElementById('film-bio-en').value = a.bio_en || '';
+        document.getElementById('film-video').value = a.videoUrl || '';
+        document.getElementById('film-visible').checked = a.visible !== false;
+        document.getElementById('film-visible-status').textContent = a.visible !== false ? '顯示中' : '已隱藏';
+        const prev = document.getElementById('film-avatar-preview');
+        prev.innerHTML = a.avatar ? `<img src="${a.avatar}" style="width:100%;height:100%;object-fit:cover;">` : '';
+        filmPhotosState = (a.photos || []).map(p => ({ ...p, previewUrl: p.url, file: null }));
+        renderPhotosGrid();
+        document.querySelectorAll('[data-ftab]').forEach(t => t.classList.toggle('active', t.dataset.ftab === 'basic'));
+        document.querySelectorAll('[id^="fpanel-"]').forEach(p => p.classList.toggle('active', p.id === 'fpanel-basic'));
+        openFilmModal();
+      } catch(e) { showToast('載入失敗', 'error'); }
+    }
+
+    document.getElementById('film-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const saveBtn = document.getElementById('film-save-btn');
+      saveBtn.disabled = true; saveBtn.textContent = '儲存中...';
+
+      const id = document.getElementById('film-id').value;
+      let avatarUrl = null;
+
+      try {
+        // Upload avatar if new file
+        if (filmAvatarFile) {
+          const storageRef = ref(storage, `film_project/${id || Date.now()}/avatar/${Date.now()}_${filmAvatarFile.name}`);
+          await new Promise((res, rej) => {
+            const task = uploadBytesResumable(storageRef, filmAvatarFile);
+            task.on('state_changed', null, rej, async () => {
+              avatarUrl = await getDownloadURL(task.snapshot.ref);
+              res();
+            });
+          });
+        } else {
+          // Keep existing avatar
+          if (id) {
+            const snap = await getDoc(doc(db, 'film_project', id));
+            avatarUrl = snap.exists() ? (snap.data().avatar || null) : null;
+          }
+        }
+
+        // Upload new photos
+        const total = filmPhotosState.filter(p => p.file).length;
+        let done = 0;
+        const progressWrap = document.getElementById('film-upload-progress');
+        const progressBar = document.getElementById('film-upload-bar');
+        const progressText = document.getElementById('film-upload-text');
+        if (total > 0) progressWrap.style.display = 'block';
+
+        for (const p of filmPhotosState) {
+          if (!p.file) continue;
+          const docId = id || Date.now();
+          const storageRef = ref(storage, `film_project/${docId}/photos/${Date.now()}_${p.file.name}`);
+          await new Promise((res, rej) => {
+            const task = uploadBytesResumable(storageRef, p.file);
+            task.on('state_changed', null, rej, async () => {
+              p.url = await getDownloadURL(task.snapshot.ref);
+              p.file = null;
+              done++;
+              const pct = Math.round(done / total * 100);
+              progressBar.style.width = pct + '%';
+              progressText.textContent = `上傳照片 ${done}/${total}`;
+              res();
+            });
+          });
+        }
+
+        progressWrap.style.display = 'none';
+
+        const photos = filmPhotosState
+          .filter(p => p.url)
+          .map(p => ({
+            url: p.url,
+            aspectRatio: p.aspectRatio || 1.33,
+            isHero: p.isHero || false,
+            roll: stableRoll(p.url), // stable hash → consistent displayAR on frontend
+          }));
+
+        const data = {
+          name:      document.getElementById('film-name').value.trim(),
+          name_en:   document.getElementById('film-name-en').value.trim(),
+          handle:    document.getElementById('film-handle').value.trim(),
+          bio:       document.getElementById('film-bio').value.trim(),
+          bio_en:    document.getElementById('film-bio-en').value.trim(),
+          videoUrl:  document.getElementById('film-video').value.trim(),
+          visible:   document.getElementById('film-visible').checked,
+          avatar:    avatarUrl,
+          photos,
+          updatedAt: serverTimestamp(),
+        };
+
+        if (id) {
+          await updateDoc(doc(db, 'film_project', id), data);
+          showToast('作者已更新');
+        } else {
+          data.createdAt = serverTimestamp();
+          await addDoc(collection(db, 'film_project'), data);
+          showToast('作者已新增');
+        }
+        closeFilmModal();
+        loadFilm();
+      } catch(e) {
+        showToast('儲存失敗：' + e.message, 'error');
+      } finally {
+        saveBtn.disabled = false; saveBtn.textContent = '儲存';
+      }
+    });
+
+    async function confirmFilmDelete(id) {
+      if (!confirm('確定要刪除這位作者？照片資料也會一併移除（Storage 檔案需手動清除）。')) return;
+      try {
+        await deleteDoc(doc(db, 'film_project', id));
+        showToast('作者已刪除');
+        loadFilm();
+      } catch(e) { showToast('刪除失敗', 'error'); }
+    }
   </script>
 </body>
 </html>

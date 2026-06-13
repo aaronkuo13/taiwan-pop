@@ -111,15 +111,16 @@ img { display:block; max-width:100%; }
   color:var(--white); position:relative; line-height:0;
 }
 .tp-nav-links {
-  display:flex; gap:2rem; list-style:none; align-items:center;
+  display:flex; gap:1rem; list-style:none; align-items:center;
   position:absolute; left:50%; transform:translateX(-50%);
 }
 .tp-nav-links a {
   font-family:var(--font-m); font-size:var(--fs-base); font-weight:600;
-  letter-spacing:0.18em; text-transform:uppercase;
+  letter-spacing:0.1em; text-transform:uppercase;
   color:rgba(255,255,255,0.5);
-  padding:6px 10px; border-radius:4px;
+  padding:6px 8px; border-radius:4px;
   transition:color 0.2s, background 0.2s;
+  white-space:nowrap;
 }
 .tp-nav-links a:hover { color:var(--white); background:rgba(255,255,255,0.12); }
 .tp-nav-links a.active { color:var(--green); }

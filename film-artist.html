@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On Film — Taiwan Pop 2026</title>
+  <link rel="icon" type="image/png" href="images/logo-main_48x48.png">
+  <link rel="stylesheet" href="css/tp-shared.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap"></noscript>
+
+  <style>
+  /* ── HERO ── */
+  .fa-hero {
+    padding-top: 6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  /* With video: left video + right text */
+  .fa-hero-with-video {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: 60vh;
+  }
+  .fa-video-wrap {
+    width: 36vw; max-width: 420px; min-width: 260px;
+    overflow: hidden; position: relative;
+    background: #0d0d0d;
+  }
+  .fa-video-wrap iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .fa-video-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #111;
+  }
+  .fa-play-icon {
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,0.08); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; color: rgba(255,255,255,0.6);
+  }
+  /* Text side */
+  .fa-hero-info {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 1.2rem;
+    border-left: 1px solid var(--border);
+  }
+  /* No-video hero */
+  .fa-hero-no-video .fa-hero-info {
+    padding: 4rem 2.5rem 3rem;
+    border-left: none;
+    max-width: 720px;
+  }
+  .fa-avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    object-fit: cover; display: block;
+  }
+  .fa-name {
+    font-family: var(--font-d);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 0.95; letter-spacing: 0.02em;
+  }
+  .fa-handle {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.1em; color: rgba(255,255,255,0.35);
+  }
+  .fa-bio {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    line-height: 1.9; color: rgba(255,255,255,0.5);
+    white-space: pre-line; max-width: 52ch;
+  }
+  .fa-credits {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    line-height: 1.8; color: rgba(255,255,255,0.25);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem; margin-top: 0.5rem;
+    white-space: pre-line;
+  }
+
+  /* ── PHOTO GRID ── */
+  .fa-grid-section { padding: 2rem 1.8rem 6rem; }
+  .fa-grid-label {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.3em; color: rgba(255,255,255,0.2);
+    margin-bottom: 1.5rem;
+  }
+  .fa-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .fa-photo {
+    aspect-ratio: 4/3;
+    overflow: hidden; border-radius: 10px;
+    cursor: pointer; position: relative;
+  }
+  .fa-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  .fa-photo:hover img { transform: scale(1.04); }
+
+  /* ── LIGHTBOX (same as film.html) ── */
+  .film-lightbox {
+    position: fixed; inset: 0;
+    background: rgba(5,5,5,0.97);
+    z-index: 2000; display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .film-lightbox.open { display: flex; }
+  .lb-simple-img {
+    max-width: 90vw; max-height: 88vh;
+    object-fit: contain; border-radius: 8px;
+  }
+  .lb-simple-close {
+    position: fixed; top: 1.5rem; right: 2rem;
+    background: none; border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6); font-size: var(--fs-base);
+    letter-spacing: 0.12em; padding: 0.4rem 0.8rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .lb-simple-close:hover { border-color: white; color: white; }
+  .lb-simple-nav {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    background: none; border: none;
+    color: rgba(255,255,255,0.3); font-size: 3rem;
+    cursor: pointer; transition: color 0.2s; padding: 1rem;
+  }
+  .lb-simple-nav:hover { color: white; }
+  .lb-simple-prev { left: 1rem; }
+  .lb-simple-next { right: 1rem; }
+
+  @media (max-width: 900px) {
+    .fa-hero-with-video { grid-template-columns: 1fr; }
+    .fa-video-wrap { width: 100%; max-width: none; height: 56vw; position: relative; }
+    .fa-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .fa-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .fa-hero-info { padding: 2rem 1.5rem; }
+  }
+  </style>
+</head>
+<body>
+
+<nav id="navbar"></nav>
+
+<div class="fa-hero" id="artistHero">
+  <div style="padding:8rem 2.5rem;text-align:center;color:rgba(255,255,255,0.2);font-family:var(--font-m);letter-spacing:0.2em;">載入中...</div>
+</div>
+
+<div class="fa-grid-section" id="gridSection" style="display:none">
+  <div class="fa-grid-label" id="gridLabel">PHOTOS</div>
+  <div class="fa-grid" id="artistGrid"></div>
+</div>
+
+<!-- Simple lightbox -->
+<div class="film-lightbox" id="simpleLightbox">
+  <button class="lb-simple-close" id="lbClose">✕ ESC</button>
+  <button class="lb-simple-nav lb-simple-prev" id="lbPrev">‹</button>
+  <img class="lb-simple-img" id="lbImg" src="" alt="">
+  <button class="lb-simple-nav lb-simple-next" id="lbNext">›</button>
+</div>
+
+<footer id="contact"></footer>
+
+<script src="js/lang.js"></script>
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/lang-init.js"></script>
+
+<script type="module">
+import { db } from './js/firebase.js';
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+const params = new URLSearchParams(location.search);
+const artistId = params.get('id');
+
+if (!artistId) { window.location.href = 'film.html'; }
+
+let photos = [];
+let lbIdx = 0;
+
+function getLang() { return window.currentLang || localStorage.getItem('twpop_lang') || 'zh'; }
+
+function getYouTubeId(url) {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+async function load() {
+  const snap = await getDoc(doc(db, 'film_project', artistId));
+  if (!snap.exists()) { window.location.href = 'film.html'; return; }
+  const a = { id: snap.id, ...snap.data() };
+  photos = a.photos || [];
+
+  const lang = getLang();
+  const name = a.name || '';
+  const nameEn = a.name_en || '';
+  const bio = (lang === 'en' && a.bio_en) ? a.bio_en : (a.bio || '');
+  const credits = a.credits || '';
+  const handle = a.handle || '';
+
+  // Update document title
+  document.title = `${name} — On Film / Taiwan Pop 2026`;
+
+  // Build hero
+  const heroEl = document.getElementById('artistHero');
+  const ytId = getYouTubeId(a.videoUrl);
+  const avatarHtml = a.avatar
+    ? `<img class="fa-avatar" src="${a.avatar}" alt="${name}">`
+    : `<div class="fa-avatar" style="background:#555"></div>`;
+  const creditsHtml = credits
+    ? `<div class="fa-credits">${credits}</div>` : '';
+  const handleHtml = handle ? `<div class="fa-handle">${handle}</div>` : '';
+
+  if (ytId) {
+    heroEl.innerHTML = `
+      <div class="fa-hero-with-video">
+        <div class="fa-video-wrap">
+          <iframe src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1"
+            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="fa-hero-info">
+          ${avatarHtml}
+          <div class="fa-name">${name}</div>
+          ${nameEn ? `<div class="fa-handle">${nameEn}</div>` : ''}
+          ${handleHtml}
+          <div class="fa-bio">${bio}</div>
+          ${creditsHtml}
+        </div>
+      </div>`;
+  } else {
+    heroEl.innerHTML = `
+      <div class="fa-hero-no-video">
+        <div class="fa-hero-info">
+          ${avatarHtml}
+          <div class="fa-name">${name}</div>
+          ${nameEn ? `<div class="fa-handle">${nameEn}</div>` : ''}
+          ${handleHtml}
+          <div class="fa-bio">${bio}</div>
+          ${creditsHtml}
+        </div>
+      </div>`;
+  }
+
+  // Build photo grid
+  if (photos.length) {
+    document.getElementById('gridSection').style.display = '';
+    document.getElementById('gridLabel').textContent = lang === 'en' ? `${photos.length} FRAMES` : `${photos.length} 張照片`;
+    const grid = document.getElementById('artistGrid');
+    grid.innerHTML = photos.map((p, i) => `
+      <div class="fa-photo" data-idx="${i}">
+        <img src="${p.url}" loading="lazy" alt="">
+      </div>`).join('');
+    grid.querySelectorAll('.fa-photo').forEach(el => {
+      el.addEventListener('click', () => openLb(Number(el.dataset.idx)));
+    });
+  }
+}
+
+// Simple lightbox
+function openLb(idx) {
+  lbIdx = idx;
+  document.getElementById('lbImg').src = photos[idx].url;
+  document.getElementById('simpleLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('simpleLightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navLb(dir) {
+  lbIdx = (lbIdx + dir + photos.length) % photos.length;
+  document.getElementById('lbImg').src = photos[lbIdx].url;
+}
+
+document.getElementById('lbClose').addEventListener('click', closeLb);
+document.getElementById('lbPrev').addEventListener('click', () => navLb(-1));
+document.getElementById('lbNext').addEventListener('click', () => navLb(+1));
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('simpleLightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') navLb(-1);
+  if (e.key === 'ArrowRight') navLb(+1);
+});
+
+load();
+</script>
+</body>
+</html>
