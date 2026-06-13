@@ -243,11 +243,93 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 1100px) { .film-lb-body { grid-template-columns: 1fr 340px; } }
+
   @media (max-width: 768px) {
-    .film-hero { padding: 6rem 1.5rem 2.5rem; }
-    .film-wall-wrap { padding: 1.5rem 1rem 4rem; }
-    .film-lb-body { grid-template-columns: 1fr; }
-    .film-lb-sidebar { display: none; }
+    /* Hero */
+    .film-hero { padding: 5.5rem 1.2rem 2rem; }
+    .film-hero-title { font-size: clamp(3.5rem, 18vw, 6rem); }
+    .film-hero-meta { flex-direction: column; gap: 0.5rem; }
+    .film-wall-wrap { padding: 1rem 0.5rem 5rem; }
+
+    /* ── LIGHTBOX MOBILE: 全螢幕垂直捲動 ── */
+    .film-lightbox {
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* Header: sticky 頂部 */
+    .film-lb-header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(5,5,5,0.97);
+      backdrop-filter: blur(8px);
+      flex-shrink: 0;
+    }
+    .film-lb-header-name { font-size: 0.85rem; letter-spacing: 0.1em; }
+
+    /* Body: 垂直堆疊 */
+    .film-lb-body {
+      display: block;
+      overflow: visible;
+      flex: 0 0 auto;
+    }
+
+    /* 照片：全寬，自然比例 */
+    .film-lb-main {
+      display: block;
+      padding: 0;
+      min-height: 0;
+    }
+    #lbMainPhoto {
+      width: 100% !important;
+      height: auto !important;
+      border-radius: 0 !important;
+      display: block;
+    }
+    #lbMainPhoto img {
+      width: 100% !important;
+      height: auto !important;
+      border-radius: 0 !important;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 左右箭頭：疊在照片上，縮小 */
+    .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 44px; min-width: 44px;
+      height: 44px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 50%;
+      font-size: 1.6rem;
+      align-items: center; justify-content: center;
+    }
+    .lb-nav.prev { left: 8px; padding-left: 0; justify-content: center; }
+    .lb-nav.next { right: 8px; padding-right: 0; justify-content: center; }
+
+    /* Sidebar: 顯示在照片下方 */
+    .film-lb-sidebar {
+      display: flex !important;
+      overflow: visible;
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-bottom: 6rem; /* 留給 sticky footer 空間 */
+    }
+    .lb-section { padding: 1.2rem 1.2rem; }
+    .lb-author-name { font-size: 1.5rem; }
+    .lb-video-container { width: 55%; }
+
+    /* Footer: sticky 底部，永遠可見 */
+    .film-lb-footer {
+      position: sticky;
+      bottom: 0; z-index: 20;
+      background: rgba(5,5,5,0.97);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem 0.6rem;
+    }
+    .lb-counter { font-size: 0.8rem; margin-bottom: 0.4rem; }
   }
   </style>
 </head>
@@ -509,7 +591,9 @@ function renderWall() {
   if (!containerW) return;
 
   const batch = pool.slice(0, shown);
-  const blocks = buildEditorial(batch, containerW, TARGET_H, GAP);
+  // 手機版用較小的 targetH + gap，讓每排 2 張自然出現
+  const mob = window.innerWidth <= 768;
+  const blocks = buildEditorial(batch, containerW, mob ? 130 : TARGET_H, mob ? 4 : GAP);
 
   wallEl.innerHTML = '';
 
@@ -588,19 +672,34 @@ function openLightbox(poolIdx) {
 }
 
 function updateLbPhoto(photo) {
-  const main = document.getElementById('lbMainPhoto');
+  const main   = document.getElementById('lbMainPhoto');
   const lbBody = document.querySelector('.film-lb-main');
-  const maxW = lbBody.clientWidth - 80;
-  const maxH = lbBody.clientHeight - 60;
-  let w = maxH * photo.ar;
-  let h = maxH;
-  if (w > maxW) { w = maxW; h = maxW / photo.ar; }
-  if (photo.url) {
-    main.innerHTML = `<img src="${photo.url}" style="width:${Math.round(w)}px;height:${Math.round(h)}px;border-radius:8px;object-fit:contain;display:block;" alt="">`;
+  const dAR    = photo.displayAR || photo.ar || 1.33;
+
+  if (window.innerWidth <= 768) {
+    // 手機：全寬，高度依比例自然撐開
+    const w = lbBody.clientWidth;
+    const h = Math.round(w / dAR);
+    if (photo.url) {
+      main.innerHTML = `<img src="${photo.url}" style="width:${w}px;height:${h}px;object-fit:cover;display:block;" alt="">`;
+    } else {
+      main.style.cssText = `background:${photo.bg||'#222'};width:${w}px;height:${h}px;display:block;`;
+      main.innerHTML = '';
+    }
   } else {
-    main.style.cssText = `background:${photo.bg||'#222'};width:${Math.round(w)}px;height:${Math.round(h)}px;border-radius:8px;`;
-    main.innerHTML = '';
+    // 桌機：受容器高度約束
+    const maxW = lbBody.clientWidth - 80;
+    const maxH = lbBody.clientHeight - 60;
+    let w = maxH * dAR, h = maxH;
+    if (w > maxW) { w = maxW; h = maxW / dAR; }
+    if (photo.url) {
+      main.innerHTML = `<img src="${photo.url}" style="width:${Math.round(w)}px;height:${Math.round(h)}px;border-radius:8px;object-fit:contain;display:block;" alt="">`;
+    } else {
+      main.style.cssText = `background:${photo.bg||'#222'};width:${Math.round(w)}px;height:${Math.round(h)}px;border-radius:8px;`;
+      main.innerHTML = '';
+    }
   }
+
   const artist = photo.artist;
   const nameEn = artist.name_en || artist.nameEn || '';
   document.getElementById('lbHeaderName').textContent = (nameEn ? nameEn + '  ·  ' : '') + artist.name;
