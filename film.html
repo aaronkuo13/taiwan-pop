@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>27 Frames — Taiwan Pop 2026</title>
+  <link rel="stylesheet" href="css/tp-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;700;900&display=swap"></noscript>
+
+  <style>
+  /* ── HERO ── */
+  .film-hero {
+    padding: 8rem 2.5rem 3.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .film-hero-eyebrow {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.32em; color: rgba(255,255,255,0.3);
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .film-hero-title {
+    font-family: var(--font-d);
+    font-size: clamp(5rem, 13vw, 13rem);
+    line-height: 0.86; letter-spacing: 0.015em;
+  }
+  .film-hero-meta { display: flex; align-items: baseline; gap: 2rem; margin-top: 1.2rem; }
+  .film-hero-sub {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    line-height: 1.8; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.06em; max-width: 480px;
+  }
+  .film-hero-count {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.18em; color: rgba(255,255,255,0.18); white-space: nowrap;
+  }
+  .film-hero-count span { color: var(--green); }
+
+  /* ── WALL ── */
+  .film-wall-wrap { padding: 2rem 1.8rem 6rem; }
+
+  .cell {
+    position: relative;
+    display: block; padding: 0; border: none; margin: 0;
+    background: #1a1a1a;
+    overflow: hidden; cursor: pointer;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .hero-cell { border-radius: 6px; width: 100%; }
+
+  .ph-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  .cell:hover .ph-img { transform: scale(1.045); }
+
+  .cell-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.28s;
+    display: flex; align-items: flex-end;
+    padding: 0.9rem 1rem; border-radius: inherit;
+  }
+  .cell:hover .cell-overlay { opacity: 1; }
+  .cell-name {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.12em; color: rgba(255,255,255,0.9);
+  }
+
+  .jrow { display: flex; }
+  .jrow:last-child { justify-content: flex-start; }
+
+  .hero-block { display: block; }
+
+  /* ── SENTINEL ── */
+  .film-sentinel {
+    display: flex; justify-content: center; padding: 3rem 0 1rem;
+  }
+  .film-loader {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.3em; color: rgba(255,255,255,0.2);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:.2} 50%{opacity:.7} }
+
+  /* ── LIGHTBOX ── */
+  .film-lightbox {
+    position: fixed; inset: 0;
+    background: rgba(5,5,5,0.97);
+    z-index: 2000; display: none; flex-direction: column;
+    backdrop-filter: blur(4px);
+  }
+  .film-lightbox.open { display: flex; }
+
+  .film-lb-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.07);
+    flex-shrink: 0;
+  }
+  .film-lb-header-name {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.18em; color: rgba(255,255,255,0.45);
+  }
+  .film-lb-close {
+    background: none; border: none;
+    color: rgba(255,255,255,0.4); font-size: 1.3rem;
+    cursor: pointer; transition: color 0.2s; padding: 0.3rem;
+  }
+  .film-lb-close:hover { color: white; }
+
+  .film-lb-body {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 400px;
+    overflow: hidden; min-height: 0;
+  }
+
+  /* Main photo area */
+  .film-lb-main {
+    display: flex; align-items: center; justify-content: center;
+    padding: 2.5rem; overflow: hidden; position: relative;
+  }
+  #lbMainPhoto { border-radius: 8px; max-width: 100%; max-height: 100%; }
+  .lb-nav {
+    position: absolute; top: 0; bottom: 0; width: 14vw; min-width: 60px;
+    background: none; border: none;
+    color: rgba(255,255,255,0.25); font-size: 3rem;
+    cursor: pointer; transition: color 0.2s; z-index: 2;
+    display: flex; align-items: center;
+  }
+  .lb-nav:hover { color: rgba(255,255,255,0.8); }
+  .lb-nav.prev { left: 0; justify-content: flex-start; padding-left: 1rem; }
+  .lb-nav.next { right: 0; justify-content: flex-end; padding-right: 1rem; }
+
+  /* ── SIDEBAR — scrollable column ── */
+  .film-lb-sidebar {
+    border-left: 1px solid rgba(255,255,255,0.07);
+    overflow-y: auto; overflow-x: hidden;
+    display: flex; flex-direction: column;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+
+  /* Section block */
+  .lb-section {
+    padding: 1.5rem 1.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column; gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* Section label with line */
+  .lb-section-label {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: var(--font-m); font-size: 0.72rem;
+    letter-spacing: 0.28em; color: rgba(255,255,255,0.28);
+    text-transform: uppercase;
+  }
+  .lb-section-label .sep { letter-spacing: 0; color: rgba(255,255,255,0.15); }
+  .lb-section-label::after {
+    content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07);
+  }
+
+  /* Avatar row */
+  .lb-avatar-row { display: flex; align-items: center; gap: 0.9rem; }
+  .lb-avatar { width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0; background: #333; }
+  .lb-author-name {
+    font-family: var(--font-d); font-size: 1.8rem;
+    letter-spacing: 0.04em; line-height: 1.05; color: var(--white);
+  }
+  .lb-author-handle {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-top: 0.2rem;
+  }
+
+  /* Bio — full display, no truncation */
+  .lb-bio {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    line-height: 1.9; color: rgba(255,255,255,0.5);
+    white-space: pre-line;
+  }
+
+  /* Video container */
+  .lb-video-container {
+    width: 65%; margin: 0 auto;
+    aspect-ratio: 9/16;
+    background: #0d0d0d; border-radius: 8px;
+    overflow: hidden; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lb-play-btn {
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.12); border-radius: 50%;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: rgba(255,255,255,0.8);
+    transition: background 0.2s; z-index: 1;
+  }
+  .lb-play-btn:hover { background: var(--green); color: #000; }
+  .lb-video-meta { text-align: center; }
+  .lb-video-title {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    color: rgba(255,255,255,0.7); letter-spacing: 0.04em;
+  }
+  .lb-video-subtitle {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    color: rgba(255,255,255,0.3); font-style: italic; margin-top: 0.2rem;
+  }
+  .lb-credits {
+    font-family: var(--font-m); font-size: 0.85rem;
+    line-height: 1.75; color: rgba(255,255,255,0.28);
+    white-space: pre-line;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 0.8rem; margin-top: 0.2rem;
+  }
+
+  /* Thumbnail strip + counter */
+  .film-lb-footer {
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 0.6rem 2rem 0.7rem;
+  }
+  .lb-counter {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.2em; color: rgba(255,255,255,0.22);
+    text-align: center; margin-bottom: 0.5rem;
+  }
+  .lb-counter em { color: rgba(255,255,255,0.65); font-style: normal; }
+  .film-lb-thumbs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .film-lb-thumbs::-webkit-scrollbar { display: none; }
+  .lb-thumb {
+    width: 56px; height: 40px; border-radius: 5px;
+    overflow: hidden; flex-shrink: 0; cursor: pointer;
+    opacity: 0.4; transition: opacity 0.2s;
+    border: 2px solid transparent; box-sizing: border-box;
+  }
+  .lb-thumb:hover { opacity: 0.7; }
+  .lb-thumb.active { opacity: 1; border-color: #c8922a; }
+  .lb-thumb-inner { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) { .film-lb-body { grid-template-columns: 1fr 340px; } }
+  @media (max-width: 768px) {
+    .film-hero { padding: 6rem 1.5rem 2.5rem; }
+    .film-wall-wrap { padding: 1.5rem 1rem 4rem; }
+    .film-lb-body { grid-template-columns: 1fr; }
+    .film-lb-sidebar { display: none; }
+  }
+  </style>
+</head>
+<body>
+
+<nav id="navbar"></nav>
+
+<!-- HERO -->
+<div class="film-hero">
+  <div class="film-hero-eyebrow">底片機計畫 · Taiwan Pop 2026</div>
+  <h1 class="film-hero-title">27<br>FRAMES</h1>
+  <div class="film-hero-meta">
+    <p class="film-hero-sub">27 張底片。沒有預覽、沒有重來。<br>旅美藝術家用底片機記錄真實的紐約日常。</p>
+    <span class="film-hero-count"><span id="poolCount">—</span> 張照片</span>
+  </div>
+</div>
+
+<!-- WALL -->
+<div class="film-wall-wrap">
+  <div id="filmWall"></div>
+  <div id="filmSentinel" class="film-sentinel">
+    <span class="film-loader" id="filmLoader" style="display:none">LOADING</span>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="film-lightbox" id="filmLightbox">
+  <div class="film-lb-header">
+    <span class="film-lb-header-name" id="lbHeaderName"></span>
+    <button class="film-lb-close" id="filmLbClose">✕</button>
+  </div>
+  <div class="film-lb-body">
+    <!-- Main photo -->
+    <div class="film-lb-main">
+      <button class="lb-nav prev" id="lbPrev">‹</button>
+      <div id="lbMainPhoto"></div>
+      <button class="lb-nav next" id="lbNext">›</button>
+    </div>
+    <!-- Sidebar — scrollable column -->
+    <aside class="film-lb-sidebar" id="lbSidebar">
+      <!-- 作者資訊 -->
+      <div class="lb-section">
+        <div class="lb-section-label">創作者<span class="sep"> · </span>CREATOR</div>
+        <div class="lb-avatar-row">
+          <div class="lb-avatar" id="lbAvatar"></div>
+          <div>
+            <div class="lb-author-name" id="lbAuthorName"></div>
+            <div class="lb-author-handle" id="lbAuthorHandle"></div>
+          </div>
+        </div>
+        <div class="lb-bio" id="lbBio"></div>
+      </div>
+      <!-- 影片（只有 videoUrl 才顯示）-->
+      <div class="lb-section" id="lbVideoSection" style="display:none">
+        <div class="lb-section-label">影片<span class="sep"> · </span>ARTIST'S NOTE</div>
+        <div class="lb-video-container" id="lbVideoContainer">
+          <button class="lb-play-btn" id="lbPlayBtn">▶</button>
+        </div>
+        <div class="lb-video-meta" id="lbVideoMeta" style="display:none">
+          <div class="lb-video-title" id="lbVideoTitle"></div>
+          <div class="lb-video-subtitle" id="lbVideoSubtitle"></div>
+        </div>
+        <div class="lb-credits" id="lbCredits" style="display:none"></div>
+      </div>
+    </aside>
+  </div>
+  <!-- Footer: counter + all-photos thumbs -->
+  <div class="film-lb-footer">
+    <div class="lb-counter"><em id="lbCountCurrent">—</em> / <span id="lbCountTotal">—</span></div>
+    <div class="film-lb-thumbs" id="lbThumbs"></div>
+  </div>
+</div>
+
+<footer id="contact"></footer>
+
+<script src="js/lang.js"></script>
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/lang-init.js"></script>
+
+<script type="module">
+import { db } from './js/firebase.js';
+import { collection, doc, getDoc, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+'use strict';
+
+/* ── CONFIG ── */
+const TARGET_H = 280;   // spec token
+const GAP      = 13;    // spec token
+const BATCH_1  = 30;
+const BATCH_N  = 24;
+const VARIETY  = 'bold'; // off | subtle | bold
+
+/* ── VISIBILITY CHECK ── */
+// visible=false → 隱藏導覽列連結，但直接訪問 URL 仍可進入（供測試用）
+async function checkVisibility() {
+  try {
+    const snap = await getDoc(doc(db, 'config', 'film_project_visibility'));
+    const isVisible = !snap.exists() || snap.data().visible !== false;
+    if (isVisible) {
+      const navEl = document.getElementById('nav-film-item');
+      const mobileEl = document.getElementById('mobile-nav-film-item');
+      if (navEl) navEl.style.display = '';
+      if (mobileEl) mobileEl.style.display = '';
+    }
+    // 不做 redirect，讓直接訪問 URL 都能進入
+    return true;
+  } catch (e) {
+    return true;
+  }
+}
+
+/* ── LOAD FROM FIRESTORE ── */
+async function loadArtists() {
+  const snap = await getDocs(query(
+    collection(db, 'film_project'),
+    where('visible', '==', true)
+  ));
+  const artists = [];
+  snap.forEach(d => artists.push({ id: d.id, ...d.data() }));
+  return artists;
+}
+
+/* ── BUILD POOL ── */
+let pool = [];
+
+async function init() {
+  const ok = await checkVisibility();
+  if (!ok) return;
+
+  try {
+    const artists = await loadArtists();
+    artists.forEach(a => {
+      (a.photos || []).forEach((ph, i) => {
+        pool.push({
+          url: ph.url || null,
+          bg: null,
+          ar: ph.aspectRatio || 1.33,
+          isHero: ph.isHero || false,
+          artist: a,
+          artistPhotoIdx: i,
+        });
+      });
+    });
+  } catch (e) {
+    console.error('[film] load error:', e);
+  }
+
+  pool.sort(() => Math.random() - 0.5);
+
+  // Assign stable roll + displayAR (shape variety via auto-crop)
+  pool.forEach((p, i) => {
+    p.poolIdx = i;
+    const roll = (typeof p.roll === 'number') ? p.roll : stableRoll(p.url || String(i));
+    p.roll = roll;
+    // Heroes: native AR (uncropped). Others: displayAR from pickShape
+    p.displayAR = p.isHero ? (p.ar || 1.33) : pickShape(roll, VARIETY);
+  });
+
+  document.getElementById('poolCount').textContent = pool.length;
+  loadBatch();
+}
+
+/* ── STABLE ROLL HASH (0..1, never changes for same string) ── */
+function stableRoll(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+  }
+  return (Math.abs(h) >>> 0) / 4294967296;
+}
+
+/* ── AUTO-CROP SHAPE SYSTEM ── */
+function pickShape(roll, variety) {
+  if (variety === 'off')    return 3/2;
+  if (variety === 'subtle') {
+    if (roll < 0.70) return 3/2;
+    if (roll < 0.86) return 1/1;
+    if (roll < 0.96) return 2/1;
+    return 16/9;
+  }
+  // bold
+  if (roll < 0.46) return 3/2;
+  if (roll < 0.66) return 1/1;
+  if (roll < 0.81) return 2/1;
+  if (roll < 0.91) return 16/9;
+  if (roll < 0.97) return 4/5;
+  return 5/4;
+}
+
+/* ── LAYOUT ALGORITHMS (spec) ── */
+function buildRows(photos, containerW, targetH, gap) {
+  const rows = [];
+  let row = [], arSum = 0;
+  for (const p of photos) {
+    row.push(p);
+    arSum += p.displayAR;
+    const naturalW = arSum * targetH + gap * (row.length - 1);
+    if (naturalW >= containerW) {
+      const h = (containerW - gap * (row.length - 1)) / arSum;
+      rows.push({ photos: row, h });
+      row = []; arSum = 0;
+    }
+  }
+  if (row.length) {
+    const h = Math.min(targetH, (containerW - gap * (row.length - 1)) / arSum);
+    rows.push({ photos: row, h, last: true });
+  }
+  return rows;
+}
+
+function buildEditorial(photos, containerW, targetH, gap) {
+  const blocks = [];
+  let buffer = [], sinceHero = 0;
+  for (const p of photos) {
+    if (p.isHero && sinceHero >= 4) {
+      if (buffer.length) {
+        blocks.push({ type: 'rows', rows: buildRows(buffer, containerW, targetH, gap) });
+        buffer = [];
+      }
+      blocks.push({ type: 'hero', photo: p });
+      sinceHero = 0;
+    } else {
+      buffer.push(p);
+      sinceHero++;
+    }
+  }
+  if (buffer.length)
+    blocks.push({ type: 'rows', rows: buildRows(buffer, containerW, targetH, gap) });
+  return blocks;
+}
+
+/* ── RENDER ── */
+let shown = 0;
+let rendering = false;
+
+function makeCellEl(photo, w, h) {
+  const btn = document.createElement('button');
+  btn.className = 'cell';
+  btn.style.width  = Math.round(w) + 'px';
+  btn.style.height = Math.round(h) + 'px';
+  btn.dataset.poolIdx = photo.poolIdx;
+  const imgContent = photo.url
+    ? `<img class="ph-img" src="${photo.url}" loading="lazy" alt="${photo.artist.name}">`
+    : `<div class="ph-img" style="background:${photo.bg || '#222'}"></div>`;
+  btn.innerHTML = `
+    ${imgContent}
+    <div class="cell-overlay">
+      <span class="cell-name">${photo.artist.name}&nbsp;/&nbsp;${photo.artist.name_en || photo.artist.nameEn || ''}</span>
+    </div>`;
+  btn.addEventListener('click', () => openLightbox(photo.poolIdx));
+  return btn;
+}
+
+function renderWall() {
+  const wallEl = document.getElementById('filmWall');
+  const containerW = wallEl.clientWidth;
+  if (!containerW) return;
+
+  const batch = pool.slice(0, shown);
+  const blocks = buildEditorial(batch, containerW, TARGET_H, GAP);
+
+  wallEl.innerHTML = '';
+
+  for (const block of blocks) {
+    if (block.type === 'hero') {
+      const p = block.photo;
+      // Heroes use native AR (uncropped), height capped at 620px
+      const heroH = Math.min(containerW / (p.ar || 1.33), 620);
+      const wrap = document.createElement('div');
+      wrap.className = 'hero-block';
+      wrap.style.cssText = `height:${Math.round(heroH)}px;margin-bottom:${GAP}px;`;
+      const btn = makeCellEl(p, containerW, heroH);
+      btn.classList.add('hero-cell');
+      wrap.appendChild(btn);
+      wallEl.appendChild(wrap);
+    } else {
+      for (const row of block.rows) {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'jrow';
+        rowEl.style.cssText = `gap:${GAP}px;margin-bottom:${GAP}px;`;
+        for (const p of row.photos) {
+          // Width = rowHeight × displayAR (auto-crop shape, not native AR)
+          const w = row.h * p.displayAR;
+          rowEl.appendChild(makeCellEl(p, w, row.h));
+        }
+        wallEl.appendChild(rowEl);
+      }
+    }
+  }
+}
+
+function loadBatch() {
+  if (rendering || shown >= pool.length) return;
+  rendering = true;
+  document.getElementById('filmLoader').style.display = 'block';
+  setTimeout(() => {
+    shown = Math.min(shown + (shown === 0 ? BATCH_1 : BATCH_N), pool.length);
+    renderWall();
+    document.getElementById('filmLoader').style.display = 'none';
+    rendering = false;
+  }, 80);
+}
+
+/* ResizeObserver — re-layout on container width change */
+new ResizeObserver(() => renderWall()).observe(document.getElementById('filmWall'));
+
+/* IntersectionObserver — infinite scroll, preload 1200px early */
+const io = new IntersectionObserver(
+  es => { if (es[0].isIntersecting) loadBatch(); },
+  { rootMargin: '1200px 0px' }
+);
+io.observe(document.getElementById('filmSentinel'));
+
+/* ── LIGHTBOX ── */
+let currentPoolIdx = null;
+let currentArtistPhotos = [];
+
+function artistPhotos(artist) {
+  return pool.filter(p => p.artist === artist);
+}
+
+function openLightbox(poolIdx) {
+  const photo = pool[poolIdx];
+  const artist = photo.artist;
+  currentPoolIdx = poolIdx;
+  currentArtistPhotos = artistPhotos(artist);
+
+  updateLbAuthor(artist);
+  renderThumbs(photo);
+
+  document.getElementById('filmLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Calculate photo size after lightbox is visible
+  requestAnimationFrame(() => updateLbPhoto(photo));
+}
+
+function updateLbPhoto(photo) {
+  const main = document.getElementById('lbMainPhoto');
+  const lbBody = document.querySelector('.film-lb-main');
+  const maxW = lbBody.clientWidth - 80;
+  const maxH = lbBody.clientHeight - 60;
+  let w = maxH * photo.ar;
+  let h = maxH;
+  if (w > maxW) { w = maxW; h = maxW / photo.ar; }
+  if (photo.url) {
+    main.innerHTML = `<img src="${photo.url}" style="width:${Math.round(w)}px;height:${Math.round(h)}px;border-radius:8px;object-fit:contain;display:block;" alt="">`;
+  } else {
+    main.style.cssText = `background:${photo.bg||'#222'};width:${Math.round(w)}px;height:${Math.round(h)}px;border-radius:8px;`;
+    main.innerHTML = '';
+  }
+  const artist = photo.artist;
+  const nameEn = artist.name_en || artist.nameEn || '';
+  document.getElementById('lbHeaderName').textContent = (nameEn ? nameEn + '  ·  ' : '') + artist.name;
+}
+
+function updateLbAuthor(artist) {
+  // Avatar
+  const avatarEl = document.getElementById('lbAvatar');
+  if (artist.avatar) {
+    avatarEl.innerHTML = `<img src="${artist.avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+    avatarEl.style.background = '';
+  } else {
+    avatarEl.innerHTML = '';
+    avatarEl.style.background = artist.avatarColor || '#555';
+  }
+
+  // Name / handle / bio
+  const lang = window.currentLang || 'zh';
+  document.getElementById('lbAuthorName').textContent = artist.name || '';
+  document.getElementById('lbAuthorHandle').textContent = artist.handle || '';
+  const bioText = (lang === 'en' && artist.bio_en) ? artist.bio_en : (artist.bio || '');
+  document.getElementById('lbBio').textContent = bioText;
+
+  // Video section — only show if videoUrl exists
+  const videoSection = document.getElementById('lbVideoSection');
+  if (artist.videoUrl) {
+    videoSection.style.display = '';
+    const ytId = getYouTubeId(artist.videoUrl);
+    if (ytId) {
+      // 自動播放，不用按 ▶
+      document.getElementById('lbVideoContainer').innerHTML = `<iframe
+        src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&controls=1"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>`;
+    }
+
+    // Credits — only show if credits field exists
+    const creditsEl = document.getElementById('lbCredits');
+    if (artist.credits) {
+      creditsEl.textContent = artist.credits;
+      creditsEl.style.display = '';
+    } else {
+      creditsEl.style.display = 'none';
+    }
+  } else {
+    videoSection.style.display = 'none';
+  }
+}
+
+function renderThumbs(currentPhoto) {
+  // Counter — based on current artist's photos
+  const artistPool = pool.filter(p => p.artist === currentPhoto.artist);
+  const artistIdx  = artistPool.findIndex(p => p === currentPhoto);
+  document.getElementById('lbCountCurrent').textContent = String(artistIdx + 1).padStart(2, '0');
+  document.getElementById('lbCountTotal').textContent   = String(artistPool.length).padStart(2, '0');
+
+  // Thumbnail strip — current artist's photos only
+  const thumbs = document.getElementById('lbThumbs');
+  thumbs.innerHTML = artistPool.map(p => `
+    <div class="lb-thumb ${p === currentPhoto ? 'active' : ''}" data-poolidx="${p.poolIdx}">
+      ${p.url
+        ? `<img class="lb-thumb-inner" src="${p.url}" loading="lazy" alt="">`
+        : `<div class="lb-thumb-inner" style="background:${p.bg||'#333'}"></div>`}
+    </div>`).join('');
+  thumbs.querySelectorAll('.lb-thumb').forEach(t => {
+    t.addEventListener('click', () => {
+      const p = pool[Number(t.dataset.poolidx)];
+      currentPoolIdx = p.poolIdx;
+      updateLbPhoto(p);
+      renderThumbs(p);
+      t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+  // Auto-scroll to active thumb
+  const activeThumb = thumbs.querySelector('.lb-thumb.active');
+  if (activeThumb) activeThumb.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
+}
+
+function navigateLb(dir) {
+  const currentPhoto = pool[currentPoolIdx];
+  const artistPool   = pool.filter(p => p.artist === currentPhoto.artist);
+  const artistIdx    = artistPool.findIndex(p => p === currentPhoto);
+  const newArtistIdx = artistIdx + dir;
+  if (newArtistIdx < 0 || newArtistIdx >= artistPool.length) return;
+  const newPhoto = artistPool[newArtistIdx];
+  currentPoolIdx = newPhoto.poolIdx;
+  updateLbPhoto(newPhoto);
+  renderThumbs(newPhoto);
+}
+
+function closeLightbox() {
+  // 清除 iframe → 停止聲音
+  document.getElementById('lbVideoContainer').innerHTML = '';
+  document.getElementById('filmLightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('filmLbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => navigateLb(-1));
+document.getElementById('lbNext').addEventListener('click', () => navigateLb(+1));
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('filmLightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft')   navigateLb(-1);
+  if (e.key === 'ArrowRight')  navigateLb(+1);
+});
+
+// Click backdrop to close
+document.getElementById('filmLightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+
+/* YouTube ID helper */
+function getYouTubeId(url) {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+
+/* Boot */
+init();
+</script>
+</body>
+</html>

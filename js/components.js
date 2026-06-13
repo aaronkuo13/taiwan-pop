@@ -3,14 +3,16 @@
 /* ---------- Shared Navbar + Footer Component Injection ---------- */
 (function injectComponents() {
   const path = window.location.pathname;
-  const page = path.includes('event.html') ? 'event-detail'
-             : path.includes('events')   ? 'events'
-             : path.includes('calendar') ? 'calendar'
-             : path.includes('concept')  ? 'concept'
-             : path.includes('awe')      ? 'awe'
-             : path.includes('article')  ? 'article'
-             : path.includes('press')    ? 'press'
-             : path.includes('news')     ? 'news'
+  const page = path.includes('event.html')   ? 'event-detail'
+             : path.includes('events')       ? 'events'
+             : path.includes('calendar')     ? 'calendar'
+             : path.includes('concept')      ? 'concept'
+             : path.includes('awe')          ? 'awe'
+             : path.includes('article')      ? 'article'
+             : path.includes('press')        ? 'press'
+             : path.includes('film-artist')  ? 'film-artist'
+             : path.includes('film')         ? 'film'
+             : path.includes('news')         ? 'news'
              : 'home';
 
   /* ── Links: resolve relative to current page ── */
@@ -19,6 +21,7 @@
     concept:  page === 'concept'  ? '#'              : 'concept.html',
     news:     page === 'news'     ? '#'              : 'news.html',
     press:    page === 'press'    ? '#'              : 'press.html',
+    film:     (page === 'film' || page === 'film-artist') ? '#' : 'film.html',
     events:   page === 'events'   ? '#events'        : 'events.html',
     awe:      page === 'awe'      ? '#'              : 'awe.html',
     calendar: page === 'calendar' ? '#'              : 'calendar.html',
@@ -40,6 +43,7 @@
         <li><a href="${href.concept}"  class="${'nav-link' + activeClass('concept')}"  data-i18n="nav-concept">策劃理念</a></li>
         <li><a href="${href.news}"     class="${'nav-link' + activeClass('news')}"     data-i18n="nav-news">最新消息</a></li>
         <li><a href="${href.press}"    class="${'nav-link' + activeClass('press')}"    data-i18n="nav-press">相關報導</a></li>
+        <li id="nav-film-item" style="display:none"><a href="${href.film}" class="${'nav-link' + activeClass('film')}" data-i18n="nav-film">底片機計畫</a></li>
         <li><a href="${href.events}"   class="${'nav-link' + activeClass('events')}"   data-i18n="nav-events">展演活動</a></li>
         <li><a href="${href.calendar}" class="${'nav-link' + activeClass('calendar')}" data-i18n="nav-calendar">行事曆</a></li>
       </ul>
@@ -73,6 +77,7 @@
       <a href="${href.concept}"><span data-i18n="nav-concept">策劃理念</span></a>
       <a href="${href.news}"><span data-i18n="nav-news">最新消息</span></a>
       <a href="${href.press}"><span data-i18n="nav-press">相關報導</span></a>
+      <a href="${href.film}" id="mobile-nav-film-item" style="display:none"><span data-i18n="nav-film">底片機計畫</span></a>
       <a href="${href.events}"><span data-i18n="nav-events">展演活動</span></a>
       <a href="${href.calendar}"><span data-i18n="nav-calendar">行事曆</span></a>
       <div class="tp-nav-mobile-social">
@@ -124,4 +129,32 @@
         <span class="tp-footer-copy lang-zh">文化部 × 駐紐約臺北文化中心</span><span class="tp-footer-copy lang-en">Ministry of Culture × Taipei Cultural Center in NY</span>
       </div>`;
   }
+})();
+
+/* ── 底片機計畫 visibility（localStorage 快取 + Firestore 背景驗證）── */
+(function checkFilmVisibility() {
+  const CACHE_KEY = 'twpop_film_visible';
+  const PROJ = 'taiwanpop-b906b';
+  const URL  = `https://firestore.googleapis.com/v1/projects/${PROJ}/databases/(default)/documents/config/film_project_visibility`;
+
+  function applyVisibility(visible) {
+    const nav    = document.getElementById('nav-film-item');
+    const mobile = document.getElementById('mobile-nav-film-item');
+    if (nav)    nav.style.display    = visible ? '' : 'none';
+    if (mobile) mobile.style.display = visible ? '' : 'none';
+  }
+
+  // ① 立即套用快取狀態（同步，無閃動）
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached !== null) applyVisibility(cached === 'true');
+
+  // ② 背景驗證 Firestore，更新快取與畫面
+  fetch(URL)
+    .then(r => r.json())
+    .then(data => {
+      const visible = !!(data.fields && data.fields.visible && data.fields.visible.booleanValue !== false);
+      localStorage.setItem(CACHE_KEY, String(visible));
+      applyVisibility(visible);
+    })
+    .catch(() => {}); // 失敗時維持快取狀態
 })();
