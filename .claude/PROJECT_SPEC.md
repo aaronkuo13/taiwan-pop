@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-09（PR #66 底片機計畫功能上線）
+> 最後更新：2026-06-09（PR #67 底片機計畫手機版優化）
 
 ---
 
@@ -420,6 +420,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] 底片機計畫手機版優化（PR #67）：照片牆 2 欄混排、Lightbox 全螢幕垂直捲動（sticky header/footer、作者資訊可見）、nav 閃動修正
 - [x] 底片機計畫功能上線（PR #66）：film.html 照片牆（justified rows + auto-crop shape）、film-artist.html 作者頁、Lightbox 重設計、後台管理（功能開關/作者CRUD/照片壓縮WebP/Hero標記）、nav localStorage快取消閃動
 - [x] UI polish（PR #65）：首頁 stat 數字重疊修正、Featured Banner LEARN MORE 放大、article 移除 ARTICLE 小標 + 側邊欄單語言標籤 + 分享按鈕換 SVG 圖示（FB/X/Threads/Copy）
 - [x] 相關報導獨立頁面上線（PR #64）：press.html 新建、導覽列新增連結、後台管理 CRUD、媒體標籤動態下拉、10 筆分頁載入
