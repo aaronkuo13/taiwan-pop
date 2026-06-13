@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-09（PR #65 UI polish — stat、banner、article share）
+> 最後更新：2026-06-09（PR #66 底片機計畫功能上線）
 
 ---
 
@@ -43,6 +43,8 @@ Taiwan Pop 是台灣文化部與 Taipei Cultural Center in NY（TCCNY）合作�
 ├── awe.html            # a-we 紐約跑酷：Canvas 跑酷遊戲 + Top 10 排行榜
 ├── news.html           # 最新消息文章列表（分類篩選 + 分頁）
 ├── press.html          # 相關報導列表（Firestore press_coverage，10 筆分頁）
+├── film.html           # 底片機計畫照片牆（Firestore film_project，justified rows + auto-crop）
+├── film-artist.html    # 作者個人頁（URL param: ?id=xxx）
 ├── article.html        # 文章詳情頁（URL param: ?id=xxx）
 ├── twpop-manage/
 │   └── index.html      # CMS 後台（Firebase Auth 保護，不公開）
@@ -418,6 +420,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] 底片機計畫功能上線（PR #66）：film.html 照片牆（justified rows + auto-crop shape）、film-artist.html 作者頁、Lightbox 重設計、後台管理（功能開關/作者CRUD/照片壓縮WebP/Hero標記）、nav localStorage快取消閃動
 - [x] UI polish（PR #65）：首頁 stat 數字重疊修正、Featured Banner LEARN MORE 放大、article 移除 ARTICLE 小標 + 側邊欄單語言標籤 + 分享按鈕換 SVG 圖示（FB/X/Threads/Copy）
 - [x] 相關報導獨立頁面上線（PR #64）：press.html 新建、導覽列新增連結、後台管理 CRUD、媒體標籤動態下拉、10 筆分頁載入
 - [x] 首頁 hero 影片換新 + 完整影片按鈕（PR #63）：背景影片換成 zuWSPUjiRDU；「最新消息」→「完整影片 / WATCH FILM」，點擊開新分頁至 YouTube
