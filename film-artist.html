@@ -18,51 +18,17 @@
     padding-top: 6rem;
     border-bottom: 1px solid var(--border);
   }
-  /* With video: left video + right text */
-  .fa-hero-with-video {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0;
-    align-items: stretch;
-    min-height: 60vh;
+  .fa-hero-inner {
+    padding: 3rem 2.5rem 2.5rem;
+    display: flex; flex-direction: column;
+    gap: 1.2rem; max-width: 900px;
   }
-  .fa-video-wrap {
-    width: 36vw; max-width: 420px; min-width: 260px;
-    overflow: hidden; position: relative;
-    background: #0d0d0d;
-  }
-  .fa-video-wrap iframe {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    border: none;
-  }
-  .fa-video-placeholder {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: #111;
-  }
-  .fa-play-icon {
-    width: 56px; height: 56px;
-    background: rgba(255,255,255,0.08); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem; color: rgba(255,255,255,0.6);
-  }
-  /* Text side */
-  .fa-hero-info {
-    padding: 3rem 2.5rem;
-    display: flex; flex-direction: column; justify-content: center;
-    gap: 1.2rem;
-    border-left: 1px solid var(--border);
-  }
-  /* No-video hero */
-  .fa-hero-no-video .fa-hero-info {
-    padding: 4rem 2.5rem 3rem;
-    border-left: none;
-    max-width: 720px;
+  .fa-top-row {
+    display: flex; align-items: center; gap: 1.2rem;
   }
   .fa-avatar {
     width: 72px; height: 72px; border-radius: 50%;
-    object-fit: cover; display: block;
+    object-fit: cover; display: block; flex-shrink: 0;
   }
   .fa-name {
     font-family: var(--font-d);
@@ -72,7 +38,33 @@
   .fa-handle {
     font-family: var(--font-m); font-size: var(--fs-base);
     letter-spacing: 0.1em; color: rgba(255,255,255,0.35);
+    margin-top: 0.3rem;
   }
+
+  /* ── VIDEOS ── */
+  .fa-videos-section { display: flex; flex-direction: column; gap: 1rem; }
+  .fa-video-label {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.25em; color: rgba(255,255,255,0.2);
+  }
+  .fa-videos-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  .fa-videos-grid.count-1 { grid-template-columns: 1fr; }
+  .fa-videos-grid.count-2 { grid-template-columns: 1fr 1fr; }
+  .fa-videos-grid.count-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .fa-video-item {
+    position: relative; width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #111; border-radius: 8px; overflow: hidden;
+  }
+  .fa-video-item iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; border: none;
+  }
+
+  /* ── BIO ── */
   .fa-bio {
     font-family: var(--font-m); font-size: var(--fs-base);
     line-height: 1.9; color: rgba(255,255,255,0.5);
@@ -97,20 +89,19 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    align-items: start;
   }
   .fa-photo {
-    aspect-ratio: 4/3;
     overflow: hidden; border-radius: 10px;
     cursor: pointer; position: relative;
   }
   .fa-photo img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+    width: 100%; height: auto; display: block;
     transition: transform .55s cubic-bezier(.2,.7,.2,1);
   }
   .fa-photo:hover img { transform: scale(1.04); }
 
-  /* ── LIGHTBOX (same as film.html) ── */
+  /* ── LIGHTBOX ── */
   .film-lightbox {
     position: fixed; inset: 0;
     background: rgba(5,5,5,0.97);
@@ -140,14 +131,11 @@
   .lb-simple-prev { left: 1rem; }
   .lb-simple-next { right: 1rem; }
 
-  @media (max-width: 900px) {
-    .fa-hero-with-video { grid-template-columns: 1fr; }
-    .fa-video-wrap { width: 100%; max-width: none; height: 56vw; position: relative; }
-    .fa-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
+    .fa-hero-inner { padding: 2rem 1.5rem 2rem; }
+    .fa-videos-grid.count-2,
+    .fa-videos-grid.count-3 { grid-template-columns: 1fr; }
     .fa-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-    .fa-hero-info { padding: 2rem 1.5rem; }
   }
   </style>
 </head>
@@ -161,7 +149,7 @@
 
 <div class="fa-grid-section" id="gridSection" style="display:none">
   <div class="fa-grid-label" id="gridLabel">PHOTOS</div>
-  <div class="fa-grid" id="artistGrid"></div>
+  <div class="fa-grid" id="artistGrid" style="align-items:start"></div>
 </div>
 
 <!-- Simple lightbox -->
@@ -218,7 +206,8 @@ async function load() {
 
   // Build hero
   const heroEl = document.getElementById('artistHero');
-  const ytId = getYouTubeId(a.videoUrl);
+  const videos = a.videos || (a.videoUrl ? [a.videoUrl] : []);
+  const ytIds = videos.map(getYouTubeId).filter(Boolean);
   const avatarHtml = a.avatar
     ? `<img class="fa-avatar" src="${a.avatar}" alt="${name}">`
     : `<div class="fa-avatar" style="background:#555"></div>`;
@@ -226,45 +215,50 @@ async function load() {
     ? `<div class="fa-credits">${credits}</div>` : '';
   const handleHtml = handle ? `<div class="fa-handle">${handle}</div>` : '';
 
-  if (ytId) {
-    heroEl.innerHTML = `
-      <div class="fa-hero-with-video">
-        <div class="fa-video-wrap">
-          <iframe src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1"
-            allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        <div class="fa-hero-info">
-          ${avatarHtml}
+  const videosHtml = ytIds.length ? `
+    <div class="fa-videos-section">
+      <div class="fa-video-label">影片 · ARTIST'S NOTE</div>
+      <div class="fa-videos-grid count-${ytIds.length}">
+        ${videos.filter(getYouTubeId).map(url => {
+          const id = getYouTubeId(url);
+          const isShort = url.includes('/shorts/');
+          const pb = isShort ? '177.78%' : '56.25%';
+          return `<div class="fa-video-item" style="padding-bottom:${pb};">
+            <iframe src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&playsinline=1&controls=1"
+              allow="encrypted-media; fullscreen" allowfullscreen></iframe>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  heroEl.innerHTML = `
+    <div class="fa-hero-inner">
+      <div class="fa-top-row">
+        ${avatarHtml}
+        <div>
           <div class="fa-name">${name}</div>
           ${nameEn ? `<div class="fa-handle">${nameEn}</div>` : ''}
           ${handleHtml}
-          <div class="fa-bio">${bio}</div>
-          ${creditsHtml}
         </div>
-      </div>`;
-  } else {
-    heroEl.innerHTML = `
-      <div class="fa-hero-no-video">
-        <div class="fa-hero-info">
-          ${avatarHtml}
-          <div class="fa-name">${name}</div>
-          ${nameEn ? `<div class="fa-handle">${nameEn}</div>` : ''}
-          ${handleHtml}
-          <div class="fa-bio">${bio}</div>
-          ${creditsHtml}
-        </div>
-      </div>`;
-  }
+      </div>
+      ${videosHtml}
+      <div class="fa-bio">${bio}</div>
+      ${creditsHtml}
+    </div>`;
 
   // Build photo grid
   if (photos.length) {
     document.getElementById('gridSection').style.display = '';
     document.getElementById('gridLabel').textContent = lang === 'en' ? `${photos.length} FRAMES` : `${photos.length} 張照片`;
     const grid = document.getElementById('artistGrid');
-    grid.innerHTML = photos.map((p, i) => `
-      <div class="fa-photo" data-idx="${i}">
-        <img src="${p.url}" loading="lazy" alt="">
-      </div>`).join('');
+    grid.innerHTML = photos.map((p, i) => {
+      const ar = p.aspectRatio || 1.33;
+      const paddingBottom = (1 / ar * 100).toFixed(2);
+      return `
+      <div class="fa-photo" data-idx="${i}" style="padding-bottom:${paddingBottom}%;position:relative;height:0;">
+        <img src="${p.url}" loading="lazy" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      </div>`;
+    }).join('');
     grid.querySelectorAll('.fa-photo').forEach(el => {
       el.addEventListener('click', () => openLb(Number(el.dataset.idx)));
     });
