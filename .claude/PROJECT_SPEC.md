@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-09（PR #67 底片機計畫手機版優化）
+> 最後更新：2026-06-17（PR #69 底片機計畫照片牆 Mosaic 重構 + 多影片支援）
 
 ---
 
@@ -43,7 +43,7 @@ Taiwan Pop 是台灣文化部與 Taipei Cultural Center in NY（TCCNY）合作�
 ├── awe.html            # a-we 紐約跑酷：Canvas 跑酷遊戲 + Top 10 排行榜
 ├── news.html           # 最新消息文章列表（分類篩選 + 分頁）
 ├── press.html          # 相關報導列表（Firestore press_coverage，10 筆分頁）
-├── film.html           # 底片機計畫照片牆（Firestore film_project，justified rows + auto-crop）
+├── film.html           # 底片機計畫照片牆（Firestore film_project，CSS Grid Mosaic 不規則混排）
 ├── film-artist.html    # 作者個人頁（URL param: ?id=xxx）
 ├── article.html        # 文章詳情頁（URL param: ?id=xxx）
 ├── twpop-manage/
@@ -420,6 +420,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] 底片機計畫照片牆 Mosaic 重構 + 多影片支援（PR #69）：CSS Grid `grid-auto-rows:8px` + `row dense` 不規則混排（最多 3 欄）、直式照片以真實 AR 顯示、lightbox 影片上移至 bio 前、支援 `videos[]` 陣列（含 YouTube Shorts 9:16 偵測）、後台三欄影片輸入
 - [x] 底片機計畫手機版優化（PR #67）：照片牆 2 欄混排、Lightbox 全螢幕垂直捲動（sticky header/footer、作者資訊可見）、nav 閃動修正
 - [x] 底片機計畫功能上線（PR #66）：film.html 照片牆（justified rows + auto-crop shape）、film-artist.html 作者頁、Lightbox 重設計、後台管理（功能開關/作者CRUD/照片壓縮WebP/Hero標記）、nav localStorage快取消閃動
 - [x] UI polish（PR #65）：首頁 stat 數字重疊修正、Featured Banner LEARN MORE 放大、article 移除 ARTICLE 小標 + 側邊欄單語言標籤 + 分享按鈕換 SVG 圖示（FB/X/Threads/Copy）
