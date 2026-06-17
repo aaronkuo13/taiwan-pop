@@ -722,8 +722,12 @@
             <textarea id="film-bio" rows="5" placeholder="介紹文字（支援換行）" style="width:100%;resize:vertical;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px;font-size:13px;font-family:inherit;"></textarea>
           </div>
           <div class="form-row">
-            <label>介紹影片（YouTube URL，選填）</label>
-            <input type="url" id="film-video" placeholder="https://youtu.be/...">
+            <label>介紹影片（YouTube URL，最多 3 部，選填）</label>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <input type="url" id="film-video-1" placeholder="影片 1：https://youtu.be/...">
+              <input type="url" id="film-video-2" placeholder="影片 2（選填）：https://youtu.be/...">
+              <input type="url" id="film-video-3" placeholder="影片 3（選填）：https://youtu.be/...">
+            </div>
           </div>
           <div class="form-row">
             <label>頭像上傳</label>
@@ -1638,7 +1642,9 @@
       document.getElementById('film-handle').value = '';
       document.getElementById('film-bio').value = '';
       document.getElementById('film-bio-en').value = '';
-      document.getElementById('film-video').value = '';
+      document.getElementById('film-video-1').value = '';
+      document.getElementById('film-video-2').value = '';
+      document.getElementById('film-video-3').value = '';
       document.getElementById('film-avatar-preview').innerHTML = '';
       document.getElementById('film-visible').checked = true;
       document.getElementById('film-visible-status').textContent = '顯示中';
@@ -1662,7 +1668,10 @@
         document.getElementById('film-handle').value = a.handle || '';
         document.getElementById('film-bio').value = a.bio || '';
         document.getElementById('film-bio-en').value = a.bio_en || '';
-        document.getElementById('film-video').value = a.videoUrl || '';
+        const vids = a.videos || (a.videoUrl ? [a.videoUrl] : []);
+        document.getElementById('film-video-1').value = vids[0] || '';
+        document.getElementById('film-video-2').value = vids[1] || '';
+        document.getElementById('film-video-3').value = vids[2] || '';
         document.getElementById('film-visible').checked = a.visible !== false;
         document.getElementById('film-visible-status').textContent = a.visible !== false ? '顯示中' : '已隱藏';
         const prev = document.getElementById('film-avatar-preview');
@@ -1745,7 +1754,7 @@
           handle:    document.getElementById('film-handle').value.trim(),
           bio:       document.getElementById('film-bio').value.trim(),
           bio_en:    document.getElementById('film-bio-en').value.trim(),
-          videoUrl:  document.getElementById('film-video').value.trim(),
+          videos:    [1,2,3].map(n => document.getElementById(`film-video-${n}`).value.trim()).filter(Boolean),
           visible:   document.getElementById('film-visible').checked,
           avatar:    avatarUrl,
           photos,
