@@ -32,9 +32,13 @@
     const dateLabel = lang === 'en' ? 'DATE'   : '日期';
     const venueLabel = lang === 'en' ? 'VENUE'  : '場地';
 
-    const ctaHtml = ev.externalUrl
-      ? `<a href="${ev.externalUrl}" target="_blank" rel="noopener" class="btn btn-white">${lang === 'en' ? 'Get Tickets' : '立即購票'}</a>`
-      : '';
+    const endDateStr = ev.endDate || ev.date;
+    const isPast = endDateStr < new Date().toISOString().slice(0, 10);
+    const ctaHtml = isPast
+      ? `<span class="btn btn-ended">${lang === 'en' ? 'Ended' : '已結束'}</span>`
+      : ev.externalUrl
+        ? `<a href="${ev.externalUrl}" target="_blank" rel="noopener" class="btn btn-white">${lang === 'en' ? 'Get Tickets' : '立即購票'}</a>`
+        : '';
 
     const imgSrc = ev.imgInner || ev.img;
     const imgHtml = imgSrc

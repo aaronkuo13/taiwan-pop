@@ -540,6 +540,20 @@
     }
     .news-list-headline { line-height: 1.4; }
   }
+  /* ── FB MODAL ── */
+  .fb-fab { position:fixed; bottom:2rem; right:2rem; width:60px; height:60px; border-radius:50%; background:var(--white); box-shadow:0 4px 12px rgba(0,0,0,0.3); cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:999; transition:transform 0.2s, box-shadow 0.2s; }
+  .fb-fab:hover { transform:scale(1.1); box-shadow:0 6px 16px rgba(0,0,0,0.4); }
+  .fb-fab svg { width:32px; height:32px; }
+  .fb-modal { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:1000; padding:1rem; backdrop-filter:blur(2px); }
+  .fb-modal.open { display:flex; }
+  .fb-modal-content { background:var(--white); border-radius:12px; width:100%; max-width:500px; max-height:85vh; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,0.3); }
+  .fb-modal-header { padding:1.5rem; border-bottom:1px solid rgba(0,0,0,0.08); display:flex; justify-content:space-between; align-items:center; }
+  .fb-modal-title { font-family:var(--font-d); font-size:1.5rem; color:var(--black); }
+  .fb-modal-close { background:none; border:none; font-size:1.5rem; cursor:pointer; color:rgba(0,0,0,0.5); padding:0; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+  .fb-modal-close:hover { color:var(--black); }
+  .fb-modal-body { flex:1; overflow-y:auto; }
+  .fb-modal-body iframe { width:100%; height:100%; border:none; }
+  @media (max-width:768px) { .fb-fab { bottom:1.5rem; right:1.5rem; width:52px; height:52px; } .fb-fab svg { width:28px; height:28px; } .fb-modal-content { max-width:90vw; } }
   </style>
 </head>
 <body>
@@ -713,6 +727,23 @@
   <!-- FOOTER (injected by components.js) -->
   <footer id="contact"></footer>
 
+  <!-- FB MODAL -->
+  <button class="fb-fab" id="fbFab" title="Follow us on Facebook">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+  </button>
+
+  <div class="fb-modal" id="fbModal">
+    <div class="fb-modal-content">
+      <div class="fb-modal-header">
+        <h2 class="fb-modal-title">Taipei Cultural Center NY</h2>
+        <button class="fb-modal-close" id="fbClose">✕</button>
+      </div>
+      <div class="fb-modal-body">
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FTPECC.NY&tabs=timeline&width=500&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=" width="500" height="600" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script src="js/lang.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
@@ -722,6 +753,19 @@
   <!-- [AWE-HIDDEN] <script src="js/home-awe-stage.js"></script> -->
   <script type="module" src="js/news-home.js"></script>
   <script>
+    // FB modal control
+    (function() {
+      const fab = document.getElementById('fbFab');
+      const modal = document.getElementById('fbModal');
+      const closeBtn = document.getElementById('fbClose');
+      if (!fab || !modal || !closeBtn) return;
+      fab.addEventListener('click', () => modal.classList.add('open'));
+      closeBtn.addEventListener('click', () => modal.classList.remove('open'));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('open');
+      });
+    })();
+
     // Spray band word cycle
     (function() {
       const words = document.querySelectorAll('.spray-band-words .sbw');

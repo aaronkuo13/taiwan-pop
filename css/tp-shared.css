@@ -235,6 +235,7 @@ img { display:block; max-width:100%; }
 .btn-blue:hover { transform:translate(-1px,-1px); }
 .btn-white  { background:var(--white); color:var(--black); box-shadow:3px 3px 0 rgba(255,255,255,0.2); }
 .btn-white:hover { transform:translate(-1px,-1px); }
+.btn-ended  { background:rgba(0,0,0,0.25); color:var(--black); border-color:rgba(0,0,0,0.3); cursor:default; pointer-events:none; letter-spacing:.1em; }
 .btn-outline { background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,0.3); }
 .btn-outline:hover { border-color:var(--white); }
 .btn-outline-black { background:transparent; color:var(--black); border:1.5px solid rgba(0,0,0,0.3); }
