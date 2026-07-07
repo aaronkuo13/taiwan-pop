@@ -29,12 +29,12 @@
   .film-hero-meta { display: flex; align-items: baseline; gap: 2rem; margin-top: 1.2rem; }
   .film-hero-sub {
     font-family: var(--font-m); font-size: var(--fs-base);
-    line-height: 1.8; color: rgba(255,255,255,0.3);
+    line-height: 1.8; color: rgba(255,255,255,0.6);
     letter-spacing: 0.06em; max-width: 480px;
   }
   .film-hero-count {
     font-family: var(--font-m); font-size: var(--fs-base);
-    letter-spacing: 0.18em; color: rgba(255,255,255,0.18); white-space: nowrap;
+    letter-spacing: 0.18em; color: rgba(255,255,255,0.45); white-space: nowrap;
   }
   .film-hero-count span { color: var(--green); }
 
@@ -101,11 +101,12 @@
     letter-spacing: 0.18em; color: rgba(255,255,255,0.45);
   }
   .film-lb-close {
-    background: none; border: none;
-    color: rgba(255,255,255,0.4); font-size: 1.3rem;
-    cursor: pointer; transition: color 0.2s; padding: 0.3rem;
+    background: rgba(255,255,255,0.08); border: none;
+    color: rgba(255,255,255,0.75); font-size: 1.3rem;
+    cursor: pointer; transition: color 0.2s, background 0.2s;
+    padding: 0.3rem 0.6rem; border-radius: 6px;
   }
-  .film-lb-close:hover { color: white; }
+  .film-lb-close:hover { color: white; background: rgba(255,255,255,0.18); }
 
   .film-lb-body {
     flex: 1; display: grid;
@@ -173,7 +174,7 @@
   /* Bio — full display, no truncation */
   .lb-bio {
     font-family: var(--font-m); font-size: var(--fs-base);
-    line-height: 1.9; color: rgba(255,255,255,0.5);
+    line-height: 1.9; color: rgba(255,255,255,0.85);
     white-space: pre-line;
   }
 
@@ -268,23 +269,31 @@
       flex: 0 0 auto;
     }
 
-    /* 照片：全寬，自然比例 */
+    /* 照片：固定 3/2 框，不裁切，黑邊補齊 */
     .film-lb-main {
       display: block;
       padding: 0;
       min-height: 0;
+      aspect-ratio: 3/2;
+      overflow: hidden;
+      position: relative;
+      background: #000;
     }
     #lbMainPhoto {
+      position: absolute !important;
+      inset: 0 !important;
       width: 100% !important;
-      height: auto !important;
+      height: 100% !important;
       border-radius: 0 !important;
-      display: block;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
     }
     #lbMainPhoto img {
       width: 100% !important;
-      height: auto !important;
+      height: 100% !important;
       border-radius: 0 !important;
-      object-fit: cover;
+      object-fit: contain !important;
       display: block;
     }
 
@@ -323,7 +332,8 @@
       border-top: 1px solid rgba(255,255,255,0.1);
       padding: 0.5rem 1rem 0.6rem;
     }
-    .lb-counter { font-size: 0.8rem; margin-bottom: 0.4rem; }
+    .lb-counter { font-size: 0.8rem; margin-bottom: 0; }
+    .film-lb-thumbs { display: none; }
   }
   </style>
 </head>
@@ -333,7 +343,7 @@
 
 <!-- HERO -->
 <div class="film-hero">
-  <div class="film-hero-eyebrow">底片機計畫 · Taiwan Pop 2026</div>
+  <div class="film-hero-eyebrow">底片機計畫</div>
   <h1 class="film-hero-title">27<br>FRAMES</h1>
   <div class="film-hero-meta">
     <p class="film-hero-sub">27 張底片。沒有預覽、沒有重來。<br>旅美藝術家用底片機記錄真實的紐約日常。</p>
@@ -366,7 +376,6 @@
     <aside class="film-lb-sidebar" id="lbSidebar">
       <!-- 作者資訊 -->
       <div class="lb-section">
-        <div class="lb-section-label">創作者<span class="sep"> · </span>CREATOR</div>
         <div class="lb-avatar-row">
           <div class="lb-avatar" id="lbAvatar"></div>
           <div>
@@ -377,7 +386,6 @@
       </div>
       <!-- 影片（有 videos[] 或 videoUrl 才顯示）-->
       <div class="lb-section" id="lbVideoSection" style="display:none">
-        <div class="lb-section-label">影片<span class="sep"> · </span>ARTIST'S NOTE</div>
         <div id="lbVideoContainer"></div>
         <div class="lb-credits" id="lbCredits" style="display:none"></div>
       </div>
@@ -525,10 +533,15 @@ function makeCellEl(photo, w, h) {
   const imgContent = photo.url
     ? `<img class="ph-img" src="${photo.url}" loading="lazy" alt="${photo.artist.name}">`
     : `<div class="ph-img" style="background:${photo.bg || '#222'}"></div>`;
+  const aName   = photo.artist.name || '';
+  const aNameEn = photo.artist.name_en || photo.artist.nameEn || '';
+  const nameHtml = (aNameEn && aNameEn !== aName)
+    ? `${aName}<br><span style="opacity:0.65">${aNameEn}</span>`
+    : aName;
   btn.innerHTML = `
     ${imgContent}
     <div class="cell-overlay">
-      <span class="cell-name">${photo.artist.name}&nbsp;/&nbsp;${photo.artist.name_en || photo.artist.nameEn || ''}</span>
+      <span class="cell-name">${nameHtml}</span>
     </div>`;
   btn.addEventListener('click', () => openLightbox(photo.poolIdx));
   return btn;
@@ -634,9 +647,7 @@ function updateLbPhoto(photo) {
     }
 
     if (window.innerWidth <= 768) {
-      const w = lbBody.clientWidth;
-      const h = Math.round(w / dAR);
-      img.style.cssText = `display:block;width:${w}px;height:${h}px;object-fit:cover;`;
+      img.style.cssText = `display:block;width:100%;height:100%;object-fit:contain;`;
     } else {
       const maxW = lbBody.clientWidth - 80;
       const maxH = lbBody.clientHeight - 60;
@@ -657,7 +668,10 @@ function updateLbPhoto(photo) {
 
   const artist = photo.artist;
   const nameEn = artist.name_en || artist.nameEn || '';
-  document.getElementById('lbHeaderName').textContent = (nameEn ? nameEn + '  ·  ' : '') + artist.name;
+  const isDupe = !nameEn || nameEn === artist.name;
+  document.getElementById('lbHeaderName').textContent = isDupe
+    ? artist.name
+    : nameEn + '  ·  ' + artist.name;
 }
 
 function updateLbAuthor(artist) {
@@ -673,7 +687,10 @@ function updateLbAuthor(artist) {
 
   // Name / handle / bio
   const lang = window.currentLang || 'zh';
-  document.getElementById('lbAuthorName').textContent = artist.name || '';
+  const displayName = (lang === 'en' && (artist.name_en || artist.nameEn))
+    ? (artist.name_en || artist.nameEn)
+    : (artist.name || '');
+  document.getElementById('lbAuthorName').textContent = displayName;
   document.getElementById('lbAuthorHandle').textContent = artist.handle || '';
   const bioText = (lang === 'en' && artist.bio_en) ? artist.bio_en : (artist.bio || '');
   document.getElementById('lbBio').textContent = bioText;
