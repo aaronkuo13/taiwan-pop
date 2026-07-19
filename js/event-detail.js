@@ -37,7 +37,7 @@
     const ctaHtml = isPast
       ? `<span class="btn btn-ended">${lang === 'en' ? 'Ended' : '已結束'}</span>`
       : ev.externalUrl
-        ? `<a href="${ev.externalUrl}" target="_blank" rel="noopener" class="btn btn-white">${lang === 'en' ? 'Get Tickets' : '立即購票'}</a>`
+        ? `<a href="${ev.externalUrl}" target="_blank" rel="noopener" class="btn btn-white">${lang === 'en' ? (ev.ctaLabel_en || 'Get Tickets') : (ev.ctaLabel || '立即購票')}</a>`
         : '';
 
     const imgSrc = ev.imgInner || ev.img;
