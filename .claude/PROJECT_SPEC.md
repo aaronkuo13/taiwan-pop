@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-06-17（PR #69 底片機計畫照片牆 Mosaic 重構 + 多影片支援）
+> 最後更新：2026-07-19（PR #71 新增活動 #14 共棲地，預設隱藏）
 
 ---
 
@@ -174,6 +174,7 @@ html[lang="en"] .lang-en { display: revert; }
    - 分類標題格式：`01・Body & Sound`（數字 + 間隔號 + 中/英名稱）
    - 副標題：只保留「Feel the xxx」tagline + 日期，移除樂種描述前綴
    - **活動可見度**：由 Firestore `config/events_visibility` 控制（`{num: true/false}`）
+   - **前端預設隱藏機制（PR #71）**：`events.html` / `calendar.html` 讀取 Firestore 時以 `{ '14': false, ...snap.data() }` 合併 — num 14 預設隱藏，後台開啟（寫入 `'14': true`）後以 Firestore 為準
    - 載入中：顯示 `LOADING · 載入中` 佔位
    - 某分類全部關閉 → 顯示 COMING SOON 卡片
    - `window.eventsVisibility = null`（sentinel）→ Firestore fetch 完成後設為實際值，觸發 re-render
@@ -185,6 +186,7 @@ html[lang="en"] .lang-en { display: revert; }
 - Hero subtitle：只保留「Feel the xxx」tagline（移除「室內樂 × 排灣族古謠」等前綴）
 - Section labels：單語言（ZH: 活動介紹 / EN: ABOUT 等），不再顯示雙組
 - CTA 按鈕：有 `externalUrl` → 顯示購票按鈕；無 → 完全隱藏（不顯示 disabled 狀態）
+- CTA 按鈕文字：預設「立即購票 / Get Tickets」，活動可用 `ctaLabel` / `ctaLabel_en` 欄位自訂（PR #71，如 #14「立即報名 / RSVP Now」）；script 版本號 `event-detail.js?v=3`
 - 已移除：回上頁按鈕、演出者職業/樂器說明
 - **Section 順序**：活動介紹 → 預告影片 → 演出曲目 → 演出單位 → 策展人/主講人 → 演出者 → 劇照
 - **Section 說明**：
@@ -245,11 +247,25 @@ html[lang="en"] .lang-en { display: revert; }
 - Hero 左欄：「← 最新消息」置頂，meta + 標題垂直置中（`margin: auto 0`）
 - 標題字體維持原始大小 `clamp(2.5rem, 5.5vw, 5.5rem)`，完整顯示不截斷
 
+### film.html — 底片機計畫照片牆（PR #66 上線，PR #67 手機版，PR #69 Mosaic 重構，PR #70 UX 調整）
+- Firestore `film_project` collection 驅動的 CSS Grid Mosaic 不規則混排照片牆
+- **Hero**：`底片機計畫`（已移除 `· Taiwan Pop 2026` 眉標）
+- **文字亮度（PR #70）**：hero subtitle `rgba(255,255,255,0.6)`、hero count `rgba(255,255,255,0.45)`
+- **Mosaic cell 名稱（PR #70）**：兩行顯示（ZH 名 + EN 名），當 `name_en === name`（英文姓名作者）只顯示一行避免重複
+- **Lightbox header 名稱（PR #70）**：有 `nameEn && nameEn !== name` → `nameEn · name`；否則只顯示 `name`
+- **Lightbox 作者名稱（PR #70）**：語言感知 — EN 模式下優先顯示 `name_en`，ZH 模式顯示 `name`
+- **Lightbox X 關閉按鈕（PR #70）**：加深可見度（半透明白底 `rgba(255,255,255,0.1)` + 高亮度）
+- **bio 文字（PR #70）**：`.lb-bio` 亮度 `rgba(255,255,255,0.85)`
+- **手機版 thumbnail 列（PR #70）**：`display: none`（移除縮圖列，僅保留計數器，避免捲動後點擊混淆）
+- **Section 標籤（PR #70）**：移除「創作者·CREATOR」與「影片·ARTIST'S NOTE」標籤
+- **手機版固定相框（PR #70）**：`aspect-ratio: 3/2` + `object-fit: contain` — 照片在固定比例框中顯示，黑邊填充，無跳動無裁切
+
 ### twpop-manage/index.html — CMS 後台
 - Firebase Auth Email/Password 登入保護
 - **分頁標籤**：文章管理 / 展演活動
 - **文章管理**：列表（含發布狀態）、新增 / 編輯 / 刪除、Quill.js 富文本（中英各一）、Storage 圖片上傳
-- **展演活動**：依日期排序的 8 筆活動，每筆含即時顯示開關 → 寫入 `config/events_visibility`；預設 01/02/03/13 顯示，04/05/06/07 隱藏
+- **展演活動**：依日期排序的 9 筆活動（EVENTS_META 寫死於後台，新增活動需同步加入），每筆含即時顯示開關 → 寫入 `config/events_visibility`；預設 01/02/03/13 顯示，04/05/06/07/14 隱藏
+- ⚠️ 後台活動清單不讀 `js/data.js` — data.js 新增活動時必須同步更新後台 `EVENTS_META` 陣列，否則沒有開關可控制
 - 後台 URL：`taiwanpop.tw/twpop-manage/`
 
 ---
@@ -288,6 +304,7 @@ category, isPrimary, externalUrl
 | 01 | 臺美藝文系列對談（林懷民 × ADF 等） | true | ✓ 完整（speakers: 林懷民、Jodee Nimerichter）；文案待文化部更新 |
 | 04 | 世界之間：跨越疆界的臺灣電影 | true | 待更新 |
 | 13 | 嚴俊傑鋼琴講座暨示範演出 | true | ✓ 完整（performers: 嚴俊傑）；文案待文化部更新 |
+| 14 | 共棲地：生態與藝術的共同實踐（周巧其 × Maria Uriarte） | true | ✓ 完整（speakers 2人含中英 bio、RSVP 表單連結）；⚠️ 預設隱藏，圖片確認後由後台開啟 |
 
 **街頭與生活 street（霓虹綠 #00ff00）**
 | num | 活動 | isPrimary | 詳情完成度 |
@@ -419,7 +436,10 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
+- [ ] 活動 #14 共棲地：圖片最終確認後至後台開啟顯示（目前預設隱藏）
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
+- [x] 新增活動 #14 共棲地：生態與藝術的共同實踐（PR #71）：7/30 講座 + 7/27–31 展覽合併一檔（image 分類）、與談人周巧其/Maria Uriarte 中英 bio、event-detail 支援 ctaLabel 自訂按鈕文字（立即報名/RSVP Now）、前後台預設隱藏機制、三張活動圖由原始照片裁切
+- [x] 底片機計畫 UX 調整（PR #70）：hero 眉標移除年份、文字亮度提升（hero sub→0.6 / count→0.45 / bio→0.85）、X 按鈕加背景加深可見度、手機版移除縮圖列（保留計數）、移除 section 標籤、Mosaic 雙語兩行名稱（同名時不重複）、Lightbox header 名稱去重（英文姓名作者）、語言感知作者名、手機固定 3:2 相框（contain + 黑邊）
 - [x] 底片機計畫照片牆 Mosaic 重構 + 多影片支援（PR #69）：CSS Grid `grid-auto-rows:8px` + `row dense` 不規則混排（最多 3 欄）、直式照片以真實 AR 顯示、lightbox 影片上移至 bio 前、支援 `videos[]` 陣列（含 YouTube Shorts 9:16 偵測）、後台三欄影片輸入
 - [x] 底片機計畫手機版優化（PR #67）：照片牆 2 欄混排、Lightbox 全螢幕垂直捲動（sticky header/footer、作者資訊可見）、nav 閃動修正
 - [x] 底片機計畫功能上線（PR #66）：film.html 照片牆（justified rows + auto-crop shape）、film-artist.html 作者頁、Lightbox 重設計、後台管理（功能開關/作者CRUD/照片壓縮WebP/Hero標記）、nav localStorage快取消閃動
