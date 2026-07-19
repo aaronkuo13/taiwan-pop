@@ -297,6 +297,41 @@ const EVENTS = [
     long_desc_en: 'Presented over four weekends in September 2026, "Between Worlds: Taiwanese Cinema Across Borders" comprises ten feature films and a short film selection, with select titles also available on Metrograph At Home, the theater\'s curated streaming platform. The curatorial framework is structured around four interrelated themes: "Taiwan–U.S. Stories," examining migration and cross-cultural connection; "Gender Equality," highlighting women filmmakers and female-led stories; "Image Poetics & Visual Aesthetics," emphasizing masterworks by Hou Hsiao-hsien, Edward Yang, and Tsai Ming-liang that have shaped Taiwan\'s cinematic identity; and "Diversity & Human Rights," addressing films centering on displacement, labor, and diaspora.\n\nOrganized into three sections—New Wave Foundations, Diaspora Stories, and Cross-Border Collaborations—the series moves from the rise of modern Taiwanese cinema and early explorations of global identity, such as Rebels of the Neon God, Daughter of the Nile, and Yi Yi, to films about the Taiwanese-American experience and migration narratives, including Full Moon in New York, The Wedding Banquet, and Daughter\'s Daughter, and filmmakers and artists working between Taiwan and the U.S., bridging independent and commercial film such as Left Handed Girl, Lucky Lu, Blue Sun Palace, and Shu Qi\'s directorial debut Girl, alongside shorts by filmmakers including Shu Lea Cheang, Erica Sheu. Collectively, these works trace a shared cinematic geography spanning Taipei, New York, and beyond.',
     category:'image', isPrimary:true, externalUrl:''
   },
+  {
+    num:'14', icon:'🌿',
+    img:'images/展演活動_共棲地：生態與藝術的共同實踐.png',
+    imgInner:'images/展演活動內頁_共棲地：生態與藝術的共同實踐.jpg',
+    bannerImg:'images/展演活動Banner_共棲地：生態與藝術的共同實踐.jpg',
+    date:'2026-07-27', endDate:'2026-07-31',
+    time:'Exhibition 10:00 a.m.–4:00 p.m.｜Talk 7/30 6:00 p.m.–7:30 p.m.',
+    title:'共棲地：生態與藝術的共同實踐',
+    title_en:'Borderless Habitat: Ecology and Art in Shared Practice',
+    subtitle:'周巧其 × Maria Uriarte · Feel the Forest.',
+    subtitle_en:'Chiaochi Chou × Maria Uriarte · Feel the Forest.',
+    location:'駐紐約臺北經濟文化辦事處一樓大廳',
+    location_full:'Lobby, Taipei Economic and Cultural Office in New York (TECO-NY), 1 E 42nd St, New York, NY 10017',
+    desc:'「共棲地」講述美國生態學家 Maria Uriarte 與臺灣藝術家周巧其如何合作呈現森林中不可見的生態過程，以創造更多元的當代藝術實踐。兩人共同深入波多黎各森林與紐約都會生活，共同創作記述 El Yunque 森林六十年研究歷程的互動影像作品。7/30 講座之外，同名展覽於 7/27–7/31 在駐紐約臺北經濟文化辦事處一樓大廳展出。',
+    desc_en:'"Borderless Habitat" explores how American ecologist Maria Uriarte and Taiwanese artist Chiaochi Chou collaborate to present the invisible ecological processes within forests, opening up more diverse possibilities for contemporary artistic practice. Moving between the forests of Puerto Rico and the urban life of New York, their collaboration resulted in an interactive moving-image work tracing sixty years of research in El Yunque Forest. Alongside the July 30 talk, the eponymous exhibition runs July 27–31 in the lobby of TECO-NY.',
+    long_desc: '此講座由生態學家 Maria Uriarte 帶領，從環境科學的視角出發，揭示那些在日常中難以察覺的遠方生態現象。微小生命的日常循環，正持續累積並影響著全球生態系統的運作。在與藝術家周巧其的合作實踐中，將遠方森林的氣候資訊、生態變動、以及蘊藏於生物體內的生命歷史，轉譯為可被感知與理解的藝術形式。\n\n兩人共同深入波多黎各森林與紐約都會生活，在彼此的工作中尋索象徵與啟發，共同創作了記述 El Yunque 森林六十年研究歷程之互動影像作品。在橫跨時空的萬物流變中，含攝了生態學家與藝術家對於生命故事的理解與迴響。\n\n講座於 7/30 晚間 6:00–7:00 舉行，會後 7:00–7:30 為交流時間，備有簡單茶點，需事先報名。\n\n同名展覽「共棲地 Borderless Habitat」於 2026 年 7 月 27 日至 31 日（10:00 a.m.–4:00 p.m.）在駐紐約臺北經濟文化辦事處（TECO-NY）一樓大廳展出，展出藝術家為周巧其與所屬團隊 Synphysica。展覽由駐紐約臺北文化中心主辦，亞洲文化協會、水晶公園、Maria Uriarte LAB 與 Chia-Wei Li LAB 協辦支持。',
+    long_desc_en: 'Led by ecologist Maria Uriarte, the lecture begins from the perspective of environmental science, revealing distant ecological phenomena that often remain difficult to perceive in everyday life. The daily cycles of small forms of life continue to accumulate, shaping the operations of global ecosystems. Through her collaboration with artist Chiaochi Chou, climate information, ecological changes, and the life histories embedded within organisms in distant forests are translated into artistic forms that can be perceived and understood.\n\nTogether, Uriarte and Chou move between the forests of Puerto Rico and the urban life of New York, seeking symbols and sources of inspiration within each other\'s practices. Their collaboration resulted in an interactive moving-image work that traces sixty years of research in El Yunque Forest. Across the flux of beings, time, and place, the work holds the understandings and resonances of an ecologist and an artist as they attend to the stories of life.\n\nThe talk takes place on July 30, 6:00–7:00 p.m., followed by a reception from 7:00–7:30 p.m. Light refreshments will be served; advance RSVP is required.\n\nThe eponymous exhibition "Borderless Habitat" runs July 27–31, 2026 (10:00 a.m.–4:00 p.m.) in the lobby of the Taipei Economic and Cultural Office in New York (TECO-NY), featuring works by Chiaochi Chou and her team Synphysica. The exhibition is presented by the Taipei Cultural Center in New York, with support from the Asian Cultural Council, Crystal Park, the Maria Uriarte Lab, and the Chia-Wei Li Lab.',
+    speakersLabel:'與談人', speakersLabel_en:'Speakers',
+    speakers: [
+      {
+        name: '周巧其', name_en: 'Chiaochi Chou',
+        role: '跨領域創作者，Synphysica 代表人', role_en: 'Interdisciplinary Artist; Founder of Synphysica',
+        bio: '周巧其為跨領域藝術家與研究者，實踐橫跨當代藝術與生命科學。她將環境生物學與生物訊號轉譯為沉浸式裝置作品，探索生命與非生命系統之間超越人類中心的交纏關係。現往返臺灣與紐約兩地，擔任哥倫比亞大學生態、演化與環境生物學系（E3B）訪問學者，亦為韓國亞洲文化殿堂（ACC）駐村藝術家與亞洲文化協會（Asian Cultural Council）受獎人。作品曾於奧地利林茲電子藝術中心、亞洲文化殿堂、首爾藝術中心與國立臺灣美術館等地展出，研究成果並發表於 ACM CHI、SIGGRAPH、SIGGRAPH Asia、ACM Multimedia 與 ISEA 等國際會議。',
+        bio_en: 'Chiaochi Chou (TW) is an interdisciplinary artist and researcher bridging contemporary art and life sciences. Her practice transforms environmental biology and bio-signals into immersive installations that explore more-than-human entanglements between living and non-living systems. She is currently based between Taiwan and New York, serving as a visiting scholar with Columbia University\'s E3B. A resident artist at Asia Culture Center (KR) and Asian Cultural Council (ACC) grantee, her work has been exhibited internationally, including Ars Electronica Center, Asia Culture Center, Seoul Arts Center, and National Taiwan Museum of Fine Arts. Her research has been presented at ACM CHI, SIGGRAPH, SIGGRAPH Asia, ACM Multimedia, and ISEA.'
+      },
+      {
+        name: 'Maria Uriarte', name_en: 'Maria Uriarte',
+        role: '生態學家，哥倫比亞大學生態、演化與環境生物學系教授', role_en: 'Ecologist; Professor, Department of Ecology, Evolution and Environmental Biology, Columbia University',
+        bio: 'María Uriarte 為哥倫比亞大學生態、演化與環境生物學系教授，並兼任巴西聖保羅大學生態學系客座教師。她長期研究熱帶地區森林動態的驅動過程，聚焦於極端氣候事件（如颶風）與人類土地利用後的森林復原歷程，以及這些動態對生態系服務的影響，並運用多元的研究方法與工具，目前的研究計畫以波多黎各與巴西為基地。\n\n她的研究曾獲史丹佛大學伍茲環境研究所 Leopold Leadership Fellowship，以及巴西政府 Science without Borders Fellowship 等肯定。Uriarte 擁有耶魯大學環境研究碩士與康乃爾大學生態學博士學位。',
+        bio_en: 'María Uriarte is a Professor in the Department of Ecology, Evolution and Environmental Biology at Columbia University. She also serves as adjunct faculty in the Dept. of Ecology, University of São Paulo, Brazil. Uriarte studies the processes that drive forest dynamics in tropical regions, with a focus on forest recovery after extreme weather events (e.g., hurricanes) and from human land use, and the consequences of these dynamics for ecosystem services. She explores these questions using a range of approaches and tools. Her current projects are based in Puerto Rico and Brazil.\n\nHer work has been recognized with a Leopold Leadership Fellowship from the Woods Institute for the Environment, Stanford University and a Science without Borders Fellowship from the Brazilian government. Uriarte received an M.S. in Environmental Studies from Yale University, and her Ph.D in Ecology from Cornell University.'
+      }
+    ],
+    ctaLabel:'立即報名', ctaLabel_en:'RSVP Now',
+    category:'image', isPrimary:true, externalUrl:'https://docs.google.com/forms/d/e/1FAIpQLSfE0KGG3QLxiYlZUrpH_DT7K4Yhc4f2DN_-7keeIC3BFyv9Rg/viewform'
+  },
 
   /* ── 影像與敘事 · 其他活動 ── */
 

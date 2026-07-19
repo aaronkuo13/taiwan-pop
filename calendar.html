@@ -464,9 +464,10 @@ renderUpcoming();
     (async () => {
       try {
         const snap = await getDoc(doc(db, 'config', 'events_visibility'));
-        window.eventsVisibility = snap.exists() ? snap.data() : {};
+        // '14' 預設隱藏，直到後台明確開啟（Firestore 寫入 '14': true 後以後台為準）
+        window.eventsVisibility = { '14': false, ...(snap.exists() ? snap.data() : {}) };
       } catch (e) {
-        window.eventsVisibility = {};
+        window.eventsVisibility = { '14': false };
       }
       renderCalendar();
       renderUpcoming();
