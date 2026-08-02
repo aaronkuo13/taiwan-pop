@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-08-02（PR #72 後台新增文章與相關報導的 Excel 匯出功能）
+> 最後更新：2026-07-23（PR #73 導覽列/後台文案「底片機計畫」統一改為「27 FRAMES」）
 
 ---
 
@@ -247,9 +247,9 @@ html[lang="en"] .lang-en { display: revert; }
 - Hero 左欄：「← 最新消息」置頂，meta + 標題垂直置中（`margin: auto 0`）
 - 標題字體維持原始大小 `clamp(2.5rem, 5.5vw, 5.5rem)`，完整顯示不截斷
 
-### film.html — 底片機計畫照片牆（PR #66 上線，PR #67 手機版，PR #69 Mosaic 重構，PR #70 UX 調整）
+### film.html — 27 FRAMES 照片牆（PR #66 上線，PR #67 手機版，PR #69 Mosaic 重構，PR #70 UX 調整，PR #73 更名）
 - Firestore `film_project` collection 驅動的 CSS Grid Mosaic 不規則混排照片牆
-- **Hero**：`底片機計畫`（已移除 `· Taiwan Pop 2026` 眉標）
+- **Hero（PR #73）**：eyebrow 小標已移除（原「底片機計畫」與下方大標題「27 / FRAMES」視覺重複），現僅保留大標題
 - **文字亮度（PR #70）**：hero subtitle `rgba(255,255,255,0.6)`、hero count `rgba(255,255,255,0.45)`
 - **Mosaic cell 名稱（PR #70）**：兩行顯示（ZH 名 + EN 名），當 `name_en === name`（英文姓名作者）只顯示一行避免重複
 - **Lightbox header 名稱（PR #70）**：有 `nameEn && nameEn !== name` → `nameEn · name`；否則只顯示 `name`
@@ -262,10 +262,10 @@ html[lang="en"] .lang-en { display: revert; }
 
 ### twpop-manage/index.html — CMS 後台
 - Firebase Auth Email/Password 登入保護
-- **分頁標籤**：文章管理 / 相關報導 / 底片機計畫 / 展演活動
+- **分頁標籤**：文章管理 / 相關報導 / 27 FRAMES（PR #73 由「底片機計畫」更名）/ 展演活動
 - **文章管理**：列表（含發布狀態）、新增 / 編輯 / 刪除、Quill.js 富文本（中英各一）、Storage 圖片上傳、**Excel 匯出**（PR #72）
 - **相關報導**：列表（含顯示狀態）、新增 / 編輯 / 刪除、媒體標籤動態下拉、**Excel 匯出**（PR #72）
-- **底片機計畫**：功能開關 + 作者 CRUD + 照片管理
+- **27 FRAMES**：功能開關 + 作者 CRUD + 照片管理
 - **展演活動**：依日期排序的 9 筆活動（EVENTS_META 寫死於後台，新增活動需同步加入），每筆含即時顯示開關 → 寫入 `config/events_visibility`；預設 01/02/03/13 顯示，04/05/06/07/14 隱藏
 - ⚠️ 後台活動清單不讀 `js/data.js` — data.js 新增活動時必須同步更新後台 `EVENTS_META` 陣列，否則沒有開關可控制
 - **Excel 匯出（PR #72）**：文章管理 / 相關報導各自獨立按鈕，用 SheetJS（CDN）產生 `.xlsx`，查詢全部資料（含草稿/隱藏）
@@ -420,6 +420,7 @@ updatedAt    Timestamp
 - `lang-init.js` 必須最後載入，`setLang()` 呼叫後 re-render 所有動態區塊
 - 動態頁面（news / article）透過 `window.reRenderNews` hook 響應語言切換
 - **手機版 Navbar**（PR #59）：`components.js` mobile overlay 已移除右側 EN 縮寫（CONCEPT/NEWS 等）、社群連結 icon-only（移除文字）
+- **導覽列命名（PR #73）**：`nav-film` 中英文皆為 `27 FRAMES`（原 ZH「底片機計畫」/ EN「On Film」），對齊頁面內文大標題；`components.js` 硬編碼 fallback 文字需與 `lang.js` 同步
 
 ---
 
@@ -448,6 +449,7 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
+- [x] 導覽列與後台文案「底片機計畫」統一改為「27 FRAMES」（PR #73）：`lang.js` nav-film 中英文皆改、`components.js` 硬編碼 fallback 同步、`film.html` 移除重複的 hero eyebrow、後台分頁標籤/區塊標題/toast 訊息同步更新
 - [x] 後台新增文章與相關報導的 Excel 匯出功能（PR #72）：SheetJS CDN、各自獨立按鈕、含草稿/隱藏全量匯出、內容欄位純文字化、文章連結自動組出
 - [ ] 活動 #14 共棲地：圖片最終確認後至後台開啟顯示（目前預設隱藏）
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
