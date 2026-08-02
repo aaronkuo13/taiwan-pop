@@ -490,7 +490,7 @@
       <div class="section-tabs">
         <button class="section-tab active" data-section="articles">文章管理</button>
         <button class="section-tab" data-section="press">相關報導</button>
-        <button class="section-tab" data-section="film">底片機計畫</button>
+        <button class="section-tab" data-section="film">27 FRAMES</button>
         <button class="section-tab" data-section="events">展演活動</button>
       </div>
 
@@ -553,7 +553,7 @@
         <!-- Feature toggle -->
         <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;">
           <div>
-            <div style="font-size:14px;font-weight:600;margin-bottom:4px;">底片機計畫 — 功能開關</div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:4px;">27 FRAMES — 功能開關</div>
             <div style="font-size:13px;color:var(--muted);">關閉時，前台導覽列不顯示此連結，直接訪問頁面會跳回首頁</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
@@ -566,7 +566,7 @@
         </div>
 
         <div class="toolbar">
-          <h2>底片機計畫 — 作者管理</h2>
+          <h2>27 FRAMES — 作者管理</h2>
           <button class="btn-primary" id="new-film-btn">+ 新增作者</button>
         </div>
         <div id="film-list-admin">
@@ -1555,7 +1555,7 @@
         await setDoc(doc(db, 'config', 'film_project_visibility'), { visible: isOn });
         document.getElementById('film-vis-status').textContent = isOn ? '已開啟' : '已關閉';
         document.getElementById('film-vis-status').style.color = isOn ? 'var(--green)' : 'var(--muted)';
-        showToast(isOn ? '底片機計畫已開啟' : '底片機計畫已關閉');
+        showToast(isOn ? '27 FRAMES 已開啟' : '27 FRAMES 已關閉');
       } catch(e) {
         showToast('儲存失敗：' + e.message, 'error');
         this.checked = !isOn;
