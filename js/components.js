@@ -43,7 +43,7 @@
         <li><a href="${href.concept}"  class="${'nav-link' + activeClass('concept')}"  data-i18n="nav-concept">策劃理念</a></li>
         <li><a href="${href.news}"     class="${'nav-link' + activeClass('news')}"     data-i18n="nav-news">最新消息</a></li>
         <li><a href="${href.press}"    class="${'nav-link' + activeClass('press')}"    data-i18n="nav-press">相關報導</a></li>
-        <li id="nav-film-item" style="display:none"><a href="${href.film}" class="${'nav-link' + activeClass('film')}" data-i18n="nav-film">底片機計畫</a></li>
+        <li id="nav-film-item" style="display:none"><a href="${href.film}" class="${'nav-link' + activeClass('film')}" data-i18n="nav-film">27 FRAMES</a></li>
         <li><a href="${href.events}"   class="${'nav-link' + activeClass('events')}"   data-i18n="nav-events">展演活動</a></li>
         <li><a href="${href.calendar}" class="${'nav-link' + activeClass('calendar')}" data-i18n="nav-calendar">行事曆</a></li>
       </ul>
@@ -77,7 +77,7 @@
       <a href="${href.concept}"><span data-i18n="nav-concept">策劃理念</span></a>
       <a href="${href.news}"><span data-i18n="nav-news">最新消息</span></a>
       <a href="${href.press}"><span data-i18n="nav-press">相關報導</span></a>
-      <a href="${href.film}" id="mobile-nav-film-item" style="display:none"><span data-i18n="nav-film">底片機計畫</span></a>
+      <a href="${href.film}" id="mobile-nav-film-item" style="display:none"><span data-i18n="nav-film">27 FRAMES</span></a>
       <a href="${href.events}"><span data-i18n="nav-events">展演活動</span></a>
       <a href="${href.calendar}"><span data-i18n="nav-calendar">行事曆</span></a>
       <div class="tp-nav-mobile-social">

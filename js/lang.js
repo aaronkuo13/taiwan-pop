@@ -5,7 +5,7 @@ const LANG = {
   zh: {
     /* Navbar */
     'nav-concept':'策劃理念',
-    'nav-news':'最新消息','nav-press':'相關報導','nav-film':'底片機計畫','nav-events':'展演活動',
+    'nav-news':'最新消息','nav-press':'相關報導','nav-film':'27 FRAMES','nav-events':'展演活動',
     'nav-calendar':'行事曆',
     /* a-we NYC Run */
     'game-awe-title':'a-we <span>紐約</span>跑酷',
@@ -73,7 +73,7 @@ const LANG = {
   en: {
     /* Navbar */
     'nav-concept':'TAIWAN POP',
-    'nav-news':'News','nav-press':'Press','nav-film':'On Film','nav-events':'Events',
+    'nav-news':'News','nav-press':'Press','nav-film':'27 FRAMES','nav-events':'Events',
     'nav-calendar':'Schedule',
     /* a-we NYC Run */
     'game-awe-title':'a-we <span>NYC</span> Run',
