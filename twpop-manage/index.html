@@ -498,7 +498,10 @@
       <div id="section-articles">
         <div class="toolbar">
           <h2>文章管理</h2>
-          <button class="btn-primary" id="new-article-btn">+ 新增文章</button>
+          <div style="display:flex;gap:10px;">
+            <button class="btn-upload" id="export-articles-btn">匯出 Excel</button>
+            <button class="btn-primary" id="new-article-btn">+ 新增文章</button>
+          </div>
         </div>
         <div id="articles-list">
           <table class="articles-table">
@@ -522,7 +525,10 @@
       <div id="section-press" style="display:none">
         <div class="toolbar">
           <h2>相關報導</h2>
-          <button class="btn-primary" id="new-press-btn">+ 新增報導</button>
+          <div style="display:flex;gap:10px;">
+            <button class="btn-upload" id="export-press-btn">匯出 Excel</button>
+            <button class="btn-primary" id="new-press-btn">+ 新增報導</button>
+          </div>
         </div>
         <div id="press-list-admin">
           <table class="articles-table">
@@ -850,6 +856,7 @@
   <div class="toast" id="toast"></div>
 
   <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
   <script type="module">
     import { db, auth, storage } from '../js/firebase.js';
     import {
@@ -924,6 +931,14 @@
         handlers: { image: () => makeImageHandler(quillEn)() }
       }}
     });
+
+    // ── Strip HTML tags for plain-text export ──
+    function stripHtml(html) {
+      if (!html) return '';
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    }
 
     // ── Toast ──
     function showToast(msg, type = 'success') {
@@ -1003,6 +1018,48 @@
         tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入失敗</td></tr>';
       }
     }
+
+    // ── Export articles to Excel ──
+    async function exportArticlesToExcel() {
+      const btn = document.getElementById('export-articles-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '匯出中...';
+      try {
+        const snap = await getDocs(collection(db, 'articles'));
+        const articles = [];
+        snap.forEach(d => articles.push({ id: d.id, ...d.data() }));
+        articles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+        const rows = articles.map(a => ({
+          '日期': a.date || '',
+          '分類': a.category || '',
+          '標題（中文）': a.title || '',
+          'Title (English)': a.title_en || '',
+          '內容（中文，純文字）': stripHtml(a.content),
+          'Content (English, plain text)': stripHtml(a.content_en),
+          '封面圖片網址': a.coverImage || '',
+          '已發佈': a.published ? '是' : '否',
+          '文章連結': `https://taiwanpop.tw/article.html?id=${a.id}`,
+          '建立時間': a.createdAt?.toDate ? a.createdAt.toDate().toLocaleString('zh-TW') : '',
+          '更新時間': a.updatedAt?.toDate ? a.updatedAt.toDate().toLocaleString('zh-TW') : '',
+        }));
+
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, '文章');
+        const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        XLSX.writeFile(wb, `taiwanpop-articles-${dateStr}.xlsx`);
+        showToast(`已匯出 ${rows.length} 筆文章`);
+      } catch (err) {
+        console.error(err);
+        showToast('匯出失敗：' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+    document.getElementById('export-articles-btn').addEventListener('click', exportArticlesToExcel);
 
     // ── Modal ──
     function openModal() {
@@ -1238,6 +1295,46 @@
         tbody.innerHTML = '<tr><td colspan="5" class="table-empty">載入失敗</td></tr>';
       }
     }
+
+    // ── Export press coverage to Excel ──
+    async function exportPressToExcel() {
+      const btn = document.getElementById('export-press-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '匯出中...';
+      try {
+        const snap = await getDocs(collection(db, 'press_coverage'));
+        const items = [];
+        snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+        items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+        const rows = items.map(a => ({
+          '日期': a.date || '',
+          '媒體（中文）': a.media || '',
+          'Media (English)': a.media_en || '',
+          '標題（中文）': a.title || '',
+          'Title (English)': a.title_en || '',
+          '報導連結': a.url || '',
+          '顯示中': a.visible !== false ? '是' : '否',
+          '建立時間': a.createdAt?.toDate ? a.createdAt.toDate().toLocaleString('zh-TW') : '',
+          '更新時間': a.updatedAt?.toDate ? a.updatedAt.toDate().toLocaleString('zh-TW') : '',
+        }));
+
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, '相關報導');
+        const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        XLSX.writeFile(wb, `taiwanpop-press-${dateStr}.xlsx`);
+        showToast(`已匯出 ${rows.length} 筆報導`);
+      } catch (err) {
+        console.error(err);
+        showToast('匯出失敗：' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+    document.getElementById('export-press-btn').addEventListener('click', exportPressToExcel);
 
     function openPressModal() {
       document.getElementById('press-modal').classList.add('open');
