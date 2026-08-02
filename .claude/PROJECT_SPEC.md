@@ -435,6 +435,13 @@ gh pr create --title "..." --body "..."
 gh pr merge [num] --merge --delete-branch
 ```
 
+### ⚠️ 快取規則（Cache Busting）
+
+- GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
+- **修改 `js/data.js` 時，必須同步升版所有 HTML 的 script 版本號**（目前 data.js 未帶版本號，首次修改時加上 `?v=2`）
+- 已有版本號的檔案：`event-detail.js?v=3`、`tp-shared.css?v=2`、`style.css?v=2`
+- 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
+
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
 
 ---
