@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-07-19（PR #71 新增活動 #14 共棲地，預設隱藏）
+> 最後更新：2026-08-02（PR #72 後台新增文章與相關報導的 Excel 匯出功能）
 
 ---
 
@@ -262,10 +262,15 @@ html[lang="en"] .lang-en { display: revert; }
 
 ### twpop-manage/index.html — CMS 後台
 - Firebase Auth Email/Password 登入保護
-- **分頁標籤**：文章管理 / 展演活動
-- **文章管理**：列表（含發布狀態）、新增 / 編輯 / 刪除、Quill.js 富文本（中英各一）、Storage 圖片上傳
+- **分頁標籤**：文章管理 / 相關報導 / 底片機計畫 / 展演活動
+- **文章管理**：列表（含發布狀態）、新增 / 編輯 / 刪除、Quill.js 富文本（中英各一）、Storage 圖片上傳、**Excel 匯出**（PR #72）
+- **相關報導**：列表（含顯示狀態）、新增 / 編輯 / 刪除、媒體標籤動態下拉、**Excel 匯出**（PR #72）
+- **底片機計畫**：功能開關 + 作者 CRUD + 照片管理
 - **展演活動**：依日期排序的 9 筆活動（EVENTS_META 寫死於後台，新增活動需同步加入），每筆含即時顯示開關 → 寫入 `config/events_visibility`；預設 01/02/03/13 顯示，04/05/06/07/14 隱藏
 - ⚠️ 後台活動清單不讀 `js/data.js` — data.js 新增活動時必須同步更新後台 `EVENTS_META` 陣列，否則沒有開關可控制
+- **Excel 匯出（PR #72）**：文章管理 / 相關報導各自獨立按鈕，用 SheetJS（CDN）產生 `.xlsx`，查詢全部資料（含草稿/隱藏）
+  - 文章：日期／分類／標題（中文）／Title (English)／內容（中文，純文字，`stripHtml()` 去 HTML 標籤）／Content (English, plain text)／封面圖片網址／已發佈（是/否）／文章連結（`https://taiwanpop.tw/article.html?id=xxx`）／建立時間／更新時間 → `taiwanpop-articles-YYYYMMDD.xlsx`
+  - 相關報導：日期／媒體（中文）／Media (English)／標題（中文）／Title (English)／報導連結／顯示中（是/否）／建立時間／更新時間 → `taiwanpop-press-YYYYMMDD.xlsx`
 - 後台 URL：`taiwanpop.tw/twpop-manage/`
 
 ---
@@ -436,6 +441,7 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
+- [x] 後台新增文章與相關報導的 Excel 匯出功能（PR #72）：SheetJS CDN、各自獨立按鈕、含草稿/隱藏全量匯出、內容欄位純文字化、文章連結自動組出
 - [ ] 活動 #14 共棲地：圖片最終確認後至後台開啟顯示（目前預設隱藏）
 - [ ] 填入各活動 `externalUrl` 報名連結（直接改 data.js）
 - [x] 新增活動 #14 共棲地：生態與藝術的共同實踐（PR #71）：7/30 講座 + 7/27–31 展覽合併一檔（image 分類）、與談人周巧其/Maria Uriarte 中英 bio、event-detail 支援 ctaLabel 自訂按鈕文字（立即報名/RSVP Now）、前後台預設隱藏機制、三張活動圖由原始照片裁切
