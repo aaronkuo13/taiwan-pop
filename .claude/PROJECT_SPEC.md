@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-07-23（PR #74 活動 #04 內容更新為「JIĀ：家的歷史」臺灣電影影展）
+> 最後更新：2026-07-23（PR #75 修正後台 EVENTS_META 同步活動 #04 標題/日期）
 
 ---
 
@@ -453,6 +453,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 活動 #04 JIĀ：家的歷史：確認內容無誤後至後台開啟顯示（目前 Firestore 隱藏）
+- [x] 修正後台 EVENTS_META 未同步活動 #04 新標題/日期（PR #75）：PR #74 漏改後台寫死清單，導致後台仍顯示舊標題「世界之間：跨越疆界的臺灣電影」與舊日期
 - [x] 活動 #04 內容全面更新為「JIĀ：家的歷史」臺灣電影影展（PR #74）：標題/日期(09.04–09.20)/desc/long_desc 改寫、新增 `screenings` 資料結構（9 部片含劇照/導演/年份/片長/格式/場次/Q&A）、`event-detail.js` 新增獨立渲染區塊（不影響既有 program 欄位活動）、CTA 接 Metrograph 售票連結、`data.js` 首次加上版本號 `?v=2`、圖片改名 + 新增 `images/jia-screenings/` 9 張劇照
 - [x] 導覽列與後台文案「底片機計畫」統一改為「27 FRAMES」（PR #73）：`lang.js` nav-film 中英文皆改、`components.js` 硬編碼 fallback 同步、`film.html` 移除重複的 hero eyebrow、後台分頁標籤/區塊標題/toast 訊息同步更新
 - [x] 後台新增文章與相關報導的 Excel 匯出功能（PR #72）：SheetJS CDN、各自獨立按鈕、含草稿/隱藏全量匯出、內容欄位純文字化、文章連結自動組出
