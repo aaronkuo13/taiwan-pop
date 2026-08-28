@@ -282,20 +282,87 @@ const EVENTS = [
   },
   {
     num:'04', icon:'🎬',
-    img:'images/展演活動_世界之間：跨越疆界的臺灣電影.png',
-    imgInner:'images/展演活動內頁_世界之間：跨越疆界的臺灣電影.jpg',
-    bannerImg:'images/展演活動Banner_世界之間：跨越疆界的臺灣電影.webp',
-    date:'2026-09-01', endDate:'2026-09-30',
-    title:'世界之間：跨越疆界的臺灣電影',
-    title_en:'Between Worlds: Taiwanese Cinema Across Borders',
-    subtitle:'電影影展 · Feel the Frame.',
-    subtitle_en:'Film Festival at Metrograph · Feel the Frame.',
+    img:'images/展演活動_JIA：家的歷史.png',
+    imgInner:'images/展演活動內頁_JIA：家的歷史.jpg',
+    bannerImg:'images/展演活動Banner_JIA：家的歷史.png',
+    date:'2026-09-04', endDate:'2026-09-20',
+    title:'JIĀ：家的歷史',
+    title_en:'JIĀ: Histories of Home',
+    subtitle:'臺灣電影影展 · Feel the Home.',
+    subtitle_en:'Taiwan Cinema Series · Feel the Home.',
     location:'Metrograph, 7 Ludlow St, New York',
-    desc:'「世界之間：跨越疆界的臺灣電影」是紐約 Metrograph 電影院與駐紐約臺北文化中心合作推出的臺灣主題影展，預計於 2026 年 9 月舉行，放映 10 部長片與 1 場短片選集。以「邊界、遷徙與歸屬」為策展主軸，透過侯孝賢、楊德昌、李安、張艾嘉等經典導演作品，並串連鄒時擎、曾佩裕、舒淇等新世代創作者，呈現臺灣電影如何在亞洲與美洲之間，持續開啟關於移民、身份與家庭的對話。',
-    desc_en:'"Between Worlds: Taiwanese Cinema Across Borders" is a Taiwan-focused film series co-presented by Metrograph and the Taipei Cultural Center in New York, scheduled for September 2026. Featuring ten feature films and one short film program, the series explores themes of borders, migration, and belonging. It brings together landmark works by Hou Hsiao-hsien, Edward Yang, Ang Lee, and Sylvia Chang alongside recent films by emerging voices such as Shih-Ching Tsou, Constance Tsang, and Shu Qi, tracing how Taiwanese cinema navigates questions of identity and family across Asia and the Americas.',
-    long_desc: '「世界之間：跨越疆界的臺灣電影」（Between Worlds: Taiwanese Cinema Across Borders）將於 2026 年 9 月在紐約指標性獨立電影院 Metrograph 舉行，預計放映 10 部長片及 1 場短片選集，並搭配實體映後座談與 Metrograph At Home 串流放映。影展以「邊界」、「遷徙」與「歸屬」為策展主題，透過經典與當代作品並陳，呈現臺灣電影如何在全球現代性與個人記憶之間，持續探索移民經驗、身份認同與家庭關係。\n\n片單涵蓋臺灣新浪潮的重要里程碑，如蔡明亮《青少年哪吒》、侯孝賢《尼羅河女兒》、楊德昌《一一》，以及關錦鵬執導、張艾嘉主演的《三個女人的故事》，並延伸到李安《喜宴》等臺美跨國經典。同時也聚焦近年備受矚目的新作，包括鄒時擎與製片 Sean Baker 合作的《左撇子女孩》、勞埃德李崔與張震合作的《幸福之路》（Lucky Lu）、曾佩裕執導的《藍色太陽宮》、黃熙《女兒的女兒》，以及舒淇導演處女作《女孩》，並規劃一場由鄭淑麗、徐瑤（Erica Sheu）等創作者組成的短片選集。\n\n影展將邀請多位導演與影人親臨現場，舉辦映前 / 映後座談，並舉辦開幕活動，邀集紐約影視與藝文界人士交流，期望在 Metrograph 長年累積的高黏著度觀眾基礎上，進一步擴大臺灣電影在美國主流影藝圈的能見度。',
-    long_desc_en: 'Presented over four weekends in September 2026, "Between Worlds: Taiwanese Cinema Across Borders" comprises ten feature films and a short film selection, with select titles also available on Metrograph At Home, the theater\'s curated streaming platform. The curatorial framework is structured around four interrelated themes: "Taiwan–U.S. Stories," examining migration and cross-cultural connection; "Gender Equality," highlighting women filmmakers and female-led stories; "Image Poetics & Visual Aesthetics," emphasizing masterworks by Hou Hsiao-hsien, Edward Yang, and Tsai Ming-liang that have shaped Taiwan\'s cinematic identity; and "Diversity & Human Rights," addressing films centering on displacement, labor, and diaspora.\n\nOrganized into three sections—New Wave Foundations, Diaspora Stories, and Cross-Border Collaborations—the series moves from the rise of modern Taiwanese cinema and early explorations of global identity, such as Rebels of the Neon God, Daughter of the Nile, and Yi Yi, to films about the Taiwanese-American experience and migration narratives, including Full Moon in New York, The Wedding Banquet, and Daughter\'s Daughter, and filmmakers and artists working between Taiwan and the U.S., bridging independent and commercial film such as Left Handed Girl, Lucky Lu, Blue Sun Palace, and Shu Qi\'s directorial debut Girl, alongside shorts by filmmakers including Shu Lea Cheang, Erica Sheu. Collectively, these works trace a shared cinematic geography spanning Taipei, New York, and beyond.',
-    category:'image', isPrimary:true, externalUrl:''
+    desc:'「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。主辦單位為文化部駐紐約臺北文化中心。',
+    desc_en:'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs. Presented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan.',
+    long_desc: '「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。\n\n本影展由文化部駐紐約臺北文化中心主辦，於紐約指標性獨立電影院 Metrograph 舉行，共放映 9 部長片，橫跨侯孝賢、楊德昌、蔡明亮等臺灣新電影巨匠的經典之作，並延伸至鄒時擎執導的當代新作《左撇子女孩》，映後將安排導演親臨現場座談。',
+    long_desc_en: 'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs.\n\nPresented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan, the series screens nine feature films at Metrograph, New York\'s landmark independent cinema — spanning landmark works by Taiwan New Cinema masters Hou Hsiao-Hsien, Edward Yang, and Tsai Ming-Liang, alongside Shih-Ching Tsou\'s contemporary film "The Left-Handed Girl," followed by a post-screening Q&A with the director.',
+    screenings: [
+      {
+        title:'燒肉粽', title_en:'The Rice Dumpling Vendors',
+        director:'辛奇', director_en:'Hsin Chi',
+        meta:'1969｜84 分鐘｜DCP', meta_en:'1969｜84 min｜DCP',
+        showtimes:['9/13（日）2:45pm'], showtimes_en:['Sun Sep 13, 2:45pm'],
+        photo:'images/jia-screenings/the-rice-dumpling-vendors.jpg'
+      },
+      {
+        title:'尼羅河女兒', title_en:'Daughter of the Nile',
+        director:'侯孝賢', director_en:'Hou Hsiao-Hsien',
+        meta:'1987｜91 分鐘｜DCP', meta_en:'1987｜91 min｜DCP',
+        showtimes:['9/4（五）5:15pm','9/5（六）5:15pm'], showtimes_en:['Fri Sep 4, 5:15pm','Sat Sep 5, 5:15pm'],
+        photo:'images/jia-screenings/daughter-of-the-nile.jpg'
+      },
+      {
+        title:'牯嶺街少年殺人事件', title_en:'A Brighter Summer Day',
+        director:'楊德昌', director_en:'Edward Yang',
+        meta:'1991｜237 分鐘｜DCP', meta_en:'1991｜237 min｜DCP',
+        showtimes:['9/5（日）1:35pm','9/7（一）1:35pm'], showtimes_en:['Sat Sep 5, 1:35pm','Mon Sep 7, 1:35pm'],
+        photo:'images/jia-screenings/a-brighter-summer-day.jpg'
+      },
+      {
+        title:'兒子的大玩偶', title_en:'The Sandwich Man',
+        director:'侯孝賢、曾壯祥、萬仁', director_en:'Hou Hsiao-Hsien, Tseng Chuang-Hsiang, Wan Jen',
+        meta:'1983｜105 分鐘｜DCP', meta_en:'1983｜105 min｜DCP',
+        showtimes:['9/12（六）12:00pm'], showtimes_en:['Sat Sep 12, 12:00pm'],
+        photo:'images/jia-screenings/the-sandwich-man.jpg'
+      },
+      {
+        title:'戀戀風塵', title_en:'Dust in the Wind',
+        director:'侯孝賢', director_en:'Hou Hsiao-Hsien',
+        meta:'1986｜108 分鐘｜DCP', meta_en:'1986｜108 min｜DCP',
+        showtimes:['9/12（六）8:40pm','9/13（日）8:40pm'], showtimes_en:['Sat Sep 12, 8:40pm','Sun Sep 13, 8:40pm'],
+        photo:'images/jia-screenings/dust-in-the-wind.jpg'
+      },
+      {
+        title:'青少年哪吒', title_en:'Rebels of the Neon God',
+        director:'蔡明亮', director_en:'Tsai Ming-Liang',
+        meta:'1992｜106 分鐘｜DCP', meta_en:'1992｜106 min｜DCP',
+        showtimes:['9/12（六）11:00pm'], showtimes_en:['Sat Sep 12, 11:00pm'],
+        photo:'images/jia-screenings/rebels-of-the-neon-god.jpg'
+      },
+      {
+        title:'一一', title_en:'Yi Yi',
+        director:'楊德昌', director_en:'Edward Yang',
+        meta:'2000｜173 分鐘｜DCP', meta_en:'2000｜173 min｜DCP',
+        showtimes:['9/18（五）2:40pm','9/20（日）2:40pm'], showtimes_en:['Fri Sep 18, 2:40pm','Sun Sep 20, 2:40pm'],
+        photo:'images/jia-screenings/yi-yi.jpg'
+      },
+      {
+        title:'左撇子女孩', title_en:'The Left-Handed Girl',
+        director:'鄒時擎', director_en:'Shih-Ching Tsou',
+        meta:'2025｜109 分鐘｜35mm', meta_en:'2025｜109 min｜35mm',
+        showtimes:['9/18（五）6:00pm'], showtimes_en:['Fri Sep 18, 6:00pm'],
+        note:'★ 映後 Q&A｜導演鄒時擎出席', note_en:'★ Q&A with director Shih-Ching Tsou following the screening',
+        photo:'images/jia-screenings/the-left-handed-girl.jpg'
+      },
+      {
+        title:'郊遊', title_en:'Stray Dogs',
+        director:'蔡明亮', director_en:'Tsai Ming-Liang',
+        meta:'2013｜135 分鐘｜DCP', meta_en:'2013｜135 min｜DCP',
+        showtimes:['9/18（五）6:10pm','9/20（日）6:10pm'], showtimes_en:['Fri Sep 18, 6:10pm','Sun Sep 20, 6:10pm'],
+        photo:'images/jia-screenings/stray-dogs.jpg'
+      }
+    ],
+    ctaLabel:'立即購票', ctaLabel_en:'Get Tickets',
+    category:'image', isPrimary:true, externalUrl:'https://metrograph.com/histories-of-home/'
   },
   {
     num:'14', icon:'🌿',

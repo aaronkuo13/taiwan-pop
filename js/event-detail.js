@@ -186,6 +186,40 @@
       programEl.classList.add('is-hidden');
     }
 
+    /* Screenings (film series) */
+    const screeningsEl = document.getElementById('detailScreenings');
+    if (ev.screenings && ev.screenings.length) {
+      const labelScr = lang === 'en' ? 'SCREENINGS' : '放映片單';
+      screeningsEl.innerHTML = `
+        <span class="ev-section-label">${labelScr}</span>
+        <div class="ev-screenings">
+          ${ev.screenings.map(s => {
+            const title   = lang === 'en' ? s.title_en : s.title;
+            const titleSub = lang === 'en' ? s.title : s.title_en;
+            const director = (lang === 'en' && s.director_en) ? s.director_en : s.director;
+            const meta    = (lang === 'en' && s.meta_en)    ? s.meta_en    : s.meta;
+            const times   = (lang === 'en' && s.showtimes_en) ? s.showtimes_en : (s.showtimes || []);
+            const note    = (lang === 'en' && s.note_en)    ? s.note_en    : s.note;
+            const photoHtml = s.photo
+              ? `<div class="ev-screening-photo"><img src="${s.photo}" alt="${title}" loading="lazy"></div>`
+              : '';
+            return `<div class="ev-screening-item">
+              ${photoHtml}
+              <div>
+                <div class="ev-screening-title">${title}</div>
+                ${titleSub ? `<div class="ev-screening-title-en">${titleSub}</div>` : ''}
+                <div class="ev-screening-meta">${director}｜${meta}</div>
+                <div class="ev-screening-showtimes">${times.map(t => `<span>${t}</span>`).join('')}</div>
+                ${note ? `<div class="ev-screening-note">${note}</div>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>`;
+      screeningsEl.classList.remove('is-hidden');
+    } else {
+      screeningsEl.classList.add('is-hidden');
+    }
+
     /* Ensemble */
     const ensembleEl = document.getElementById('detailEnsemble');
     if (ev.ensemble) {

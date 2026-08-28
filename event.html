@@ -195,6 +195,40 @@
   }
   .ev-program-en { font-size: var(--fs-base); color: rgba(255,255,255,0.3); margin-top: 0.2rem; font-style: italic; }
 
+  /* screenings (film series) */
+  .ev-screenings { display: flex; flex-direction: column; max-width: 880px; }
+  .ev-screening-item {
+    display: grid; grid-template-columns: 240px 1fr;
+    gap: 1.5rem; align-items: center;
+    padding: 1.4rem 0; border-bottom: 1px solid var(--border);
+  }
+  .ev-screening-item:first-child { border-top: 1px solid var(--border); }
+  .ev-screening-photo {
+    width: 240px; aspect-ratio: 16/9; overflow: hidden;
+    background: #111;
+  }
+  .ev-screening-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ev-screening-title { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 0.03em; line-height: 1.2; }
+  .ev-screening-title-en { font-size: var(--fs-base); color: rgba(255,255,255,0.4); font-style: italic; margin-top: 0.15rem; }
+  .ev-screening-meta {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    letter-spacing: 0.06em; color: rgba(255,255,255,0.5);
+    margin-top: 0.5rem;
+  }
+  .ev-screening-showtimes {
+    font-family: var(--font-m); font-size: var(--fs-base);
+    color: var(--green); margin-top: 0.4rem;
+    display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
+  }
+  .ev-screening-note {
+    font-size: var(--fs-base); color: rgba(255,255,255,0.6);
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 640px) {
+    .ev-screening-item { grid-template-columns: 1fr; gap: 0.6rem; }
+    .ev-screening-photo { width: 100%; }
+  }
+
   /* ensemble */
   .ev-ensemble {
     display: grid; grid-template-columns: 200px 1fr;
@@ -289,6 +323,7 @@
       <div id="detailSubEvents"  class="ev-section is-hidden"></div>
       <div id="detailVideo"      class="ev-section is-hidden"></div>
       <div id="detailProgram"    class="ev-section is-hidden"></div>
+      <div id="detailScreenings" class="ev-section is-hidden"></div>
       <div id="detailEnsemble"   class="ev-section is-hidden"></div>
       <div id="detailSpeakers"   class="ev-section is-hidden"></div>
       <div id="detailPerformers" class="ev-section is-hidden"></div>
@@ -299,11 +334,11 @@
   <footer id="contact"></footer>
 
   <script src="js/lang.js"></script>
-  <script src="js/data.js"></script>
+  <script src="js/data.js?v=2"></script>
   <script src="js/components.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/reveal.js"></script>
   <script src="js/lang-init.js"></script>
-  <script src="js/event-detail.js?v=3"></script>
+  <script src="js/event-detail.js?v=4"></script>
 </body>
 </html>
