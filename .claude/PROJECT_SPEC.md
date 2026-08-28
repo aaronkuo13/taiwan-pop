@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-07-23（PR #73 導覽列/後台文案「底片機計畫」統一改為「27 FRAMES」）
+> 最後更新：2026-07-23（PR #74 活動 #04 內容更新為「JIĀ：家的歷史」臺灣電影影展）
 
 ---
 
@@ -186,12 +186,13 @@ html[lang="en"] .lang-en { display: revert; }
 - Hero subtitle：只保留「Feel the xxx」tagline（移除「室內樂 × 排灣族古謠」等前綴）
 - Section labels：單語言（ZH: 活動介紹 / EN: ABOUT 等），不再顯示雙組
 - CTA 按鈕：有 `externalUrl` → 顯示購票按鈕；無 → 完全隱藏（不顯示 disabled 狀態）
-- CTA 按鈕文字：預設「立即購票 / Get Tickets」，活動可用 `ctaLabel` / `ctaLabel_en` 欄位自訂（PR #71，如 #14「立即報名 / RSVP Now」）；script 版本號 `event-detail.js?v=3`
+- CTA 按鈕文字：預設「立即購票 / Get Tickets」，活動可用 `ctaLabel` / `ctaLabel_en` 欄位自訂（PR #71，如 #14「立即報名 / RSVP Now」）；script 版本號 `event-detail.js?v=4`
 - 已移除：回上頁按鈕、演出者職業/樂器說明
-- **Section 順序**：活動介紹 → 預告影片 → 演出曲目 → 演出單位 → 策展人/主講人 → 演出者 → 劇照
+- **Section 順序**：活動介紹 → 預告影片 → 演出曲目 → 放映片單 → 演出單位 → 策展人/主講人 → 演出者 → 劇照
 - **Section 說明**：
   - `detailVideo`：YouTube embed（16:9），由 `ev.youtubeId` 控制
   - `detailProgram`：演出曲目清單，支援 `premiere` 世界首演 badge
+  - `detailScreenings`（PR #74）：影展類活動放映片單，獨立於 `detailProgram`（不影響既有音樂會活動）；每筆顯示劇照（16:9，桌機 240px/手機滿版）、中英片名、導演、年份/片長/格式、多場次（綠色高亮）、選填 `note` Q&A 標記
   - `detailEnsemble`：演出單位卡片，支援 `photo`（左側人像）、`logo`（白色 filter）
   - `detailSpeakers`：策展人/主講人卡片，label 由 `ev.speakersLabel` 自訂
   - `detailPerformers`：演出者 2 欄 grid，label 由 `ev.performersLabel` 自訂（只顯示名字）
@@ -286,11 +287,13 @@ desc, desc_en, long_desc?, long_desc_en?,
 youtubeId?,
 ensemble?: { name, name_en, bio, bio_en, photo?, logo?, website?, facebook?, instagram? },
 program?: [ { zh, en, premiere? } ],
+screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program
 performers?: [ { instrument, instrument_en, name, name_en, bio, bio_en, website?, facebook?, instagram? } ],
 performersLabel?, performersLabel_en?,
 speakers?: [ { name, name_en, role, role_en, bio, bio_en, website?, facebook?, instagram? } ],
 speakersLabel?, speakersLabel_en?,
 gallery?: [ 'images/...' ],
+ctaLabel?, ctaLabel_en?,  // PR #71，CTA 按鈕自訂文字，預設「立即購票 / Get Tickets」
 category, isPrimary, externalUrl
 ```
 
@@ -307,7 +310,7 @@ category, isPrimary, externalUrl
 | num | 活動 | isPrimary | 詳情完成度 |
 |-----|------|-----------|-----------|
 | 01 | 臺美藝文系列對談（林懷民 × ADF 等） | true | ✓ 完整（speakers: 林懷民、Jodee Nimerichter）；文案待文化部更新 |
-| 04 | 世界之間：跨越疆界的臺灣電影 | true | 待更新 |
+| 04 | JIĀ：家的歷史（臺灣電影影展 @ Metrograph） | true | ✓ 完整（screenings 9 部片，含導演/年份/片長/格式/場次/劇照，左撇子女孩映後 Q&A）；⚠️ 目前 Firestore 隱藏，待使用者確認後開啟 |
 | 13 | 嚴俊傑鋼琴講座暨示範演出 | true | ✓ 完整（performers: 嚴俊傑）；文案待文化部更新 |
 | 14 | 共棲地：生態與藝術的共同實踐（周巧其 × Maria Uriarte） | true | ✓ 完整（speakers 2人含中英 bio、RSVP 表單連結）；⚠️ 預設隱藏，圖片確認後由後台開啟 |
 
@@ -439,8 +442,8 @@ gh pr merge [num] --merge --delete-branch
 ### ⚠️ 快取規則（Cache Busting）
 
 - GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
-- **修改 `js/data.js` 時，必須同步升版所有 HTML 的 script 版本號**（目前 data.js 未帶版本號，首次修改時加上 `?v=2`）
-- 已有版本號的檔案：`event-detail.js?v=3`、`tp-shared.css?v=2`、`style.css?v=2`
+- **修改 `js/data.js` 時，必須同步升版所有 11 個 HTML 的 script 版本號**（PR #74 起 data.js 已帶版本號 `?v=2`，下次修改升到 `?v=3`……以此類推）
+- 已有版本號的檔案：`js/data.js?v=2`、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
 - 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
 
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
@@ -449,6 +452,8 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
+- [ ] 活動 #04 JIĀ：家的歷史：確認內容無誤後至後台開啟顯示（目前 Firestore 隱藏）
+- [x] 活動 #04 內容全面更新為「JIĀ：家的歷史」臺灣電影影展（PR #74）：標題/日期(09.04–09.20)/desc/long_desc 改寫、新增 `screenings` 資料結構（9 部片含劇照/導演/年份/片長/格式/場次/Q&A）、`event-detail.js` 新增獨立渲染區塊（不影響既有 program 欄位活動）、CTA 接 Metrograph 售票連結、`data.js` 首次加上版本號 `?v=2`、圖片改名 + 新增 `images/jia-screenings/` 9 張劇照
 - [x] 導覽列與後台文案「底片機計畫」統一改為「27 FRAMES」（PR #73）：`lang.js` nav-film 中英文皆改、`components.js` 硬編碼 fallback 同步、`film.html` 移除重複的 hero eyebrow、後台分頁標籤/區塊標題/toast 訊息同步更新
 - [x] 後台新增文章與相關報導的 Excel 匯出功能（PR #72）：SheetJS CDN、各自獨立按鈕、含草稿/隱藏全量匯出、內容欄位純文字化、文章連結自動組出
 - [ ] 活動 #14 共棲地：圖片最終確認後至後台開啟顯示（目前預設隱藏）
