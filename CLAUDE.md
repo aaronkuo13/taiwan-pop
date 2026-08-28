@@ -101,7 +101,7 @@
 | 改動類型 | 需要同步的檔案 |
 |---------|-------------|
 | 修改 `js/data.js`（新增/修改活動） | 所有載入 data.js 的 HTML（11 個檔案）script 標籤升版本號（如 `data.js?v=2`）。GitHub Pages 快取 10 分鐘，不升版會導致舊快取查無新活動 → event.html 強制導回列表頁 |
-| 新增活動到 data.js | 同上 + `twpop-manage/index.html` 的 `EVENTS_META` 陣列（後台清單是寫死的，不讀 data.js，漏加會沒有顯示開關） |
+| 新增活動到 data.js，或修改既有活動的標題/日期 | 同上 + 同步更新 `twpop-manage/index.html` 的 `EVENTS_META` 陣列（後台清單是寫死的，不讀 data.js，新增漏加會沒有顯示開關；修改漏改會導致後台顯示舊標題/日期） |
 | 新增導覽列連結 | `js/components.js` + `js/lang.js`（zh + en 各加一筆） |
 | 修改 CSS variable 名稱 | `css/tp-shared.css` + 所有用到該變數的 CSS/HTML |
 | 新增全站 script | 全部 8 個 HTML 檔案 |
