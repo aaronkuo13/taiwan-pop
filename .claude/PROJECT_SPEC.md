@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-07-23（PR #75 修正後台 EVENTS_META 同步活動 #04 標題/日期）
+> 最後更新：2026-07-23（PR #76 活動 #04 片單依時間排序 + 27 FRAMES hero 補英文）
 
 ---
 
@@ -248,9 +248,10 @@ html[lang="en"] .lang-en { display: revert; }
 - Hero 左欄：「← 最新消息」置頂，meta + 標題垂直置中（`margin: auto 0`）
 - 標題字體維持原始大小 `clamp(2.5rem, 5.5vw, 5.5rem)`，完整顯示不截斷
 
-### film.html — 27 FRAMES 照片牆（PR #66 上線，PR #67 手機版，PR #69 Mosaic 重構，PR #70 UX 調整，PR #73 更名）
+### film.html — 27 FRAMES 照片牆（PR #66 上線，PR #67 手機版，PR #69 Mosaic 重構，PR #70 UX 調整，PR #73 更名，PR #76 hero 補英文）
 - Firestore `film_project` collection 驅動的 CSS Grid Mosaic 不規則混排照片牆
 - **Hero（PR #73）**：eyebrow 小標已移除（原「底片機計畫」與下方大標題「27 / FRAMES」視覺重複），現僅保留大標題
+- **Hero 雙語（PR #76）**：hero 副標與「N 張照片」計數器改用 `.lang-zh`/`.lang-en` 補上英文版（先前完全沒有英文，切換語言不會變）
 - **文字亮度（PR #70）**：hero subtitle `rgba(255,255,255,0.6)`、hero count `rgba(255,255,255,0.45)`
 - **Mosaic cell 名稱（PR #70）**：兩行顯示（ZH 名 + EN 名），當 `name_en === name`（英文姓名作者）只顯示一行避免重複
 - **Lightbox header 名稱（PR #70）**：有 `nameEn && nameEn !== name` → `nameEn · name`；否則只顯示 `name`
@@ -287,7 +288,7 @@ desc, desc_en, long_desc?, long_desc_en?,
 youtubeId?,
 ensemble?: { name, name_en, bio, bio_en, photo?, logo?, website?, facebook?, instagram? },
 program?: [ { zh, en, premiere? } ],
-screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program
+screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program；陣列順序須依首場放映時間排序（PR #76）
 performers?: [ { instrument, instrument_en, name, name_en, bio, bio_en, website?, facebook?, instagram? } ],
 performersLabel?, performersLabel_en?,
 speakers?: [ { name, name_en, role, role_en, bio, bio_en, website?, facebook?, instagram? } ],
@@ -443,7 +444,7 @@ gh pr merge [num] --merge --delete-branch
 
 - GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
 - **修改 `js/data.js` 時，必須同步升版所有 11 個 HTML 的 script 版本號**（PR #74 起 data.js 已帶版本號 `?v=2`，下次修改升到 `?v=3`……以此類推）
-- 已有版本號的檔案：`js/data.js?v=2`、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
+- 已有版本號的檔案：`js/data.js?v=3`、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
 - 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
 
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
@@ -453,6 +454,7 @@ gh pr merge [num] --merge --delete-branch
 ## 待辦事項（TO DO）
 
 - [ ] 活動 #04 JIĀ：家的歷史：確認內容無誤後至後台開啟顯示（目前 Firestore 隱藏）
+- [x] 活動 #04 片單依放映時間排序 + 27 FRAMES hero 補英文翻譯（PR #76）：screenings 陣列改依首場時間由早到晚排序；film.html hero 副標與照片計數器加上 `.lang-zh`/`.lang-en`（先前無英文版）；data.js 升版 `?v=3`
 - [x] 修正後台 EVENTS_META 未同步活動 #04 新標題/日期（PR #75）：PR #74 漏改後台寫死清單，導致後台仍顯示舊標題「世界之間：跨越疆界的臺灣電影」與舊日期
 - [x] 活動 #04 內容全面更新為「JIĀ：家的歷史」臺灣電影影展（PR #74）：標題/日期(09.04–09.20)/desc/long_desc 改寫、新增 `screenings` 資料結構（9 部片含劇照/導演/年份/片長/格式/場次/Q&A）、`event-detail.js` 新增獨立渲染區塊（不影響既有 program 欄位活動）、CTA 接 Metrograph 售票連結、`data.js` 首次加上版本號 `?v=2`、圖片改名 + 新增 `images/jia-screenings/` 9 張劇照
 - [x] 導覽列與後台文案「底片機計畫」統一改為「27 FRAMES」（PR #73）：`lang.js` nav-film 中英文皆改、`components.js` 硬編碼 fallback 同步、`film.html` 移除重複的 hero eyebrow、後台分頁標籤/區塊標題/toast 訊息同步更新
