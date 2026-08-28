@@ -297,13 +297,6 @@ const EVENTS = [
     long_desc_en: 'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs.\n\nPresented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan, the series screens nine feature films at Metrograph, New York\'s landmark independent cinema — spanning landmark works by Taiwan New Cinema masters Hou Hsiao-Hsien, Edward Yang, and Tsai Ming-Liang, alongside Shih-Ching Tsou\'s contemporary film "The Left-Handed Girl," followed by a post-screening Q&A with the director.',
     screenings: [
       {
-        title:'燒肉粽', title_en:'The Rice Dumpling Vendors',
-        director:'辛奇', director_en:'Hsin Chi',
-        meta:'1969｜84 分鐘｜DCP', meta_en:'1969｜84 min｜DCP',
-        showtimes:['9/13（日）2:45pm'], showtimes_en:['Sun Sep 13, 2:45pm'],
-        photo:'images/jia-screenings/the-rice-dumpling-vendors.jpg'
-      },
-      {
         title:'尼羅河女兒', title_en:'Daughter of the Nile',
         director:'侯孝賢', director_en:'Hou Hsiao-Hsien',
         meta:'1987｜91 分鐘｜DCP', meta_en:'1987｜91 min｜DCP',
@@ -337,6 +330,13 @@ const EVENTS = [
         meta:'1992｜106 分鐘｜DCP', meta_en:'1992｜106 min｜DCP',
         showtimes:['9/12（六）11:00pm'], showtimes_en:['Sat Sep 12, 11:00pm'],
         photo:'images/jia-screenings/rebels-of-the-neon-god.jpg'
+      },
+      {
+        title:'燒肉粽', title_en:'The Rice Dumpling Vendors',
+        director:'辛奇', director_en:'Hsin Chi',
+        meta:'1969｜84 分鐘｜DCP', meta_en:'1969｜84 min｜DCP',
+        showtimes:['9/13（日）2:45pm'], showtimes_en:['Sun Sep 13, 2:45pm'],
+        photo:'images/jia-screenings/the-rice-dumpling-vendors.jpg'
       },
       {
         title:'一一', title_en:'Yi Yi',
