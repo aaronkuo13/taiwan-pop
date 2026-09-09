@@ -271,7 +271,7 @@
 
   <script>window.eventsVisibility = null;</script>
   <script src="js/lang.js"></script>
-  <script src="js/data.js?v=3"></script>
+  <script src="js/data.js?v=4"></script>
   <script src="js/components.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/reveal.js"></script>
@@ -296,6 +296,32 @@ function visibleEvents() {
 function buildDayMap() {
   const map = {};
   visibleEvents().forEach(ev => {
+    if (ev.screenings && ev.screenings.length) {
+      const year = ev.date ? ev.date.slice(0, 4) : String(curYear);
+      ev.screenings.forEach(s => {
+        const times   = s.showtimes || [];
+        const timesEn = s.showtimes_en || times;
+        times.forEach((t, i) => {
+          const m = t.match(/^(\d{1,2})\/(\d{1,2})/);
+          if (!m) return;
+          const mm  = String(m[1]).padStart(2, '0');
+          const dd  = String(m[2]).padStart(2, '0');
+          const key = `${year}-${mm}-${dd}`;
+          if (!map[key]) map[key] = [];
+          map[key].push({
+            kind: 'screening',
+            num: ev.num,
+            category: ev.category,
+            location: ev.location,
+            location_full: ev.location_full,
+            filmTitle: s.title, filmTitle_en: s.title_en,
+            timeLabel: t, timeLabel_en: timesEn[i] || t,
+            note: s.note, note_en: s.note_en
+          });
+        });
+      });
+      return;
+    }
     if (!ev.date || ev.date === 'TBA') return;
     const end = ev.endDate || ev.date;
     const [sy, sm, sd] = ev.date.split('-').map(Number);
@@ -324,6 +350,14 @@ function evTitle(ev) {
 function evLocation(ev) {
   const lang = getLang();
   return (lang === 'en' && ev.location_full) ? ev.location_full : ev.location;
+}
+
+function dayEntryTitle(e) {
+  if (e.kind === 'screening') {
+    const lang = getLang();
+    return (lang === 'en' && e.filmTitle_en) ? e.filmTitle_en : e.filmTitle;
+  }
+  return evTitle(e);
 }
 
 function renderCalendar() {
@@ -369,7 +403,7 @@ function renderCalendar() {
       dayEvs.slice(0, MAX).forEach(ev => {
         const chip = document.createElement('div');
         chip.className = `cal-ev-dot cal-ev-${ev.category}`;
-        chip.textContent = evTitle(ev);
+        chip.textContent = dayEntryTitle(ev);
         wrap.appendChild(chip);
       });
       if (dayEvs.length > MAX) {
@@ -388,21 +422,45 @@ function renderCalendar() {
 }
 
 function openModal(evList, dateStr) {
-  const lang = getLang();
-  const ev   = evList[0];
+  const lang  = getLang();
+  const first = evList[0];
+  const isMulti = evList.length > 1 || first.kind === 'screening';
+
   document.getElementById('modalClose').textContent = '✕';
   document.getElementById('modalCat').innerHTML =
-    `<span class="cat cat-${ev.category}">${(LANG[getLang()]||LANG.zh)['cat-'+ev.category+'-label']||ev.category.toUpperCase()}</span>`;
-  document.getElementById('modalTitle').textContent = evTitle(ev);
-  document.getElementById('modalMeta').innerHTML = `
-    <div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'DATE':'日期'}</span>${dateStr.replace(/-/g,'.')}</div>
-    <div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'VENUE':'場地'}</span>${evLocation(ev)}</div>
-    ${ev.time ? `<div class="modal-meta-row"><span class="modal-meta-key">TIME</span>${ev.time}</div>` : ''}
-  `;
-  document.getElementById('modalActions').innerHTML = `
-    <a href="event.html?num=${ev.num}" class="btn btn-green" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'View Details':'查看詳情'}</a>
-    <button class="btn btn-ghost" onclick="closeModal()" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'Close':'關閉'}</button>
-  `;
+    `<span class="cat cat-${first.category}">${(LANG[getLang()]||LANG.zh)['cat-'+first.category+'-label']||first.category.toUpperCase()}</span>`;
+
+  const dateLine  = `<div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'DATE':'日期'}</span>${dateStr.replace(/-/g,'.')}</div>`;
+  const venueLine = `<div class="modal-meta-row"><span class="modal-meta-key">${lang==='en'?'VENUE':'場地'}</span>${evLocation(first)}</div>`;
+
+  if (!isMulti) {
+    document.getElementById('modalTitle').textContent = evTitle(first);
+    document.getElementById('modalMeta').innerHTML = `
+      ${dateLine}
+      ${venueLine}
+      ${first.time ? `<div class="modal-meta-row"><span class="modal-meta-key">TIME</span>${first.time}</div>` : ''}
+    `;
+    document.getElementById('modalActions').innerHTML = `
+      <a href="event.html?num=${first.num}" class="btn btn-green" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'View Details':'查看詳情'}</a>
+      <button class="btn btn-ghost" onclick="closeModal()" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'Close':'關閉'}</button>
+    `;
+  } else {
+    document.getElementById('modalTitle').textContent = lang === 'en' ? 'Screenings' : '當日場次';
+    const rows = evList.map(e => {
+      const title = e.kind === 'screening' ? ((lang==='en'&&e.filmTitle_en)?e.filmTitle_en:e.filmTitle) : evTitle(e);
+      const time  = e.kind === 'screening' ? ((lang==='en'&&e.timeLabel_en)?e.timeLabel_en:e.timeLabel) : (e.time || '');
+      const note  = e.kind === 'screening' ? ((lang==='en'&&e.note_en)?e.note_en:e.note) : '';
+      return `<a href="event.html?num=${e.num}" class="modal-meta-row" style="align-items:flex-start;text-decoration:none;color:inherit">
+        <span class="modal-meta-key" style="color:var(--green);min-width:5.5rem">${time}</span>
+        <span>${title}${note ? `<br><span style="color:rgba(255,255,255,0.35);font-size:0.85em">${note}</span>` : ''}</span>
+      </a>`;
+    }).join('');
+    document.getElementById('modalMeta').innerHTML = dateLine + venueLine + rows;
+    document.getElementById('modalActions').innerHTML = `
+      <button class="btn btn-ghost" onclick="closeModal()" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'Close':'關閉'}</button>
+    `;
+  }
+
   document.getElementById('calModal').classList.add('open');
 }
 

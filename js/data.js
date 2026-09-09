@@ -307,7 +307,7 @@ const EVENTS = [
         title:'牯嶺街少年殺人事件', title_en:'A Brighter Summer Day',
         director:'楊德昌', director_en:'Edward Yang',
         meta:'1991｜237 分鐘｜DCP', meta_en:'1991｜237 min｜DCP',
-        showtimes:['9/5（日）1:35pm','9/7（一）1:35pm'], showtimes_en:['Sat Sep 5, 1:35pm','Mon Sep 7, 1:35pm'],
+        showtimes:['9/5（六）1:35pm','9/7（一）1:35pm'], showtimes_en:['Sat Sep 5, 1:35pm','Mon Sep 7, 1:35pm'],
         photo:'images/jia-screenings/a-brighter-summer-day.jpg'
       },
       {
