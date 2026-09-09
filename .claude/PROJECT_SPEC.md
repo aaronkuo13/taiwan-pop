@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-07-23（PR #76 活動 #04 片單依時間排序 + 27 FRAMES hero 補英文）
+> 最後更新：2026-09-09（PR #77 行事曆改為逐場次顯示活動 #04 放映片單）
 
 ---
 
@@ -233,6 +233,10 @@ html[lang="en"] .lang-en { display: revert; }
 - **字體規範**：sidebar/legend/modal 元素 → `var(--fs-base)`；格子內元素適度調大（0.75–0.8rem）
 - **Modal**：`max-height:85svh; overflow-y:auto` 防爆版；`word-break:break-word`；關閉按鈕統一 `✕`
 - **手機版**：modal 關閉按鈕 `✕`（不帶文字）
+- **逐場次顯示（PR #77）**：`buildDayMap()` 遇到帶 `screenings` 欄位的活動（目前只有 #04）會解析每部片 `showtimes` 字串（如 `9/4（五）5:15pm`）取出月/日，只在實際放映當天建立場次項目，不再對整個 `date`~`endDate` 區間逐日塞入同一活動標題；其他活動（無 `screenings`）行為完全不變
+  - `dayEntryTitle(e)`：場次項目顯示片名，一般活動維持顯示活動標題
+  - `openModal()`：項目數 >1 或含場次時，改為列表呈現（片名 + 時間 + Q&A 備註），每筆各自連到 `event.html?num=X`；單一一般活動維持原本單頁樣式（標題 + 查看詳情按鈕）
+  - 連帶修正既有限制：同一天多個活動撞期時，過去 modal 只顯示第一筆，現在會列出全部
 
 ### news.html — 最新消息列表
 - 從 Firestore 抓取 `published: true` 的文章，依日期降序排列
@@ -444,7 +448,7 @@ gh pr merge [num] --merge --delete-branch
 
 - GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
 - **修改 `js/data.js` 時，必須同步升版所有 11 個 HTML 的 script 版本號**（PR #74 起 data.js 已帶版本號 `?v=2`，下次修改升到 `?v=3`……以此類推）
-- 已有版本號的檔案：`js/data.js?v=3`、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
+- 已有版本號的檔案：`js/data.js?v=4`、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
 - 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
 
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
@@ -453,7 +457,8 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
-- [ ] 活動 #04 JIĀ：家的歷史：確認內容無誤後至後台開啟顯示（目前 Firestore 隱藏）
+- [x] 活動 #04 JIĀ：家的歷史：已於後台開啟顯示（Firestore `events_visibility.04 = true`）
+- [x] 行事曆改為逐場次顯示活動 #04 放映片單（PR #77）：`buildDayMap()` 解析 `screenings.showtimes` 逐場次建立日曆項目，只在實際放映當天顯示片名；`openModal()` 重構支援多場次列表；修正「牯嶺街少年殺人事件」9/5 星期幾標示錯誤；連帶修正同天多活動撞期時 modal 只顯示第一筆的既有限制
 - [x] 活動 #04 片單依放映時間排序 + 27 FRAMES hero 補英文翻譯（PR #76）：screenings 陣列改依首場時間由早到晚排序；film.html hero 副標與照片計數器加上 `.lang-zh`/`.lang-en`（先前無英文版）；data.js 升版 `?v=3`
 - [x] 修正後台 EVENTS_META 未同步活動 #04 新標題/日期（PR #75）：PR #74 漏改後台寫死清單，導致後台仍顯示舊標題「世界之間：跨越疆界的臺灣電影」與舊日期
 - [x] 活動 #04 內容全面更新為「JIĀ：家的歷史」臺灣電影影展（PR #74）：標題/日期(09.04–09.20)/desc/long_desc 改寫、新增 `screenings` 資料結構（9 部片含劇照/導演/年份/片長/格式/場次/Q&A）、`event-detail.js` 新增獨立渲染區塊（不影響既有 program 欄位活動）、CTA 接 Metrograph 售票連結、`data.js` 首次加上版本號 `?v=2`、圖片改名 + 新增 `images/jia-screenings/` 9 張劇照
