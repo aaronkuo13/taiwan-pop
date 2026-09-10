@@ -271,8 +271,8 @@
 
   <script>window.eventsVisibility = null;</script>
   <script src="js/lang.js"></script>
-  <script src="js/data.js?v=4"></script>
-  <script src="js/components.js"></script>
+  <script src="js/data.js?v=5"></script>
+  <script src="js/components.js?v=2"></script>
   <script src="js/navbar.js"></script>
   <script src="js/reveal.js"></script>
   <script src="js/lang-init.js"></script>
@@ -314,6 +314,7 @@ function buildDayMap() {
             category: ev.category,
             location: ev.location,
             location_full: ev.location_full,
+            eventTitle: ev.title, eventTitle_en: ev.title_en,
             filmTitle: s.title, filmTitle_en: s.title_en,
             timeLabel: t, timeLabel_en: timesEn[i] || t,
             note: s.note, note_en: s.note_en
@@ -355,9 +356,23 @@ function evLocation(ev) {
 function dayEntryTitle(e) {
   if (e.kind === 'screening') {
     const lang = getLang();
-    return (lang === 'en' && e.filmTitle_en) ? e.filmTitle_en : e.filmTitle;
+    return (lang === 'en' && e.eventTitle_en) ? e.eventTitle_en : e.eventTitle;
   }
   return evTitle(e);
+}
+
+// 同一天同一活動（screening 類）不論有幾場，收斂成 1 個標籤顯示
+function collapseDayChips(dayEvs) {
+  const seenNums = new Set();
+  const chips = [];
+  dayEvs.forEach(e => {
+    if (e.kind === 'screening') {
+      if (seenNums.has(e.num)) return;
+      seenNums.add(e.num);
+    }
+    chips.push(e);
+  });
+  return chips;
 }
 
 function renderCalendar() {
@@ -397,20 +412,21 @@ function renderCalendar() {
     const dayEvs = dayMap[dateStr];
     if (dayEvs && dayEvs.length) {
       cell.classList.add('has-event');
-      const wrap = document.createElement('div');
+      const wrap  = document.createElement('div');
       wrap.className = 'cal-day-events';
+      const chips = collapseDayChips(dayEvs);
       const MAX = 2;
-      dayEvs.slice(0, MAX).forEach(ev => {
+      chips.slice(0, MAX).forEach(ev => {
         const chip = document.createElement('div');
         chip.className = `cal-ev-dot cal-ev-${ev.category}`;
         chip.textContent = dayEntryTitle(ev);
         wrap.appendChild(chip);
       });
-      if (dayEvs.length > MAX) {
+      if (chips.length > MAX) {
         const more = document.createElement('div');
         more.className = 'cal-ev-dot';
         more.style.cssText = 'color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06)';
-        more.textContent = `+${dayEvs.length - MAX}`;
+        more.textContent = `+${chips.length - MAX}`;
         wrap.appendChild(more);
       }
       cell.appendChild(wrap);
@@ -442,10 +458,12 @@ function openModal(evList, dateStr) {
     `;
     document.getElementById('modalActions').innerHTML = `
       <a href="event.html?num=${first.num}" class="btn btn-green" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'View Details':'查看詳情'}</a>
-      <button class="btn btn-ghost" onclick="closeModal()" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'Close':'關閉'}</button>
     `;
   } else {
-    document.getElementById('modalTitle').textContent = lang === 'en' ? 'Screenings' : '當日場次';
+    const allSameEvent = evList.every(e => e.num === first.num);
+    document.getElementById('modalTitle').textContent = allSameEvent
+      ? (first.kind === 'screening' ? ((lang==='en'&&first.eventTitle_en)?first.eventTitle_en:first.eventTitle) : evTitle(first))
+      : (lang === 'en' ? "Today's Events" : '當日活動');
     const rows = evList.map(e => {
       const title = e.kind === 'screening' ? ((lang==='en'&&e.filmTitle_en)?e.filmTitle_en:e.filmTitle) : evTitle(e);
       const time  = e.kind === 'screening' ? ((lang==='en'&&e.timeLabel_en)?e.timeLabel_en:e.timeLabel) : (e.time || '');
@@ -456,9 +474,9 @@ function openModal(evList, dateStr) {
       </a>`;
     }).join('');
     document.getElementById('modalMeta').innerHTML = dateLine + venueLine + rows;
-    document.getElementById('modalActions').innerHTML = `
-      <button class="btn btn-ghost" onclick="closeModal()" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'Close':'關閉'}</button>
-    `;
+    document.getElementById('modalActions').innerHTML = allSameEvent
+      ? `<a href="event.html?num=${first.num}" class="btn btn-green" style="font-size:var(--fs-base);padding:0.7rem 1.4rem">${lang==='en'?'View Details':'查看詳情'}</a>`
+      : '';
   }
 
   document.getElementById('calModal').classList.add('open');

@@ -285,16 +285,16 @@ const EVENTS = [
     img:'images/展演活動_JIA：家的歷史.png',
     imgInner:'images/展演活動內頁_JIA：家的歷史.jpg',
     bannerImg:'images/展演活動Banner_JIA：家的歷史.png',
-    date:'2026-09-04', endDate:'2026-09-20',
-    title:'JIĀ：家的歷史',
-    title_en:'JIĀ: Histories of Home',
+    date:'2026-09-04', endDate:'2026-10-03',
+    title:'JIĀ：家的歷史 ─ 臺灣電影單元',
+    title_en:'JIĀ: Histories of Home — Taiwanese Film Series',
     subtitle:'臺灣電影影展 · Feel the Home.',
     subtitle_en:'Taiwan Cinema Series · Feel the Home.',
     location:'Metrograph, 7 Ludlow St, New York',
     desc:'「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。主辦單位為文化部駐紐約臺北文化中心。',
     desc_en:'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs. Presented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan.',
-    long_desc: '「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。\n\n本影展由文化部駐紐約臺北文化中心主辦，於紐約指標性獨立電影院 Metrograph 舉行，共放映 9 部長片，橫跨侯孝賢、楊德昌、蔡明亮等臺灣新電影巨匠的經典之作，並延伸至鄒時擎執導的當代新作《左撇子女孩》，映後將安排導演親臨現場座談。',
-    long_desc_en: 'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs.\n\nPresented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan, the series screens nine feature films at Metrograph, New York\'s landmark independent cinema — spanning landmark works by Taiwan New Cinema masters Hou Hsiao-Hsien, Edward Yang, and Tsai Ming-Liang, alongside Shih-Ching Tsou\'s contemporary film "The Left-Handed Girl," followed by a post-screening Q&A with the director.',
+    long_desc: '「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。\n\n本影展由文化部駐紐約臺北文化中心主辦，於紐約指標性獨立電影院 Metrograph 舉行，共放映 13 部長片，橫跨侯孝賢、楊德昌、蔡明亮、李安等臺灣新電影巨匠的經典之作，並延伸至鄒時擎執導的當代新作《左撇子女孩》，映後將安排導演親臨現場座談。',
+    long_desc_en: 'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs.\n\nPresented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan, the series screens thirteen feature films at Metrograph, New York\'s landmark independent cinema — spanning landmark works by Taiwan New Cinema masters Hou Hsiao-Hsien, Edward Yang, Tsai Ming-Liang, and Ang Lee, alongside Shih-Ching Tsou\'s contemporary film "The Left-Handed Girl," followed by a post-screening Q&A with the director.',
     screenings: [
       {
         title:'尼羅河女兒', title_en:'Daughter of the Nile',
@@ -359,6 +359,30 @@ const EVENTS = [
         meta:'2013｜135 分鐘｜DCP', meta_en:'2013｜135 min｜DCP',
         showtimes:['9/18（五）6:10pm','9/20（日）6:10pm'], showtimes_en:['Fri Sep 18, 6:10pm','Sun Sep 20, 6:10pm'],
         photo:'images/jia-screenings/stray-dogs.jpg'
+      },
+      {
+        title:'喜宴', title_en:'The Wedding Banquet',
+        director:'李安', director_en:'Ang Lee',
+        meta:'1993｜106 分鐘｜35mm', meta_en:'1993｜106 min｜35mm',
+        showtimes:['9/25（五）2:45pm','9/27（日）2:45pm'], showtimes_en:['Fri Sep 25, 2:45pm','Sun Sep 27, 2:45pm']
+      },
+      {
+        title:'女兒的女兒', title_en:'Daughter\'s Daughter',
+        director:'黃熙', director_en:'Huang Xi',
+        meta:'2024｜126 分鐘｜DCP', meta_en:'2024｜126 min｜DCP',
+        showtimes:['9/25（五）4:40pm','10/2（五）4:40pm'], showtimes_en:['Fri Sep 25, 4:40pm','Fri Oct 2, 4:40pm']
+      },
+      {
+        title:'推手', title_en:'Pushing Hands',
+        director:'李安', director_en:'Ang Lee',
+        meta:'1991｜105 分鐘｜DCP', meta_en:'1991｜105 min｜DCP',
+        showtimes:['9/27（日）12:50pm','10/3（六）12:50pm'], showtimes_en:['Sun Sep 27, 12:50pm','Sat Oct 3, 12:50pm']
+      },
+      {
+        title:'母親三十歲', title_en:'Story of Mother',
+        director:'宋存壽', director_en:'Sung Tsun-Shou',
+        meta:'1973｜98 分鐘｜DCP', meta_en:'1973｜98 min｜DCP',
+        showtimes:['9/27（日）6:00pm'], showtimes_en:['Sun Sep 27, 6:00pm']
       }
     ],
     ctaLabel:'立即購票', ctaLabel_en:'Get Tickets',
