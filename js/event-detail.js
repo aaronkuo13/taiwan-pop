@@ -202,7 +202,7 @@
             const note    = (lang === 'en' && s.note_en)    ? s.note_en    : s.note;
             const photoHtml = s.photo
               ? `<div class="ev-screening-photo"><img src="${s.photo}" alt="${title}" loading="lazy"></div>`
-              : '';
+              : `<div class="ev-screening-photo placeholder"></div>`;
             return `<div class="ev-screening-item">
               ${photoHtml}
               <div>
