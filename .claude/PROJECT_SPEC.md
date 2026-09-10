@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-09-09（PR #77 行事曆改為逐場次顯示活動 #04 放映片單）
+> 最後更新：2026-09-11（PR #78 活動 #04 標題明確化、新增 4 部片、行事曆片單顯示優化）
 
 ---
 
@@ -192,7 +192,7 @@ html[lang="en"] .lang-en { display: revert; }
 - **Section 說明**：
   - `detailVideo`：YouTube embed（16:9），由 `ev.youtubeId` 控制
   - `detailProgram`：演出曲目清單，支援 `premiere` 世界首演 badge
-  - `detailScreenings`（PR #74）：影展類活動放映片單，獨立於 `detailProgram`（不影響既有音樂會活動）；每筆顯示劇照（16:9，桌機 240px/手機滿版）、中英片名、導演、年份/片長/格式、多場次（綠色高亮）、選填 `note` Q&A 標記
+  - `detailScreenings`（PR #74）：影展類活動放映片單，獨立於 `detailProgram`（不影響既有音樂會活動）；每筆顯示劇照（16:9，桌機 240px/手機滿版）、中英片名、導演、年份/片長/格式、多場次（綠色高亮）、選填 `note` Q&A 標記；無 `photo` 時顯示灰色佔位色塊 `.ev-screening-photo.placeholder`（PR #78，避免版面留白跑版）
   - `detailEnsemble`：演出單位卡片，支援 `photo`（左側人像）、`logo`（白色 filter）
   - `detailSpeakers`：策展人/主講人卡片，label 由 `ev.speakersLabel` 自訂
   - `detailPerformers`：演出者 2 欄 grid，label 由 `ev.performersLabel` 自訂（只顯示名字）
@@ -217,6 +217,7 @@ html[lang="en"] .lang-en { display: revert; }
   - 手機版正文全面 `1.25rem`（20px），提升易讀性
   - 注意：≤420px 有獨立 override，勿遺漏
 - **PR #49 文案更新**：Hero/MANIFESTO/ORIGIN/Three Feels/Vibe 活動全面對齊文化部版本
+- ⚠️ **`.cp-theme-ev` 精選節目與 `data.js` 活動標題需手動同步**：這裡的片名/描述是寫死的 HTML，不會自動讀取 `data.js`，活動標題或內容更新時要記得一併改這裡（PR #78 曾因活動 #04 改名而需同步修正）
 
 ### awe.html — a-we 紐約跑酷（a-we NYC Run）
 - Chrome 小恐龍風格 Canvas 橫向捲軸遊戲（等速 SPEED=5）
@@ -233,10 +234,12 @@ html[lang="en"] .lang-en { display: revert; }
 - **字體規範**：sidebar/legend/modal 元素 → `var(--fs-base)`；格子內元素適度調大（0.75–0.8rem）
 - **Modal**：`max-height:85svh; overflow-y:auto` 防爆版；`word-break:break-word`；關閉按鈕統一 `✕`
 - **手機版**：modal 關閉按鈕 `✕`（不帶文字）
-- **逐場次顯示（PR #77）**：`buildDayMap()` 遇到帶 `screenings` 欄位的活動（目前只有 #04）會解析每部片 `showtimes` 字串（如 `9/4（五）5:15pm`）取出月/日，只在實際放映當天建立場次項目，不再對整個 `date`~`endDate` 區間逐日塞入同一活動標題；其他活動（無 `screenings`）行為完全不變
-  - `dayEntryTitle(e)`：場次項目顯示片名，一般活動維持顯示活動標題
-  - `openModal()`：項目數 >1 或含場次時，改為列表呈現（片名 + 時間 + Q&A 備註），每筆各自連到 `event.html?num=X`；單一一般活動維持原本單頁樣式（標題 + 查看詳情按鈕）
+- **逐場次顯示（PR #77）**：`buildDayMap()` 遇到帶 `screenings` 欄位的活動（目前只有 #04）會解析每部片 `showtimes` 字串（如 `9/4（五）5:15pm`）取出月/日，只在實際放映當天建立場次項目，不再對整個 `date`~`endDate` 區間逐日塞入同一活動標題；其他活動（無 `screenings`）行為完全不變；月/日解析為通用邏輯，天然支援跨月份場次（如 9 月→10 月）無需額外處理
+  - `dayEntryTitle(e)`：場次項目顯示**活動全名**（非片名，PR #78 改為避免觀眾誤解成獨立活動），一般活動維持顯示活動標題
+  - `collapseDayChips(dayEvs)`（PR #78）：同一活動（同 `num`）當天不論有幾場，格子只顯示 **1 個標籤**；一般活動不受影響
+  - `openModal()`：項目數 >1 或含場次時，改為列表呈現（片名 + 時間 + Q&A 備註），每筆各自連到 `event.html?num=X`；標題顯示活動全名（不同活動撞期才 fallback「當日活動/Today's Events」，PR #78）；單一一般活動維持原本單頁樣式（標題 + 查看詳情按鈕）
   - 連帶修正既有限制：同一天多個活動撞期時，過去 modal 只顯示第一筆，現在會列出全部
+  - **Modal 按鈕（PR #78）**：統一拿掉多餘的「關閉」文字按鈕（右上角 ✕ 已可關閉），只留「查看詳情/View Details」單一 CTA，一般活動與片單活動皆同此規則
 
 ### news.html — 最新消息列表
 - 從 Firestore 抓取 `published: true` 的文章，依日期降序排列
@@ -292,7 +295,7 @@ desc, desc_en, long_desc?, long_desc_en?,
 youtubeId?,
 ensemble?: { name, name_en, bio, bio_en, photo?, logo?, website?, facebook?, instagram? },
 program?: [ { zh, en, premiere? } ],
-screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program；陣列順序須依首場放映時間排序（PR #76）
+screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program；陣列順序須依首場放映時間排序（PR #76）；photo 選填，未提供時前台自動顯示灰色佔位色塊（PR #78）
 performers?: [ { instrument, instrument_en, name, name_en, bio, bio_en, website?, facebook?, instagram? } ],
 performersLabel?, performersLabel_en?,
 speakers?: [ { name, name_en, role, role_en, bio, bio_en, website?, facebook?, instagram? } ],
@@ -315,7 +318,7 @@ category, isPrimary, externalUrl
 | num | 活動 | isPrimary | 詳情完成度 |
 |-----|------|-----------|-----------|
 | 01 | 臺美藝文系列對談（林懷民 × ADF 等） | true | ✓ 完整（speakers: 林懷民、Jodee Nimerichter）；文案待文化部更新 |
-| 04 | JIĀ：家的歷史（臺灣電影影展 @ Metrograph） | true | ✓ 完整（screenings 9 部片，含導演/年份/片長/格式/場次/劇照，左撇子女孩映後 Q&A）；⚠️ 目前 Firestore 隱藏，待使用者確認後開啟 |
+| 04 | JIĀ：家的歷史 ─ 臺灣電影單元（PR #78 標題加註影展性質）@ Metrograph | true | ✓ 完整（screenings 13 部片：9 部原有 + 喜宴/女兒的女兒/推手/母親三十歲，含導演/年份/片長/格式/場次/劇照，部分無劇照者顯示灰色佔位色塊，左撇子女孩映後 Q&A）；已於後台開啟顯示；日期區間 2026-09-04 ~ 2026-10-03 |
 | 13 | 嚴俊傑鋼琴講座暨示範演出 | true | ✓ 完整（performers: 嚴俊傑）；文案待文化部更新 |
 | 14 | 共棲地：生態與藝術的共同實踐（周巧其 × Maria Uriarte） | true | ✓ 完整（speakers 2人含中英 bio、RSVP 表單連結）；⚠️ 預設隱藏，圖片確認後由後台開啟 |
 
@@ -429,6 +432,7 @@ updatedAt    Timestamp
 - 動態頁面（news / article）透過 `window.reRenderNews` hook 響應語言切換
 - **手機版 Navbar**（PR #59）：`components.js` mobile overlay 已移除右側 EN 縮寫（CONCEPT/NEWS 等）、社群連結 icon-only（移除文字）
 - **導覽列命名（PR #73）**：`nav-film` 中英文皆為 `27 FRAMES`（原 ZH「底片機計畫」/ EN「On Film」），對齊頁面內文大標題；`components.js` 硬編碼 fallback 文字需與 `lang.js` 同步
+- **導覽列順序（PR #78）**：桌機/手機導覽列順序為 策劃理念 → 最新消息 → 相關報導 → 展演活動 → 行事曆 → 27 FRAMES（27 FRAMES 排最後）
 
 ---
 
@@ -448,7 +452,7 @@ gh pr merge [num] --merge --delete-branch
 
 - GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
 - **修改 `js/data.js` 時，必須同步升版所有 11 個 HTML 的 script 版本號**（PR #74 起 data.js 已帶版本號 `?v=2`，下次修改升到 `?v=3`……以此類推）
-- 已有版本號的檔案：`js/data.js?v=4`、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
+- 已有版本號的檔案：`js/data.js?v=5`、`js/components.js?v=2`（PR #78 首次加上）、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
 - 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
 
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
@@ -457,6 +461,7 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
+- [x] 活動 #04 標題明確化、新增 4 部片、行事曆片單顯示優化（PR #78）：標題改為「JIĀ：家的歷史 ─ 臺灣電影單元」中英文（讓觀眾一看標題就知道是影展）；新增 4 部片達 13 部（喜宴/女兒的女兒/推手/母親三十歲）；endDate 延至 2026-10-03；片單無劇照時顯示灰色佔位色塊；導覽列「27 FRAMES」移到最後；concept.html 精選節目同步；行事曆同一天多場次收斂成單一標籤（顯示活動全名非片名）；modal 統一拿掉多餘「關閉」按鈕；components.js 首次加上版本號 `?v=2`
 - [x] 活動 #04 JIĀ：家的歷史：已於後台開啟顯示（Firestore `events_visibility.04 = true`）
 - [x] 行事曆改為逐場次顯示活動 #04 放映片單（PR #77）：`buildDayMap()` 解析 `screenings.showtimes` 逐場次建立日曆項目，只在實際放映當天顯示片名；`openModal()` 重構支援多場次列表；修正「牯嶺街少年殺人事件」9/5 星期幾標示錯誤；連帶修正同天多活動撞期時 modal 只顯示第一筆的既有限制
 - [x] 活動 #04 片單依放映時間排序 + 27 FRAMES hero 補英文翻譯（PR #76）：screenings 陣列改依首場時間由早到晚排序；film.html hero 副標與照片計數器加上 `.lang-zh`/`.lang-en`（先前無英文版）；data.js 升版 `?v=3`
