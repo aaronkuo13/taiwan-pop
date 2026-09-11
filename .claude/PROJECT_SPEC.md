@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-09-11（PR #78 活動 #04 標題明確化、新增 4 部片、行事曆片單顯示優化）
+> 最後更新：2026-09-11（PR #79 新增活動 #15/#16 + 修正 Featured Banner 忽略進行中活動的 bug）
 
 ---
 
@@ -166,10 +166,11 @@ html[lang="en"] .lang-en { display: revert; }
 1. Navbar
 2. `#featured-event` — Featured Banner（PR #43 改版，PR #59 i18n 更新）
    - 全幅圖片（`bannerImg || imgInner || img`），點擊連結活動詳情
-   - 貼紙：ZH `即將登場` / EN `NEXT UP`（語言切換）
-   - 狀態列：UPCOMING + 日期（`MM.DD WKD` 格式）+ 倒數（ZH: 倒數 N 天 / EN: N days to go）+ CTA `→`
-   - 選擇邏輯：`featured:true` → 下一筆 upcoming → 最近過去
-   - 資料源：`EVENTS` array（`js/data.js`），同步渲染，`bannerImg` 欄位
+   - 貼紙：ZH `即將登場` / EN `NEXT UP`（語言切換）；找不到進行中/未來活動、fallback 到過去活動時改顯示「最新活動/LATEST"(PR #79)
+   - 狀態列：UPCOMING（或 fallback 時 LATEST）+ 日期（`MM.DD WKD` 格式）+ 倒數（ZH: 倒數 N 天 / EN: N days to go）+ CTA `→`
+   - 選擇邏輯：`featured:true` → 下一筆 upcoming/進行中 → 最近過去
+   - **upcoming 判斷（PR #79 修正）**：用 `(ev.endDate || ev.date) >= 今天`，不再只看開始日期——修正前，仍在展期內的多日活動（如 JIA 影展）會因開始日已過被誤判為過期，導致 banner 誤選已結束的活動
+   - 資料源：`EVENTS` array（`js/data.js`），同步渲染，`bannerImg` 欄位；`js/events.js` 首次加上版本號 `?v=2`（PR #79）
 3. `#events` — 展演活動 Grid（三大分類，主/次兩層，PR #59 改版）
    - 分類標題格式：`01・Body & Sound`（數字 + 間隔號 + 中/英名稱）
    - 副標題：只保留「Feel the xxx」tagline + 日期，移除樂種描述前綴
@@ -321,6 +322,8 @@ category, isPrimary, externalUrl
 | 04 | JIĀ：家的歷史 ─ 臺灣電影單元（PR #78 標題加註影展性質）@ Metrograph | true | ✓ 完整（screenings 13 部片：9 部原有 + 喜宴/女兒的女兒/推手/母親三十歲，含導演/年份/片長/格式/場次/劇照，部分無劇照者顯示灰色佔位色塊，左撇子女孩映後 Q&A）；已於後台開啟顯示；日期區間 2026-09-04 ~ 2026-10-03 |
 | 13 | 嚴俊傑鋼琴講座暨示範演出 | true | ✓ 完整（performers: 嚴俊傑）；文案待文化部更新 |
 | 14 | 共棲地：生態與藝術的共同實踐（周巧其 × Maria Uriarte） | true | ✓ 完整（speakers 2人含中英 bio、RSVP 表單連結）；⚠️ 預設隱藏，圖片確認後由後台開啟 |
+| 15 | 鄭淑麗 × Kira Xonorika 對談（PR #79） | true | ✓ 完整（speakers 3人：Kira Xonorika、鄭淑麗含 bio，策展人 Stamatina Gregory 僅姓名+身份無 bio）；11 張劇照 `images/lover-love/`；日期 2026-08-13（已過期，顯示 ENDED） |
+| 16 | 節奏即語言：朱宗慶 × Chris Hanning 跨文化對談（PR #79） | true | ✓ 完整（speakers 4人，皆僅姓名+身份無 bio）；日期 2026-09-10 7:00pm（已過期，顯示 ENDED） |
 
 **街頭與生活 street（霓虹綠 #00ff00）**
 | num | 活動 | isPrimary | 詳情完成度 |
@@ -452,7 +455,7 @@ gh pr merge [num] --merge --delete-branch
 
 - GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
 - **修改 `js/data.js` 時，必須同步升版所有 11 個 HTML 的 script 版本號**（PR #74 起 data.js 已帶版本號 `?v=2`，下次修改升到 `?v=3`……以此類推）
-- 已有版本號的檔案：`js/data.js?v=5`、`js/components.js?v=2`（PR #78 首次加上）、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
+- 已有版本號的檔案：`js/data.js?v=7`、`js/components.js?v=2`（PR #78 首次加上）、`js/events.js?v=2`（PR #79 首次加上）、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
 - 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
 
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
@@ -461,6 +464,7 @@ gh pr merge [num] --merge --delete-branch
 
 ## 待辦事項（TO DO）
 
+- [x] 新增活動 #15/#16 + 修正 Featured Banner 忽略進行中活動的 bug（PR #79）：#15「鄭淑麗 × Kira Xonorika 對談」（11 張劇照）、#16「節奏即語言：朱宗慶 × Chris Hanning 跨文化對談」；修正 `events.js` Featured Banner 只看開始日期、忽略 `endDate` 的既有 bug（會讓仍在展期內的多日活動被誤判過期）；fallback 到過去活動時文字改為「最新活動/LATEST」；`events.js` 首次加上版本號 `?v=2`
 - [x] 活動 #04 標題明確化、新增 4 部片、行事曆片單顯示優化（PR #78）：標題改為「JIĀ：家的歷史 ─ 臺灣電影單元」中英文（讓觀眾一看標題就知道是影展）；新增 4 部片達 13 部（喜宴/女兒的女兒/推手/母親三十歲）；endDate 延至 2026-10-03；片單無劇照時顯示灰色佔位色塊；導覽列「27 FRAMES」移到最後；concept.html 精選節目同步；行事曆同一天多場次收斂成單一標籤（顯示活動全名非片名）；modal 統一拿掉多餘「關閉」按鈕；components.js 首次加上版本號 `?v=2`
 - [x] 活動 #04 JIĀ：家的歷史：已於後台開啟顯示（Firestore `events_visibility.04 = true`）
 - [x] 行事曆改為逐場次顯示活動 #04 放映片單（PR #77）：`buildDayMap()` 解析 `screenings.showtimes` 逐場次建立日曆項目，只在實際放映當天顯示片名；`openModal()` 重構支援多場次列表；修正「牯嶺街少年殺人事件」9/5 星期幾標示錯誤；連帶修正同天多活動撞期時 modal 只顯示第一筆的既有限制
