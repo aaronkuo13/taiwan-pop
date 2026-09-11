@@ -140,12 +140,18 @@ function renderFeaturedBanner() {
     : EVENTS.filter(e => vis[e.num] !== false);
   if (!pool.length) return;
 
-  // Select featured event: explicit flag → next upcoming → most recent past
+  // Select featured event: explicit flag → next upcoming/ongoing → most recent past
   let ev = pool.find(e => e.featured);
+  let isOngoingOrUpcoming = true;
   if (!ev) {
-    const upcoming = pool.filter(e => e.date && e.date !== 'TBA' && e.date >= todayStr)
+    const upcoming = pool.filter(e => e.date && e.date !== 'TBA' && (e.endDate || e.date) >= todayStr)
                          .sort((a, b) => a.date.localeCompare(b.date));
-    ev = upcoming[0] || pool.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+    if (upcoming[0]) {
+      ev = upcoming[0];
+    } else {
+      ev = pool.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+      isOngoingOrUpcoming = false;
+    }
   }
   if (!ev) return;
 
@@ -165,7 +171,10 @@ function renderFeaturedBanner() {
   // i18n labels
   const title    = (lang === 'en' && ev.title_en) ? ev.title_en : ev.title;
   const ctaLabel = lang === 'en' ? 'LEARN MORE' : 'LEARN MORE';
-  const statusZh   = lang === 'en' ? 'Next Up' : '即將登場';
+  const stickerZh  = isOngoingOrUpcoming ? '即將登場' : '最新活動';
+  const stickerEn  = isOngoingOrUpcoming ? 'NEXT UP'  : 'LATEST';
+  const statusEn   = isOngoingOrUpcoming ? 'UPCOMING' : 'LATEST';
+  const statusZh   = isOngoingOrUpcoming ? (lang === 'en' ? 'Next Up' : '即將登場') : (lang === 'en' ? 'Latest' : '最新活動');
   const countdownStr = diffDays > 0  ? (lang === 'en' ? `${diffDays} days to go` : `倒數 ${diffDays} 天`)
                      : diffDays === 0 ? (lang === 'en' ? 'Today!'                 : '今天登場')
                      : '';
@@ -176,7 +185,7 @@ function renderFeaturedBanner() {
   el.innerHTML = `
     <div class="featured-wrap reveal">
       <a href="${href}" class="featured-banner">
-        <div class="fb-sticker">${lang === 'en' ? 'NEXT UP' : '即將登場'}<span class="fb-sticker-en">${lang === 'en' ? '' : 'NEXT UP'}</span></div>
+        <div class="fb-sticker">${lang === 'en' ? stickerEn : stickerZh}<span class="fb-sticker-en">${lang === 'en' ? '' : stickerEn}</span></div>
         <div class="fb-image-wrap">
           ${imgSrc
             ? `<img src="${imgSrc}" alt="${title}">`
@@ -185,7 +194,7 @@ function renderFeaturedBanner() {
         </div>
         <div class="fb-status">
           <span class="fb-status-dot"></span>
-          <span>UPCOMING</span>
+          <span>${statusEn}</span>
           <span class="fb-status-zh">${statusZh}</span>
           <span class="fb-status-sep">/</span>
           <span>${dateDisplay}</span>
