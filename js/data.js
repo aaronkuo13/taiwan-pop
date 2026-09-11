@@ -571,6 +571,90 @@ const EVENTS = [
       }
     ],
     category:'street', isPrimary:true, externalUrl:''
+  },
+  {
+    num:'15', icon:'🤖',
+    img:'images/展演活動_鄭淑麗×Kira Xonorika對談.png',
+    imgInner:'images/展演活動內頁_鄭淑麗×Kira Xonorika對談.jpg',
+    date:'2026-08-13',
+    title:'鄭淑麗 × Kira Xonorika 對談',
+    title_en:'Let\'s Talk, Intelligently: Shu Lea Cheang × Kira Xonorika in Conversation',
+    subtitle:'與策展人 Stamatina Gregory 共同對談',
+    subtitle_en:'In Conversation with Curator Stamatina Gregory',
+    location:'Leslie-Lohman Museum of Art, 26 Wooster Street, New York',
+    desc:'當兩位藝術家——分別從機器人學、生成式 AI 與推測性世界建構出發——向同一個問題靠近，會碰撞出什麼？國際網路藝術先驅鄭淑麗，與跨媒介藝術家 Kira Xonorika、策展人 Stamatina Gregory，展開一場橫越宇宙技術論、原住民知識體系與西方框架之外的科技未來的對話。以《LOVER, LOVE》展覽為背景，現正展出於 Leslie-Lohman Museum of Art。免費入場，無障礙空間。',
+    desc_en:'What happens when two artists working across robotics, generative AI, and speculative worldbuilding ask the same question from different sides of the world? Internationally recognized as a pioneer of Internet art, Shu Lea Cheang joins interdisciplinary artist Kira Xonorika and curator Stamatina Gregory for a conversation that moves across cosmotechnics, Indigenous knowledge systems, and technological futures beyond Western frameworks. In the context of LOVER, LOVE, currently on view at Leslie-Lohman Museum of Art. Free admission, wheelchair accessible.',
+    long_desc:'當兩位藝術家——分別從機器人學、生成式 AI 與推測性世界建構出發——向同一個問題靠近，會碰撞出什麼？國際網路藝術先驅鄭淑麗，與跨媒介藝術家 Kira Xonorika、策展人 Stamatina Gregory，展開一場橫越宇宙技術論、原住民知識體系與西方框架之外的科技未來的對話。\n\n從彼此近期創作出發，三人探索主體性、智能，以及酷兒、跨越時間性的關係形式——追問藝術實踐如何挑戰主流科技敘事，並想像與科技共存的新可能。\n\n本場對談以《LOVER, LOVE》展覽為背景，現正展出於 Leslie-Lohman Museum of Art（26 Wooster Street, New York）。免費入場，無障礙空間。',
+    long_desc_en:'What happens when two artists working across robotics, generative AI, and speculative worldbuilding ask the same question from different sides of the world? Internationally recognized as a pioneer of Internet art, Shu Lea Cheang joins interdisciplinary artist Kira Xonorika and curator Stamatina Gregory for a conversation that moves across cosmotechnics, Indigenous knowledge systems, and technological futures beyond Western frameworks.\n\nBeginning with an exchange of recent work, the conversation explores agency, intelligence, and queer, trans-temporal forms of relation — asking how artistic practice can challenge dominant technological narratives and open new ways of living with, and through, technology.\n\nPresented in the context of LOVER, LOVE, currently on view at Leslie-Lohman Museum of Art (26 Wooster Street, New York). Free admission, wheelchair accessible.',
+    speakersLabel:'與談人', speakersLabel_en:'Speakers',
+    speakers:[
+      {
+        name:'Kira Xonorika', name_en:'Kira Xonorika',
+        role:'跨媒介藝術家與作家', role_en:'Interdisciplinary Artist and Author',
+        bio:'跨媒介藝術家與作家，駐地 Tovaangar（洛杉磯）。其創作橫跨生成式 AI、機器人學、電影、表演與文字，探索跨物種智能、原住民主權與星球生態學。本次對談中，三位與談人將共同探討藝術性的世界建構如何介入主流科技敘事，並想像另類未來的可能。',
+        bio_en:'An interdisciplinary artist and author based in Tovaangar (Los Angeles), Kira Xonorika brings a practice spanning generative AI, robotics, film, performance, and text, exploring interspecies intelligence, Indigenous sovereignty, and planetary ecologies. In dialogue, the speakers will consider how artistic worldbuilding can intervene in dominant technological narratives and imagine alternative futures.'
+      },
+      {
+        name:'鄭淑麗', name_en:'Shu Lea Cheang',
+        role:'網路藝術先驅', role_en:'Pioneer of Internet Art',
+        bio:'現居巴黎，為國際公認的網路藝術先驅。其創作以女性主義與酷兒視角切入，探究性慾、身體與數位媒介的交匯地帶，深入追問科技系統如何在晚期資本主義與全球化的條件下重塑具身經驗。',
+        bio_en:'Currently based in Paris, Shu Lea Cheang is internationally recognized as a pioneer of Internet art. Her work engages feminist and queer perspectives to examine the intersections of sexuality, the body, and digital media, probing how technological systems reshape embodiment under conditions of late capitalism and globalization.'
+      },
+      {
+        name:'Stamatina Gregory', name_en:'Stamatina Gregory',
+        role:'策展人', role_en:'Curator'
+      }
+    ],
+    gallery:[
+      'images/lover-love/lover-love-01.jpg',
+      'images/lover-love/lover-love-02.jpg',
+      'images/lover-love/lover-love-03.jpg',
+      'images/lover-love/lover-love-04.jpg',
+      'images/lover-love/lover-love-05.jpg',
+      'images/lover-love/lover-love-06.jpg',
+      'images/lover-love/lover-love-07.jpg',
+      'images/lover-love/lover-love-08.jpg',
+      'images/lover-love/lover-love-09.jpg',
+      'images/lover-love/lover-love-10.jpg',
+      'images/lover-love/lover-love-11.jpg'
+    ],
+    category:'image', isPrimary:true, externalUrl:''
+  },
+  {
+    num:'16', icon:'🥁',
+    img:'images/展演活動_朱宗慶×Chris Hanning對談.png',
+    imgInner:'images/展演活動內頁_朱宗慶×Chris Hanning對談.jpg',
+    date:'2026-09-10', time:'7:00 p.m.',
+    title:'節奏即語言：朱宗慶 × Chris Hanning 跨文化對談',
+    title_en:'Rhythm as Language: Ju Tzong-Ching of the Ju Percussion Group in Dialogue with Chris Hanning',
+    subtitle:'MSM Consulate Series',
+    subtitle_en:'MSM Consulate Series',
+    location:'Ades Performance Space, Manhattan School of Music, New York',
+    location_full:'Ades Performance Space, Manhattan School of Music, 130 Claremont Avenue, New York',
+    desc:'當節奏跨越文化，會產生什麼樣的聲音？朱宗慶打擊樂團創辦人朱宗慶首度於紐約與 Chris Hanning 展開對談，從節奏出發，探討節奏如何形塑文化認同、連結東西方音樂傳統，並為表演藝術的跨文化交流開啟新的可能。免費入場，無需索票，提供線上直播。與駐紐約台北文化中心合作呈現。',
+    desc_en:'What does rhythm sound like across cultures? For the first time in New York, Ju Tzong-Ching, founder of the Ju Percussion Group, sits down with Chris Hanning to explore how rhythm shapes cultural identity, bridges Eastern and Western musical traditions, and opens new possibilities for cross-cultural dialogue in the performing arts. Free admission, no tickets required. Livestream available. Presented in partnership with the Taipei Cultural Center in New York.',
+    long_desc:'當節奏跨越文化，會產生什麼樣的聲音？朱宗慶打擊樂團創辦人朱宗慶首度於紐約與 Chris Hanning 展開對談，從節奏出發，探討節奏如何形塑文化認同、連結東西方音樂傳統，並為表演藝術的跨文化交流開啟新的可能。\n\n數十年來，朱宗慶帶領臺灣打擊樂走上全球 35 個國家的舞台，在深厚的臺灣文化根基之上，累積豐富的國際交流經驗。此次他將與 Chris Hanning 及多位音樂家共同對話，思考當兩種不同文化背景下的節奏相遇時，會激盪出什麼火花？又能如何從彼此的音樂與文化中，看見新的可能？\n\n本節目為 MSM Consulate Series 系列之一，由駐紐約台北文化中心（TCCNY）合作呈現，是紐文 35 週年「Taiwan POP」計畫的一部分。免費入場，無需索票，提供線上直播。',
+    long_desc_en:'What does rhythm sound like across cultures? For the first time in New York, Ju Tzong-Ching, founder of the Ju Percussion Group, sits down with Chris Hanning to explore how rhythm shapes cultural identity, bridges Eastern and Western musical traditions, and opens new possibilities for cross-cultural dialogue in the performing arts.\n\nDrawing on decades of bringing Taiwanese percussion to stages across 35 countries, Ju Tzong-Ching brings a perspective that is both deeply rooted and globally fluent. Together with Chris Hanning and fellow musicians, this conversation asks what happens when two worlds of rhythm meet and what they can teach each other.\n\nThis program is part of the MSM Consulate Series, presented in partnership with the Taipei Cultural Center in New York (TCCNY) as part of the Taiwan POP initiative marking TCCNY\'s 35th anniversary. Free admission, no tickets required. Livestream available.',
+    speakersLabel:'與談人', speakersLabel_en:'Speakers',
+    speakers:[
+      {
+        name:'朱宗慶', name_en:'Ju Tzong-Ching',
+        role:'朱宗慶打擊樂團創辦人', role_en:'Founder, Ju Percussion Group'
+      },
+      {
+        name:'黃堃儼', name_en:'Kuen-Yean (Larry) Hwang',
+        role:'朱宗慶打擊樂團資深團員', role_en:'Senior Member, Ju Percussion Group'
+      },
+      {
+        name:'吳欣怡', name_en:'She-e Wu',
+        role:'曼哈頓音樂學院打擊樂顧問；西北大學打擊樂副教授暨打擊樂組主任', role_en:'MSM Percussion Consultant; Associate Professor & Head of Percussion, Northwestern University'
+      },
+      {
+        name:'Chris Hanning', name_en:'Chris Hanning',
+        role:'西徹斯特大學打擊樂教授', role_en:'Professor of Percussion, West Chester University'
+      }
+    ],
+    category:'image', isPrimary:true, externalUrl:''
   }
 ];
 
