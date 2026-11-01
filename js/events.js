@@ -24,9 +24,12 @@ function renderEvents() {
 
   function dateStr(ev) {
     if (!ev.date || ev.date === 'TBA') return 'TBA';
-    return ev.endDate
+    const base = ev.endDate
       ? `${ev.date.replace(/-/g,'.')} – ${ev.endDate.replace(/-/g,'.')}`
       : ev.date.replace(/-/g,'.');
+    if (!ev.encoreDate) return base;
+    const enc = ev.encoreDate.slice(5).replace('-','.');
+    return base + (lang === 'en' ? ` (encore ${enc})` : `（加映 ${enc}）`);
   }
 
   function comingOverlay() {
@@ -144,19 +147,23 @@ function renderFeaturedBanner() {
   let ev = pool.find(e => e.featured);
   let isOngoingOrUpcoming = true;
   if (!ev) {
-    const upcoming = pool.filter(e => e.date && e.date !== 'TBA' && (e.endDate || e.date) >= todayStr)
+    const upcoming = pool.filter(e => e.date && e.date !== 'TBA' && (e.encoreDate || e.endDate || e.date) >= todayStr)
                          .sort((a, b) => a.date.localeCompare(b.date));
     if (upcoming[0]) {
       ev = upcoming[0];
     } else {
-      ev = pool.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+      const lastOf = e => e.encoreDate || e.endDate || e.date;
+      ev = pool.slice().sort((a, b) => lastOf(b).localeCompare(lastOf(a)))[0];
       isOngoingOrUpcoming = false;
     }
   }
   if (!ev) return;
 
+  // Banner date: 尚未開始 → 開始日；已開始（進行中／已結束）→ 最後一個日期（加映日 > 結束日 > 開始日）
+  const shownDate = ev.date > todayStr ? ev.date : (ev.encoreDate || ev.endDate || ev.date);
+
   // Countdown days
-  const [dy, dm, dd] = ev.date.split('-').map(Number);
+  const [dy, dm, dd] = shownDate.split('-').map(Number);
   const eventDate = new Date(dy, dm - 1, dd);
   const today = new Date(); today.setHours(0,0,0,0);
   const diffDays = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
