@@ -1,6 +1,6 @@
 # Taiwan Pop — 專案規範文件
 
-> 最後更新：2026-09-11（PR #79 新增活動 #15/#16 + 修正 Featured Banner 忽略進行中活動的 bug）
+> 最後更新：2026-11-01（PR #80 依 Metrograph 資料更新 #04 JIĀ 影展頁：14 部片、簡介、加映）
 
 ---
 
@@ -170,6 +170,8 @@ html[lang="en"] .lang-en { display: revert; }
    - 狀態列：UPCOMING（或 fallback 時 LATEST）+ 日期（`MM.DD WKD` 格式）+ 倒數（ZH: 倒數 N 天 / EN: N days to go）+ CTA `→`
    - 選擇邏輯：`featured:true` → 下一筆 upcoming/進行中 → 最近過去
    - **upcoming 判斷（PR #79 修正）**：用 `(ev.endDate || ev.date) >= 今天`，不再只看開始日期——修正前，仍在展期內的多日活動（如 JIA 影展）會因開始日已過被誤判為過期，導致 banner 誤選已結束的活動
+   - **Banner 日期（PR #80）**：活動尚未開始 → 顯示開始日；已開始（進行中／已結束）→ 顯示最後一個日期（`encoreDate` > `endDate` > `date`）並帶倒數；全部結束的備援改以「最後日期」排序，停在最後一個活動（原本以開始日排序，會誤跳到較早的活動）
+   - upcoming 判斷同時納入 `encoreDate`：`(encoreDate || endDate || date) >= 今天`
    - 資料源：`EVENTS` array（`js/data.js`），同步渲染，`bannerImg` 欄位；`js/events.js` 首次加上版本號 `?v=2`（PR #79）
 3. `#events` — 展演活動 Grid（三大分類，主/次兩層，PR #59 改版）
    - 分類標題格式：`01・Body & Sound`（數字 + 間隔號 + 中/英名稱）
@@ -193,7 +195,7 @@ html[lang="en"] .lang-en { display: revert; }
 - **Section 說明**：
   - `detailVideo`：YouTube embed（16:9），由 `ev.youtubeId` 控制
   - `detailProgram`：演出曲目清單，支援 `premiere` 世界首演 badge
-  - `detailScreenings`（PR #74）：影展類活動放映片單，獨立於 `detailProgram`（不影響既有音樂會活動）；每筆顯示劇照（16:9，桌機 240px/手機滿版）、中英片名、導演、年份/片長/格式、多場次（綠色高亮）、選填 `note` Q&A 標記；無 `photo` 時顯示灰色佔位色塊 `.ev-screening-photo.placeholder`（PR #78，避免版面留白跑版）
+  - `detailScreenings`（PR #74）：影展類活動放映片單，獨立於 `detailProgram`（不影響既有音樂會活動）；每筆顯示劇照（16:9，桌機 240px/手機滿版）、中英片名、導演、年份/片長/格式、多場次（綠色高亮）、選填 `note` Q&A 標記；無 `photo` 時顯示灰色佔位色塊 `.ev-screening-photo.placeholder`（PR #78，避免版面留白跑版）；PR #80 新增每部片簡介 `synopsis`（直接展開，不收合）、放映版權 `credit`、劇照版權 `photoCredit`、購票連結 `ticketUrl`（含 `ticketLabel`）；縮圖靠上對齊；日期顯示「（加映 MM.DD）」，「已結束」以 `encoreDate` 為準
   - `detailEnsemble`：演出單位卡片，支援 `photo`（左側人像）、`logo`（白色 filter）
   - `detailSpeakers`：策展人/主講人卡片，label 由 `ev.speakersLabel` 自訂
   - `detailPerformers`：演出者 2 欄 grid，label 由 `ev.performersLabel` 自訂（只顯示名字）
@@ -236,6 +238,7 @@ html[lang="en"] .lang-en { display: revert; }
 - **Modal**：`max-height:85svh; overflow-y:auto` 防爆版；`word-break:break-word`；關閉按鈕統一 `✕`
 - **手機版**：modal 關閉按鈕 `✕`（不帶文字）
 - **逐場次顯示（PR #77）**：`buildDayMap()` 遇到帶 `screenings` 欄位的活動（目前只有 #04）會解析每部片 `showtimes` 字串（如 `9/4（五）5:15pm`）取出月/日，只在實際放映當天建立場次項目，不再對整個 `date`~`endDate` 區間逐日塞入同一活動標題；其他活動（無 `screenings`）行為完全不變；月/日解析為通用邏輯，天然支援跨月份場次（如 9 月→10 月）無需額外處理
+  - 同一天的場次依時間排序（PR #80；原依片單順序）；場次字串可帶後綴（如「（加映）」），日期解析只取開頭的 `M/D`
   - `dayEntryTitle(e)`：場次項目顯示**活動全名**（非片名，PR #78 改為避免觀眾誤解成獨立活動），一般活動維持顯示活動標題
   - `collapseDayChips(dayEvs)`（PR #78）：同一活動（同 `num`）當天不論有幾場，格子只顯示 **1 個標籤**；一般活動不受影響
   - `openModal()`：項目數 >1 或含場次時，改為列表呈現（片名 + 時間 + Q&A 備註），每筆各自連到 `event.html?num=X`；標題顯示活動全名（不同活動撞期才 fallback「當日活動/Today's Events」，PR #78）；單一一般活動維持原本單頁樣式（標題 + 查看詳情按鈕）
@@ -289,14 +292,14 @@ html[lang="en"] .lang-en { display: revert; }
 
 ### EVENTS array 欄位
 ```
-num, img?, icon, date, endDate?, time?,
+num, img?, icon, date, endDate?, encoreDate?, time?,
 title, title_en, subtitle, subtitle_en,
 location, location_full?,
 desc, desc_en, long_desc?, long_desc_en?,
 youtubeId?,
 ensemble?: { name, name_en, bio, bio_en, photo?, logo?, website?, facebook?, instagram? },
 program?: [ { zh, en, premiere? } ],
-screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program；陣列順序須依首場放映時間排序（PR #76）；photo 選填，未提供時前台自動顯示灰色佔位色塊（PR #78）
+screenings?: [ { title, title_en, director, director_en, meta, meta_en, showtimes: [...], showtimes_en: [...], note?, note_en?, synopsis?, synopsis_en?, credit?, credit_en?, photoCredit?, ticketUrl?, ticketLabel?, ticketLabel_en?, photo? } ],  // PR #74，影展類活動用，獨立於 program；陣列順序須依首場放映時間排序（PR #76）；photo 選填，未提供時前台自動顯示灰色佔位色塊（PR #78）
 performers?: [ { instrument, instrument_en, name, name_en, bio, bio_en, website?, facebook?, instagram? } ],
 performersLabel?, performersLabel_en?,
 speakers?: [ { name, name_en, role, role_en, bio, bio_en, website?, facebook?, instagram? } ],
@@ -319,7 +322,7 @@ category, isPrimary, externalUrl
 | num | 活動 | isPrimary | 詳情完成度 |
 |-----|------|-----------|-----------|
 | 01 | 臺美藝文系列對談（林懷民 × ADF 等） | true | ✓ 完整（speakers: 林懷民、Jodee Nimerichter）；文案待文化部更新 |
-| 04 | JIĀ：家的歷史 ─ 臺灣電影單元（PR #78 標題加註影展性質）@ Metrograph | true | ✓ 完整（screenings 13 部片：9 部原有 + 喜宴/女兒的女兒/推手/母親三十歲，含導演/年份/片長/格式/場次/劇照，部分無劇照者顯示灰色佔位色塊，左撇子女孩映後 Q&A）；已於後台開啟顯示；日期區間 2026-09-04 ~ 2026-10-03 |
+| 04 | JIĀ：家的歷史 ─ 臺灣電影單元 @ Metrograph | true | ✓ 完整（PR #80 依 Metrograph 文件更新）：screenings 14 部（新增小爸爸的天空）、每部含中英簡介/片商/場次，4 部放映版權由國家電影及視聽文化中心提供，左撇子女孩映後 Q&A；一一 11/3 加映（`encoreDate:2026-11-03`，含專屬購票連結）；日期 2026-09-04 ~ 2026-10-03（加映 11.03）；新增 5 張劇照為 600px，待 Metrograph 原檔替換 |
 | 13 | 嚴俊傑鋼琴講座暨示範演出 | true | ✓ 完整（performers: 嚴俊傑）；文案待文化部更新 |
 | 14 | 共棲地：生態與藝術的共同實踐（周巧其 × Maria Uriarte） | true | ✓ 完整（speakers 2人含中英 bio、RSVP 表單連結）；⚠️ 預設隱藏，圖片確認後由後台開啟 |
 | 15 | 鄭淑麗 × Kira Xonorika 對談（PR #79） | true | ✓ 完整（speakers 3人：Kira Xonorika、鄭淑麗含 bio，策展人 Stamatina Gregory 僅姓名+身份無 bio）；11 張劇照 `images/lover-love/`；日期 2026-08-13（已過期，顯示 ENDED） |
@@ -455,7 +458,7 @@ gh pr merge [num] --merge --delete-branch
 
 - GitHub Pages 回應 `cache-control: max-age=600` — 所有靜態檔最長快取 **10 分鐘**
 - **修改 `js/data.js` 時，必須同步升版所有 11 個 HTML 的 script 版本號**（PR #74 起 data.js 已帶版本號 `?v=2`，下次修改升到 `?v=3`……以此類推）
-- 已有版本號的檔案：`js/data.js?v=7`、`js/components.js?v=2`（PR #78 首次加上）、`js/events.js?v=2`（PR #79 首次加上）、`event-detail.js?v=4`、`tp-shared.css?v=2`、`style.css?v=2`
+- 已有版本號的檔案：`js/data.js?v=8`、`js/components.js?v=3`、`js/lang.js?v=2`（PR #80 首次加上）、`js/events.js?v=5`、`event-detail.js?v=6`、`tp-shared.css?v=2`、`style.css?v=2`
 - 症狀參考：2026-07-19 新增活動 #14 後，舊快取的 data.js 查無該活動，`event-detail.js` 的 not-found 邏輯（`location.href='events.html'`）把使用者強制導回列表頁，10 分鐘後自行恢復
 
 > GitHub Pages 在每次 merge to main 後自動部署，約 1–2 分鐘生效。
@@ -463,6 +466,11 @@ gh pr merge [num] --merge --delete-branch
 ---
 
 ## 待辦事項（TO DO）
+
+- [x] 依 Metrograph 文件更新 #04 JIĀ 影展頁（PR #80）：片單 13→14 部、場次校正（更正 11 個、補 3 個）、每部片中英簡介/片商/版權、11/3 一一加映與購票連結、`encoreDate` 機制（日期顯示、已結束判斷、Banner）、Banner 顯示最後日期、行事曆同日場次依時間排序、concept 精選節目 13→14 部、頁尾「5月至10月」（全站）
+- [ ] #04 新增 5 張劇照（小爸爸的天空、喜宴、女兒的女兒、推手、母親三十歲）僅 600px，取得 Metrograph 原檔後替換
+- [ ] 行事曆右側「近期活動」只看活動開始日，#04 的 11/3 加映不會出現在側欄（月曆格子有）
+- [ ] 導覽列在約 1024px 寬度時，logo 旁社群圖示與「策劃理念」重疊（尚未確認成因）
 
 - [x] 新增活動 #15/#16 + 修正 Featured Banner 忽略進行中活動的 bug（PR #79）：#15「鄭淑麗 × Kira Xonorika 對談」（11 張劇照）、#16「節奏即語言：朱宗慶 × Chris Hanning 跨文化對談」；修正 `events.js` Featured Banner 只看開始日期、忽略 `endDate` 的既有 bug（會讓仍在展期內的多日活動被誤判過期）；fallback 到過去活動時文字改為「最新活動/LATEST」；`events.js` 首次加上版本號 `?v=2`
 - [x] 活動 #04 標題明確化、新增 4 部片、行事曆片單顯示優化（PR #78）：標題改為「JIĀ：家的歷史 ─ 臺灣電影單元」中英文（讓觀眾一看標題就知道是影展）；新增 4 部片達 13 部（喜宴/女兒的女兒/推手/母親三十歲）；endDate 延至 2026-10-03；片單無劇照時顯示灰色佔位色塊；導覽列「27 FRAMES」移到最後；concept.html 精選節目同步；行事曆同一天多場次收斂成單一標籤（顯示活動全名非片名）；modal 統一拿掉多餘「關閉」按鈕；components.js 首次加上版本號 `?v=2`
