@@ -285,50 +285,72 @@ const EVENTS = [
     img:'images/展演活動_JIA：家的歷史.png',
     imgInner:'images/展演活動內頁_JIA：家的歷史.jpg',
     bannerImg:'images/展演活動Banner_JIA：家的歷史.png',
-    date:'2026-09-04', endDate:'2026-10-03',
+    date:'2026-09-04', endDate:'2026-10-03', encoreDate:'2026-11-03',
     title:'JIĀ：家的歷史 ─ 臺灣電影單元',
     title_en:'JIĀ: Histories of Home — Taiwanese Film Series',
     subtitle:'臺灣電影影展 · Feel the Home.',
     subtitle_en:'Taiwan Cinema Series · Feel the Home.',
-    location:'Metrograph, 7 Ludlow St, New York',
-    desc:'「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。主辦單位為文化部駐紐約臺北文化中心。',
-    desc_en:'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs. Presented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan.',
-    long_desc: '「家」（jiā）在中文同時意指「家」與「家庭」，兩者密不可分。本系列縱覽近 60 年臺灣電影史，呈現這片土地隨時代更迭的面貌——從戰後的克儉樸實，到 1980 年代急速的城市化，再到當代移民潮帶來的漂泊感。從早期小成本作品，到臺灣新電影的創作爆發，再到當代佳作，本系列橫跨臺灣影史，獻給初次接觸臺灣電影的觀眾，也獻給長年的影迷。\n\n本影展由文化部駐紐約臺北文化中心主辦，於紐約指標性獨立電影院 Metrograph 舉行，共放映 13 部長片，橫跨侯孝賢、楊德昌、蔡明亮、李安等臺灣新電影巨匠的經典之作，並延伸至鄒時擎執導的當代新作《左撇子女孩》，映後將安排導演親臨現場座談。',
-    long_desc_en: 'The Chinese character 家 (jiā) means both "home" and "family" — two concepts that are inextricably bound. Surveying nearly 60 years of Taiwanese cinema, this series traces the changing face of the country across decades: from the austerity of the postwar period to the rapid urbanization of the 1980s, and onward to a present shaped by migratory waves. From early works to the creative force of the Taiwanese New Wave, through to contemporary standouts, this wide-ranging series offers something for both newcomers to Taiwan\'s cinema and longtime connoisseurs.\n\nPresented by the Taipei Cultural Center in New York (TCCNY), Ministry of Culture, Taiwan, the series screens thirteen feature films at Metrograph, New York\'s landmark independent cinema — spanning landmark works by Taiwan New Cinema masters Hou Hsiao-Hsien, Edward Yang, Tsai Ming-Liang, and Ang Lee, alongside Shih-Ching Tsou\'s contemporary film "The Left-Handed Girl," followed by a post-screening Q&A with the director.',
+    location:'Metrograph（紐約 7 Ludlow St）',
+    location_full:'Metrograph, 7 Ludlow St, New York, NY 10002',
+    desc:'「家」（jiā）在中文裡同時是 home 與 family，兩者密不可分。本單元縱覽近 60 年臺灣電影，從戰後的克儉年代、1980 年代的急速都市化，到遷徙浪潮形塑的當下，看見臺灣的面貌如何隨時代轉變，「家」的意義又如何一路改寫。片單從辛奇、宋存壽鮮少放映的作品，到臺灣新電影的創作爆發，再到黃熙、鄒時擎的新世代力作，無論初次接觸臺灣電影或長年影迷，都能在此找到驚喜。主辦單位為文化部駐紐約臺北文化中心。',
+    desc_en:'The Chinese character 家 (jiā) means both “home” and “family” and, accordingly, the two concepts are inextricably attached. Surveying almost 60 years of Taiwanese cinema, this series shows us the changing face of the country over decades—from the austerity of the postwar period to the rapid urbanization of the 1980s to a present shaped by migratory waves—and how notions of “家” have altered as the times have, reflected in some of the nation’s finest films. From little-screened works by Hsin Chi and Sung Tsun-shou to films marking the creative damburst of the Taiwanese New Wave to recent standouts by Huang Xi and Shih-Ching Tsou, this wide-ranging series offers something for both newcomers to Taiwan’s cinema and longtime connoisseurs. Sponsored by the Taipei Cultural Center of TECO in New York.',
+    long_desc: '「家」（jiā）在中文裡同時是 home 與 family，兩者密不可分。本單元縱覽近 60 年臺灣電影，從戰後的克儉年代、1980 年代的急速都市化，到遷徙浪潮形塑的當下，看見臺灣的面貌如何隨時代轉變，「家」的意義又如何一路改寫。片單從辛奇、宋存壽鮮少放映的作品，到臺灣新電影的創作爆發，再到黃熙、鄒時擎的新世代力作，無論初次接觸臺灣電影或長年影迷，都能在此找到驚喜。\n\n本影展由文化部駐紐約臺北文化中心主辦，於紐約 Metrograph 共放映 14 部長片，9/18（五）《左撇子女孩》映後將邀請導演鄒時擎出席座談，另於 11/3（二）加映《一一》。',
+    long_desc_en: 'The Chinese character 家 (jiā) means both “home” and “family” and, accordingly, the two concepts are inextricably attached. Surveying almost 60 years of Taiwanese cinema, this series shows us the changing face of the country over decades—from the austerity of the postwar period to the rapid urbanization of the 1980s to a present shaped by migratory waves—and how notions of “家” have altered as the times have, reflected in some of the nation’s finest films. From little-screened works by Hsin Chi and Sung Tsun-shou to films marking the creative damburst of the Taiwanese New Wave to recent standouts by Huang Xi and Shih-Ching Tsou, this wide-ranging series offers something for both newcomers to Taiwan’s cinema and longtime connoisseurs.\n\nSponsored by the Taipei Cultural Center of TECO in New York, the series screens fourteen feature films at Metrograph, with a Q&A with director Shih-Ching Tsou following The Left-Handed Girl on Friday, September 18, and an encore screening of Yi Yi on Tuesday, November 3.',
     screenings: [
       {
         title:'尼羅河女兒', title_en:'Daughter of the Nile',
-        director:'侯孝賢', director_en:'Hou Hsiao-Hsien',
+        director:'侯孝賢', director_en:'Hou Hsiao-hsien',
         meta:'1987｜91 分鐘｜DCP', meta_en:'1987｜91 min｜DCP',
-        showtimes:['9/4（五）5:15pm','9/5（六）5:15pm'], showtimes_en:['Fri Sep 4, 5:15pm','Sat Sep 5, 5:15pm'],
+        showtimes:['9/4（五）5:15pm','9/5（六）9:00pm'], showtimes_en:['Fri Sep 4, 5:15pm','Sat Sep 5, 9:00pm'],
+        synopsis:'侯孝賢創作生涯中關鍵卻鮮少放映的作品，連接了他的成長三部曲與日後和吳念真合作的時代三部曲。這是侯孝賢首次以當代臺北為舞台，述說一位年輕女孩（歌手林陽飾）在一座快速變動、給不了任何安全感的城市裡，努力不讓家庭崩解。',
+        synopsis_en:'A pivotal but little-screened film in Hou’s celebrated filmography, Daughter of the Nile acts as a sort of bridge between his breakthrough “Coming of Age” trilogy and the trilogy of period-set films he made in collaboration with writer Wu Nien-jen. In this film, for the first time, Hou places contemporary Taipei center stage, telling the story of a young woman (pop star Lin Yang) trying to prevent her family from falling apart in a fast-changing city that offers its residents no sense of permanence or security. While Hou would explore Taipei’s complicated history in his films with Wu, in Daughter of the Nile he acutely diagnosed its present state.',
         photo:'images/jia-screenings/daughter-of-the-nile.jpg'
       },
       {
         title:'牯嶺街少年殺人事件', title_en:'A Brighter Summer Day',
         director:'楊德昌', director_en:'Edward Yang',
         meta:'1991｜237 分鐘｜DCP', meta_en:'1991｜237 min｜DCP',
-        showtimes:['9/5（六）1:35pm','9/7（一）1:35pm'], showtimes_en:['Sat Sep 5, 1:35pm','Mon Sep 7, 1:35pm'],
+        showtimes:['9/5（六）1:35pm','9/7（一）5:15pm'], showtimes_en:['Sat Sep 5, 1:35pm','Mon Sep 7, 5:15pm'],
+        synopsis:'楊德昌以既遼闊又私密的筆觸，重現自己少年時代的臺灣，也是這個國家動盪的青春期：1960 年代初，幫派橫行、本省與外省家庭之間的張力、威權體制的壓抑，以及無所不在的美國流行文化。電影取材自臺灣第一起少年殺人案，張震飾演的沉鬱少年只是楊德昌繁複群像中的一員；看似平靜的長鏡頭下，壓抑的情緒暗潮洶湧。',
+        synopsis_en:'A simultaneously sprawling and intimate evocation of the Taiwan of Yang’s teenage years, and the turbulent adolescence of the nation itself: the outset of the 1960s, a period defined by street gang activity, tension between established Taiwanese families and new arrivals from the Mainland, the political repression of the Kuomintang military government, and the ubiquity of American pop culture. A Brighter Summer Day takes its inspiration from the story of the country’s first juvenile homicide, with Chang Chen’s brooding outsider just one figure in Yang’s bustling tapestry, regarded in seemingly serene long takes that bristle with repressed emotion.',
         photo:'images/jia-screenings/a-brighter-summer-day.jpg'
       },
       {
+        title:'小爸爸的天空', title_en:'Out of the Blue',
+        director:'陳坤厚', director_en:'Chen Kun-hou',
+        meta:'1984｜101 分鐘｜DCP', meta_en:'1984｜101 min｜DCP',
+        showtimes:['9/6（日）5:00pm'], showtimes_en:['Sun Sep 6, 5:00pm'],
+        synopsis:'由侯孝賢與朱天文共同編劇、改編朱天文本人的短篇小說。這部極簡的成長劇聚焦一對出身懸殊的高中情侶——杰龍與糖米（李志希、李志奇）——在糖米突然消失三年後重逢，她告訴一心衝刺事業的杰龍：他是她幼子的父親。陳坤厚曾以前一年的《小畢的故事》獲金馬獎，也是《風櫃來的人》的攝影師；他日後說，這是自己「60 年生涯中唯一一次拍了真正想拍的電影」。',
+        synopsis_en:'Co-written by Hou Hsiao-hsien and frequent collaborator Chu T’ien-wen, adapting her own short story, Chen’s minimalist coming-of-age drama centers on a crucial meeting between Jielong and Tangmi (Li Chih-Hsi and Li Chih-Chyi), high school sweethearts from very different class backgrounds who, three years after her abrupt disappearance, are reunited, so that Tangmi can inform the fiercely career-oriented Jielong that he’s in fact the father of her young child. Director of the previous year’s Golden Horse Award-winning Growing Up and cinematographer of Hou’s The Boys from Fengkuei, Chen would later say of Out of the Blue that it marked “the only time in my 60-year career that I made a film I truly wanted to make… approaching an unacceptable incident with calmness, tolerance and understanding.”',
+        photo:'images/jia-screenings/out-of-the-blue.jpg'
+      },
+      {
         title:'兒子的大玩偶', title_en:'The Sandwich Man',
-        director:'侯孝賢、曾壯祥、萬仁', director_en:'Hou Hsiao-Hsien, Tseng Chuang-Hsiang, Wan Jen',
+        director:'侯孝賢、曾壯祥、萬仁', director_en:'Hou Hsiao-hsien, Tseng Chuang-hsiang, Wan Jen',
         meta:'1983｜105 分鐘｜DCP', meta_en:'1983｜105 min｜DCP',
         showtimes:['9/12（六）12:00pm'], showtimes_en:['Sat Sep 12, 12:00pm'],
+        synopsis:'臺灣新電影的奠基之作。三段式集錦電影一反當時片廠的甜膩煽情，三位導演各自改編黃春明小說，直面當代都市生活的嚴酷現實。侯孝賢的同名篇章講一個以「人肉廣告看板」糊口的男人；曾壯祥的《小琪的那頂帽子》是關於日本進口壓力鍋的警世寓言；萬仁的《蘋果的滋味》則帶我們看見臺北貧民區的一家人，唯一一窺好日子的機會，竟是美軍醫院的一張病床。',
+        synopsis_en:'A foundational text of the Taiwanese New Wave, omnibus triptych The Sandwich Man represented a clean break from the cloying sentimentality of most of the country’s studio product, with directors Hou, Wan, and Tseng each adapting stories from a collection by Huang Chung-ming and addressing, with bracing directness, the harsh realities of contemporary urban life. Hou bats leadoff with the devastating namesake segment, about a man eking out a living as a human advertising board; Tseng’s Vickie’s Hat offers a cautionary tale about the perils of modern convenience, namely imported Japanese pressure cookers; Wan’s The Taste of Apples acquaints us with a family in the Taipei City slums whose only hope for a glimpse of the good life is a bed in the American Navy hospital.',
+        credit:'放映版權：國家電影及視聽文化中心', credit_en:'Theatrical licenses courtesy of Taiwan Film and Audiovisual Institute',
         photo:'images/jia-screenings/the-sandwich-man.jpg'
       },
       {
         title:'戀戀風塵', title_en:'Dust in the Wind',
-        director:'侯孝賢', director_en:'Hou Hsiao-Hsien',
-        meta:'1986｜108 分鐘｜DCP', meta_en:'1986｜108 min｜DCP',
-        showtimes:['9/12（六）8:40pm','9/13（日）8:40pm'], showtimes_en:['Sat Sep 12, 8:40pm','Sun Sep 13, 8:40pm'],
+        director:'侯孝賢', director_en:'Hou Hsiao-hsien',
+        meta:'1986｜108 分鐘｜DCP｜片商 Taiwan Film and Audiovisual Institute', meta_en:'1986｜108 min｜DCP｜Distributor: Taiwan Film and Audiovisual Institute',
+        showtimes:['9/12（六）8:40pm','9/13（日）12:30pm'], showtimes_en:['Sat Sep 12, 8:40pm','Sun Sep 13, 12:30pm'],
+        synopsis:'阿遠與阿雲剛從山城礦鎮的國中畢業，懷著對未來的憧憬一起到臺北生活，卻先是撞上都市的嚴酷現實，接著阿遠入伍當兵，三年的分離終究讓這段感情走到盡頭。故事取材自侯孝賢長期合作編劇吳念真的親身經歷，深情而動人，是侯孝賢作品中最受觀眾喜愛的一部，也是他首次與作曲家陳明章、演員李天祿合作，更有李屏賓最令人著迷的優美移動鏡頭。',
+        synopsis_en:'Young lovers Wan and Huen, fresh out of junior high school in the remote, mountainous mining town where they were raised, look forward to a bright future together in their new home of Taipei—only to face first the grim reality of urban life there, then a three-year separation, after Wan is drafted into the Republic of China Army, which ultimately proves fatal to their affections. Based on the personal experiences of frequent Hou co-screenwriter Wu Nien-jen, the poignant, plangent Dust in the Wind has emerged as a popular favorite among Hou’s films, his first collaboration with composer Chen Ming-chang and actor Li Tian-lu, which also features some of Mark Lee Ping-bing’s most hypnotically beautiful tracking shots.',
+        credit:'放映版權：國家電影及視聽文化中心', credit_en:'Theatrical licenses courtesy of Taiwan Film and Audiovisual Institute',
         photo:'images/jia-screenings/dust-in-the-wind.jpg'
       },
       {
         title:'青少年哪吒', title_en:'Rebels of the Neon God',
-        director:'蔡明亮', director_en:'Tsai Ming-Liang',
+        director:'蔡明亮', director_en:'Tsai Ming-liang',
         meta:'1992｜106 分鐘｜DCP', meta_en:'1992｜106 min｜DCP',
-        showtimes:['9/12（六）11:00pm'], showtimes_en:['Sat Sep 12, 11:00pm'],
+        showtimes:['9/12（六）11:00pm','9/19（六）6:00pm','9/27（日）10:00pm'], showtimes_en:['Sat Sep 12, 11:00pm','Sat Sep 19, 6:00pm','Sun Sep 27, 10:00pm'],
+        synopsis:'蔡明亮第一部院線長片，手法不像他後期作品那般極簡——甚至還有一首朗朗上口的電子配樂主題曲——但在大多數方面已是純正的蔡明亮：一部關於都市孤獨者，以及城市給予（卻大多落空）的連結與親密承諾的電影。蔡明亮的御用演員李康生飾演流連電玩店的臺北少年，對一名小混混（陳昭榮）產生交織著報復怒火與壓抑慾望的執迷。一部非凡的首作，他日後所有作品的面貌都已在其中顯現。',
+        synopsis_en:'Tsai’s first theatrically released film isn’t as pared down in its approach as some of his later works—it even has a rather catchy synth theme song!—but in most respects it’s pure Tsai, a film about urban loners and the city’s (largely unfulfilled) promises of connection and sexual intimacy. Lee Kang-sheng, Tsai’s acteur fétiche, stars as a teenaged Taipei arcade rat who develops an obsession with a young petty hoodlum (Chen Chao-jung) that’s a tangle of vengeful wrath and repressed lust. An extraordinary debut, in which aspects of all its maker’s films to come are visible.',
         photo:'images/jia-screenings/rebels-of-the-neon-god.jpg'
       },
       {
@@ -336,53 +358,77 @@ const EVENTS = [
         director:'辛奇', director_en:'Hsin Chi',
         meta:'1969｜84 分鐘｜DCP', meta_en:'1969｜84 min｜DCP',
         showtimes:['9/13（日）2:45pm'], showtimes_en:['Sun Sep 13, 2:45pm'],
+        synopsis:'有妻有妾、三個孩子，事業足以養活一家，男主角原本什麼都不缺——直到情婦讓他相信妻子不忠，拆散了家庭，又捲走他所有的錢。他從此一路跌落社會底層，做起各種零工（包括片名的賣燒肉粽），努力挽回當初被自己愚蠢辜負的妻子。本片是 1955 至 1981 年間臺灣產製的近千部臺語片之一，也是臺北出生、創作量驚人的辛奇導演生涯巔峰之作。',
+        synopsis_en:'With a wife, a mistress, three children, and a business that provides amply for all, Tsi-bing wants for nothing—that is, until his lover convinces him of his wife’s infidelity, breaks up their household, then clears off with all his cash, sending him tumbling down the socioeconomic ladder, taking odd jobs (including that of the film’s title) and striving to win back the spouse he’d foolishly spurned. One of nearly a thousand Taiyu Pian—films in which the characters speak in Taiwanese Minnan or Hokkien—produced in Taiwan between 1955 and 1981, and one of the crowning achievements of Taipei-born Hsin’s hugely prolific career.',
+        credit:'放映版權：國家電影及視聽文化中心', credit_en:'Theatrical licenses courtesy of Taiwan Film and Audiovisual Institute',
         photo:'images/jia-screenings/the-rice-dumpling-vendors.jpg'
       },
       {
         title:'一一', title_en:'Yi Yi',
         director:'楊德昌', director_en:'Edward Yang',
-        meta:'2000｜173 分鐘｜DCP', meta_en:'2000｜173 min｜DCP',
-        showtimes:['9/18（五）2:40pm','9/20（日）2:40pm'], showtimes_en:['Fri Sep 18, 2:40pm','Sun Sep 20, 2:40pm'],
+        meta:'2000｜173 分鐘｜DCP｜片商 Janus Films', meta_en:'2000｜173 min｜DCP｜Distributor: Janus Films',
+        showtimes:['9/18（五）2:40pm','9/20（日）5:20pm','11/3（二）3:00pm（加映）'], showtimes_en:['Fri Sep 18, 2:40pm','Sun Sep 20, 5:20pm','Tue Nov 3, 3:00pm (encore)'],
+        synopsis:'英年早逝的大師楊德昌的最後遺作。溫柔、節制而極具人性的《一一》，凝視臺北一個中產家庭三代人之間的互動。寫演員群像的小缺點與都市中產的習性時不乏幽默，卻始終籠罩著一股淡淡的憂傷，對錯失的機會懷著揮之不去的遺憾——想到楊德昌原本還能拍出多少好電影，這份感受更加深刻。片長近三小時卻毫無浮誇，專注於深入平凡人情感生活中隱密的角落，如人生本身一般豐富，也一般哀傷。',
+        synopsis_en:'The last work of a master filmmaker who died far too young, the gentle, restrained, and terribly humane Yi Yi observes the interplay between three generations of an upper middle-class Taipei family. Comic when dealing in the foibles of its excellent ensemble cast and the mores of the urban bourgeoise, yet also possessed throughout by an air of unmistakable melancholy and lingering regret at missed opportunities, this feeling made all the deeper when one considers the great films Yang might still have produced. A work of epic length that avoids even a hint of bombast, dedicated instead to working its way into the hidden, niche spaces of everyday people’s emotional lives, it’s a film as rich and as sad as life itself.',
+        ticketUrl:'https://metrograph.com/film/9999001293-yi-yi/', ticketLabel:'購票｜11/3 加映', ticketLabel_en:'Tickets｜Nov 3 encore',
         photo:'images/jia-screenings/yi-yi.jpg'
       },
       {
         title:'左撇子女孩', title_en:'The Left-Handed Girl',
         director:'鄒時擎', director_en:'Shih-Ching Tsou',
-        meta:'2025｜109 分鐘｜35mm', meta_en:'2025｜109 min｜35mm',
+        meta:'2025｜109 分鐘｜35mm｜片商 Netflix', meta_en:'2025｜109 min｜35mm｜Distributor: Netflix',
         showtimes:['9/18（五）6:00pm'], showtimes_en:['Fri Sep 18, 6:00pm'],
         note:'★ 映後 Q&A｜導演鄒時擎出席', note_en:'★ Q&A with director Shih-Ching Tsou following the screening',
+        synopsis:'單親媽媽（蔡淑臻）帶著兩個女兒——五歲的小女兒與叛逆的大女兒——在鄉下生活多年後回到臺北，在夜市擺攤維生。她們努力適應都市的節奏，也努力守住塵封已久的秘密；一旦揭開，這個相依為命的三人家庭可能就此破碎。本片代表臺灣角逐第 98 屆奧斯卡最佳國際影片，由西恩貝克（Sean Baker）共同編劇並剪接。鄒時擎的首部劇情長片親切而內斂，把日常瑣碎織成近乎童話的風景。',
+        synopsis_en:'A single mother (Janel Tsai) and her two daughters, five-year-old I-Jing and malcontent young adult I-Ann, return to Taipei after a long stint of living in the countryside to open a night market stall, there struggling to acclimate to the pace of urban living—and to keep a lid on long-buried secrets whose revelation may very well tear the mutually dependent trio apart. Taiwan’s submission for Best International Feature Film for the 98th Academy Awards, co-written and edited by Sean Baker, Tsou’s directorial debut is a disarmingly charming, understated family affair that weaves the mundane into something that has the aspect of a fairy tale.',
+        photoCredit:'Cr. LEFT-HANDED GIRL FILM PRODUCTION CO, LTD © 2025',
         photo:'images/jia-screenings/the-left-handed-girl.jpg'
       },
       {
         title:'郊遊', title_en:'Stray Dogs',
-        director:'蔡明亮', director_en:'Tsai Ming-Liang',
-        meta:'2013｜135 分鐘｜DCP', meta_en:'2013｜135 min｜DCP',
-        showtimes:['9/18（五）6:10pm','9/20（日）6:10pm'], showtimes_en:['Fri Sep 18, 6:10pm','Sun Sep 20, 6:10pm'],
+        director:'蔡明亮', director_en:'Tsai Ming-liang',
+        meta:'2013｜135 分鐘｜DCP｜片商 The Cinema Guild', meta_en:'2013｜135 min｜DCP｜Distributor: The Cinema Guild',
+        showtimes:['9/18（五）6:10pm','9/20（日）8:45pm'], showtimes_en:['Fri Sep 18, 6:10pm','Sun Sep 20, 8:45pm'],
+        synopsis:'蔡明亮以極簡手法描繪都市的荒蕪、貧困與挫敗，是一曲令人心碎卻無比美麗的電影輓歌。李康生飾演一位單親父親，靠著舉廣告牌勉強餬口；他飢餓的孩子們整天在超市裡打發時間，並在那裡遇見了守護他們的超市經理（陳湘琪）。',
+        synopsis_en:'Tsai’s devastating minimalist portrait of urban desolation, destitution and defeat is a gorgeous cinematic lament starring Lee Kang-sheng as a single father of two who ekes out a subsistence living by working as a human signboard while his hungry children wile their days away in the supermarket, where they’ll encounter a protector in the person of manager Chen Shiang-chyi.',
         photo:'images/jia-screenings/stray-dogs.jpg'
       },
       {
         title:'喜宴', title_en:'The Wedding Banquet',
         director:'李安', director_en:'Ang Lee',
-        meta:'1993｜106 分鐘｜35mm', meta_en:'1993｜106 min｜35mm',
-        showtimes:['9/25（五）2:45pm','9/27（日）2:45pm'], showtimes_en:['Fri Sep 25, 2:45pm','Sun Sep 27, 2:45pm']
+        meta:'1993｜106 分鐘｜35mm｜片商 Park Circus', meta_en:'1993｜106 min｜35mm｜Distributor: Park Circus',
+        showtimes:['9/25（五）2:30pm','9/27（日）3:30pm'], showtimes_en:['Fri Sep 25, 2:30pm','Sun Sep 27, 3:30pm'],
+        synopsis:'在登上《斷背山》之前，臺裔導演李安以這部獨立製作打開國際知名度。高偉同（趙文瑄首部電影作品）是一名與伴侶在曼哈頓幸福同居的同志，為了討好傳統的父母，他和住在同棟大樓、身無分文的中國移民藝術家（金素梅）假結婚——沒想到父母堅持要為這對「新人」大辦一場喜宴。這是一部溫柔、真摯又觀察敏銳的文化衝突喜劇，也因為記錄了 1990 年代的紐約，而更添一分動人。',
+        synopsis_en:'Before scaling Brokeback Mountain, Taiwanese American director Lee made this indie breakout about Wai Tung (Winston Chao, in his film debut), a gay man happily living in Manhattan with his partner who stages a sham marriage between himself and a penniless immigrant artist from mainland China in his building (May Chin) in order to please his traditionally minded parents—only to be appalled when they insist on throwing the “newlyweds” a whopper of a wedding party. A tender, emotionally grounded, sharply observed comedy of clashing cultures that’s made all the more poignant by its function as a time capsule of ’90s NYC.',
+        photo:'images/jia-screenings/the-wedding-banquet.jpg'
       },
       {
         title:'女兒的女兒', title_en:'Daughter\'s Daughter',
         director:'黃熙', director_en:'Huang Xi',
         meta:'2024｜126 分鐘｜DCP', meta_en:'2024｜126 min｜DCP',
-        showtimes:['9/25（五）4:40pm','10/2（五）4:40pm'], showtimes_en:['Fri Sep 25, 4:40pm','Fri Oct 2, 4:40pm']
+        showtimes:['9/25（五）4:40pm','10/3（六）12:00pm'], showtimes_en:['Fri Sep 25, 4:40pm','Sat Oct 3, 12:00pm'],
+        synopsis:'張艾嘉在黃熙這部榮獲金馬獎的跨世代家庭劇中，交出演藝生涯最出色的表演之一；本片由張艾嘉與侯孝賢共同監製。張艾嘉飾演的金愛霞有兩個成年女兒：一個是在臺北由她親手帶大的范祖兒（劉若英），另一個是送養、在紐約長大的 Emma（林嘉欣）。范祖兒正準備以試管嬰兒懷孕時意外身亡，金愛霞因此成為女兒遺留胚胎的法定監護人。電影溫柔而不濫情，並以大膽的結構實驗見長；黃熙的第二部劇情長片，證明她是臺灣電影最令人矚目的新銳創作者之一。',
+        synopsis_en:'Sylvia Chang has one of the finest roles in her formidable career in Huang’s Golden Horse Award–winning intergenerational drama, co-produced by Chang and Hou Hsiao-hsien. Chang’s Jin Aixia is the middle-aged mother of two adult daughters—one, Fan Zuer (Eugenie Liu), raised by her in Taipei, the other, Emma (Karena Lam), given up for adoption and raised in New York—who, after Fan’s tragic death, finds herself the legal guardian of the embryo that her daughter, in the midst of planning for a pregnancy via in vitro fertilization, had left behind. Tender but never maudlin, with a taste (and talent) for structural experiment, Huang’s second feature confirms the writer-director as one of the most impressive up-and-coming talents in Taiwanese cinema.',
+        photo:'images/jia-screenings/daughters-daughter.jpg'
       },
       {
         title:'推手', title_en:'Pushing Hands',
         director:'李安', director_en:'Ang Lee',
         meta:'1991｜105 分鐘｜DCP', meta_en:'1991｜105 min｜DCP',
-        showtimes:['9/27（日）12:50pm','10/3（六）12:50pm'], showtimes_en:['Sun Sep 27, 12:50pm','Sat Oct 3, 12:50pm']
+        showtimes:['9/27（日）1:15pm','10/2（五）6:10pm'], showtimes_en:['Sun Sep 27, 1:15pm','Fri Oct 2, 6:10pm'],
+        synopsis:'喪偶的太極拳老師朱師傅（郎雄）離開北京，到紐約投靠已經美國化的兒子與白人媳婦，語言成了隔閡，家中的緊張一觸即發。李安的導演處女作，已展現他以同理與溫和幽默刻畫世代與文化差異的敏銳眼光，這也成為他接下來兩部作品《喜宴》（1993）與《飲食男女》（1994）的標誌。',
+        synopsis_en:'Tensions brew and language becomes a barrier when widowed tai chi master Mr. Chu (Lung Sihung) swaps Beijing for a new life in New York City, where he joins the household of his Americanized son and white daughter-in-law. Lee’s directorial debut evidences the keen eye for generational and cultural differences, as dramatized with compassion and gentle humor, that would distinguish his next two features, The Wedding Banquet (1993) and Eat Drink Man Woman (1994).',
+        photo:'images/jia-screenings/pushing-hands.jpg'
       },
       {
         title:'母親三十歲', title_en:'Story of Mother',
-        director:'宋存壽', director_en:'Sung Tsun-Shou',
+        director:'宋存壽', director_en:'Sung Tsun-shou',
         meta:'1973｜98 分鐘｜DCP', meta_en:'1973｜98 min｜DCP',
-        showtimes:['9/27（日）6:00pm'], showtimes_en:['Sun Sep 27, 6:00pm']
+        showtimes:['9/27（日）5:45pm'], showtimes_en:['Sun Sep 27, 5:45pm'],
+        synopsis:'改編自影響深遠的作家於梨華小說《母與子》。孩子撞見年輕母親（李湘）背著丈夫外遇；在久病的父親過世、母親改嫁之後，這段記憶在他心中燃起仇恨。宋存壽以極富同情的筆觸，不加評判又細膩精準地描繪一個快速現代化、卻仍被傳統女性犧牲與孝道觀念束縛的社會中所浮現的新衝突。本片因緊扣時代脈動而廣受讚譽，獲臺灣影評人協會選為當年最佳國語片。',
+        synopsis_en:'Adapted from the enormously influential author Yu Lihua’s novel Mother and Son, Sung’s film is an enormously compassionate drama about a young mother (Li Hsiang) seen stepping out on her husband by their child, an incident that, in the wake of his long-ailing father’s death and his mother’s subsequent remarriage, feeds a fire of hatred in the boy’s heart. Depicting, with an admirable withholding of judgment and emotional acuity, new tensions arising in a rapidly modernizing society still bound by very traditional notions of feminine self-sacrifice and filial piety, Story of Mother won plaudits for its fingers-on-the-pulse contemporaneity, voted the year’s best Mandarin-language film by an association of Taiwanese critics.',
+        credit:'放映版權：國家電影及視聽文化中心', credit_en:'Theatrical licenses courtesy of Taiwan Film and Audiovisual Institute',
+        photo:'images/jia-screenings/story-of-mother.jpg'
       }
     ],
     ctaLabel:'立即購票', ctaLabel_en:'Get Tickets',

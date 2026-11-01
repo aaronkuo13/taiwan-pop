@@ -270,9 +270,9 @@
   <footer id="contact"></footer>
 
   <script>window.eventsVisibility = null;</script>
-  <script src="js/lang.js"></script>
-  <script src="js/data.js?v=7"></script>
-  <script src="js/components.js?v=2"></script>
+  <script src="js/lang.js?v=2"></script>
+  <script src="js/data.js?v=8"></script>
+  <script src="js/components.js?v=3"></script>
   <script src="js/navbar.js"></script>
   <script src="js/reveal.js"></script>
   <script src="js/lang-init.js"></script>
@@ -335,6 +335,16 @@ function buildDayMap() {
       map[key].push(ev);
       d.setDate(d.getDate() + 1);
     }
+  });
+  const minutesOf = (t) => {
+    const m = (t || '').match(/(\d{1,2}):(\d{2})\s*(am|pm)/i);
+    return m ? ((+m[1] % 12) + (m[3].toLowerCase() === 'pm' ? 12 : 0)) * 60 + +m[2] : 0;
+  };
+  Object.keys(map).forEach(key => {
+    const others    = map[key].filter(e => e.kind !== 'screening');
+    const screenings = map[key].filter(e => e.kind === 'screening')
+                               .sort((a, b) => minutesOf(a.timeLabel) - minutesOf(b.timeLabel));
+    map[key] = others.concat(screenings);
   });
   return map;
 }

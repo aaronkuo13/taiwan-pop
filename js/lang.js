@@ -61,7 +61,7 @@ const LANG = {
     /* Calendar */
     'cal-upcoming-h':'近期活動',
     /* Footer */
-    'footer-desc':'2026年5月至9月，紐約曼哈頓',
+    'footer-desc':'2026年5月至10月，紐約曼哈頓',
     'footer-news':'最新消息','footer-events':'展演活動',
     'footer-cal':'行事曆',
     /* Calendar internals */
@@ -129,7 +129,7 @@ const LANG = {
     /* Calendar */
     'cal-upcoming-h':'Upcoming Events',
     /* Footer */
-    'footer-desc':'May–September 2026, Manhattan, New York',
+    'footer-desc':'May–October 2026, Manhattan, New York',
     'footer-news':'News','footer-events':'Events',
     'footer-cal':'Calendar',
     /* Calendar internals */

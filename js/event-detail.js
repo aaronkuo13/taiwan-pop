@@ -17,10 +17,13 @@
     ].filter(Boolean).join('');
   }
 
-  function dateStr(ev) {
-    return ev.endDate
+  function dateStr(ev, lang) {
+    const base = ev.endDate
       ? `${ev.date.replace(/-/g,'.')} – ${ev.endDate.replace(/-/g,'.')}`
       : ev.date.replace(/-/g,'.');
+    if (!ev.encoreDate) return base;
+    const enc = ev.encoreDate.slice(5).replace('-','.');
+    return base + (lang === 'en' ? ` (encore ${enc})` : `（加映 ${enc}）`);
   }
 
   function renderHero(ev, lang) {
@@ -32,7 +35,7 @@
     const dateLabel = lang === 'en' ? 'DATE'   : '日期';
     const venueLabel = lang === 'en' ? 'VENUE'  : '場地';
 
-    const endDateStr = ev.endDate || ev.date;
+    const endDateStr = ev.encoreDate || ev.endDate || ev.date;
     const isPast = endDateStr < new Date().toISOString().slice(0, 10);
     const ctaHtml = isPast
       ? `<span class="btn btn-ended">${lang === 'en' ? 'Ended' : '已結束'}</span>`
@@ -56,7 +59,7 @@
           <div class="ev-meta">
             <div class="ev-meta-row">
               <span class="ev-meta-key">${dateLabel}</span>
-              <span class="ev-meta-val">${dateStr(ev)}</span>
+              <span class="ev-meta-val">${dateStr(ev, lang)}</span>
             </div>
             <div class="ev-meta-row">
               <span class="ev-meta-key">${venueLabel}</span>
@@ -200,6 +203,9 @@
             const meta    = (lang === 'en' && s.meta_en)    ? s.meta_en    : s.meta;
             const times   = (lang === 'en' && s.showtimes_en) ? s.showtimes_en : (s.showtimes || []);
             const note    = (lang === 'en' && s.note_en)    ? s.note_en    : s.note;
+            const synopsis = (lang === 'en' && s.synopsis_en) ? s.synopsis_en : s.synopsis;
+            const credit   = (lang === 'en' && s.credit_en)   ? s.credit_en   : s.credit;
+            const ticketLb = (lang === 'en' && s.ticketLabel_en) ? s.ticketLabel_en : (s.ticketLabel || (lang === 'en' ? 'Tickets' : '購票'));
             const photoHtml = s.photo
               ? `<div class="ev-screening-photo"><img src="${s.photo}" alt="${title}" loading="lazy"></div>`
               : `<div class="ev-screening-photo placeholder"></div>`;
@@ -211,6 +217,10 @@
                 <div class="ev-screening-meta">${director}｜${meta}</div>
                 <div class="ev-screening-showtimes">${times.map(t => `<span>${t}</span>`).join('')}</div>
                 ${note ? `<div class="ev-screening-note">${note}</div>` : ''}
+                ${s.ticketUrl ? `<a class="ev-screening-ticket" href="${s.ticketUrl}" target="_blank" rel="noopener">${ticketLb} →</a>` : ''}
+                ${synopsis ? `<div class="ev-screening-synopsis">${synopsis}</div>` : ''}
+                ${credit ? `<div class="ev-screening-credit">${credit}</div>` : ''}
+                ${s.photoCredit ? `<div class="ev-screening-credit">${s.photoCredit}</div>` : ''}
               </div>
             </div>`;
           }).join('')}
